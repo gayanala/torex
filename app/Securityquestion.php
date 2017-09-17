@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Securityquestion extends Model
 {
     protected $fillable=[
-        'title',
-        'description'
+        'question',
+        'answer'
     ];
 }
