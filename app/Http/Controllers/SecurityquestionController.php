@@ -40,7 +40,8 @@ class SecurityquestionController extends Controller
     {
         $securityquestion= new Securityquestion($request->all());
         $securityquestion->save();
-        return redirect('securityquestions');
+        return redirect('/home');
+//        return redirect('securityquestions');
     }
 
 
