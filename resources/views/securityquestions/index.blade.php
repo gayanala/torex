@@ -8,6 +8,7 @@
         <thead>
         <tr class="bg-info">
             <th>Id</th>
+            <th>Name</th>
             <th>Question</th>
             <th>Answer</th>
             <th colspan="3">Actions</th>
@@ -16,7 +17,8 @@
         <tbody>
         @foreach ($securityquestions as $securityquestion)
             <tr>
-                <td>{{ $securityquestion->id }}</td>
+                <td>{{ $securityquestion->user->id }}</td>
+                <td>{{ $securityquestion->user->name }}</td>
                 <td>{{ $securityquestion->question }}</td>
                 <td>{{ $securityquestion->answer }}</td>
                 {{--<td><a href="{{url('securityquestions',$securityquestion->id)}}" class="btn btn-primary">Read</a></td>--}}

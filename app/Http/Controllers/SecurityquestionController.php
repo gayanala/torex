@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Request;
-
+use Illuminate\Http\Request;
+use App\Http\Requests;
 use App\Securityquestion;
+use App\User;
 
 class SecurityquestionController extends Controller
 {
@@ -25,7 +25,8 @@ class SecurityquestionController extends Controller
 
     public function create()
     {
-        return view('securityquestions.create');
+        $users = User::pluck('name','id');
+        return view('securityquestions.create', compact('users'));
     }
 
     /**
@@ -33,10 +34,10 @@ class SecurityquestionController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        $securityquestion=Request::all();
-        Securityquestion::create($securityquestion);
+        $securityquestion= new Securityquestion($request->all());
+        $securityquestion->save();
         return redirect('securityquestions');
     }
 
