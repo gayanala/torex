@@ -62,6 +62,7 @@ class SecurityquestionController extends Controller
     }
 
 
+
 //    public function edit($id)
 //    {
 //        $securityquestion=Securityquestion::find($id);
