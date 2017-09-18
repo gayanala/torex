@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Securityquestion;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 
 class SecurityquestionController extends Controller
@@ -25,7 +26,8 @@ class SecurityquestionController extends Controller
 
     public function create()
     {
-        $users = User::pluck('name','id');
+        $users = Auth::id();
+//        $users = User::pluck('name','id');
         return view('securityquestions.create', compact('users'));
     }
 

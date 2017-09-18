@@ -7,9 +7,6 @@
 
 </head>
 <body>
-<div class="container">
-    <a href="{{ action('SecurityquestionController@index') }}">Q & A</a> |
-</div>
 <hr>
 <div class="container">
     @yield('content')
