@@ -5,7 +5,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Securityquestion;
 use Illuminate\Support\Facades\Auth;
-use App\User;
+use Validator;
+use App\Http\Controllers\Controller;
+
+//use App\User;
 
 class SecurityquestionController extends Controller
 {
@@ -39,7 +42,21 @@ class SecurityquestionController extends Controller
     public function store(Request $request)
     {
         $securityquestion= new Securityquestion($request->all());
+
+        $validator = Validator::make($request->all(), [
+            'question' => 'required|unique:securityquestions|max:255',
+            'answer' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('securityquestions/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $securityquestion->save();
+
+
         return redirect('/home');
 //        return redirect('securityquestions');
     }

@@ -21,6 +21,35 @@
         {!! Form::label('Answer', 'Answer:') !!}
         {!! Form::text('answer',null,['class'=>'form-control']) !!}
     </div>
+
+    <div class="form-group">
+        {!! Form::label('Question', 'Question:') !!}
+        {!! Form::select('question', array(
+            'What was your childhood nickname?' => 'What was your childhood nickname?',
+            'In what city or town did your mother and father meet?' => 'In what city or town did your mother and father meet?',
+            'What is your favorite team?' => 'What is your favorite team?',
+            'What was your favorite sport in high school?' => 'What was your favorite sport in high school?'),
+             'In what city or town did your mother and father meet?', ['class'=>'form-control']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::label('Answer', 'Answer:') !!}
+        {!! Form::text('answer',null,['class'=>'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('Question', 'Question:') !!}
+        {!! Form::select('question', array(
+            'What was your childhood nickname?' => 'What was your childhood nickname?',
+            'In what city or town did your mother and father meet?' => 'In what city or town did your mother and father meet?',
+            'What is your favorite team?' => 'What is your favorite team?',
+            'What was your favorite sport in high school?' => 'What was your favorite sport in high school?'),
+             'What is your favorite team?', ['class'=>'form-control']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::label('Answer', 'Answer:') !!}
+        {!! Form::text('answer',null,['class'=>'form-control']) !!}
+    </div>
+
     <div class="form-group">
         {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}
     </div>
