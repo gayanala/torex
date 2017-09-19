@@ -15,8 +15,12 @@ class CreateSecurityquestionsTable extends Migration
     {
         Schema::create('securityquestions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('question');
-            $table->string('answer');
+            $table->string('question1');
+            $table->string('answer1');
+            $table->string('question2');
+            $table->string('answer2');
+            $table->string('question3');
+            $table->string('answer3');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
         });

@@ -21,7 +21,7 @@
 
     <div class="form-group">
         {!! Form::label('Question', 'Question:') !!}
-        {!! Form::select('question', array(
+        {!! Form::select('question1', array(
             'What was your childhood nickname?' => 'What was your childhood nickname?',
             'In what city or town did your mother and father meet?' => 'In what city or town did your mother and father meet?',
             'What is your favorite team?' => 'What is your favorite team?',
@@ -30,12 +30,12 @@
     </div>
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}
-        {!! Form::text('answer',null,['class'=>'form-control']) !!}
+        {!! Form::text('answer1',null,['class'=>'form-control']) !!}
     </div>
 
     <div class="form-group">
         {!! Form::label('Question', 'Question:') !!}
-        {!! Form::select('question', array(
+        {!! Form::select('question2', array(
             'What was your childhood nickname?' => 'What was your childhood nickname?',
             'In what city or town did your mother and father meet?' => 'In what city or town did your mother and father meet?',
             'What is your favorite team?' => 'What is your favorite team?',
@@ -44,12 +44,12 @@
     </div>
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}
-        {!! Form::text('answer',null,['class'=>'form-control']) !!}
+        {!! Form::text('answer2',null,['class'=>'form-control']) !!}
     </div>
 
     <div class="form-group">
         {!! Form::label('Question', 'Question:') !!}
-        {!! Form::select('question', array(
+        {!! Form::select('question3', array(
             'What was your childhood nickname?' => 'What was your childhood nickname?',
             'In what city or town did your mother and father meet?' => 'In what city or town did your mother and father meet?',
             'What is your favorite team?' => 'What is your favorite team?',
@@ -58,7 +58,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}
-        {!! Form::text('answer',null,['class'=>'form-control']) !!}
+        {!! Form::text('answer3',null,['class'=>'form-control']) !!}
     </div>
 
     <div class="form-group">

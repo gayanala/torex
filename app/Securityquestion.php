@@ -8,8 +8,12 @@ class Securityquestion extends Model
 {
     protected $fillable=[
         'user_id',
-        'question',
-        'answer'
+        'question1',
+        'answer1',
+        'question2',
+        'answer2',
+        'question3',
+        'answer3'
     ];
 
     public function user() {
