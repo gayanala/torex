@@ -36,11 +36,11 @@
     <div class="form-group">
         {!! Form::label('Question', 'Question:') !!}
         {!! Form::select('question2', array(
-            'What was your childhood nickname?' => 'What was your childhood nickname?',
-            'In what city or town did your mother and father meet?' => 'In what city or town did your mother and father meet?',
-            'What is your favorite team?' => 'What is your favorite team?',
-            'What was your favorite sport in high school?' => 'What was your favorite sport in high school?'),
-             'In what city or town did your mother and father meet?', ['class'=>'form-control']) !!}
+            'In what city or town does your nearest sibling live?' => 'In what city or town does your nearest sibling live?',
+            'What is your pet’s name?' => 'What is your pet’s name?',
+            'In what year was your father born?' => 'In what year was your father born?',
+            'What was the last name of your third grade teacher?' => 'What was the last name of your third grade teacher?'),
+             null, ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}
@@ -50,11 +50,11 @@
     <div class="form-group">
         {!! Form::label('Question', 'Question:') !!}
         {!! Form::select('question3', array(
-            'What was your childhood nickname?' => 'What was your childhood nickname?',
-            'In what city or town did your mother and father meet?' => 'In what city or town did your mother and father meet?',
-            'What is your favorite team?' => 'What is your favorite team?',
-            'What was your favorite sport in high school?' => 'What was your favorite sport in high school?'),
-             'What is your favorite team?', ['class'=>'form-control']) !!}
+            'What is the first name of the boy or girl that you first kissed?' => 'What is the first name of the boy or girl that you first kissed?',
+            'What was the name of your elementary school?' => 'What was the name of your elementary school?',
+            'What was the house number and street name you lived in as a child?' => 'What was the house number and street name you lived in as a child?',
+            'In what town or city was your first full time job?' => 'In what town or city was your first full time job?'),
+             null, ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}

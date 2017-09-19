@@ -19,8 +19,8 @@
             <tr>
                 <td>{{ $securityquestion->user->id }}</td>
                 <td>{{ $securityquestion->user->name }}</td>
-                <td>{{ $securityquestion->question }}</td>
-                <td>{{ $securityquestion->answer }}</td>
+                <td>{{ $securityquestion->question1}}</td>
+                <td>{{ $securityquestion->answer1 }}</td>
                 {{--<td><a href="{{url('securityquestions',$securityquestion->id)}}" class="btn btn-primary">Read</a></td>--}}
                 {{--<td><a href="{{route('securityquestions.edit',$securityquestion->id)}}" class="btn btn-warning">Update</a></td>--}}
                 <td>
