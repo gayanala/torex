@@ -65,13 +65,18 @@ class SecurityquestionController extends Controller
 //        return redirect('securityquestions');
     }
 
+    public function check($id)
+    {
+        $securityquestion=Securityquestion::find($id);
+        return view('securityquestions.check', compact('securityquestion'));
+    }
 
 
-//    public function edit($id)
-//    {
-//        $securityquestion=Securityquestion::find($id);
-//        return view('securityquestions.edit',compact('securityquestion'));
-//    }
+    public function edit($id)
+    {
+        $securityquestion=Securityquestion::find($id);
+        return view('securityquestions.edit',compact('securityquestion'));
+    }
 
     /**
      * Update the specified resource in storage.
