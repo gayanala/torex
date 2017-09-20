@@ -15,7 +15,9 @@ class Post extends Model
         'state',
         'zip_code',
         'phone_number',
-        'organization_name'
+        'organization_name',
+        'user_name',
+        'password'
     ];
 
 }
