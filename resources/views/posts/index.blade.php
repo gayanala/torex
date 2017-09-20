@@ -19,6 +19,8 @@
             <th>Zip Code</th>
             <th>Phone Number</th>
             <th>Organization Name</th>
+            <th>User Name</th>
+            <th>Password</th>
             <th colspan="3">More details</th>
         </tr>
         </thead>
@@ -34,6 +36,8 @@
                 <td>{{ $post->zip_code }}</td>
                 <td>{{ $post->phone_number }}</td>
                 <td>{{ $post->organization_name }}</td>
+                <td>{{ $post->user_name }}</td>
+                <td>{{ $post->password }}</td>
                 <td><a href="{{url('posts',$post->id)}}" class="btn btn-primary">View</a></td>
                 <td><a href="{{route('posts.edit',$post->id)}}" class="btn btn-warning">Update</a></td>
 

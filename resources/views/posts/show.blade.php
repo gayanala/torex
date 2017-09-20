@@ -40,6 +40,14 @@
                 <td>Organization Name</td>
                 <td><?php echo ($post['organization_name']); ?></td>
             </tr>
+            <td>User Name</td>
+            <td><?php echo ($post['username']); ?></td>
+            </tr>
+            <tr>
+                <td>Organization Name</td>
+                <td><?php echo ($post['password']); ?></td>
+            </tr>
+
             </tbody>
         </table>
     </div>
