@@ -30,7 +30,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}
-        {!! Form::text('answer1',null,['class'=>'form-control']) !!}
+        {!! Form::text('answer1',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
     </div>
 
     <div class="form-group">
@@ -44,7 +44,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}
-        {!! Form::text('answer2',null,['class'=>'form-control']) !!}
+        {!! Form::text('answer2',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
     </div>
 
     <div class="form-group">
@@ -58,7 +58,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}
-        {!! Form::text('answer3',null,['class'=>'form-control']) !!}
+        {!! Form::text('answer3',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
     </div>
 
     <div class="form-group">

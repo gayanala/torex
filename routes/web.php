@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('securityquestions/check/{id}', 'SecurityquestionController@check')->name('check');
+
 Route::resource('securityquestions','SecurityquestionController');
 
-Route::get('securityquestion/check','SecurityquestionController@check');
+

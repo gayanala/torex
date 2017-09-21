@@ -40,7 +40,7 @@ class SecurityquestionController extends Controller
      * @return Response
      */
     public function store(Request $request)
-    {
+    {//dd($request);
         $securityquestion= new Securityquestion($request->all());
 
         $validator = Validator::make($request->all(), [
@@ -67,16 +67,22 @@ class SecurityquestionController extends Controller
 
     public function check($id)
     {
-        $securityquestion=Securityquestion::find($id);
+        $users = Auth::id();
+        //dd($id);
+        $securityquestion = Securityquestion::find($id);
+        unset($securityquestion->answer1);
+        unset($securityquestion->answer2);
+        unset($securityquestion->answer3);
+        //dd($securityquestion);
         return view('securityquestions.check', compact('securityquestion'));
     }
 
 
-    public function edit($id)
+    /*public function edit($id)
     {
         $securityquestion=Securityquestion::find($id);
         return view('securityquestions.edit',compact('securityquestion'));
-    }
+    }*/
 
     /**
      * Update the specified resource in storage.

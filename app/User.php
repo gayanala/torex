@@ -26,7 +26,7 @@ class User extends Authenticatable
 
     public function stocks()
     {
-        return $this->hasMany('App\Securityquestion');
+        return $this->hasOne('App\Securityquestion');
     }
 
 
