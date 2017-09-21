@@ -65,16 +65,29 @@ class SecurityquestionController extends Controller
 //        return redirect('securityquestions');
     }
 
-    public function check($id)
+    public function insertcheck()
     {
         $users = Auth::id();
-        //dd($id);
-        $securityquestion = Securityquestion::find($id);
+        $securityquestion = Securityquestion::find($users);
         unset($securityquestion->answer1);
         unset($securityquestion->answer2);
         unset($securityquestion->answer3);
         //dd($securityquestion);
-        return view('securityquestions.check', compact('securityquestion'));
+        return view('securityquestions.insertcheck', compact('securityquestion'));
+    }
+
+    public function check(Request $request)
+    {
+        $checkanswer1 = $request->a1;
+
+        if($securityquestions = Securityquestion::where('answer1','=', $checkanswer1))
+        {
+            return redirect('/password/reset');
+        }
+        else
+        {
+            return redirect('/home');
+        }
     }
 
 

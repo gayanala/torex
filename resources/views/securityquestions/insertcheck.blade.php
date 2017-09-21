@@ -1,7 +1,11 @@
 @extends('app')
 @section('content')
     <h1>Check Security Questions</h1>
-    {!! Form::model($securityquestion,['method' => 'GET','action'=>['SecurityquestionController@check', $securityquestion->id]]) !!}
+
+    {{--{!! Form::model(['method' => 'GET','action'=>['SecurityquestionController@insertcheck', $securityquestion->id]]) !!}--}}
+
+    {!! Form::model($securityquestion,['method' => 'GET','action'=>['SecurityquestionController@insertcheck', $securityquestion->id]]) !!}
+
     <div class="form-group">
         {!! Form::label('Question', 'Question:') !!}
         {!! Form::text('question1',null,['class'=>'form-control','readonly']) !!}
@@ -9,7 +13,7 @@
 
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}
-        {!! Form::text('answer1',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
+        {!! Form::text('a1',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
     </div>
 
     <div class="form-group">
@@ -19,7 +23,7 @@
 
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}
-        {!! Form::text('answer2',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
+        {!! Form::text('a2',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
     </div>
 
     <div class="form-group">
@@ -29,7 +33,11 @@
 
     <div class="form-group">
         {!! Form::label('Answer', 'Answer:') !!}
-        {!! Form::text('answer3',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
+        {!! Form::text('a3',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
+    </div>
+    <div class="form-group">
+        {{--<a href="{{action('SecurityquestionController@check',$securityquestion->id)}}" class="btn btn-danger">Check Answer</a>--}}
+        {!! Form::submit('Check Answer', ['class' => 'btn btn-danger form-control']) !!}
     </div>
     {!! Form::close() !!}
 @stop

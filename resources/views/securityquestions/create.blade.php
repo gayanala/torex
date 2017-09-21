@@ -50,8 +50,8 @@
     <div class="form-group">
         {!! Form::label('Question', 'Question:') !!}
         {!! Form::select('question3', array(
-            'What is the first name of the boy or girl that you first kissed?' => 'What is the first name of the boy or girl that you first kissed?',
             'What was the name of your elementary school?' => 'What was the name of your elementary school?',
+            'What is the first name of the boy or girl that you first kissed?' => 'What is the first name of the boy or girl that you first kissed?',
             'What was the house number and street name you lived in as a child?' => 'What was the house number and street name you lived in as a child?',
             'In what town or city was your first full time job?' => 'In what town or city was your first full time job?'),
              null, ['class'=>'form-control']) !!}
