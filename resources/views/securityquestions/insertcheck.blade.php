@@ -36,9 +36,7 @@
         {!! Form::text('a3',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
     </div>
     <div class="form-group">
-        {!! Form::submit('Click Me!', ['class' => 'btn btn-danger form-control']) !!}
-        {{--<!--a href="{{action('SecurityquestionController@check',$securityquestion->id)}}" class="btn btn-danger form-control">Check Answer</a-->--}}
-        {{--{!! Form::submit('Check Answer', ['class' => 'btn btn-danger form-control']) !!}--}}
+        {!! Form::submit('Check Answer!', ['class' => 'btn btn-danger form-control']) !!}
     </div>
     {!! Form::close() !!}
 @stop

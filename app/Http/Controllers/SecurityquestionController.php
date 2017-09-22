@@ -7,8 +7,7 @@ use App\Securityquestion;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Controllers\Controller;
-
-//use App\User;
+use Session;
 
 class SecurityquestionController extends Controller
 {
@@ -94,7 +93,9 @@ class SecurityquestionController extends Controller
         //dd($securityAnswer1);
 
         if (($securityAnswer1 == $checkanswer1) && ($securityAnswer2 == $checkanswer2) && ($securityAnswer3 == $checkanswer3)) {
-            return redirect('password/reset');
+
+            Session::flush();
+            return redirect()->route('password.request');
         }
         else {
             return redirect('/securityquestions');
