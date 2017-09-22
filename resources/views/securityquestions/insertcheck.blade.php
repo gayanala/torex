@@ -4,7 +4,7 @@
 
     {{--{!! Form::model(['method' => 'GET','action'=>['SecurityquestionController@insertcheck', $securityquestion->id]]) !!}--}}
 
-    {!! Form::model($securityquestion,['method' => 'GET','action'=>['SecurityquestionController@insertcheck', $securityquestion->id]]) !!}
+    {!! Form::model($securityquestion, ['method' => 'GET','action'=>['SecurityquestionController@check', $securityquestion->id]]) !!}
 
     <div class="form-group">
         {!! Form::label('Question', 'Question:') !!}
@@ -36,8 +36,9 @@
         {!! Form::text('a3',null,['class'=>'form-control', 'autocomplete'=>'off']) !!}
     </div>
     <div class="form-group">
-        {{--<a href="{{action('SecurityquestionController@check',$securityquestion->id)}}" class="btn btn-danger">Check Answer</a>--}}
-        {!! Form::submit('Check Answer', ['class' => 'btn btn-danger form-control']) !!}
+        {!! Form::submit('Click Me!', ['class' => 'btn btn-danger form-control']) !!}
+        {{--<!--a href="{{action('SecurityquestionController@check',$securityquestion->id)}}" class="btn btn-danger form-control">Check Answer</a-->--}}
+        {{--{!! Form::submit('Check Answer', ['class' => 'btn btn-danger form-control']) !!}--}}
     </div>
     {!! Form::close() !!}
 @stop
