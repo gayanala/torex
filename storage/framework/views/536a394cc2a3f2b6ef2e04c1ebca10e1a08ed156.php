@@ -1,5 +1,4 @@
-@extends('app')
-@section('content')
+<?php $__env->startSection('content'); ?>
     <h1>Profile Details</h1>
 
     <div class="container">
@@ -48,5 +47,7 @@
         </table>
     </div>
 
-@stop
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

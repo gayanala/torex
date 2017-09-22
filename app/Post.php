@@ -16,8 +16,7 @@ class Post extends Model
         'zip_code',
         'phone_number',
         'organization_name',
-        'user_name',
-        'password'
+        'user_name'
     ];
 
 }

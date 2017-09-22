@@ -33,18 +33,15 @@
             {!! Form::text('phone_number',null,['class'=>'form-control']) !!}
         </div>
         <div class="form-group">
-            {!! Form::label('Organization Name', 'Organization Name:') !!}
-            {!! Form::text('organization_name',null,['class'=>'form-control']) !!}
+            {!! Form::label('Company Name', 'Company Name:') !!}
+            {!! Form::text('company_name',null,['class'=>'form-control']) !!}
         </div>
 
         <div class="form-group">
             {!! Form::label('User Name', 'User Name:') !!}
             {!! Form::text('user_name',null,['class'=>'form-control']) !!}
         </div>
-        <div class="form-group">
-            {!! Form::label('Password', 'Password:') !!}
-            {!! Form::text('password',null,['class'=>'form-control']) !!}
-        </div>
+
     </div>
     <div class="form-group">
         {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}

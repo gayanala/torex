@@ -1,16 +1,16 @@
 @extends('app')
 
 @section('content')
-        <h1>Profile Management</h1>
-        <!--
-    <a href="{{url('/posts/create')}}" class="btn btn-success"> Template</a>
+    <h1>Profile Management</h1>
+    <!--
+    <a href="{{url('posts')}}" class="btn btn-success"> Template</a>
         -->
 
     <hr>
     <table class="table table-striped table-bordered table-hover">
         <thead>
         <tr class="bg-info">
-            <th>Id</th>
+            <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Address</th>
@@ -18,10 +18,9 @@
             <th>State</th>
             <th>Zip Code</th>
             <th>Phone Number</th>
-            <th>Organization Name</th>
+            <th>Company Name</th>
             <th>User Name</th>
-            <th>Password</th>
-            <th colspan="3">More details</th>
+            <th colspan="3"> You can </th>
         </tr>
         </thead>
         <tbody>
@@ -35,18 +34,9 @@
                 <td>{{ $post->state }}</td>
                 <td>{{ $post->zip_code }}</td>
                 <td>{{ $post->phone_number }}</td>
-                <td>{{ $post->organization_name }}</td>
+                <td>{{ $post->company_name }}</td>
                 <td>{{ $post->user_name }}</td>
-                <td>{{ $post->password }}</td>
-                <td><a href="{{url('posts',$post->id)}}" class="btn btn-primary">View</a></td>
                 <td><a href="{{route('posts.edit',$post->id)}}" class="btn btn-warning">Update</a></td>
-
-                <td>
-                    {!! Form::open(['method' => 'DELETE', 'route'=>['posts.destroy', $post->id]]) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!}
-                </td>
-
 
 
             </tr>
