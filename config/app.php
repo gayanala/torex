@@ -164,6 +164,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Contracts\Auth\CanResetPassword::class,
 
         /*
          * Package Service Providers...
