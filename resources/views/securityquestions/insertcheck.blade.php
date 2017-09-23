@@ -42,7 +42,7 @@
 
     <br>
     <div class="form-group">
-        {!! Form::submit('Check Answer!', ['class' => 'btn btn-danger form-control']) !!}
+        {!! Form::submit('Check Answer', ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
 
