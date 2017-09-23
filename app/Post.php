@@ -10,13 +10,14 @@ class Post extends Model
     protected $fillable=[
         'first_name',
         'last_name',
-        'address',
+        'email',
+        'street_address1',
+        'street_address2',
         'city',
         'state',
-        'zip_code',
+        'zipcode',
         'phone_number',
-        'organization_name',
-        'user_name'
+        'organization_name'
     ];
 
 }
