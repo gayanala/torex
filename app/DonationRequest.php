@@ -28,6 +28,8 @@ class DonationRequest extends Model
         'eventpurpose',
         'formAttendees',
         'venue',
-        'marketingopportunities'
-    ];
+        'marketingopportunities'];
+
+        protected $table = 'DonationRequest';
+
 }

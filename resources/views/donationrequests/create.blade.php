@@ -1,12 +1,12 @@
 
-<?php
+
 /**
  * Created by PhpStorm.
  * User: Jazzy
  * Date: 9/23/2017
  * Time: 8:49 AM
  */
-@include('style.header')
+
 <div class="container">
     <form class="form-horizontal" method="POST" action="{{ url('/register') }}">
         {{ csrf_field() }}

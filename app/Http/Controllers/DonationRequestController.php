@@ -10,20 +10,20 @@ class DonationRequestController extends Controller
     public function index()
     {
 
-        $donationrequests=DonationRequest::all();
-        return view('posts.index',compact('donationrequests'));
+        $donationrequest=DonationRequest::all();
+        return view('donationrequests.index',compact('donationrequest'));
     }
 
     public function show($id)
     {
         $donationrequest=DonationRequest::find($id);
-        return view('posts.show',compact('donationrequest'));
+        return view('donationrequests.show',compact('donationrequest'));
     }
 
 
     public function create()
     {
-        return view('donationrequest.create');
+        return view('donationrequests.create');
     }
 
     /**
@@ -33,9 +33,9 @@ class DonationRequestController extends Controller
      */
     public function store()
     {
-        $DonationRequest=Request::all();
-        DonationRequest::create($DonationRequest);
-        return redirect('donationrequests');
+        $donationrequest=Request::all();
+        DonationRequest::create($donationrequest);
+        return redirect('donationrequest');
     }
 
 
