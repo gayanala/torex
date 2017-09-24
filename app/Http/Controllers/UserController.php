@@ -9,24 +9,21 @@ use App\User;
 class UserController extends Controller
 {
 
-        public
-        function index()
+        public function index()
         {
             //
             $users = User::all();
             return view('users.index', compact('users'));
         }
 
-        public
-        function show($id)
+        public function show($id)
         {
             $user = User::find($id);
             return view('users.show', compact('user'));
         }
 
 
-        public
-        function create()
+        public function create()
         {
             return view('users.create');
         }
@@ -36,16 +33,14 @@ class UserController extends Controller
          *
          * @return Response
          */
-        public
-        function store()
+        public function store()
         {
             $user = Request::all();
             User::create($user);
             return redirect('users');
         }
 
-        public
-        function edit($id)
+        public function edit($id)
         {
             $user = User::find($id);
             return view('users.edit', compact('user'));
@@ -60,8 +55,7 @@ class UserController extends Controller
          * @param  int $id
          * @return Response
          */
-        public
-        function update($id)
+        public function update($id)
         {
             //
             $userUpdate = Request::all();
@@ -70,8 +64,7 @@ class UserController extends Controller
             return redirect('users');
         }
 
-        public
-        function destroy($id)
+        public function destroy($id)
         {
             User::find($id)->delete();
             return redirect('users');
