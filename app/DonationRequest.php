@@ -30,6 +30,6 @@ class DonationRequest extends Model
         'venue',
         'marketingopportunities'];
 
-        protected $table = 'DonationRequest';
+        protected $table = 'donation_request';
 
 }

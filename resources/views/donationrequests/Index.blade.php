@@ -1,10 +1,21 @@
-
-
+@extends('app')
+@section('content')
+    <h1>DONATION REQUEST FORM</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    {!! Form::open(['url' => 'DonationRequest']) !!}
 <div class="container">
-    <form class="form-horizontal" method="POST" action="{{ url('/register') }}">
+    <form class="form-horizontal" method="POST" action="{{ url('/requestdonation') }}">
         {{ csrf_field() }}
         <fieldset>
-            <legend>BUSINESS REGISTRATION</legend>
+
             @if(count($errors) > 0)
                 @foreach($errors->all() as $error)
                     <div class="alert alert-danger">{{$error}}</div>
@@ -21,6 +32,8 @@
                 <div class="col-lg-6">
                     <input type="text" name="organization" class="form-control" id="inputorganization" placeholder="Name of Organization">
                 </div>
+
+
                 <div class="form-group">
                     <label for="formOrganization" class="col-lg-2 control-label">Which of the following best describes your organization:</label>
                     <div class="col-lg-6">
@@ -67,7 +80,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputAddress1" class="col-lg-2 control-label">Address 1</label>
+                            <label for="inputAddress1" class="col-lg-2 control-label">Address 1*</label>
                             <div class="col-lg-6">
                                 <input type="text" name="address1" class="form-control" id="inputAddress1" placeholder="Example: Street Name,Company Name,P.O. Box Number">
                             </div>
@@ -79,13 +92,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputCity" class="col-lg-2 control-label">City</label>
+                            <label for="inputCity" class="col-lg-2 control-label">City*</label>
                             <div class="col-lg-3">
                                 <input type="text" name="city" class="form-control" id="inputCity" placeholder="Name of the City">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="state" class="col-lg-2 control-label">State</label>
+                            <label for="state" class="col-lg-2 control-label">State*</label>
                             <div class="col-lg-6">
                                 <select class="form-control" name="state" id="state">
                                     <option value="Select State">Select State</option>
@@ -235,6 +248,8 @@
                                 <input type="text" name="marketingopportunities" class="form-control" id="inputmarketingopportunities" placeholder="Please provide a brief description of the business value this event creates for the company.">
                             </div>
                         </div>
+                        {!! Form::submit('Submit', ['class'=> 'btn btn-primary form-control']) !!}
+                        <h6>Fields Marked With (*) Are Mandatory</h6>
                     </div>
                 </div>
             </div>
@@ -242,5 +257,6 @@
     </form>
 </div>
 
-
+{!! Form::close() !!}
+    @stop
 

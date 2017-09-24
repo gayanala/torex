@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('donationrequest', "DonationRequestController");
+Route::resource('show', "showController");
