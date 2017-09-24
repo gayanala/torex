@@ -37,7 +37,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Street Address2', 'Street Address 2:') !!}
-        {!! Form::text('street_address2',null,['class'=>'form-control']) !!}
+        {!! Form::text('street_address2',[''], null,['class'=>'form-control']) !!}
     </div>
 
     <div class="form-group">
