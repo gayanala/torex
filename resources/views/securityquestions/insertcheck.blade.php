@@ -37,7 +37,7 @@
     </div>
 
     <h4 style="color:red">
-    {!! session()->get('error') !!}
+        {!! session()->get('error') !!}
     </h4>
 
     <br>
