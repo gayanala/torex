@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::post('/business/register', 'ProfileController@register');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
