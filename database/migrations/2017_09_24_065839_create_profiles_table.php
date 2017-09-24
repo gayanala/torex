@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use doctrine\dbal;
 
 class CreateProfilesTable extends Migration
 {
@@ -17,7 +18,7 @@ class CreateProfilesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('address1');
-            $table->string('address2')->nullable;
+            $table->string('address2')->nullable();
             $table->string('city');
             $table->integer('zipcode');
             $table->string('state');

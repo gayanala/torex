@@ -6,14 +6,20 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Profile;
 
+/*
+	Class for Profile management
+*/
 class ProfileController extends Controller
 {
+	/*
+		Method for registering Business Admin
+	*/
     public function register(Request $request){
         $this->validate($request, 
         	[
             'name' => 'required',
             'address1' => 'required',
-            'address2' => 'required',
+            //'address2' => 'required',
             'city' => 'required',
             'zipcode' => 'required',
             'state' => 'required'
@@ -33,10 +39,7 @@ class ProfileController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
-return redirect('/home')->with('response', 'This Is Your Dashboard');
-
-//dd('success');
-
+		return redirect('/home')->with('response', 'This Is Your Dashboard');
 
     }
 }

@@ -12,10 +12,10 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label"> Organization Name*</label>
+                            <label for="name" class="col-md-4 control-label"> Organization Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Name Of Your Organization" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -27,10 +27,10 @@
 
 
                     <div class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
-                         <label for="address1" class="col-md-4 control-label">Address 1*</label>
+                         <label for="address1" class="col-md-4 control-label">Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                <input id="address1" type="text" class="form-control" name="address1" value="{{ old('address1') }}" required autofocus>
+                                <input id="address1" type="text" class="form-control" name="address1" value="{{ old('address1') }}" placeholder="Street Address, Company Name, C/O" required autofocus>
 
                                 @if ($errors->has('address1'))
                                     <span class="help-block">
@@ -40,22 +40,16 @@
                             </div>
                         </div>
 
-                         <div class="form-group{{ $errors->has('address2') ? ' has-error' : '' }}">
-                         <label for="address2" class="col-md-4 control-label">Address 2</label>
+                        <div class="form-group">
+                         <label for="address2" class="col-md-4 control-label">Address 2 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                <input id="address2" type="text" class="form-control" name="address2" value="{{ old('address2') }}" required autofocus>
-
-                                @if ($errors->has('address2'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('address2') }}</strong>
-                                    </span>
-                                @endif
+                                <input id="address2" type="text" class="form-control" name="address2" value="{{ old('address2') }}" placeholder="Building, Apartment, Floor">
                             </div>
                         </div>
 
                          <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
-                         <label for="city" class="col-md-4 control-label">City*</label>
+                         <label for="city" class="col-md-4 control-label">City <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
                                 <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" placeholder="Name of the City" required autofocus>
@@ -69,10 +63,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
-                         <label for="zipcode" class="col-md-4 control-label">Zipcode*</label>
+                         <label for="zipcode" class="col-md-4 control-label">Zipcode <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                <input id="zipcode" type="number" class="form-control" name="zipcode" value="{{ old('zipcode') }}" required autofocus>
+                                <input id="zipcode" type="text" pattern= "[0-9]{5}" class="form-control" name="zipcode" value="{{ old('zipcode') }}" placeholder="ZipCode" required autofocus>
 
                                 @if ($errors->has('zipcode'))
                                     <span class="help-block">
@@ -83,7 +77,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
-                            <label for="state" class="col-md-4 control-label">State*</label>
+                            <label for="state" class="col-md-4 control-label">State <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
 
@@ -152,10 +146,10 @@
 
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address*</label>
+                            <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Enter Your Email Address" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -166,10 +160,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password*</label>
+                            <label for="password" class="col-md-4 control-label">Password <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password" placeholder="Enter Password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -180,10 +174,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password*</label>
+                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Enter Password Again" required>
                             </div>
                         </div>
 
@@ -192,7 +186,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
-                                <h5>Fields Marked With (*) Are Mandatory</h5>
+                                <span style="color: red"> <h5>Fields Marked With (<span style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
+                               
                             </div>
                         </div>
                     </form>
