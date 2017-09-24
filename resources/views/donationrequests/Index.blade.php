@@ -10,9 +10,9 @@
             </ul>
         </div>
     @endif
-    {!! Form::open(['url' => 'DonationRequest']) !!}
+    {!! Form::open(['url' => 'create']) !!}
 <div class="container">
-    <form class="form-horizontal" method="POST" action="{{ url('/requestdonation') }}">
+
         {{ csrf_field() }}
         <fieldset>
 
@@ -35,7 +35,7 @@
 
 
                 <div class="form-group">
-                    <label for="formOrganization" class="col-lg-2 control-label">Which of the following best describes your organization:</label>
+                    <label for="formOrganization" class="col-lg-2 control-label">Which of the following best describes your organization:*</label>
                     <div class="col-lg-6">
                         <select class="form-control" name="formOrganization" id="formOrganization">
                             <option value="">Select...</option>
@@ -254,7 +254,7 @@
                 </div>
             </div>
         </fieldset>
-    </form>
+
 </div>
 
 {!! Form::close() !!}

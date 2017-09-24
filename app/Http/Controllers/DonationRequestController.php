@@ -13,7 +13,7 @@ use Illuminate\Http\withErrors;
 class DonationRequestController extends Controller
 {
     public function index()
-    {
+    {//dd('index');
         $donationrequest = DonationRequest::all();
         return view('donationrequests.Index', compact('donationrequest'));
     }
@@ -26,7 +26,7 @@ class DonationRequestController extends Controller
 
 
     public function create()
-    {
+    {dd('create');
         return view('donationrequests.create');
     }
 
@@ -37,7 +37,7 @@ class DonationRequestController extends Controller
      * @return redirect
      */
     public function store(DonationRequest $donationrequest)
-    {
+    {dd('Yup');
         $validator = Validator::make($donationrequest->all(), [
             'organization' => 'required',
             'formOrganization' => 'required',
@@ -60,6 +60,7 @@ class DonationRequestController extends Controller
             'venue' => 'required',
             'marketingopportunities' => 'required']);
         if ($validator->fails()) {
+            dd('fail');
             return redirect('donationrequest/create')
                 ->withErrors($validator)
                 ->withInput();
