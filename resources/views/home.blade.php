@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-primary">
+                <div class="panel panel-default">
                     <div class="panel-heading">Dashboard</div>
 
                     <div class="panel-body">
@@ -14,11 +14,13 @@
                             </div>
                         @endif
 
-                        You are logged in!
+                        You are logged in!<br><br><br>
+
+                        <a href="{{route('insertcheck', Auth::id())}}" class="btn btn-primary">Reset Password</a>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
