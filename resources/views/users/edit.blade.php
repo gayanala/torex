@@ -15,7 +15,7 @@
     @endif
 
 
-    <div class="form-group">
+    <div class="form-group" aria-colspan="">
         {!! Form::label('First Name', '* First Name:') !!}
         {!! Form::text('first_name',null,['required'],['class'=>'form-control']) !!}
     </div>
@@ -37,7 +37,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Street Address2', 'Street Address 2:') !!}
-        {!! Form::text('street_address2',[''], null,['class'=>'form-control']) !!}
+        {!! Form::text('street_address2', null,['class'=>'form-control']) !!}
     </div>
 
     <div class="form-group">
