@@ -10,7 +10,7 @@
             </ul>
         </div>
     @endif
-    {!! Form::open(['url' => 'create']) !!}
+    {!! Form::open(['url' => 'donationrequest', 'method' => 'post']) !!}
 <div class="container">
 
         {{ csrf_field() }}

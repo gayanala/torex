@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\DonationRequest;
-use Illuminate\Support\Facades\Auth;
 use Validator;
-//use Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\withErrors;
 
@@ -25,9 +23,7 @@ class DonationRequestController extends Controller
 //   }
 
 
-    public function create()
-    {dd('create');
-        return view('donationrequests.create');
+    public function create() {
     }
 
 
@@ -37,7 +33,8 @@ class DonationRequestController extends Controller
      * @return redirect
      */
     public function store(DonationRequest $donationrequest)
-    {dd('Yup');
+    {//dd('Yup');
+    dd($donationrequest);
         $validator = Validator::make($donationrequest->all(), [
             'organization' => 'required',
             'formOrganization' => 'required',

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DonationRequest extends Migration
+class CreateDonationRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class DonationRequest extends Migration
      */
     public function up()
     {
-        Schema::create('donation_request', function (Blueprint $table) {
+        Schema::create('donation_requests', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('organization_id')->unsigned()->index();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
-            $table->increments('id');
             $table->string('orgID');
             $table->string('organization');
             $table->string('formOrganization');
@@ -50,6 +50,6 @@ class DonationRequest extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('donation_request');
+        Schema::dropIfExists('donation_requests');
     }
 }
