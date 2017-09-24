@@ -24,6 +24,6 @@ yarn-error.log
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
-cache/packages.php
-cache/services.php
+/cache/packages.php
+/cache/services.php
 storage/logs/laravel.log
