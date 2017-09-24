@@ -14,30 +14,32 @@
         </div>
     @endif
 
+    <div id="wrapper_1"; style="text-align: center"; aria-colcount="2">
 
-    <div class="form-group" aria-colspan="">
-        {!! Form::label('First Name', '* First Name:') !!}
-        {!! Form::text('first_name',null,['required'],['class'=>'form-control']) !!}
+
+        <div class="form-group"; >
+            <div style="width:50%" align="left">  {!! Form::label('First Name', '* First Name:') !!} </div>
+            <div style="width:50%" align="left">       {!! Form::text('first_name',null,['required'],['class'=>'form-control']) !!}</div>
     </div>
 
     <div class="form-group">
-        {!! Form::label('Last Name', '* Last Name:') !!}
-        {!! Form::text('last_name',null,['required'],['class'=>'form-control'] ) !!}
+        <div style="width:50%" align="left">  {!! Form::label('Last Name', '* Last Name:') !!}</div>
+        <div style="width:50%" align="left">  {!! Form::text('last_name',null,['required'],['class'=>'form-control'] ) !!}</div>
     </div>
 
     <div class="form-group">
-        {!! Form::label('Email', '* Email:') !!}
-        {!! Form::text('email',null,['required'],['class'=>'form-control']) !!}
+        <div style="width:50%" align="left">  {!! Form::label('Email', '* Email:') !!}</div>
+        <div style="width:50%" align="left">   {!! Form::text('email',null,['required'],['class'=>'form-control']) !!}</div>
     </div>
 
 
     <div class="form-group">
-        {!! Form::label('Street Address1', '* Street Address 1:') !!}
-        {!! Form::text('street_address1',null,['required'],['class'=>'form-control']) !!}
+        <div style="width:50%" align="left">    {!! Form::label('Street Address1', '* Street Address 1:') !!}</div>
+        <div style="width:50%" align="left">    {!! Form::text('street_address1',null,['required'],['class'=>'form-control']) !!}</div>
     </div>
     <div class="form-group">
-        {!! Form::label('Street Address2', 'Street Address 2:') !!}
-        {!! Form::text('street_address2', null,['class'=>'form-control']) !!}
+        <div style="width:50%" align="left">  {!! Form::label('Street Address2', 'Street Address 2:') !!}</div>
+        <div style="width:50%" align="left">   {!! Form::text('street_address2', null,['class'=>'form-control']) !!}</div>
     </div>
 
     <div class="form-group">
@@ -66,6 +68,7 @@
         {!! Form::submit('Cancel', ['class' => 'btn btn-primary']) !!}
 
         <h3>Thank You</h3>
+    </div>
     </div>
     {!! Form::close() !!}
 @stop
