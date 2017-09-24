@@ -17,12 +17,15 @@ class ProfileController extends Controller
     public function register(Request $request){
         $this->validate($request, 
         	[
-            'name' => 'required',
-            'address1' => 'required',
-            //'address2' => 'required',
-            'city' => 'required',
-            'zipcode' => 'required',
-            'state' => 'required'
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'address1' => 'required',
+                'city' => 'required',
+                'state' => 'required',
+                'zipcode' => 'required',
+                'phone_number' => 'required'
             ]);
 
         $profile = new Profile;

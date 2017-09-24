@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     protected $fillable=[
-      'name',
-      'address1',
-      'address2',
-      'city',
-      'zipcode',
-      'state',
-      
+        'first_name',
+        'last_name',
+        'user_name',
+        'email',
+        'address1',
+        'address2',
+        'city',
+        'zipcode',
+        'state',
+        'phone_number'
     ];
+
 }
