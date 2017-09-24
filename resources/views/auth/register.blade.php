@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="form-group">
-                         <label for="address2" class="col-md-4 control-label">Address 2 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                         <label for="address2" class="col-md-4 control-label"> Address 2 </label>
 
                             <div class="col-md-6">
                                 <input id="address2" type="text" class="form-control" name="address2" value="{{ old('address2') }}" placeholder="Building, Apartment, Floor">
