@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -15,10 +15,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'email', 'password',
-    ];
-    protected $hidden = [
-        'password', 'remember_token',
+        'id',
+        'first_name',
+        'last_name',
+        'email',
+        'street_address1',
+        'street_address2',
+        'city',
+        'state',
+        'zipcode',
+        'phone_number',
+        'password'
     ];
 
     /**
@@ -26,9 +33,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-
-    public function stocks()
-    {
-        return $this->hasOne('App\Securityquestion');
-    }
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

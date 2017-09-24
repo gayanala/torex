@@ -24,3 +24,4 @@ Route::get('Securityquestions/check/{id}', 'SecurityquestionController@check')->
 Route::get('securityquestions/insertcheck/{id}', 'SecurityquestionController@insertcheck')->name('insertcheck');
 
 Route::resource('securityquestions', 'SecurityquestionController');
+Route::resource('/users', 'UserController');

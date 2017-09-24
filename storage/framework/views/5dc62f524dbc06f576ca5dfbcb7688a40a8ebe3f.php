@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-    @yield('content')
+    <?php echo $__env->yieldContent('content'); ?>
 </div>
 </body>
 </html>

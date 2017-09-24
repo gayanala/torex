@@ -42,10 +42,7 @@
 
     <br>
     <div class="form-group">
-        {!! Form::submit('Check Answer', ['class' => 'btn btn-primary form-control']) !!}
+        {!! Form::submit('Check Answer', ['class' => 'btn btn-pr    imary form-control']) !!}
     </div>
     {!! Form::close() !!}
-
-
-
 @stop
