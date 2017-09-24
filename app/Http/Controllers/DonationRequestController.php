@@ -16,13 +16,6 @@ class DonationRequestController extends Controller
         return view('donationrequests.Index', compact('donationrequest'));
     }
 
-//    public function show($id)
-//    {
-//        $donationrequest=DonationRequest::find($id);
-//        return view('donationrequests.show',compact('donationrequest'));
-//   }
-
-
     public function create() {
     }
 
