@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Request;
+use App\Organization;
 
 class UserController extends Controller
 {
@@ -23,17 +24,17 @@ class UserController extends Controller
 
 
     public function create(Request $request)
-    {//dd($request);
-
+    {
+//dd($request->org_name);
         $organization = new Organization;
-        $organization->org_name = $request['org_name'];
-        $organization->org_description = $request['org_description'];
-        $organization->street_address1 = $request['street_address1'];
-        $organization->street_address2 = $request['street_address2'];
-        $organization->city = $request['city'];
-        $organization->state = $request['state'];
-        $organization->zipcode = $request['zipcode'];
-        $organization->phone_number = $request['phone_number'];
+        $organization->org_name = $request->org_name;
+        $organization->org_description = $request->org_description;
+        $organization->street_address1 = $request->street_address1;
+        $organization->street_address2 = $request->street_address2;
+        $organization->city = $request->city;
+        $organization->state = $request->state;
+        $organization->zipcode = $request->zipcode;
+        $organization->phone_number = $request->phone_number;
         $organization->save();
 
         User::create
@@ -52,8 +53,8 @@ class UserController extends Controller
             'organization_id' => $organization->id,
         ]);
 
-        //return redirect('/home');
-        return view('users.create');
+        return redirect('/home');
+        //return view('users.create');
     }
     /**
      * Store a newly created resource in storage.
