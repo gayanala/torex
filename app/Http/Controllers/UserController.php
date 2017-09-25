@@ -56,7 +56,7 @@ class UserController extends Controller
 
 
 
-        return redirect('/home');
+        return redirect('/securityquestions/create');
         //return view('users.create');
     }
     /**
