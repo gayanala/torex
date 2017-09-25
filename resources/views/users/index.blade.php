@@ -19,7 +19,7 @@
             <th>State</th>
             <th>Zip Code</th>
             <th>Phone Number</th>
-            <th colspan="3"> You can</th>
+            <th colspan="3"> </th>
         </tr>
         </thead>
         <tbody>
