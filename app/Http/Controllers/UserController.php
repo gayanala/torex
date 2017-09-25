@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Request;
-
 use App\User;
+use Request;
 
 class UserController extends Controller
 {
@@ -23,7 +22,8 @@ class UserController extends Controller
     }
 
 
-    public function create(Request $request) {//dd($request);
+    public function create(Request $request)
+    {//dd($request);
 
         $organization = new Organization;
         $organization->org_name = $request['org_name'];

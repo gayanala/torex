@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use doctrine\dbal;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -28,7 +27,7 @@ class CreateUsersTable extends Migration
             /* TODO: Organization referenced should be the Organization ID not the name.
 			// TODO: Create Organization Table/Migration
 			// $table->string('organization_name');*/
-			$table->integer('organization_id')->unsigned()->index();
+            $table->integer('organization_id')->unsigned()->index();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();

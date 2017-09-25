@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use App\Organization;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 
 class OrganizationController extends Controller
 {
-     public function index()
+    public function index()
     {
         return view('auth.organization');
     }
 
-        protected function validator(array $data)
+    protected function validator(array $data)
     {
         return Validator::make($data, [
             'org_name' => 'required|string|max:255',
@@ -30,10 +29,10 @@ class OrganizationController extends Controller
             /*'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|confirmed|string|min:6|',*/
-            ]);
+        ]);
     }
 
-        protected function create(Request $request)
+    protected function create(Request $request)
     {
         return Organization::create([
             'org_name' => $request['org_name'],
