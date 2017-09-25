@@ -52,8 +52,8 @@ class RegisterController extends Controller
             'last_name' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|confirmed|string|min:6|',
-            'address1' => 'required|string|max:255',
-            'address2' => 'string|max:255',
+            'street_address1' => 'required|string|max:255',
+            'street_address1' => 'string|max:255',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
             'zipcode' => 'required',
@@ -72,15 +72,15 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {dd('');
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'user_name' => $data['email'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'street_address1' => $data['address1'],
-            'street_address2' => $data['address2'],
+            'street_address1' => $data['street_address1'],
+            'street_address2' => $data['street_address1'],
             'city' => $data['city'],
             'state' => $data['state'],
             'zipcode' => $data['zipcode'],

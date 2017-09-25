@@ -17,8 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('/business/register', 'ProfileController@register');
+Route::post('user/register', 'UserController@create');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/organization', 'OrganizationController@index');
 
+Route::post('/organization', 'OrganizationController@create');
