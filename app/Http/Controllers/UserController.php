@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Organization;
 use Request;
-use App\Organization;
 
 class UserController extends Controller
 {
