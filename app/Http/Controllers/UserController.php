@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Organization;
-use Request;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -39,9 +39,10 @@ class UserController extends Controller
 
         User::create
         ([
-            'first_name' => $request['first_name'],
+            /*'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
-            'user_name' => $request['user_name'],
+            'user_name' => $request['user_name'],*/
+            'name' => $request['first_name'],
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
             'street_address1' => $request['street_address1'],
