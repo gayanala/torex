@@ -11,7 +11,7 @@ use Illuminate\Http\withErrors;
 class DonationRequestController extends Controller
 {
     public function index()
-    {//dd('index');
+    {
         $donationrequest = DonationRequest::all();
         return view('donationrequests.Index', compact('donationrequest'));
     }
@@ -25,41 +25,65 @@ class DonationRequestController extends Controller
      *
      * @return redirect
      */
-    public function store(DonationRequest $donationrequest)
+    public function store(Request $request)
     {//dd('Yup');
-    dd($donationrequest);
-        $validator = Validator::make($donationrequest->all(), [
-            'organization' => 'required',
-            'formOrganization' => 'required',
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required',
-            'phonenumber' => 'required',
-            'address1' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zipcode' => 'required',
-            'taxexempt' => 'required',
-            'formRequestFor' => 'required',
-            'formDonationPurpose' => 'required',
-            'eventname' => 'required',
-            'eventdate' => 'required',
-            'enddate' => 'required',
-            'eventpurpose' => 'required',
-            'formAttendees' => 'required',
-            'venue' => 'required',
-            'marketingopportunities' => 'required']);
-        if ($validator->fails()) {
+    //dd($request);
+        $this->validate($request,
+            [
+                'organization' => 'required',
+                'formOrganization' => 'required',
+                'firstname' => 'required',
+                'lastname' => 'required',
+                'email' => 'required',
+                'phonenumber' => 'required',
+                'address1' => 'required',
+                'address2' => 'required',
+                'city' => 'required',
+                'state' => 'required',
+                'zipcode' => 'required',
+                'taxexempt' => 'required',
+                'formRequestFor' => 'required',
+                'formDonationPurpose' => 'required',
+                'eventname' => 'required',
+                'eventdate' => 'required',
+                'enddate' => 'required',
+                'eventpurpose' => 'required',
+                'formAttendees' => 'required',
+                'venue' => 'required',
+                'marketingopportunities' => 'required'
+            ]);
+
+        $donationRequest = new DonationRequest;
+        $donationRequest->organization = $request->organization;
+        $donationRequest->formOrganization = $request->formOrganization;
+        $donationRequest->firstname = $request->formOrganization;
+        $donationRequest->lastname = $request->lastname;
+        $donationRequest->email = $request->email;
+        $donationRequest->phonenumber = $request->phonenumber;
+        $donationRequest->address1 = $request->address1;
+        $donationRequest->city = $request->city;
+        $donationRequest->state = $request->state;
+        $donationRequest->zipcode = $request->zipcode;
+        $donationRequest->taxexempt = $request->taxexempt;
+        $donationRequest->formRequestFor = $request->formRequestFor;
+        $donationRequest->formDonationPurpose = $request->formDonationPurpose;
+        $donationRequest->eventname = $request->eventname;
+        $donationRequest->enddate = $request->enddate;
+        $donationRequest->eventpurpose = $request->eventpurpose;
+        $donationRequest->formAttendees = $request->formAttendees;
+        $donationRequest->venue = $request->venue;
+        $donationRequest->marketingopportunities = $request->marketingopportunities;
+        $donationRequest->save();
+
+        /*if ($validator->fails()) {
             dd('fail');
             return redirect('donationrequest/create')
                 ->withErrors($validator)
                 ->withInput();
-
-
-        }
-        $donationrequest = Request::all();
-        DonationRequest::create($donationrequest);
-        return redirect('/show');
+        }*/
+        //$donationrequest = Request::all();
+        //DonationRequest::create($donationrequest);
+        return redirect('/');
     }
 }
 

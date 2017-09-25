@@ -17,3 +17,6 @@ Route::get('/', function () {
 
 Route::resource('donationrequest', "DonationRequestController");
 //Route::resource('show', "DonationRequestController");
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
