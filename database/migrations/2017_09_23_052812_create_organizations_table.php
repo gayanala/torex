@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use doctrine\dbal;
 
-class CreateUsersTable extends Migration
+class CreateOrganizationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,23 +14,17 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('organizations', function (Blueprint $table) {
+            // TODO: Flesh out Org and ParentChildOrg tables more
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('org_name');
+            $table->string('org_description')->nullable();
             $table->string('street_address1');
             $table->string('street_address2')->nullable();
             $table->string('city');
             $table->string('state');
             $table->string('zipcode');
             $table->string('phone_number');
-            /* TODO: Organization referenced should be the Organization ID not the name.
-			// TODO: Create Organization Table/Migration
-			// $table->string('organization_name');*/
-			$table->integer('organization_id')->unsigned()->index();
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -42,6 +36,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('organizations', function (Blueprint $table) {
+            //
+        });
     }
 }

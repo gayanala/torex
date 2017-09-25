@@ -48,10 +48,21 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+            'password' => 'required|confirmed|string|min:6|',
+            'street_address1' => 'required|string|max:255',
+            'street_address1' => 'string|max:255',
+            'city' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
+            'zipcode' => 'required',
+            'phone_number' => 'required',
+
+            /*'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|confirmed|string|min:6|',*/
+            ]);
     }
 
     /**
@@ -61,11 +72,19 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {dd('');
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'user_name' => $data['email'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'street_address1' => $data['street_address1'],
+            'street_address2' => $data['street_address1'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'zipcode' => $data['zipcode'],
+            'phone_number' => $data['phone_number']
         ]);
     }
 }
