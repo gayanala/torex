@@ -29,3 +29,5 @@ Route::post('user/register', 'UserController@create');
 Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
+
+Route::resource('/donationrequest', 'DonationRequestController');
