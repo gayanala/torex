@@ -29,7 +29,6 @@ class SecurityquestionController extends Controller
     public function create()
     {
         $users = Auth::id();
-//        $users = User::pluck('name','id');
         return view('securityquestions.create', compact('users'));
     }
 
@@ -39,7 +38,7 @@ class SecurityquestionController extends Controller
      * @return Response
      */
     public function store(Request $request)
-    {//dd($request);
+    {
         $securityquestion = new Securityquestion($request->all());
 
         $validator = Validator::make($request->all(), [
