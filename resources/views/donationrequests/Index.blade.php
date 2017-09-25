@@ -12,10 +12,14 @@
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('organization') ? ' has-error' : '' }}">
-                                <label for="organization" class="col-md-4 control-label"> Organization Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="organization" class="col-md-4 control-label"> Organization Name <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="organization" type="text" class="form-control" name="organization" value="{{ old('organization') }}" placeholder="Name Of Your Organization" required autofocus>
+                                    <input id="organization" type="text" class="form-control" name="organization"
+                                           value="{{ old('organization') }}" placeholder="Name Of Your Organization"
+                                           required autofocus>
 
                                     @if ($errors->has('organization'))
                                         <span class="help-block">
@@ -26,7 +30,9 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('formOrganization') ? ' has-error' : '' }}">
-                                <label for="formOrganization" class="col-md-4 control-label">Organization Type <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="formOrganization" class="col-md-4 control-label">Organization Type <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-4">
 
@@ -34,7 +40,8 @@
                                         <option value="Select Organization Type">Select</option>
                                         <option value="animalwelfare">Animal Welfare</option>
                                         <option value="artsculturehumanities">Arts, Culture & Humanities</option>
-                                        <option value="civilrightsaction">Civil Rights, Social Action & Advocacy</option>
+                                        <option value="civilrightsaction">Civil Rights, Social Action & Advocacy
+                                        </option>
                                         <option value="communityimprovement">Community Improvement</option>
                                         <option value="corporategiving">Corporate Giving</option>
                                         <option value="education">Education K-12</option>
@@ -50,41 +57,52 @@
                                 </div>
                             </div>
 
-                                <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                                    <label for="firstname" class="col-md-4 control-label">  First Name  <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
-
-                                    <div class="col-md-6">
-                                        <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" placeholder="Your First Name" required autofocus>
-
-                                        @if ($errors->has('firstname'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('firstname') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
-                                    <label for="lastname" class="col-md-4 control-label">  First Name  <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
-
-                                    <div class="col-md-6">
-                                        <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" placeholder="Your First Name" required autofocus>
-
-                                        @if ($errors->has('lastname'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('lastname') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
+                                <label for="firstname" class="col-md-4 control-label"> First Name <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Enter Your Email Address" required>
+                                    <input id="firstname" type="text" class="form-control" name="firstname"
+                                           value="{{ old('firstname') }}" placeholder="Your First Name" required
+                                           autofocus>
+
+                                    @if ($errors->has('firstname'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('firstname') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+
+                            <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
+                                <label for="lastname" class="col-md-4 control-label"> First Name <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
+
+                                <div class="col-md-6">
+                                    <input id="lastname" type="text" class="form-control" name="lastname"
+                                           value="{{ old('lastname') }}" placeholder="Your First Name" required
+                                           autofocus>
+
+                                    @if ($errors->has('lastname'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('lastname') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
+                            </div>
+
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-md-4 control-label">E-Mail Address <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
+
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control" name="email"
+                                           value="{{ old('email') }}" placeholder="Enter Your Email Address" required>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -95,10 +113,14 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
-                                <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="phonenumber" class="col-md-4 control-label">Phone Number <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="phonenumber" type="text" class="form-control" name="phonenumber" value="{{ old('phonenumber') }}" placeholder="Phone Number" required autofocus>
+                                    <input id="phonenumber" type="text" class="form-control" name="phonenumber"
+                                           value="{{ old('phonenumber') }}" placeholder="Phone Number" required
+                                           autofocus>
 
                                     @if ($errors->has('phonenumber'))
                                         <span class="help-block">
@@ -109,12 +131,16 @@
                             </div>
 
 
-
-                            <div class="form-group">   <div class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
-                                    <label for="address1" class="col-md-4 control-label">Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="form-group">
+                                <div class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
+                                    <label for="address1" class="col-md-4 control-label">Address 1 <span
+                                                style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                    </label>
 
                                     <div class="col-md-6">
-                                        <input id="address1" type="text" class="form-control" name="address1" value="{{ old('address1') }}" placeholder="Street Address, Company Name, C/O" required autofocus>
+                                        <input id="address1" type="text" class="form-control" name="address1"
+                                               value="{{ old('address1') }}"
+                                               placeholder="Street Address, Company Name, C/O" required autofocus>
 
                                         @if ($errors->has('address1'))
                                             <span class="help-block">
@@ -126,15 +152,19 @@
                                 <label for="address2" class="col-md-4 control-label"> Address 2 </label>
 
                                 <div class="col-md-6">
-                                    <input id="address2" type="text" class="form-control" name="address2" value="{{ old('address2') }}" placeholder="Building, Apartment, Floor">
+                                    <input id="address2" type="text" class="form-control" name="address2"
+                                           value="{{ old('address2') }}" placeholder="Building, Apartment, Floor">
                                 </div>
                             </div>
 
                             <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
-                                <label for="city" class="col-md-4 control-label">City <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="city" class="col-md-4 control-label">City <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" placeholder="Name of the City" required autofocus>
+                                    <input id="city" type="text" class="form-control" name="city"
+                                           value="{{ old('city') }}" placeholder="Name of the City" required autofocus>
 
                                     @if ($errors->has('city'))
                                         <span class="help-block">
@@ -145,7 +175,9 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
-                                <label for="state" class="col-md-4 control-label">State <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="state" class="col-md-4 control-label">State <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
 
@@ -213,10 +245,14 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
-                                <label for="zipcode" class="col-md-4 control-label">Zipcode <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="zipcode" class="col-md-4 control-label">Zipcode <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="zipcode" type="text" pattern= "[0-9]{5}" class="form-control" name="zipcode" value="{{ old('zipcode') }}" placeholder="ZipCode" required autofocus>
+                                    <input id="zipcode" type="text" pattern="[0-9]{5}" class="form-control"
+                                           name="zipcode" value="{{ old('zipcode') }}" placeholder="ZipCode" required
+                                           autofocus>
 
                                     @if ($errors->has('zipcode'))
                                         <span class="help-block">
@@ -227,7 +263,9 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('taxexempt') ? ' has-error' : '' }}">
-                                <label for="taxexempt" class="col-md-4 control-label"> Are you a 501c3? <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="taxexempt" class="col-md-4 control-label"> Are you a 501c3? <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
 
@@ -243,7 +281,9 @@
 
 
                             <div class="form-group{{ $errors->has('formRequestFor') ? ' has-error' : '' }}">
-                                <label for="formRequestFor" class="col-md-4 control-label">Request For <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="formRequestFor" class="col-md-4 control-label">Request For <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
                                     <select class="form-control" name="formRequestFor" id="formRequestFor">
@@ -258,28 +298,34 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('formDonationPurpose') ? ' has-error' : '' }}">
-                                <label for="formDonationPurpose" class="col-md-4 control-label">Donation Purpose <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="formDonationPurpose" class="col-md-4 control-label">Donation Purpose <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
                                     <select class="form-control" name="formDonationPurpose" id="formDonationPurpose">
-                                            <option value="">Select...</option>
-                                            <option value="raffleprize">Raffle/Door Prize</option>
-                                            <option value="liveauction">Live Auction</option>
-                                            <option value="silentauction">Silent Auction</option>
-                                            <option value="onlineauction">Online Auction</option>
-                                            <option value="event">Walk/Run/Ride Event</option>
-                                            <option value="Other">Other (please explain)</option>
-                                        </select>
+                                        <option value="">Select...</option>
+                                        <option value="raffleprize">Raffle/Door Prize</option>
+                                        <option value="liveauction">Live Auction</option>
+                                        <option value="silentauction">Silent Auction</option>
+                                        <option value="onlineauction">Online Auction</option>
+                                        <option value="event">Walk/Run/Ride Event</option>
+                                        <option value="Other">Other (please explain)</option>
+                                    </select>
                                     </select>
                                 </div>
                             </div>
 
 
                             <div class="form-group{{ $errors->has('eventname') ? ' has-error' : '' }}">
-                                <label for="eventname" class="col-md-4 control-label">Name of the Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="eventname" class="col-md-4 control-label">Name of the Event <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="eventname" type="text" class="form-control" name="eventname" value="{{ old('eventname') }}" placeholder="Name of the Event" required autofocus>
+                                    <input id="eventname" type="text" class="form-control" name="eventname"
+                                           value="{{ old('eventname') }}" placeholder="Name of the Event" required
+                                           autofocus>
 
                                     @if ($errors->has('eventname'))
                                         <span class="help-block">
@@ -290,10 +336,14 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('eventdate') ? ' has-error' : '' }}">
-                                <label for="eventdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="eventdate" class="col-md-4 control-label">Event Date <span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="eventdate" type="text" class="form-control" name="eventdate" value="{{ old('eventdate') }}" placeholder="Date for the Event" required autofocus>
+                                    <input id="eventdate" type="text" class="form-control" name="eventdate"
+                                           value="{{ old('eventdate') }}" placeholder="Date for the Event" required
+                                           autofocus>
 
                                     @if ($errors->has('eventdate'))
                                         <span class="help-block">
@@ -304,10 +354,15 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('enddate') ? ' has-error' : '' }}">
-                                <label for="enddate" class="col-md-4 control-label">Donation Needed By<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="enddate" class="col-md-4 control-label">Donation Needed By<span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="enddate" type="text" class="form-control" name="enddate" value="{{ old('enddate') }}" placeholder="Date Donation will be picked up (if approved)" required autofocus>
+                                    <input id="enddate" type="text" class="form-control" name="enddate"
+                                           value="{{ old('enddate') }}"
+                                           placeholder="Date Donation will be picked up (if approved)" required
+                                           autofocus>
 
                                     @if ($errors->has('enddate'))
                                         <span class="help-block">
@@ -318,10 +373,15 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('eventpurpose') ? ' has-error' : '' }}">
-                                <label for="eventpurpose" class="col-md-4 control-label">Event Purpose<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="eventpurpose" class="col-md-4 control-label">Event Purpose<span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="eventpurpose" type="text" class="form-control" name="eventpurpose" value="{{ old('eventpurpose') }}" placeholder="Purpose of event..example: raise awareness, etc" required autofocus>
+                                    <input id="eventpurpose" type="text" class="form-control" name="eventpurpose"
+                                           value="{{ old('eventpurpose') }}"
+                                           placeholder="Purpose of event..example: raise awareness, etc" required
+                                           autofocus>
 
                                     @if ($errors->has('eventpurpose'))
                                         <span class="help-block">
@@ -332,7 +392,9 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('FormAttendees') ? ' has-error' : '' }}">
-                                <label for="FormAttendees" class="col-md-4 control-label">Estimated Number Of Attendes<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="FormAttendees" class="col-md-4 control-label">Estimated Number Of
+                                    Attendes<span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
                                     <select class="form-control" name="FormAttendees" id="FormAttendees">
@@ -350,10 +412,14 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('eventpurpose') ? ' has-error' : '' }}">
-                                <label for="inputvenue" class="col-md-4 control-label">Event Venue or Address<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="inputvenue" class="col-md-4 control-label">Event Venue or Address<span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="inputvenue" type="text" class="form-control" name="inputvenue" value="{{ old('inputvenue') }}" placeholder="Place event will be held" required autofocus>
+                                    <input id="inputvenue" type="text" class="form-control" name="inputvenue"
+                                           value="{{ old('inputvenue') }}" placeholder="Place event will be held"
+                                           required autofocus>
 
                                     @if ($errors->has('inputvenue'))
                                         <span class="help-block">
@@ -364,10 +430,16 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('eventpurpose') ? ' has-error' : '' }}">
-                                <label for="inputmarketingopportunities" class="col-md-4 control-label">What are the marketing opportunities to our business if approved?<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                                <label for="inputmarketingopportunities" class="col-md-4 control-label">What are the
+                                    marketing opportunities to our business if approved?<span
+                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                </label>
 
                                 <div class="col-md-6">
-                                    <input id="inputmarketingopportunities" type="text" class="form-control" name="inputmarketingopportunities" value="{{ old('inputmarketingopportunities') }}" placeholder="Please provide a brief description" required autofocus>
+                                    <input id="inputmarketingopportunities" type="text" class="form-control"
+                                           name="inputmarketingopportunities"
+                                           value="{{ old('inputmarketingopportunities') }}"
+                                           placeholder="Please provide a brief description" required autofocus>
 
                                     @if ($errors->has('inputmarketingopportunities'))
                                         <span class="help-block">
@@ -378,13 +450,13 @@
                             </div>
 
 
-
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
                                         Register
                                     </button>
-                                    <span style="color: red"> <h5>Fields Marked With (<span style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
+                                    <span style="color: red"> <h5>Fields Marked With (<span
+                                                    style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
 
                                 </div>
                             </div>

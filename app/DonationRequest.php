@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DonationRequest extends Model
 {
-    protected $fillable=[
+    protected $fillable = [
         'id',
         'organization',
         'formOrganization',
@@ -30,6 +30,6 @@ class DonationRequest extends Model
         'venue',
         'marketingopportunities'];
 
-        protected $table = 'donation_requests';
+    protected $table = 'donation_requests';
 
 }
