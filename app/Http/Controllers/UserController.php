@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Organization;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Route;
 
 class UserController extends Controller
 {
@@ -25,7 +26,6 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-//dd($request->org_name);
         $organization = new Organization;
         $organization->org_name = $request->org_name;
         $organization->org_description = $request->org_description;
@@ -53,8 +53,6 @@ class UserController extends Controller
             'phone_number' => $request['phone_number'],
             'organization_id' => $organization->id,
         ])->roles()->attach(3);
-
-
 
         return redirect('/securityquestions/create');
         //return view('users.create');

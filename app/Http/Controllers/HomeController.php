@@ -21,6 +21,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $loggedInUserId = \Auth::user()->id;
+        $user = \App\User::find($loggedInUserId);
+        foreach($user->roles as $role) {
+            $userRole = $role->name;
+        }
+        return view('home', ['role' => $userRole]);
     }
 }

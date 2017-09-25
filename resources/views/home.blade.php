@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        You are logged in!<br><br><br>
+                            <strong>{{$role}}</strong> is logged in!
 
                         <a href="{{route('insertcheck', Auth::id())}}" class="btn btn-primary">Reset Password</a>
 
