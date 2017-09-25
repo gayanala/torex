@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Organization;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Organization;
 
 
 class OrganizationController extends Controller
