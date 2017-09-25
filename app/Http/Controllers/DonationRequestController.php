@@ -10,7 +10,7 @@ use Validator;
 class DonationRequestController extends Controller
 {
     public function index()
-    {//dd();
+    {
         $donationrequest = DonationRequest::all();
         return view('donationrequests.Index', compact('donationrequest'));
     }
