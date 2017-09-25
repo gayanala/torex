@@ -25,9 +25,9 @@ class CreateSecurityquestionsTable extends Migration
             $table->string('answer3');
             $table->timestamps();
         });
-        Schema::table('securityquestions', function (Blueprint $table) {
+        /*Schema::table('securityquestions', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
+        });*/
     }
 
     /**
