@@ -52,7 +52,9 @@ class UserController extends Controller
             'zipcode' => $request['zipcode'],
             'phone_number' => $request['phone_number'],
             'organization_id' => $organization->id,
-        ]);
+        ])->roles()->attach(3);
+
+
 
         return redirect('/home');
         //return view('users.create');
