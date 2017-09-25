@@ -1,10 +1,9 @@
 <?php
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-$server = $url["host"] ?? env('DB_HOST', '127.0.0.1');
-$port = $url["port"] ?? env('DB_PORT', '3306');
-$username = $url["user"] ?? env('DB_USERNAME', 'root');
-$password = $url["pass"] ?? env('DB_PASSWORD', '');
-$db = substr($url["path"], 1) ?? env('DB_DATABASE', 'tagg');
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
 $conn = new mysqli($server, $username, $password, $db);
 return [
     /*
@@ -42,7 +41,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'host' => $server,
-            'port' => $port,
+            'port' => env('DB_PORT', '3306'),
             'database' => $db,
             'username' => $username,
             'password' => $password,
