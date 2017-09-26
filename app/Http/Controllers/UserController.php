@@ -15,11 +15,11 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware('auth');
-    }
-    
+    }*/
+
     public function index()
     {
         //
@@ -53,7 +53,7 @@ class UserController extends Controller
         $user->last_name = $request->last_name;
         $user->user_name = $request->email;
         $user->email = $request->email;
-        $user->password = bcrypt($request->passowrd);
+        $user->password = bcrypt($request->password);
         $user->street_address1 = $request->street_address1;
         $user->street_address2 = $request->street_address2;
         $user->city = $request->city;
