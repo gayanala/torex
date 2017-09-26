@@ -55,12 +55,11 @@ class UserController extends Controller
         $user->roles()->attach(3);
 
         $userid = $user->id;
-<<<<<<< HEAD
-        return redirect('/securityquestions/create')-> with('userId',$userid);
-=======
 
-        return redirect('/securityquestions/create')-> with('userId',[$userid]);
->>>>>>> dc9705ba4cd9e012d983361da1edb0c28f0664c5
+        return redirect('/securityquestions/create')-> with('userId',$userid);
+
+
+
         //return view('users.create');
     }
     /**
