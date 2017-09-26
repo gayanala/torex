@@ -25,7 +25,7 @@ class HomeController extends Controller
         $user = \App\User::find($loggedInUserId);
         foreach($user->roles as $role) {
             $userRole = $role->name;
-        }
+        }$userRole = 'luck';
         return view('home', ['role' => $userRole]);
     }
 }
