@@ -6,7 +6,6 @@ use App\Securityquestion;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Auth;
-use Session;
 use Validator;
 
 class SecurityquestionController extends Controller
@@ -28,7 +27,8 @@ class SecurityquestionController extends Controller
 
     public function create()
     {
-        $users = Auth::id();
+
+        $users = $_REQUEST->session()->get('userId');
         return view('securityquestions.create', compact('users'));
     }
 

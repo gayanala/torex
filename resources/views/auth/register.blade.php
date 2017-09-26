@@ -65,24 +65,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('user_name') ? ' has-error' : '' }}">
-                                <label for="user_name" class="col-md-4 control-label"> User Name <span
-                                            style="color: red; font-size: 20px; vertical-align:middle;">*</span>
-                                </label>
-
-                                <div class="col-md-6">
-                                    <input id="user_name" type="text" class="form-control" name="user_name"
-                                           value="{{ old('user_name') }}" placeholder="Set An User Name" required
-                                           autofocus>
-
-                                    @if ($errors->has('user_name'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('user_name') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label for="password" class="col-md-4 control-label">Password <span
                                             style="color: red; font-size: 20px; vertical-align:middle;">*</span>
