@@ -1,10 +1,7 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
     <h1>Profile Management</h1>
-    <!--
-    <a href="{{url('users')}}" class="btn btn-success"> Template</a>
-        -->
 
     <hr>
     <table class="table table-striped table-bordered table-hover">
@@ -19,7 +16,7 @@
             <th>State</th>
             <th>Zip Code</th>
             <th>Phone Number</th>
-            <th colspan="3"> </th>
+            <th colspan="3">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -35,8 +32,6 @@
                 <td>{{ $user->zipcode }}</td>
                 <td>{{ $user->phone_number }}</td>
                 <td><a href="{{route('users.edit',$user->id)}}" class="btn btn-warning"> Edit </a></td>
-
-
             </tr>
         @endforeach
 
