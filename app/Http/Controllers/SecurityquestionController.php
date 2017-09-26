@@ -42,11 +42,11 @@ class SecurityquestionController extends Controller
         $securityquestion = new Securityquestion($request->all());
 
         $validator = Validator::make($request->all(), [
-            'question1' => 'required|max:255',
+            'question1' => 'required',
             'answer1' => 'required',
-            'question2' => 'required|max:255',
+            'question2' => 'required',
             'answer2' => 'required',
-            'question3' => 'required|max:255',
+            'question3' => 'required',
             'answer3' => 'required',
         ]);
 

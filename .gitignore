@@ -27,3 +27,5 @@ yarn-error.log
 bootstrap/cache/packages.php
 	bootstrap/cache/services.php
 	storage/logs/laravel.log
+config/database.php
+config/database.php
