@@ -24,8 +24,11 @@ Route::get('Securityquestions/check/{id}', 'SecurityquestionController@check')->
 Route::get('securityquestions/insertcheck/{id}', 'SecurityquestionController@insertcheck')->name('insertcheck');
 
 Route::resource('securityquestions', 'SecurityquestionController');
+
 Route::resource('/users', 'UserController');
+
 Route::post('user/register', 'UserController@create');
+
 Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
