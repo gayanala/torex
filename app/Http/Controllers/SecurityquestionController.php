@@ -63,7 +63,7 @@ class SecurityquestionController extends Controller
 //        return redirect('securityquestions');
     }
 
-    public function insertcheck()
+    public function insertcheck(Request $request)
     {
         $users = $request->session()->get('userId');
         $securityquestion = Securityquestion::find($users);
