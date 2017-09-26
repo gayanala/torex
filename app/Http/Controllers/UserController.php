@@ -55,7 +55,12 @@ class UserController extends Controller
         $user->roles()->attach(3);
 
         $userid = $user->id;
+<<<<<<< HEAD
         return redirect('/securityquestions/create')-> with('userId',$userid);
+=======
+
+        return redirect('/securityquestions/create')-> with('userId',[$userid]);
+>>>>>>> dc9705ba4cd9e012d983361da1edb0c28f0664c5
         //return view('users.create');
     }
     /**
@@ -82,12 +87,13 @@ class UserController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
         //
-        $userUpdate = Request::all();
-        $user = User::find($id);
-        $user->update($userUpdate);
+        $userUpdate = $request->all();
+        //dd($userUpdate);
+        User::find($id)->update($userUpdate);
+        //$user;
         return redirect('users');
     }
 
