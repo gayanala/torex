@@ -48,6 +48,7 @@
                         <li><a href="{{ route('register') }}">Register</a></li>
                         <li><a href="donationrequest">Request Donation</a></li>
                         @else
+                            <li><a href="{{ url('/home') }}">Dashboard</a></li>
                             <li><a href="users">Update Profile</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
