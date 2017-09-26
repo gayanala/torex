@@ -25,10 +25,10 @@ class SecurityquestionController extends Controller
 //    }
 
 
-    public function create()
+    public function create(Request $request)
     {
 
-        $users = $_REQUEST->session()->get('userId');
+        $users = $request->session()->get('userId');
         return view('securityquestions.create', compact('users'));
     }
 
@@ -65,7 +65,7 @@ class SecurityquestionController extends Controller
 
     public function insertcheck()
     {
-        $users = Auth::id();
+        $users = $request->session()->get('userId');
         $securityquestion = Securityquestion::find($users);
         return view('securityquestions.insertcheck', compact('securityquestion'));
     }
@@ -76,7 +76,7 @@ class SecurityquestionController extends Controller
         $checkanswer2 = $request->a2;
         $checkanswer3 = $request->a3;
 
-        $userId = Auth::id();
+        $userId =$request->session()->get('userId');
 
         $answers = Securityquestion::findOrFail($userId);
         $securityAnswer1 = $answers->answer1;

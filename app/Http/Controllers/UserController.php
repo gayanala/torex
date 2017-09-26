@@ -36,6 +36,7 @@ class UserController extends Controller
         $organization->zipcode = $request->zipcode;
         $organization->phone_number = $request->phone_number;
         $organization->save();
+        $orgId = $organization->id;
 
         $user = new User;
         $user->first_name = $request->first_name;
@@ -49,12 +50,12 @@ class UserController extends Controller
         $user->state = $request->state;
         $user->zipcode = $request->zipcode;
         $user->phone_number = $request->phone_number;
-        $user->organization_id -> $organization->id;
+        $user->organization_id = $orgId;
         $user->save();
         $user->roles()->attach(3);
 
         $userid = $user->id;
-        return redirect('/securityquestions/create')-> with('userId',[$userid]);
+        return redirect('/securityquestions/create')-> with('userId',$userid);
         //return view('users.create');
     }
     /**
