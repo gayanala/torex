@@ -37,25 +37,25 @@ class UserController extends Controller
         $organization->phone_number = $request->phone_number;
         $organization->save();
 
-        User::create
-        ([
-            /*'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
-            'user_name' => $request['user_name'],*/
-            'name' => $request['first_name'],
-            'email' => $request['email'],
-            'password' => bcrypt($request['password']),
-            'street_address1' => $request['street_address1'],
-            'street_address2' => $request['street_address2'],
-            'city' => $request['city'],
-            'state' => $request['state'],
-            'zipcode' => $request['zipcode'],
-            'phone_number' => $request['phone_number'],
-            'organization_id' => $organization->id,
-        ])->roles()->attach(3);
+        $user = new User;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->user_name = $request->email;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->passowrd);
+        $user->street_address1 = $request->street_address1;
+        $user->street_address2 = $request->street_address2;
+        $user->city = $request->city;
+        $user->state = $request->state;
+        $user->zipcode = $request->zipcode;
+        $user->phone_number = $request->phone_number;
+        $user->organization_id -> $organization->id;
+        $user->save();
+        $user->roles()->attach(3);
 
         $userid = $user->id;
-        return redirect('/securityquestions/create', $userid );
+
+        return redirect('/securityquestions/create')-> with('userId',[$userid]);
         //return view('users.create');
     }
     /**
