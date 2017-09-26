@@ -73,6 +73,7 @@
                 @else
                     <a href="{{ route('login') }}">Login</a>
                     <a href="{{ route('register') }}">Register</a>
+                    <!-- <a href="{{ route('dontationrequest') }}">Request A Donation Here</a> -->
                     @endauth
         </div>
     @endif

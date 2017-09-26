@@ -54,7 +54,8 @@ class UserController extends Controller
             'organization_id' => $organization->id,
         ])->roles()->attach(3);
 
-        return redirect('/securityquestions/create');
+        $userid => user->id
+        return redirect('/securityquestions/create', $userid );
         //return view('users.create');
     }
     /**
