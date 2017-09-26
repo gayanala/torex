@@ -34,7 +34,7 @@
                 <td>{{ $user->state }}</td>
                 <td>{{ $user->zipcode }}</td>
                 <td>{{ $user->phone_number }}</td>
-                <td><a href="{{route('users.edit',$user->id)}}" class="btn btn-warning">Update</a></td>
+                <td><a href="{{route('users.edit',$user->id)}}" class="btn btn-warning"> Edit </a></td>
 
 
             </tr>

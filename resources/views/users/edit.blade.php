@@ -64,7 +64,7 @@
     </div>
 
     <div class="form-group">
-        {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
         {!! Form::submit('Cancel', ['class' => 'btn btn-primary']) !!}
 
         <h3>Thank You</h3>
