@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Securityquestion;
+use App\PasswordReset;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Auth;
@@ -65,8 +68,8 @@ class SecurityquestionController extends Controller
 
     public function insertcheck(Request $request)
     {
-        $users = $request->session()->get('userId');
-        $securityquestion = Securityquestion::find($users);
+        $users = Auth::id();
+        $securityquestion = Securityquestion::where('user_id', $users)->first();
         return view('securityquestions.insertcheck', compact('securityquestion'));
     }
 
@@ -76,17 +79,28 @@ class SecurityquestionController extends Controller
         $checkanswer2 = $request->a2;
         $checkanswer3 = $request->a3;
 
-        $userId =$request->session()->get('userId');
+        $userId = Auth::id();
 
-        $answers = Securityquestion::findOrFail($userId);
+        $answers = Securityquestion::where('user_id', $userId)->firstOrFail();
         $securityAnswer1 = $answers->answer1;
         $securityAnswer2 = $answers->answer2;
         $securityAnswer3 = $answers->answer3;
 
-        if (($securityAnswer1 == $checkanswer1) && ($securityAnswer2 == $checkanswer2) && ($securityAnswer3 == $checkanswer3)) {
+        if ((strtolower($securityAnswer1) == strtolower($checkanswer1)) && (strtolower($securityAnswer2) == strtolower($checkanswer2)) && (strtolower($securityAnswer3) == strtolower($checkanswer3))) {
+            // Session::flush();
+            // return redirect()->route('password.request');
 
-            Session::flush();
-            return redirect()->route('password.request');
+            $userInfo = User::find($userId);
+            $token = app('auth.password.broker')->createToken($userInfo);
+            $passReset = new PasswordReset();
+            $passReset->email = $userInfo->email;
+            $passReset->token = $token;
+            $passReset->created_at = Carbon::now();
+            $passReset->save();
+
+            $redirectURL = '/password/reset/'.$passReset->token;
+            //Session::flush();
+            return redirect($redirectURL);
         } else {
             return back()->with('error', '* Answers do not match the record.');
         }
