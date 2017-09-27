@@ -46,17 +46,25 @@
                     @guest
                         <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>
-                            <li><a href="donationrequest?orgId=1">Request Donation</a></li>
+                        <li><a href="donationrequest?orgId=1">Request Donation</a></li>
                         @else
                             <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                            <li><a href="users">Update Profile</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-expanded="false">
-                                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span class="caret"></span>
+                                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
+                                            class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="users">Update Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('reset-password') }}">
+                                            Reset Password
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
@@ -71,7 +79,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endguest
+                            @endguest
                 </ul>
             </div>
         </div>
