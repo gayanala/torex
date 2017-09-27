@@ -33,4 +33,12 @@ Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
 
+Route::post('/donate', 'DonationRequestController@store')->name('donation');
+
 Route::resource('/donationrequest', 'DonationRequestController');
+
+Route::get('change-password', function() {
+    return view('change-password');
+})->name('reset-password');
+
+Route::post('change-password', 'Auth\UpdatePasswordController@update');

@@ -31,5 +31,4 @@ class DonationRequest extends Model
         'marketingopportunities'];
 
     protected $table = 'donation_requests';
-
 }

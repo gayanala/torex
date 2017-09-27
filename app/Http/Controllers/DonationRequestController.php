@@ -19,15 +19,13 @@ class DonationRequestController extends Controller
     {
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
      * @return redirect
      */
     public function store(Request $request)
-    {//dd('Yup');
-        //dd($request);
+    {
         $this->validate($request,
             [
                 'organization' => 'required',
@@ -52,7 +50,6 @@ class DonationRequestController extends Controller
                 'venue' => 'required',
                 'marketingopportunities' => 'required'
             ]);
-
         $donationRequest = new DonationRequest;
         $donationRequest->organization = $request->organization;
         $donationRequest->formOrganization = $request->formOrganization;
@@ -75,41 +72,6 @@ class DonationRequestController extends Controller
         $donationRequest->marketingopportunities = $request->marketingopportunities;
         $donationRequest->save();
 
-        /**
-         * $donationrequest = new DonationRequestModel;
-         * $donationrequest ->organization = $donationrequest->input('organization');
-         * $donationrequest ->formOrganization = $donationrequest->input('formOrganization');
-         * $donationrequest ->firstname = $donationrequest->input('firstname');
-         * $donationrequest ->lastname = $donationrequest->input('lastname');
-         * $donationrequest ->email = $donationrequest->input('email');
-         * $donationrequest ->phonenumber = $donationrequest->input('phonenumber');
-         * $donationrequest ->address1 = $donationrequest->input('address1');
-         * $donationrequest ->addres21 = $donationrequest->input('address2');
-         * $donationrequest ->city = $donationrequest->input('city');
-         * $donationrequest ->state = $donationrequest->input('state');
-         * $donationrequest ->zipcode = $donationrequest->input('zipcode');
-         * $donationrequest ->taxexempt = $donationrequest->input('taxexempt');
-         * $donationrequest ->formRequestFor = $donationrequest->input('formRequestFor');
-         * $donationrequest ->formDonationPurpose = $donationrequest->input('formDonationPurpose');
-         * $donationrequest ->eventname = $donationrequest->input('eventname');
-         * $donationrequest ->eventdate = $donationrequest->input('eventdate');
-         * $donationrequest ->enddate = $donationrequest->input('enddate');
-         * $donationrequest ->eventpurpose = $donationrequest->input('eventpurpose');
-         * $donationrequest ->formAttendees = $donationrequest->input('formAttendees');
-         * $donationrequest ->venue = $donationrequest->input('venue');
-         * $donationrequest ->marketingopportunities = $donationrequest->input('marketingopportunities');
-         * $donationrequest ->save();
-         * return redirect('/')->with('response', 'Your donation request has been recieved.');
-         * }
-         */
-        /*if ($validator->fails()) {
-            dd('fail');
-            return redirect('donationrequest/create')
-                ->withErrors($validator)
-                ->withInput();
-        }*/
-        //$donationrequest = Request::all();
-        //DonationRequest::create($donationrequest);
         return redirect('/');
     }
 }

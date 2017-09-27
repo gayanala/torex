@@ -16,7 +16,7 @@
 
                         <strong>{{$role}}</strong> is logged in!
 
-                        <a href="{{route('insertcheck', Auth::id())}}" class="btn btn-primary">Reset Password</a>
+                        <a href="{{route('reset-password')}}" class="btn btn-primary">Reset Password</a>
 
                     </div>
                 </div>
