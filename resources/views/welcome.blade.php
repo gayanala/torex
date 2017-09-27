@@ -81,9 +81,9 @@
             <div class="content">
                 <div class="title m-b-md">
                     <b></b>
-                    <h1>Tagg</h1></b>
+                    <h1>Q</h1></b>
                 </div>
-                <div><h3>Together a greater good!</h3></div>
+                <div><h3></h3></div>
 
             </div>
         </div>
