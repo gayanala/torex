@@ -46,7 +46,7 @@
                     @guest
                         <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>
-                        <li><a href="donationrequest">Request Donation</a></li>
+                            <li><a href="donationrequest?orgId=1">Request Donation</a></li>
                         @else
                             <li><a href="{{ url('/home') }}">Dashboard</a></li>
                             <li><a href="users">Update Profile</a></li>

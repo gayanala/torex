@@ -8,29 +8,29 @@
                     <div class="panel-heading">Donation Request Form</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ url('/donate') }}">
+                        <form class="form-horizontal" method="POST" action="{{ action('DonationRequestController@store') }}">
                             {{ csrf_field() }}
-
-                            <div class="form-group{{ $errors->has('organization') ? ' has-error' : '' }}">
-                                <label for="organization" class="col-md-4 control-label">Name Of The Organization <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <input type="hidden" name="orgId" value="{{ $_GET['orgId'] }}">
+                            <div class="form-group{{ $errors->has('requester') ? ' has-error' : '' }}">
+                                <label for="requester" class="col-md-4 control-label">Name Of The Organization <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="organization" type="text" class="form-control" name="organization" value="{{ old('organization') }}" placeholder="Name of your organization" required autofocus>
+                                    <input id="requester" type="text" class="form-control" name="requester" value="{{ old('requester') }}" placeholder="Name of your organization" required autofocus>
 
-                                    @if ($errors->has('organization'))
+                                    @if ($errors->has('requester'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('organization') }}</strong>
+                                        <strong>{{ $errors->first('requester') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('formOrganization') ? ' has-error' : '' }}">
-                                <label for="formOrganization" class="col-md-4 control-label">Organization Type <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="form-group{{ $errors->has('requester_type') ? ' has-error' : '' }}">
+                                <label for="requester_type" class="col-md-4 control-label">Organization Type <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-4">
 
-                                    <select class="form-control" name="formOrganization" id="formOrganization">
+                                    <select class="form-control" name="requester_type" id="requester_type">
                                         <option value="Select Organization Type">Select</option>
                                         <option value="animalwelfare">Animal Welfare</option>
                                         <option value="artsculturehumanities">Arts, Culture & Humanities</option>
@@ -211,10 +211,10 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
-                                <label for="zipcode" class="col-md-4 control-label">Zipcode</label>
+                                <label for="zipcode" class="col-md-4 control-label">Zipcode <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="zipcode" type="number" class="form-control" name="zipcode" value="{{ old('zipcode') }}" placeholder="Your Zipcode" required autofocus>
+                                    <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{ old('zipcode') }}" placeholder="Your Zipcode" required autofocus>
 
                                     @if ($errors->has('zipcode'))
                                         <span class="help-block">
@@ -229,8 +229,8 @@
 
                                 <div class="col-md-6">
 
-                                    <input type="radio" name="taxexempt" value="yes">Yes
-                                    <input type="radio" name="taxexempt" value="no">No
+                                    <input type="radio" name="taxexempt" value="true">Yes
+                                    <input type="radio" name="taxexempt" value="false">No
                                     @if ($errors->has('taxexempt'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('taxexempt') }}</strong>
@@ -239,11 +239,11 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('formRequestFor') ? ' has-error' : '' }}">
-                                <label for="formRequestFor" class="col-md-4 control-label">Request For <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="form-group{{ $errors->has('item_requested') ? ' has-error' : '' }}">
+                                <label for="item_requested" class="col-md-4 control-label">Request For <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                                 <div class="col-md-6">
-                                    <select class="form-control" name="formRequestFor" id="formRequestFor">
+                                    <select class="form-control" name="item_requested" id="item_requested">
                                         <option value="">Select...</option>
                                         <option value="productorservice">Product or Service Donation</option>
                                         <option value="sponsorship">Sponsorship/Advertisement</option>
@@ -254,11 +254,11 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('formDonationPurpose') ? ' has-error' : '' }}">
-                                <label for="formDonationPurpose" class="col-md-4 control-label">Donation Purpose <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="form-group{{ $errors->has('item_purpose') ? ' has-error' : '' }}">
+                                <label for="item_purpose" class="col-md-4 control-label">Donation Purpose <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                                 <div class="col-md-6">
-                                    <select class="form-control" name="formDonationPurpose" id="formDonationPurpose">
+                                    <select class="form-control" name="item_purpose" id="item_purpose">
                                         <option value="">Select...</option>
                                         <option value="raffleprize">Raffle/Door Prize</option>
                                         <option value="liveauction">Live Auction</option>
@@ -285,22 +285,22 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('eventdate') ? ' has-error' : '' }}">
-                                <label for="eventdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="form-group{{ $errors->has('startdate') ? ' has-error' : '' }}">
+                                <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="eventdate" type="date" class="form-control" name="eventdate" value="{{ old('eventdate') }}" placeholder="Start Date" required autofocus>
+                                    <input id="startdate" type="date" class="form-control" name="startdate" value="{{ old('startdate') }}" placeholder="Start Date" required autofocus>
 
-                                    @if ($errors->has('eventdate'))
+                                    @if ($errors->has('startdate'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('eventdate') }}</strong>
+                                        <strong>{{ $errors->first('startdate') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
                             <div class="form-group{{ $errors->has('enddate') ? ' has-error' : '' }}">
-                                <label for="enddate" class="col-md-4 control-label">End Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</label>
+                                <label for="enddate" class="col-md-4 control-label">End Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
                                     <input id="enddate" type="date" class="form-control" name="enddate" value="{{ old('enddate') }}" placeholder="End Date" required autofocus>
@@ -314,7 +314,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('eventpurpose') ? ' has-error' : '' }}">
-                                <label for="eventpurpose" class="col-md-4 control-label">Purpose Of The Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</label>
+                                <label for="eventpurpose" class="col-md-4 control-label">Purpose Of The Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
                                     <input id="eventpurpose" type="text" class="form-control" name="eventpurpose" value="{{ old('eventpurpose') }}" placeholder="Purpose of the Event" required autofocus>
