@@ -1,10 +1,8 @@
 <?php
-
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
-class DropDonationRequests extends Migration
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+class CreateDonationRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +10,6 @@ class DropDonationRequests extends Migration
      * @return void
      */
     public function up()
-    {
-            Schema::dropIfExists('donation_requests');
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
     {
         Schema::create('donation_requests', function (Blueprint $table) {
             $table->increments('id');
@@ -50,5 +38,14 @@ class DropDonationRequests extends Migration
             $table->string('marketing_opportunities');
             $table->timestamps();
         });
+    }
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('donation_requests');
     }
 }
