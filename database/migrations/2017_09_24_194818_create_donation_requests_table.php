@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
 class CreateDonationRequestsTable extends Migration
 {
     /**
@@ -17,32 +15,30 @@ class CreateDonationRequestsTable extends Migration
             $table->increments('id');
             $table->integer('organization_id')->unsigned()->index();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
-            $table->string('orgID');
-            $table->string('organization');
-            $table->string('formOrganization');
-            $table->string('firstname');
-            $table->string('lastname');
+            $table->string('requester');
+            $table->string('requester_type');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email');
-            $table->string('phonenumber');
-            $table->string('address1');
-            $table->string('address2');
+            $table->string('phone_number');
+            $table->string('street_address1');
+            $table->string('street_address2')->nullable();
             $table->string('city');
             $table->string('state');
             $table->integer('zipcode');
-            $table->string('taxexempt');
-            $table->string('formRequestFor');
-            $table->string('formDonationPurpose');
-            $table->string('eventname');
-            $table->string('eventdate');
-            $table->string('enddate');
-            $table->string('eventpurpose');
-            $table->string('formAttendees');
+            $table->boolean('tax_exempt');
+            $table->string('item_requested');
+            $table->string('item_purpose');
+            $table->string('event_name');
+            $table->string('event_start_date');
+            $table->string('event_end_date');
+            $table->string('event_purpose');
+            $table->string('est_attendee_count');
             $table->string('venue');
-            $table->string('marketingopportunities');
+            $table->string('marketing_opportunities');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
