@@ -29,3 +29,7 @@ bootstrap/cache/packages.php
 	storage/logs/laravel.log
 config/database.php
 config/database.php
+bootstrap/cache/services.php
+composer.lock
+config/database.php
+composer.lock
