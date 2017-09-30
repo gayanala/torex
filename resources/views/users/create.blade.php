@@ -1,62 +1,33 @@
-@extends('app')
+@extends('layouts.app')
 @section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> Create A User </div>
 
-    <h1>Template</h1>
+                    <div class="panel-body">
 
-    {!! Form::open(['url' => 'users']) !!}
+                        {!! Form::model($user,['method' => 'PATCH', 'route'=>['users.update',$user->id], 'class' => 'form-horizontal']) !!}
 
-    <div class="form-group">
-        {!! Form::label('First Name', 'First Name:') !!}
-        {!! Form::text('first_name',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Last Name', 'Last Name:') !!}
-        {!! Form::text('last_name',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('User Name', 'User Name:') !!}
-        {!! Form::text('user_name',null,['class'=>'form-control']) !!}
-    </div>
 
-    <div class="form-group">
-        {!! Form::label('Email', 'Email:') !!}
-        {!! Form::text('email',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Password', 'Password:') !!}
-        {!! Form::text('password',null,['class'=>'form-control']) !!}
-    </div>
+                        <div class="form-group">
+                            {!! Form::label('Email', 'Email:', ['class'=>'col-md-4 control-label']) !!}
+                            <div class="col-lg-6">{!! Form::text('email',null,['required'],['class'=>'form-control']) !!}</div>
+                        </div>
 
-    <div class="form-group">
-        {!! Form::label('Street Address', 'Street Address 1:') !!}
-        {!! Form::text('street_address1',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Street Address', 'Street Address 2:') !!}
-        {!! Form::text('street_address2',null,['class'=>'form-control']) !!}
-    </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <td><a href="{{route('register',$user->id)}}" class="btn btn-warning"> create acct </a>
+                                </td>
+                                {!! Form::submit('Cancel', ['class' => 'btn btn-primary']) !!}
 
-    <div class="form-group">
-        {!! Form::label('City', 'City:') !!}
-        {!! Form::text('city',null,['class'=>'form-control']) !!}
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        {!! Form::label('State', 'State:') !!}
-        {!! Form::text('state',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Zip Code', 'Zip Code:') !!}
-        {!! Form::text('zipcode',null,['class'=>'form-control']) !!}
-    </div>
-
-    <div class="form-group">
-        {!! Form::label('Phone Number', 'Phone Number:') !!}
-        {!! Form::text('phone_number',null,['class'=>'form-control']) !!}
-    </div>
-
-    <div class="form-group">
-        {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}
-    </div>
-    {!! Form::close() !!}
-@stop
+@endsection

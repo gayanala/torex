@@ -1,62 +1,65 @@
-@extends('app')
+@extends('layouts.app')
 @section('content')
-    <h1>Profile Details</h1>
-
     <div class="container">
-        <table class="table table-striped table-bordered table-hover">
-            <tbody>
-            <tr class="bg-info">
-            <tr>
-                <td>First Name</td>
-                <td><?php echo($user['first_name']); ?></td>
-            </tr>
-            <tr>
-                <td>Last Name</td>
-                <td><?php echo($user['last_name']); ?></td>
-            </tr>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> Create A User </div>
 
-            <tr>
-                <td>User Name</td>
-                <td><?php echo($user['user_name']); ?></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><?php echo($user['email']); ?></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td><?php echo($user['password']); ?></td>
-            </tr>
+                    <div class="panel-body">
 
-            <td>Street Address 1</td>
-            <td><?php echo($user['street_address1']); ?></td>
-            </tr>
+                        {!! Form::model($user, ['method' => 'PATCH',  'route'=>['users.update',$user->id],'class' => 'form-horizontal']) !!}
 
-            <td>Street Address 2</td>
-            <td><?php echo($user['street_address2']); ?></td>
-            </tr>
+                        <div class="form-group">
 
-            <tr>
-                <td>City</td>
-                <td><?php echo($user['city']); ?></td>
-            </tr>
+                            {!! Form::label('First Name', 'First Name:', ['class'=>'col-md-4 control-label', ]) !!}
+                            <div class="col-lg-6">
+                                {!! Form::text('first_name',null,['required'], ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
 
-            <td>State</td>
-            <td><?php echo($user['state']); ?></td>
-            </tr>
+                        <div class="form-group">
+                            {!! Form::label('Last Name', 'Last Name:', ['class'=>'col-md-4 control-label']) !!}
+                            <div class="col-lg-6">
+                                {!! Form::text('last_name',null,['required'], ['class' => 'form-control'] ) !!}</div>
+                        </div>
 
-            <tr>
-                <td>ZipCode</td>
-                <td><?php echo($user['zipcode']); ?></td>
-            </tr>
+                        <div class="form-group">
+                            {!! Form::label('Email', 'Email:', ['class'=>'col-md-4 control-label']) !!}
+                            <div class="col-lg-6">{!! Form::text('email',null,['required'],['class'=>'form-control']) !!}</div>
+                        </div>
 
-            <td>Phone Number</td>
-            <td><?php echo($user['phone_number']); ?></td>
-            </tr>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                        <input type="radio" name="role"
+                               <?php if (isset($role) && $role=="Admin") echo "checked";?>
+                               value="Admin"> Admin
+                            </div>
+                        </div>
 
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                        <input type="radio" name="role"
+                               <?php if (isset($role) && $role=="User") echo "checked";?>
+                               value="User"> Standard User
+                         </div>
+                         </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
 
-            </tbody>
-        </table>
+                                <td><a href="{{route('register',$user->id)}}" class="btn btn-warning"> Create User </a>
+                                </td>
+                                {!! Form::submit('Cancel', ['class' => 'btn btn-primary']) !!}
+
+                                <span style="color: red"> <h5>All Fields Are Mandatory</h5></span>
+                                
+                            </div>
+                        </div>
+
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-@stop
+@endsection

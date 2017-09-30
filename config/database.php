@@ -4,7 +4,7 @@ $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 $server = $url["host"];
 $username = $url["user"];
-$password = $url["pass"] ?? '';
+$password = $url["pass"] ?? '123';
 $db = substr($url["path"], 1);
 
 $conn = new mysqli($server, $username, $password, $db);
@@ -54,6 +54,8 @@ return [
             'prefix' => '',
             'strict' => false,
             'engine' => null,
+
+                'unix_socket'=> '/Applications/MAMP/tmp/mysql/mysql.sock',
         ],
         
         'pgsql' => [

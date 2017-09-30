@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h1>Profile Management</h1></div>
+                    <div class="panel-heading"><h1> View & Update Profile </h1></div>
 
                     <div class="panel-body">
                         <table class="table table-striped table-bordered table-hover">
@@ -38,11 +38,15 @@
                                     <td><a href="{{route('users.edit',$user->id)}}" class="btn btn-warning"> Edit </a>
                                     </td>
                                 </tr>
+
                             @endforeach
 
                             </tbody>
 
                         </table>
+                        <div class="panel-heading"><h1>Add a User</h1></div>
+                        <td><a href="{{route('users.show',$user->id)}}" class="btn btn-warning"> Create Account </a>
+
                     </div>
                 </div>
             </div>
