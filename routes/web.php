@@ -37,6 +37,8 @@ Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
 Route::resource('/donationrequest', 'DonationRequestController');
 
+Route::get('/donationrequest/create', 'DonationRequestController@create')->name('donation');
+
 Route::get('change-password', function() {
     return view('change-password');
 })->name('reset-password');

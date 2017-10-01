@@ -14,10 +14,12 @@ class DonationRequestController extends Controller
         $donationrequest = DonationRequest::all();
         return view('donationrequests.Index', compact('donationrequest'));
     }
-    public function create(Request $request)
-    {
 
+    public function create()
+    {
+        return view('donationrequests.create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -28,6 +30,7 @@ class DonationRequestController extends Controller
     public function store(Request $request)
     {//dd('Yup');
         //dd($request);
+
         $validator = Validator::make($request->all(), [
             'requester' => 'required',
             'requester_type' => 'required',
@@ -51,6 +54,7 @@ class DonationRequestController extends Controller
             'venue' => 'required',
             'marketingopportunities' => 'required'
         ]);
+        //dd($request);
         if ($validator->fails())
         {
             return redirect('donationrequest') ->withErrors($validator)->withInput();
@@ -79,6 +83,8 @@ class DonationRequestController extends Controller
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
         //dd($donationRequest);
+        //dd($request->taxexempt);
+        //dd($donationRequest->tax_exempt);
         $donationRequest->save();
 
         return redirect('/');
