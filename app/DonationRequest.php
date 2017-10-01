@@ -25,6 +25,7 @@ class DonationRequest extends Model
         'event_purpose',
         'est_attendee_count',
         'venue',
-        'marketing_opportunities'];
-     protected $table = 'donation_requests';
+        'marketing_opportunities'
+    ];
+//     protected $table = 'donation_requests';
 }

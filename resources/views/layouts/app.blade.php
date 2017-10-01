@@ -64,7 +64,7 @@
             </div>
         @else
             <div class="w3-right">
-                <a href="donationrequest?orgId=1" class="w3-bar-item w3-button">Request Donation</a>
+                <a href="{{ route('donationrequests.index')}} " class="w3-bar-item w3-button">Donation Requests</a>
                 <a href="{{ url('/home') }}" class="w3-bar-item w3-button">
                         {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                 </a>

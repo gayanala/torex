@@ -344,7 +344,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group{{ $errors->has('eventpurpose') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('inputvenue') ? ' has-error' : '' }}">
                                 <label for="inputvenue" class="col-md-4 control-label">Event Venue or Address<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                                 <div class="col-md-6">

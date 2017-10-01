@@ -11,8 +11,8 @@ class DonationRequestController extends Controller
 {
     public function index()
     {
-        $donationrequest = DonationRequest::all();
-        return view('donationrequests.Index', compact('donationrequest'));
+        $donationrequests = DonationRequest::all();
+        return view('donationrequests.index', compact('donationrequests'));
     }
 
     public function create()
@@ -20,6 +20,20 @@ class DonationRequestController extends Controller
         return view('donationrequests.create');
     }
 
+    public function edit($id)
+    {
+        $donationrequest=DonationRequest::find($id);
+        return view('donationrequests.edit',compact('donationrequest'));
+    }
+
+    public function update($id,Request $request)
+    {
+
+        $donationrequest= new DonationRequest($request->all());
+        $donationrequest=DonationRequest::find($id);
+        $donationrequest->update($request->all());
+        return redirect('donationrequests');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -57,7 +71,7 @@ class DonationRequestController extends Controller
         //dd($request);
         if ($validator->fails())
         {
-            return redirect('donationrequest') ->withErrors($validator)->withInput();
+            return redirect('donationrequests') ->withErrors($validator)->withInput();
         }
         $donationRequest = new DonationRequest;
         $donationRequest->organization_id = $request->orgId;
@@ -82,11 +96,14 @@ class DonationRequestController extends Controller
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
-        //dd($donationRequest);
-        //dd($request->taxexempt);
-        //dd($donationRequest->tax_exempt);
         $donationRequest->save();
 
         return redirect('/');
+    }
+
+    public function show($id)
+    {
+        $donationrequest = DonationRequest::findOrFail($id);
+        return view('donationrequests.show',compact('donationrequest'));
     }
 }
