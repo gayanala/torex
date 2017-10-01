@@ -6,6 +6,9 @@ use App\User;
 use App\Organization;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Route;
+use Illuminate\Http\withErrors;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -22,7 +25,6 @@ class UserController extends Controller
 
     public function index()
     {
-        //
         $users = User::all();
         return view('users.index', compact('users'));
     }
@@ -96,14 +98,26 @@ class UserController extends Controller
      * @param  int $id
      * @return Response
      */
-
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'phone_number' => 'required|regex:/[0-9]{9}/',
+            'zipcode' => 'required|regex:/[0-9]{5}/',
+            'state' => 'required',
+                'email' => [
+                    'required',
+                    Rule::unique('users')->ignore($id),
+                ],
+        ]);
+
+        if ($validator->fails())
+        {
+            return redirect() ->back()->withErrors($validator)->withInput();
+        }
+        
         $userUpdate = $request->all();
-        //dd($userUpdate);
         User::find($id)->update($userUpdate);
-        //$user;
+
         return redirect('users');
     }
 
