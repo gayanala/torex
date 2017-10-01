@@ -48,7 +48,7 @@ return [
             'port' => env('DB_PORT', '3306'),
             'database' => $db,
             'username' => $username,
-            'password' => $password,
+            'password' => env('DB_PASSWORD', $password),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',

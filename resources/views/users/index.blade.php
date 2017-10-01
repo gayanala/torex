@@ -24,7 +24,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($users as $user)
+                            {{--@foreach ($users as $user)--}}
                                 <tr>
                                     <td>{{ $user->first_name }}</td>
                                     <td>{{ $user->last_name }}</td>
@@ -38,15 +38,11 @@
                                     <td><a href="{{route('users.edit',$user->id)}}" class="btn btn-warning"> Edit </a>
                                     </td>
                                 </tr>
-
-                            @endforeach
-
+                            {{--@endforeach--}}
                             </tbody>
-
                         </table>
                         <div class="panel-heading"><h1>Add a User</h1></div>
                         <td><a href="{{route('users.show',$user->id)}}" class="btn btn-warning"> Create Account </a>
-
                     </div>
                 </div>
             </div>
