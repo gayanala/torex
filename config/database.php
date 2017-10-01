@@ -4,7 +4,7 @@ $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 $server = $url["host"];
 $username = $url["user"];
-$password = $url["pass"] ?? '123';
+$password = $url["pass"] ?? '';
 $db = substr($url["path"], 1);
 
 $conn = new mysqli($server, $username, $password, $db);
@@ -48,7 +48,7 @@ return [
             'port' => env('DB_PORT', '3306'),
             'database' => $db,
             'username' => $username,
-            'password' => $password,
+            'password' => env('DB_PASSWORD', $password),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
