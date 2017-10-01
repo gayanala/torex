@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\DonationRequest;
 use App\User;
 use App\Organization;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Route;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -22,9 +24,8 @@ class UserController extends Controller
 
     public function index()
     {
-        //
-        $users = User::all();
-        return view('users.index', compact('users'));
+        $user = Auth::user();
+        return view('users.index', compact('user'));
     }
 
     public function show($id)
@@ -101,9 +102,7 @@ class UserController extends Controller
     {
         //
         $userUpdate = $request->all();
-        //dd($userUpdate);
         User::find($id)->update($userUpdate);
-        //$user;
         return redirect('users');
     }
 
