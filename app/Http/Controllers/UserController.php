@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\DonationRequest;
 use App\User;
 use App\Organization;
 use Illuminate\Http\Request;
