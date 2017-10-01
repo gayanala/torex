@@ -70,9 +70,6 @@ class UserController extends Controller
 
         return redirect('/securityquestions/create')-> with('userId',$userid);
 
-
-
-        //return view('users.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -114,7 +111,7 @@ class UserController extends Controller
         {
             return redirect() ->back()->withErrors($validator)->withInput();
         }
-        
+
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
 
