@@ -11,7 +11,7 @@ class DonationRequestController extends Controller
 {
     public function index()
     {
-        $donationrequests = DonationRequest::all();
+        $donationrequests = DonationRequest::paginate(5);
         return view('donationrequests.index', compact('donationrequests'));
     }
 
@@ -42,9 +42,7 @@ class DonationRequestController extends Controller
 
 
     public function store(Request $request)
-    {//dd('Yup');
-        //dd($request);
-
+    {
         $validator = Validator::make($request->all(), [
             'requester' => 'required',
             'requester_type' => 'required',
@@ -105,5 +103,12 @@ class DonationRequestController extends Controller
     {
         $donationrequest = DonationRequest::findOrFail($id);
         return view('donationrequests.show',compact('donationrequest'));
+    }
+
+    public function searchDonationRequest(Request $request) {
+
+        $query = $request->q;
+        $donationrequests = DonationRequest::where('requester', 'LIKE', "%$query%")->paginate(3);
+        return view('donationrequests.index', compact('donationrequests'));
     }
 }

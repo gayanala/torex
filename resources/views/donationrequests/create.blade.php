@@ -45,7 +45,6 @@
                                         <option value="youthactivities">Youth Sports/Activities</option>
                                         <option value="other">Others</option>
                                     </select>
-
                                 </div>
                             </div>
 
