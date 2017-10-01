@@ -35,14 +35,14 @@
                             <tbody>
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
-                                    <td>{{ $donationrequest->requester }}</td>
-                                    <td>{{ $donationrequest->requester_type }}</td>
-                                    <td>{{ $donationrequest->city }}</td>
-                                    <td>{{ $donationrequest->state }}</td>
-                                    <td>{{ $donationrequest->zipcode }}</td>
-                                    <td>{{ $donationrequest->event_name }}</td>
-                                    <td><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>
-                                    <td><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>
+                                    <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->requester_type }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->city }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->state }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->zipcode }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>
+                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>
+                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>
                                 </tr>
                             @endforeach
                             {{$donationrequests->links()}}
