@@ -33,3 +33,4 @@ config/database.php
 composer.lock
 bootstrap/cache/services.php
 config/database.php
+config/database.php
