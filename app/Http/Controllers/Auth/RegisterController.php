@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
+use App\State;
 
 class RegisterController extends Controller
 {
@@ -39,6 +40,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        $states = State::pluck('state_name', 'state_code');
+        return view('auth.register', compact('states'));
+    }
     /**
      * Get a validator for an incoming registration request.
      *
