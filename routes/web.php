@@ -53,3 +53,5 @@ Route::post('/sendmail', function (\Illuminate\Http\Request $request, \Illuminat
         ->send(new \App\Mail\StartMail($request->input('title')));
     return redirect()->back();
 })->name('sendmail');
+
+Route::get('/email', 'EmailController@email') ->name('sendEmail');
