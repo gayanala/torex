@@ -29,8 +29,12 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="panel-heading"><h1>Add a User</h1></div>
-                        <td><a href="{{route('users.show',$user->id)}}" class="btn btn-warning"> Create Account </a>
+                    </div>
+
+                    <div class="panel-heading"><h1> Add a User </h1></div>
+                    <div class="panel-body">
+                    <td><a href="{{route('users.show',$user->id)}}" class="btn btn-warning"> Create Account </a>
+                    </td>
                     </div>
                 </div>
             </div>
