@@ -18,7 +18,7 @@
                         @endif
 
                         <div class="form-group">
-                            {!! Form::label('First Name', 'First Name:', ['class'=>'col-md-4 control-label', ]) !!}
+                            {!! Form::label('First Name', 'First Name:', ['class'=>'col-md-4 control-label' ]) !!}
                             <div class="col-lg-6">
                                 {!! Form::text('first_name',null,['required'], ['class' => 'form-control']) !!}
                             </div>
