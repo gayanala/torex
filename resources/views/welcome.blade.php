@@ -11,6 +11,15 @@
         </div>
     </div>
 
+    <div class="bottom">
+        <form action="{{ route('sendmail') }}" method="post">
+            <input type="email" name="mail" placeholder="mail address">
+            <input type="text" name="title" placeholder="message">
+            <button type="submit">Send Mail</button>
+            {{ csrf_field() }}
+        </form>
+    </div>
+
 @yield('content')
 
 </body>

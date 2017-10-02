@@ -11,14 +11,17 @@ class StartMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $title;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($title)
     {
         //
+        $this->title = $title;
     }
 
     /**
@@ -29,7 +32,7 @@ class StartMail extends Mailable
     public function build()
     {
 
-        return $this->from('akhileshkontham@gmail.com')
-                    ->view('view.name');
+        return $this->from('noreply@testqapp.com')
+                    ->view('emails.startmail');
     }
 }

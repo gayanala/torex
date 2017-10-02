@@ -9,6 +9,16 @@
         </div>
     </div>
 
+    <div class="bottom">
+        <form action="<?php echo e(route('sendmail')); ?>" method="post">
+            <input type="email" name="mail" placeholder="mail address">
+            <input type="text" name="title" placeholder="message">
+            <button type="submit">Send Mail</button>
+            <?php echo e(csrf_field()); ?>
+
+        </form>
+    </div>
+
 <?php echo $__env->yieldContent('content'); ?>
 
 </body>
