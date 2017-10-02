@@ -40,6 +40,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * Overwritten function from RegistersUsers class
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showRegistrationForm()
     {
         $states = State::pluck('state_name', 'state_code');
