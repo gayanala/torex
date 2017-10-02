@@ -16,8 +16,9 @@ class ModifyStateOnUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('state');
         });
-        Schema::table('organizations', function (Blueprint $table) {
-            $table->char('state',2)->references('state_code')->on('states')->after('city');
+        Schema::table('users', function (Blueprint $table) {
+            $table->char('state',2)->after('city');
+            $table->foreign('state')->references('state_code')->on('states');
         });
     }
 
@@ -28,10 +29,10 @@ class ModifyStateOnUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('organizations', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('state');
         });
-        Schema::table('organizations', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->string('state')->after('city');
         });
     }

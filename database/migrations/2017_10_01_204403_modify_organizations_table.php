@@ -14,12 +14,17 @@ class ModifyOrganizationsTable extends Migration
     public function up()
     {
         Schema::table('organizations', function (Blueprint $table) {
-            $table->dropColumn('state');
+            /*if (Schema::hasColumn('organizations','state'))
+            {*/
+                $table->dropColumn('state');
+            //}
+
         });
         Schema::table('organizations', function (Blueprint $table) {
-            $table->char('state',2)->references('state_code')->on('states')->after('city');
+            $table->char('state',2)->after('city');
+            $table->foreign('state')->references('state_code')->on('states')->onDelete('cascade');
             $table->integer('organization_type_id')->after('org_name');
-            $table->foreign('organization_type_id')->references('id')->on('organization_types');
+            $table->foreign('organization_type_id')->references('id')->on('organization_types')->onDelete('cascade');
         });
     }
 
