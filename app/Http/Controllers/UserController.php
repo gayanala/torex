@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         $organization = new Organization;
         $organization->org_name = $request->org_name;
-        $organization->org_description = $request->org_description;
+        $organization->organization_type_id = $request->organization_type_id;
         $organization->street_address1 = $request->street_address1;
         $organization->street_address2 = $request->street_address2;
         $organization->city = $request->city;
