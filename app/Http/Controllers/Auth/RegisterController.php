@@ -49,7 +49,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $states = State::pluck('state_name', 'state_code');
-        $Organization_types = Organization_type::pluck('type_name');
+        $Organization_types = Organization_type::pluck('type_name', 'id');
         return view('auth.register', compact('states', 'Organization_types'));
     }
     /**
