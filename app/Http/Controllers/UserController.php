@@ -79,6 +79,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->organization_id);
         $user = $request->all();
         User::create($user);
         return redirect('users');
