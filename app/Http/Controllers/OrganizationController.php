@@ -19,7 +19,7 @@ class OrganizationController extends Controller
     {
         return Validator::make($data, [
             'org_name' => 'required|string|max:255',
-            'org_description' => 'required',
+            'organization_type_id' => 'required',
             'street_address1' => 'required|string|max:255',
             'street_address2' => 'string|max:255',
             'city' => 'required|string|max:255',
@@ -37,7 +37,7 @@ class OrganizationController extends Controller
     {
         return Organization::create([
             'org_name' => $request['org_name'],
-            'org_description' => $request['org_description'],
+            'organization_type_id' => $request['org_description'],
             'street_address1' => $request['street_address1'],
             'street_address2' => $request['street_address2'],
             'city' => $request['city'],

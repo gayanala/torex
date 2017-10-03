@@ -111,16 +111,16 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('org_description') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('organization_type_id') ? ' has-error' : '' }}">
                                 <label for="org_description" class="col-md-4 control-label"> Organization Type <span
                                             style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::select('org_description', $Organization_types, null, ['class'=>'form-control']) !!}
-                                    @if ($errors->has('org_description'))
+                                    {!! Form::select('organization_type_id', $Organization_types, null, ['class'=>'form-control']) !!}
+                                    @if ($errors->has('organization_type_id'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('org_description') }}</strong>
+                                        <strong>{{ $errors->first('organization_type_id') }}</strong>
                                     </span>
                                     @endif
                                 </div>
