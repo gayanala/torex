@@ -27,24 +27,13 @@
                             <div class="form-group{{ $errors->has('requester_type') ? ' has-error' : '' }}">
                                 <label for="requester_type" class="col-md-4 control-label">Organization Type <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
-                                <div class="col-md-4">
-
-                                    <select class="form-control" name="requester_type" id="requester_type">
-                                        <option value="Select Organization Type">Select</option>
-                                        <option value="animalwelfare">Animal Welfare</option>
-                                        <option value="artsculturehumanities">Arts, Culture & Humanities</option>
-                                        <option value="civilrightsaction">Civil Rights, Social Action & Advocacy</option>
-                                        <option value="communityimprovement">Community Improvement</option>
-                                        <option value="corporategiving">Corporate Giving</option>
-                                        <option value="education">Education K-12</option>
-                                        <option value="environment">Environment</option>
-                                        <option value="faithreligious">Faith/Religious</option>
-                                        <option value="foodnutrition">Food, Agriculture & Nutrition</option>
-                                        <option value="healthcare">Health Care</option>
-                                        <option value="humanservices">Human Services</option>
-                                        <option value="youthactivities">Youth Sports/Activities</option>
-                                        <option value="other">Others</option>
-                                    </select>
+                                <div class="col-md-6">
+                                    {!! Form::select('requester_type', array(null => 'Select...') + $requester_types->all(), null, ['class'=>'form-control']) !!}
+                                    @if ($errors->has('requester_type'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('requester_type') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
 
@@ -144,62 +133,7 @@
                                 <label for="state" class="col-md-4 control-label">State <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                                 <div class="col-md-6">
-
-                                    <select class="form-control" name="state" id="state" required autofocus>
-                                        <option value="Select State">Select State</option>
-                                        <option value="AL">Alabama</option>
-                                        <option value="AK">Alaska</option>
-                                        <option value="AZ">Arizona</option>
-                                        <option value="AR">Arkansas</option>
-                                        <option value="CA">California</option>
-                                        <option value="CO">Colorado</option>
-                                        <option value="CT">Connecticut</option>
-                                        <option value="DE">Delaware</option>
-                                        <option value="DC">District Of Columbia</option>
-                                        <option value="FL">Florida</option>
-                                        <option value="GA">Georgia</option>
-                                        <option value="HI">Hawaii</option>
-                                        <option value="ID">Idaho</option>
-                                        <option value="IL">Illinois</option>
-                                        <option value="IN">Indiana</option>
-                                        <option value="IA">Iowa</option>
-                                        <option value="KS">Kansas</option>
-                                        <option value="KY">Kentucky</option>
-                                        <option value="LA">Louisiana</option>
-                                        <option value="ME">Maine</option>
-                                        <option value="MD">Maryland</option>
-                                        <option value="MA">Massachusetts</option>
-                                        <option value="MI">Michigan</option>
-                                        <option value="MN">Minnesota</option>
-                                        <option value="MS">Mississippi</option>
-                                        <option value="MO">Missouri</option>
-                                        <option value="MT">Montana</option>
-                                        <option value="NE">Nebraska</option>
-                                        <option value="NV">Nevada</option>
-                                        <option value="NH">New Hampshire</option>
-                                        <option value="NJ">New Jersey</option>
-                                        <option value="NM">New Mexico</option>
-                                        <option value="NY">New York</option>
-                                        <option value="NC">North Carolina</option>
-                                        <option value="ND">North Dakota</option>
-                                        <option value="OH">Ohio</option>
-                                        <option value="OK">Oklahoma</option>
-                                        <option value="OR">Oregon</option>
-                                        <option value="PA">Pennsylvania</option>
-                                        <option value="RI">Rhode Island</option>
-                                        <option value="SC">South Carolina</option>
-                                        <option value="SD">South Dakota</option>
-                                        <option value="TN">Tennessee</option>
-                                        <option value="TX">Texas</option>
-                                        <option value="UT">Utah</option>
-                                        <option value="VT">Vermont</option>
-                                        <option value="VA">Virginia</option>
-                                        <option value="WA">Washington</option>
-                                        <option value="WV">West Virginia</option>
-                                        <option value="WI">Wisconsin</option>
-                                        <option value="WY">Wyoming</option>
-                                    </select>
-
+                                    {!! Form::select('state', array(null => 'Select...') + $states->all(), null, ['class'=>'form-control']) !!}
                                     @if ($errors->has('state'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('state') }}</strong>
@@ -241,31 +175,24 @@
                                 <label for="item_requested" class="col-md-4 control-label">Request For <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                                 <div class="col-md-6">
-                                    <select class="form-control" name="item_requested" id="item_requested">
-                                        <option value="">Select...</option>
-                                        <option value="productorservice">Product or Service Donation</option>
-                                        <option value="sponsorship">Sponsorship/Advertisement</option>
-                                        <option value="giftcard">Gift Card</option>
-                                        <option value="cashcheck">Cash/Check</option>
-                                        <option value="other">Other (please explain)</option>
-                                    </select>
+                                    {!! Form::select('item_requested', array(null => 'Select...') + $request_item_types->all(), null, ['class'=>'form-control']) !!}
+                                    @if ($errors->has('item_requested'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('item_requested') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="form-group{{ $errors->has('item_purpose') ? ' has-error' : '' }}">
                                 <label for="item_purpose" class="col-md-4 control-label">Donation Purpose <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
-
                                 <div class="col-md-6">
-                                    <select class="form-control" name="item_purpose" id="item_purpose">
-                                        <option value="">Select...</option>
-                                        <option value="raffleprize">Raffle/Door Prize</option>
-                                        <option value="liveauction">Live Auction</option>
-                                        <option value="silentauction">Silent Auction</option>
-                                        <option value="onlineauction">Online Auction</option>
-                                        <option value="event">Walk/Run/Ride Event</option>
-                                        <option value="Other">Other (please explain)</option>
-                                    </select>
-                                    </select>
+                                    {!! Form::select('item_purpose', array(null => 'Select...') + $request_item_purpose->all(), null, ['class'=>'form-control']) !!}
+                                    @if ($errors->has('item_purpose'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('item_purpose') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
 
@@ -311,15 +238,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('eventpurpose') ? ' has-error' : '' }}">
-                                <label for="eventpurpose" class="col-md-4 control-label">Purpose Of The Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-
+                            <div class="form-group{{ $errors->has('event_type') ? ' has-error' : '' }}">
+                                <label for="event_type" class="col-md-4 control-label">Purpose Of The Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                                 <div class="col-md-6">
-                                    <input id="eventpurpose" type="text" class="form-control" name="eventpurpose" value="{{ old('eventpurpose') }}" placeholder="Purpose of the Event" required autofocus>
-
-                                    @if ($errors->has('eventpurpose'))
+                                    {!! Form::select('event_type', array(null => 'Select...') + $request_event_type->all(), null, ['class'=>'form-control']) !!}
+                                    @if ($errors->has('event_type'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('eventpurpose') }}</strong>
+                                        <strong>{{ $errors->first('event_type') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -327,20 +252,15 @@
 
 
                             <div class="form-group{{ $errors->has('formAttendees') ? ' has-error' : '' }}">
-                                <label for="formAttendees" class="col-md-4 control-label">Estimated Number Of Attendes<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
-
+                                <label for="formAttendees" class="col-md-4 control-label">Estimated Number Of Attendees<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                                 <div class="col-md-6">
-                                    <select class="form-control" name="formAttendees" id="formAttendees">
-                                        <option value="">Select</option>
-                                        <option value="ten"> fewer than 10</option>
-                                        <option value="twentyfive">11-25</option>
-                                        <option value="fifty">26-50</option>
-                                        <option value="seventyfive">51-75</option>
-                                        <option value="onehundred">76-100</option>
-                                        <option value="hundredfifty">101-150</option>
-                                        <option value="twohundred">151-200</option>
-                                        <option value="morethantwohundred">more than 200</option>
-                                    </select>
+                                    <input id="formAttendees" type="text" class="form-control" name="formAttendees" value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees" required autofocus>
+
+                                    @if ($errors->has('formAttendees'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('formAttendees') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group{{ $errors->has('inputvenue') ? ' has-error' : '' }}">

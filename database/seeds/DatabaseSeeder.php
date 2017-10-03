@@ -16,5 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call(StatesTableSeeder::class);
         $this->call(Organization_typesTableSeeder::class);
         $this->call(RequesterTypesTableSeeder::class);
+        $this->call(Request_item_typesTableSeeder::class);
+        $this->call(Request_item_purposesTableSeeder::class);
+        $this->call(Request_event_typesTableSeeder::class);
     }
 }
