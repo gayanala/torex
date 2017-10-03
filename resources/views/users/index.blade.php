@@ -31,6 +31,40 @@
                         </table>
                         <div class="panel-heading"><h1>Add a User</h1></div>
                         <td><a href="{{route('users.show',$user->id)}}" class="btn btn-warning"> Create Account </a>
+
+                            <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
+
+
+
+
+                            <script type="text/javascript">
+                                function Copy() {
+                                    //var Url = document.createElement("textarea");
+                                    urlCopied.innerHTML = window.location.href;
+                                    //Copied = Url.createTextRange();
+                                    //Copied.execCommand("Copy");
+                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website")
+                                    var txt;
+
+                                }
+                            </script>
+                            <body>
+                            <div>
+
+                                <input type="button" value="Copy Url" onclick="Copy();" />
+                                <br />
+
+                                Paste: <textarea id="urlCopied" rows="2" cols="35"></textarea>
+
+                            </div>
+
+
+
+
+
+
+                            </body>
+
                     </div>
                 </div>
             </div>
