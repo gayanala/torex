@@ -14,19 +14,15 @@ class Organization_typesTableSeeder extends Seeder
     {
         DB::table('organization_types')->delete();
 
-        Organization_type::create(['id' => 1, 'type_name' => 'Animal Welfare', 'type_description' => 'This is an Animal Welfare']);
-        Organization_type::create(['id' => 2, 'type_name' => 'Arts, Culture & Humanities', 'type_description' => 'These are Arts, Culture & Humanities']);
-        Organization_type::create(['id' => 3, 'type_name' => 'Civil Rights, Social Action & Advocacy', 'type_description' => 'These are Civil Rights, Social Action & Advocacy']);
-        Organization_type::create(['id' => 4, 'type_name' => 'Community Improvement', 'type_description' => 'This is Community Improvement']);
-        Organization_type::create(['id' => 5, 'type_name' => 'Corporate Giving', 'type_description' => 'This is Corporate Giving']);
-        Organization_type::create(['id' => 6, 'type_name' => 'Education K-12', 'type_description' => 'This is an Education K-12']);
-        Organization_type::create(['id' => 7, 'type_name' => 'Environment', 'type_description' => 'This is an Environment']);
-        Organization_type::create(['id' => 8, 'type_name' => 'Faith/Religious', 'type_description' => 'This is a Faith/Religious']);
-        Organization_type::create(['id' => 9, 'type_name' => 'Food, Agriculture & Nutrition', 'type_description' => 'This is a Food, Agriculture & Nutrition']);
-        Organization_type::create(['id' => 10, 'type_name' => 'Health Care', 'type_description' => 'This is for Health Care']);
-        Organization_type::create(['id' => 11, 'type_name' => 'Human Services', 'type_description' => 'This is for Human Services']);
-        Organization_type::create(['id' => 12, 'type_name' => 'Youth Sports/Activities', 'type_description' => 'This is for Youth Sports/Activities']);
-        Organization_type::create(['id' => 13, 'type_name' => 'Others', 'type_description' => 'It is for others']);
+        Organization_type::create(['id' => 1, 'type_name' => 'Animal Services', 'type_description' => 'Veterinary Practices, Pet Stores, etc.']);
+        Organization_type::create(['id' => 2, 'type_name' => 'Education', 'type_description' => 'Colleges, Trade Schools, etc.']);
+        Organization_type::create(['id' => 3, 'type_name' => 'Financial', 'type_description' => 'Banking, Insurance, etc.']);;
+        Organization_type::create(['id' => 4, 'type_name' => 'Food Services', 'type_description' => 'Restaurants, Fast Food, etc.']);
+        Organization_type::create(['id' => 5, 'type_name' => 'Infrastructure', 'type_description' => 'Construction, etc.']);
+        Organization_type::create(['id' => 6, 'type_name' => 'Legal', 'type_description' => 'Law Practices']);
+        Organization_type::create(['id' => 7, 'type_name' => 'Retail', 'type_description' => 'Retail & Home Improvement Stores, etc.']);
+        Organization_type::create(['id' => 8, 'type_name' => 'Transportation', 'type_description' => 'Rail, Trucking, etc.']);
+        Organization_type::create(['id' => 9, 'type_name' => 'Others', 'type_description' => 'It is for others']);
 
     }
 }
