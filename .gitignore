@@ -10,6 +10,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 
+.DS_Store
 .env.*.php
 .env.php
 .env
@@ -32,5 +33,3 @@ composer.lock
 config/database.php
 composer.lock
 bootstrap/cache/services.php
-config/database.php
-config/database.php

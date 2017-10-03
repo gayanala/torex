@@ -32,4 +32,5 @@ class Security_questionsTableSeeder extends Seeder
         Security_question::create(['id' => 16, 'question' => 'What time of the day was your first child born? (hh:mm)']);
 
     }
+    protected $table = 'security_questions';
 }
