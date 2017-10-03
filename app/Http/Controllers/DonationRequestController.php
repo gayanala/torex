@@ -33,8 +33,9 @@ class DonationRequestController extends Controller
 
     public function edit($id)
     {
+        $requester_types = Requester_type::pluck('type_name', 'id');
         $donationrequest=DonationRequest::find($id);
-        return view('donationrequests.edit',compact('donationrequest'));
+        return view('donationrequests.edit',compact('donationrequest', 'requester_types'));
     }
 
     public function update($id,Request $request)
