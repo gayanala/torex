@@ -68,7 +68,7 @@
                 <a href="{{ url('/home') }}" class="w3-bar-item w3-button">
                         {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                 </a>
-                <a href="{{ route('users.index')}}" class="w3-bar-item w3-button">Update Profile</a>
+                <a href="{{ route('users.index')}}" class="w3-bar-item w3-button">Profile Management</a>
                 <a href="{{ route('reset-password') }}" class="w3-bar-item w3-button">Reset Password</a>
                     <a href="{{ route('logout') }}" class="w3-bar-item w3-button"
                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout

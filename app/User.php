@@ -29,6 +29,10 @@ class User extends Authenticatable
         'phone_number',
     ];
 
+    protected $events =[
+        'created' => Events\NewBusiness::class
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *

@@ -37,7 +37,6 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
-
     public function create(Request $request)
     {
         $organization = new Organization;
@@ -78,9 +77,9 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        $user = Request::all();
+        $user = $request->all();
         User::create($user);
         return redirect('users');
     }

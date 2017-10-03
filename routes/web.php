@@ -46,3 +46,16 @@ Route::get('change-password', function() {
 })->name('reset-password');
 
 Route::post('change-password', 'Auth\UpdatePasswordController@update');
+
+Route::post('/sendmail', function (\Illuminate\Http\Request $request, \Illuminate\Mail\Mailer $mailer) {
+    $mailer
+        ->to($request->input('mail'))
+        ->send(new \App\Mail\StartMail($request->input('title')));
+    return redirect()->back();
+})->name('sendmail');
+
+Route::get('/email', 'EmailController@email') ->name('sendEmail');
+
+Route::resource('emailtemplates','EmailTemplateController');
+
+Route::get('/emailtemplates/create', 'EmailTemplateController@create')->name('emailtemplate');
