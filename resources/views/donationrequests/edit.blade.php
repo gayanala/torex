@@ -21,114 +21,123 @@
                         @endif
 
                         <div class="form-group">
-                            {!! Form::label('Name of the Organization', '* Name of the Organization:', ['class'=>'col-md-4 control-label', ]) !!}
+                            <label for="requester" class="col-md-4 control-label">Name Of The Organization <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                                {!! Form::text('requester',null,['required'], ['class' => 'form-control']) !!}
+                                {!! Form::text('requester',null, ['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Requester Type', '* Requester Type:', ['class'=>'col-md-4 control-label']) !!}
+                            <label for="requester_type" class="col-md-4 control-label">Organization Type <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                                {!! Form::text('requester_type',null,['required'], ['class' => 'form-control'] ) !!}</div>
+                                {!! Form::select('requester_type', array(null => 'Select...') + $requester_types->all(), null, ['class'=>'form-control', 'required']) !!}
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('First Name', '* First Name:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('first_name',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="firstname" class="col-md-4 control-label">First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">{!! Form::text('first_name',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Last Name', '* Last Name:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('last_name',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="lastname" class="col-md-4 control-label">Last Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">{!! Form::text('last_name',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Email Address', 'Email Address:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">   {!! Form::text('email', null,[''],['class'=>'form-control']) !!}</div>
+                            <label for="email" class="col-md-4 control-label">Email Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">   {!! Form::email('email', null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Phone Number', '* Phone Number:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('phone_number',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">{!! Form::text('phone_number',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Address 1', '* Address 1:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('street_address1',null,['required'],['class'=>'form-control' ]) !!}</div>
+                            <label for="address1" class="col-md-4 control-label">Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">{!! Form::text('street_address1',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Address 2', 'Address 2:', ['class'=>'col-md-4 control-label']) !!}
+                            <label for="address2" class="col-md-4 control-label">Address 2</label>
                             <div class="col-lg-6"> {!! Form::text('street_address2',null,['class'=>'form-control']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('City', '* City:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('city',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="city" class="col-md-4 control-label">City <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">{!! Form::text('city',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('State', '* State:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('state',null,['required'],['class'=>'form-control']) !!}</div>
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::label('Zip Code', '* Zip Code:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('zipcode',null,['required'],['class'=>'form-control']) !!}</div>
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::label('Tax Exempt', '* Tax Exempt:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                {!! Form::radio('taxexempt',null,['required']) !!} Yes &nbsp;&nbsp;
-                                {!! Form::radio('taxexempt',null,['required']) !!} No
+                            <label for="state" class="col-md-4 control-label">State <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="col-lg-6">
+                                {!! Form::select('state', array(null => 'Select...') + $states->all(), null, ['class'=>'form-control', 'required']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Request For', '* Request For:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('item_requested',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="zipcode" class="col-md-4 control-label">Zipcode <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">{!! Form::text('zipcode',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Donation Purpose', '* Donation Purpose:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('item_purpose',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="taxexempt" class="col-md-4 control-label"> Are you a 501c3? <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="col-md-6">
+                                {!! Form::radio('taxexempt',null,['class' => 'form-control', 'required']) !!} Yes &nbsp;&nbsp;
+                                {!! Form::radio('taxexempt',null,['class' => 'form-control', 'required']) !!} No
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Event Name', '* Event Name:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('event_name',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="item_requested" class="col-md-4 control-label">Request For <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="col-lg-6">
+                                {!! Form::select('item_requested', array(null => 'Select...') + $request_item_types->all(), null, ['class'=>'form-control', 'required']) !!}
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Start Date', '* Start Date:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::date('event_start_date',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="item_purpose" class="col-md-4 control-label">Donation Purpose <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="col-lg-6">
+                                {!! Form::select('item_purpose', array(null => 'Select...') + $request_item_purpose->all(), null, ['class'=>'form-control', 'required']) !!}
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('End Date', '* End Date:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::date('event_end_date',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="eventname" class="col-md-4 control-label">Name of the Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">{!! Form::text('event_name',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Event Purpose', '* Event Purpose:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('event_purpose',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">{!! Form::date('event_start_date',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Attendance', '* Attendance:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('est_attendee_count',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="enddate" class="col-md-4 control-label">End Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">{!! Form::date('event_end_date',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Event Venue or Address', '* Event Venue or Address:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('venue',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="event_type" class="col-md-4 control-label">Purpose Of The Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">
+                                {!! Form::select('item_purpose', array(null => 'Select...') + $request_item_purpose->all(), null, ['class'=>'form-control', 'required']) !!}
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Marketing Opportunities', '* Marketing Opportunities:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('marketing_opportunities',null,['required'],['class'=>'form-control']) !!}</div>
+                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number Of Attendees<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="col-lg-6">{!! Form::text('est_attendee_count',null,['class' => 'form-control', 'required']) !!}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputvenue" class="col-md-4 control-label">Event Venue or Address<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="col-lg-6">{!! Form::text('venue',null,['class' => 'form-control', 'required']) !!}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="marketingopportunities" class="col-md-4 control-label">What are the marketing opportunities? <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="col-lg-6">{!! Form::text('marketing_opportunities',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
