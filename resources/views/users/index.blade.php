@@ -34,13 +34,16 @@
 
                             <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
 
-
+                            <input type="button" value="Link to Donation Form"
+                                   onClick="window.open('http://tagg-preprod.herokuapp.com/donationrequest?orgId=1', '_blank');"/>
 
 
                             <script type="text/javascript">
                                 function Copy() {
-                                    //var Url = document.createElement("textarea");
-                                    urlCopied.innerHTML = window.location.href;
+                                    var Url = document.createElement("textarea");
+                                    var orgId = "{{Auth::user()->organization_id}}";
+
+                                    urlCopied.innerHTML = "http://tagg-preprod.herokuapp.com/donationrequest?orgId=1={{Auth::user()->organization_id}}" ;
                                     //Copied = Url.createTextRange();
                                     //Copied.execCommand("Copy");
                                     window.confirm("You have successfully generated the URL needed for donation Requests on your website")
@@ -54,7 +57,7 @@
                                 <input type="button" value="Copy Url" onclick="Copy();" />
                                 <br />
 
-                                Paste: <textarea id="urlCopied" rows="2" cols="35"></textarea>
+                                Paste: <textarea id="urlCopied" rows="1" cols="75"></textarea>
 
                             </div>
 
