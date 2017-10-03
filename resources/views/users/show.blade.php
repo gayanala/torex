@@ -19,20 +19,21 @@
 
                         <div class="form-group">
                             {!! Form::label('First Name', 'First Name:', ['class'=>'col-md-4 control-label' ]) !!}
-                            <div class="col-lg-6">
-                                {!! Form::text('first_name',null,['required'], ['class' => 'form-control']) !!}
+                            <div class="col-md-6">
+                                {!! Form::text('first_name',null, ['class' => 'form-control']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
                             {!! Form::label('Last Name', 'Last Name:', ['class'=>'col-md-4 control-label']) !!}
                             <div class="col-lg-6">
-                                {!! Form::text('last_name', null, ['required'], ['class' => 'form-control'] ) !!}</div>
+                                {!! Form::text('last_name', null, ['class' => 'form-control'] ) !!}</div>
                         </div>
 
                         <div class="form-group">
                             {!! Form::label('Email', 'Email:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('email',null,['required'],['cass'=>'form-control']) !!}</div>
+                            <div class="col-lg-6">
+                                {!! Form::text('email', null, ['class'=>'form-control']) !!}</div>
                         </div>
 
                         <div class="form-group">

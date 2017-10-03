@@ -55,3 +55,7 @@ Route::post('/sendmail', function (\Illuminate\Http\Request $request, \Illuminat
 })->name('sendmail');
 
 Route::get('/email', 'EmailController@email') ->name('sendEmail');
+
+Route::resource('emailtemplates','EmailTemplateController');
+
+Route::get('/emailtemplates/create', 'EmailTemplateController@create')->name('emailtemplate');
