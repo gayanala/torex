@@ -32,4 +32,5 @@ bootstrap/cache/services.php
 composer.lock
 config/database.php
 composer.lock
+
 bootstrap/cache/services.php
