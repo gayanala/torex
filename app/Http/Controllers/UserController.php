@@ -77,9 +77,9 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        $user = Request::all();
+        $user = $request->all();
         User::create($user);
         return redirect('users');
     }
