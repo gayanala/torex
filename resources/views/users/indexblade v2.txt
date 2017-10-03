@@ -57,7 +57,7 @@
                                 Paste: <textarea id="urlCopied" rows="2" cols="35"></textarea>
 
                             </div>
-
+                            <a href="{{route('donationrequests.index',$user->id)}}" class="btn btn-warning"> View Requests </a>
 
 
 

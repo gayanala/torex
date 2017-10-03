@@ -117,11 +117,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input id="org_description" type="text" class="form-control" name="org_description"
-                                           value="{{ old('org_description') }}"
-                                           placeholder="Description Of Your Organization Ex.Restraunt, Gas Station"
-                                           required autofocus>
-
+                                    {!! Form::select('org_description', $Organization_types, null, ['class'=>'form-control']) !!}
                                     @if ($errors->has('org_description'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('org_description') }}</strong>
@@ -190,6 +186,7 @@
                                     </span>
                                     @endif
                                 </div>
+
                             </div>
 
                             <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">

@@ -1,12 +1,13 @@
 <?php
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+/*$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 $server = $url["host"];
 $username = $url["user"];
 $password = $url["pass"] ?? '';
 $db = substr($url["path"], 1);
 
-$conn = new mysqli($server, $username, $password, $db);
+$conn = new mysqli($server, $username, $password, $db);*/
 
 return [
     /*
@@ -43,20 +44,26 @@ return [
         ],
         'mysql' => [
             'driver' => 'mysql',
-            'host' => $server,
+            'host' => 'localhost',
             'port' => env('DB_PORT', '3306'),
+<<< HEAD
+            'database' => 'tagg',
+            'username' => 'root',
+            'password' => '',
+=======
             'database' => $db,
             'username' => $username,
-            'password' => $password,
+            'password' => env('DB_PASSWORD', $password),
+>>>>>>> 23afce03995c98bd236ba0aed80ccf862138a4cf
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'strict' => false,
             'engine' => null,
 
-            'unix_socket'=> '/Applications/MAMP/tmp/mysql/mysql.sock',
+                'unix_socket'=> '/Applications/MAMP/tmp/mysql/mysql.sock',
         ],
-
+        
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

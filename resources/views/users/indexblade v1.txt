@@ -33,19 +33,15 @@
                         <td><a href="{{route('users.show',$user->id)}}" class="btn btn-warning"> Create Account </a>
 
                             <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
-
-
-
-
+                            <button onclick="prompt('press Crtl+C to copy the URL','copy me')">Click to copy URL</button>
+                            <a href="{{route('donationrequests.index',$user->id)}}" class="btn btn-warning"> View Requests </a>
                             <script type="text/javascript">
-                                function Copy() {
+                                function Copy()
+                                {
                                     //var Url = document.createElement("textarea");
                                     urlCopied.innerHTML = window.location.href;
                                     //Copied = Url.createTextRange();
                                     //Copied.execCommand("Copy");
-                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website")
-                                    var txt;
-
                                 }
                             </script>
                             <body>
@@ -54,15 +50,8 @@
                                 <input type="button" value="Copy Url" onclick="Copy();" />
                                 <br />
 
-                                Paste: <textarea id="urlCopied" rows="2" cols="35"></textarea>
-
+                                Paste: <textarea id="urlCopied" rows="1" cols="30"></textarea>
                             </div>
-
-
-
-
-
-
                             </body>
 
                     </div>

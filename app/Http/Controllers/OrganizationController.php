@@ -46,4 +46,8 @@ class OrganizationController extends Controller
             'phone_number' => $request['phone_number'],
         ]);
     }
+
+// include organization id in the donation request URL//
+
+
 }
