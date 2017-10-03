@@ -33,7 +33,7 @@
                         <div class="form-group">
                             {!! Form::label('Email', 'Email:', ['class'=>'col-md-4 control-label']) !!}
                             <div class="col-lg-6">
-                                {!! Form::text('email', null, ['cass'=>'form-control']) !!}</div>
+                                {!! Form::text('email', null, ['class'=>'form-control']) !!}</div>
                         </div>
 
                         <div class="form-group">
