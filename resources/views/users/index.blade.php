@@ -22,7 +22,7 @@
                                 <tr class="text-center">
                                     <td style="vertical-align: middle">{{ $user->first_name }} {{ $user->last_name }}</td>
                                     <td style="vertical-align: middle">{{ $user->email }}</td>
-                                    <td style="vertical-align: middle">{{ $user->street_address1 }} {{ $user->street_address2 }} {{ $user->city }} {{ $user->state }} {{ $user->zipcode }}</td>
+                                    <td style="vertical-align: middle">{{ $user->street_address1 }} {{ $user->street_address2 }}, {{ $user->city }}, {{ $user->state }} {{ $user->zipcode }}</td>
                                     <td style="vertical-align: middle">{{ $user->phone_number }}</td>
                                     <td style="vertical-align: middle"><a href="{{route('users.edit',$user->id)}}" class="btn btn-warning"> Edit </a>
                                     </td>
