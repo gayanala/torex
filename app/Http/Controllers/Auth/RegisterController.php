@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
 use App\State;
+use App\Organization_type;
 
 class RegisterController extends Controller
 {
@@ -48,7 +49,8 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $states = State::pluck('state_name', 'state_code');
-        return view('auth.register', compact('states'));
+        $Organization_types = Organization_type::pluck('type_name');
+        return view('auth.register', compact('states', 'Organization_types'));
     }
     /**
      * Get a validator for an incoming registration request.
