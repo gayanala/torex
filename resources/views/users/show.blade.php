@@ -17,6 +17,8 @@
                             </div>
                         @endif
 
+                        {{ Form::hidden('organization_id', Auth::user()->organization_id) }}
+
                         <div class="form-group">
                             {!! Form::label('First Name', 'First Name:', ['class'=>'col-md-4 control-label' ]) !!}
                             <div class="col-md-6">
@@ -38,7 +40,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="">Submit</button>
+                                <button type="submit" class="" onclick="myFunction();">Submit</button>
                                 <input type="button" value="Cancel" onClick="history.go(-1);">
                                 <span style="color: red"> <h5> * All Fields Are Mandatory</h5></span>
                                 <input type="button" value="Link to Registration Form"
@@ -51,5 +53,9 @@
             </div>
         </div>
     </div>
-
+    <script>
+        function myFunction() {
+            alert("You have Successfully Register a User");
+        }
+    </script>
 @stop
