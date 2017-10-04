@@ -21,9 +21,10 @@
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
     <div id="builder-plugins"></div>
     <div class="btn-group">
+        <button class="btn btn-error parse-json" data-target="plugins">Preview Rules</button>
         <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
         <button class="btn btn-success set-json" data-target="plugins">Reset Rules</button>
-        <button class="btn btn-primary parse-json" data-target="plugins">Show Rules</button>
+        <button class="btn btn-primary parse-json" data-target="plugins">Save (Show) Rules</button>
     </div>
     </div>
     <!-- </section> -->
@@ -61,7 +62,7 @@
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
         var rules_plugins = {
-            condition: 'OR',
+            condition: 'AND',
             rules: [
                 {
                 id: 'amount',
@@ -86,11 +87,11 @@
                     condition: 'AND',
                     rules: [{
                         id: 'name',
-                        operator: 'not_equal',
+                        operator: 'equal',
                         value: 'Naggy Group 1'
                     }, {
                         id: 'name',
-                        operator: 'not_equal',
+                        operator: 'equal',
                         value: 'Naggy Group 2'
                     }, {
                         id: 'amount',
