@@ -35,7 +35,7 @@
                             <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
 
                             <input type="button" value="Link to Donation Form"
-                                   onClick="window.open('http://tagg-preprod.herokuapp.com/donationrequest?orgId=1', '_blank');"/>
+                                   onClick="window.open('http://tagg-preprod.herokuapp.com/donationrequest?orgId={{Auth::user()->organization_id}}', '_blank');"/>
 
 
                             <script type="text/javascript">
@@ -43,7 +43,7 @@
                                     var Url = document.createElement("textarea");
                                     var orgId = "{{Auth::user()->organization_id}}";
 
-                                    urlCopied.innerHTML = "http://tagg-preprod.herokuapp.com/donationrequest?orgId=1={{Auth::user()->organization_id}}" ;
+                                    urlCopied.innerHTML = "http://tagg-preprod.herokuapp.com/donationrequest?orgId={{Auth::user()->organization_id}}" ;
                                     //Copied = Url.createTextRange();
                                     //Copied.execCommand("Copy");
                                     window.confirm("You have successfully generated the URL needed for donation Requests on your website")
