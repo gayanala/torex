@@ -10,6 +10,7 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\State;
 
 
 class UserController extends Controller
@@ -87,8 +88,9 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $states = State::pluck('state_name', 'state_code');
         $user = User::find($id);
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user'))->with('states', $states);
     }
 
     /**

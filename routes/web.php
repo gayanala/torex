@@ -62,3 +62,4 @@ Route::get('/emailtemplates/create', 'EmailTemplateController@create')->name('em
 
 // Rules stuff
 Route::get('guirules', 'RuleEngineController@rulesGui');
+

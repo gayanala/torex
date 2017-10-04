@@ -16,8 +16,9 @@ class DonationRequestController extends Controller
 {
     public function index()
     {
+        $requester_types = Requester_type::pluck('type_name', 'id');
         $donationrequests = DonationRequest::paginate(5);
-        return view('donationrequests.index', compact('donationrequests'));
+        return view('donationrequests.index', compact('donationrequests'))->with('organization_types', $requester_types);
     }
 
     public function create()
@@ -33,8 +34,16 @@ class DonationRequestController extends Controller
 
     public function edit($id)
     {
+
+        $states = State::pluck('state_name', 'state_code');
+        $requester_types = Requester_type::pluck('type_name', 'id');
+        $request_item_types = Request_item_type::pluck('item_name', 'id');
+        $request_item_purpose = Request_item_purpose::pluck('purpose_name', 'id');
+        $request_event_type = Request_event_type::pluck('type_name', 'id');
         $donationrequest=DonationRequest::find($id);
-        return view('donationrequests.edit',compact('donationrequest'));
+        return view('donationrequests.edit', compact('donationrequest'))->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
+            ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+//        return view('donationrequests.edit',compact('donationrequest', 'requester_types'));
     }
 
     public function update($id,Request $request)
@@ -105,6 +114,15 @@ class DonationRequestController extends Controller
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
+        if($request->hasFile('attachment')) {
+            $file = new File();
+            $file->organization_id = $request->orgId;
+            $file->original_filename = $request->file('attachment')->getClientOriginalName();
+            $file->file_path = Storage::putFile('attachment', $request->file('attachment') );
+            $file->file_type='attachment';
+            $file->save();
+        }
+
         $donationRequest->save();
 
         return redirect('/');

@@ -60,7 +60,6 @@
                 <a href="{{ route('login') }}" class="w3-bar-item w3-button">Login</a>
                 <a href="{{ route('register') }}" class="w3-bar-item w3-button">Register</a>
                 <a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button">Request Donation</a>
-                {{--<a href="donationrequest/create?orgId=1" class="w3-bar-item w3-button">Request Donation</a>--}}
             </div>
         @else
             <div class="w3-right">
