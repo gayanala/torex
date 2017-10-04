@@ -10,6 +10,7 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\State;
 
 
 class UserController extends Controller
@@ -41,7 +42,7 @@ class UserController extends Controller
     {
         $organization = new Organization;
         $organization->org_name = $request->org_name;
-        $organization->org_description = $request->org_description;
+        $organization->organization_type_id = $request->organization_type_id;
         $organization->street_address1 = $request->street_address1;
         $organization->street_address2 = $request->street_address2;
         $organization->city = $request->city;
@@ -77,17 +78,19 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        $user = Request::all();
+        //dd($request->organization_id);
+        $user = $request->all();
         User::create($user);
         return redirect('users');
     }
 
     public function edit($id)
     {
+        $states = State::pluck('state_name', 'state_code');
         $user = User::find($id);
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user'))->with('states', $states);
     }
 
     /**

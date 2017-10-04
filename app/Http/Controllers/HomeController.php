@@ -29,4 +29,5 @@ class HomeController extends Controller
         $userRole = 'Business Admin';
         return view('home', ['role' => $userRole]);
     }
+
 }

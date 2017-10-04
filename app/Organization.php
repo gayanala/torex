@@ -16,7 +16,7 @@ class Organization extends Model
      */
     protected $fillable = [
         'org_name',
-        'org_description',
+        'organization_type_id',
         'street_address1',
         'street_address2',
         'city',
