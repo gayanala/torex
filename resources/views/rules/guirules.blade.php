@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <link rel="stylesheet" href="../../../node_modules/jQuery-QueryBuilder/dist/css/query-builder.default.css">
+    <!--<link rel="stylesheet" href="../../../node_modules/jQuery-QueryBuilder/dist/css/query-builder.default.css">-->
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/assets/css/docs.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/assets/css/style.css" rel="stylesheet">
@@ -16,13 +16,17 @@
     <script src="http://querybuilder.js.org/assets/js/docs.min.js"></script>
     <script src="http://querybuilder.js.org/assets/js/script.js"></script>
 
-    <div id="builder-basic"></div>
-    <div class="btn-group">
-        <button class="btn btn-warning reset" data-target="basic">Clear Rules</button>
-        <button class="btn btn-success set-json" data-target="basic">Reset Rules</button>
-        <button class="btn btn-primary parse-json" data-target="basic">Show Rules</button>
-    </div>
 
+    <section class="bs-docs-section clearfix">
+    <div class="col-md-12 col-lg-10 col-lg-offset-1">
+    <div id="builder-plugins"></div>
+    <div class="btn-group">
+        <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
+        <button class="btn btn-success set-json" data-target="plugins">Reset Rules</button>
+        <button class="btn btn-primary parse-json" data-target="plugins">Show Rules</button>
+    </div>
+    </div>
+    </section>
     <link href="http://querybuilder.js.org/dist/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/dist/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/dist/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
@@ -39,16 +43,24 @@
     <script src="http://querybuilder.js.org/dist/sql-parser/browser/sql-parser.js"></script>
     <script src="http://querybuilder.js.org/dist/interact/dist/interact.min.js"></script>
 
-    <!-- <script>var baseurl = 'http://querybuilder.js.org';</script>
+    <!-- <script src="../../../node_modules/jQuery-QueryBuilder/dist/js/query-builder.js"></script>
+    <script>var baseurl = 'http://querybuilder.js.org';</script>
     <script src="http://querybuilder.js.org/assets/demo-basic.js"></script>
     <script src="http://querybuilder.js.org/assets/demo-widgets.js"></script>
     <script src="http://querybuilder.js.org/assets/demo-plugins.js"></script>
     <script src="http://querybuilder.js.org/assets/demo-import-export.js"></script> -->
     <script src="http://querybuilder.js.org/assets/demo.js"></script>
-
+    <style>
+        .code-popup {
+            max-height: 500px;
+        }
+        .modal-backdrop {
+            z-index: -1;
+        }
+    </style>
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
-        var rules_basic = {
+        var rules_plugins = {
             condition: 'OR',
             rules: [
                 {
@@ -88,8 +100,17 @@
             }]
         };
 
-        $('#builder-basic').queryBuilder({
-            plugins: ['bt-tooltip-errors'],
+        $('#builder-plugins').queryBuilder({
+            plugins: [
+                'sortable',
+                'filter-description',
+                'unique-filter',
+                'bt-tooltip-errors',
+                'bt-selectpicker',
+                'bt-checkbox',
+                'invert',
+                'not-group'
+                ],
 
             filters: [{
                 id: 'name',
@@ -138,19 +159,18 @@
                 }
             }],
 
-            rules: rules_basic
+            rules: rules_plugins
         });
-
         $('#btn-reset').on('click', function() {
-            $('#builder-basic').queryBuilder('reset');
+            $('#builder-plugins').queryBuilder('reset');
         });
 
         $('#btn-set').on('click', function() {
-            $('#builder-basic').queryBuilder('setRules', rules_basic);
+            $('#builder-plugins').queryBuilder('setRules', rules_plugins);
         });
 
         $('#btn-get').on('click', function() {
-            var result = $('#builder-basic').queryBuilder('getRules');
+            var result = $('#builder-plugins').queryBuilder('getRules');
 
             if (!$.isEmptyObject(result)) {
                 alert(JSON.stringify(result, null, 2));
