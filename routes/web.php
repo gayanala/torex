@@ -61,3 +61,5 @@ Route::get('/email', 'EmailController@email') ->name('sendEmail');
 Route::get('/emailtemplates/edit/{id}','EmailTemplateController@edit')->name('emailtemplate');
 
 Route::resource('emailtemplates','EmailTemplateController');
+
+Route::get('/dashboard', 'DashboardController@index');
