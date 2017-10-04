@@ -8,7 +8,7 @@
 
                     <div class="panel-body">
 
-                        {!! Form::model($user,['method' => 'PATCH','route'=>['users.update', $user->id], 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($emailtemplate,['method' => 'PATCH','route'=>['emailtemplates.edit', $emailtemplate->template_type_id], 'class' => 'form-horizontal']) !!}
 
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -21,48 +21,17 @@
                         @endif
 
                         <div class="form-group">
-                            {!! Form::label('First Name', '* First Name:', ['class'=>'col-md-4 control-label', ]) !!}
+                            {!! Form::label('Email Subject', '* Email Subject:', ['class'=>'col-md-4 control-label', ]) !!}
                             <div class="col-lg-6">
-                                {!! Form::text('first_name',null,['required'], ['class' => 'form-control']) !!}
+                                {!! Form::text('email_subject',null,['required'], ['class' => 'form-control']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Last Name', '* Last Name:', ['class'=>'col-md-4 control-label']) !!}
+                            {!! Form::label('Email Message', '* Email Message:', ['class'=>'col-md-4 control-label']) !!}
                             <div class="col-lg-6">
-                                {!! Form::text('last_name', null, ['required'], ['class' => 'form-control'] ) !!}</div>
+                                {!! Form::text('email_message', null, ['required'], ['class' => 'form-control'] ) !!}</div>
                         </div>
-
-                        <div class="form-group">
-                            {!! Form::label('Email', '* Email:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('email',null,['required'],['class'=>'form-control']) !!}</div>
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::label('Street Address1', '* Street Address 1:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('street_address1',null,['required'],['class'=>'form-control']) !!}</div>
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::label('Street Address2', 'Street Address 2:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">   {!! Form::text('street_address2', null,[''],['class'=>'form-control']) !!}</div>
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::label('City', '* City:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6">{!! Form::text('city',null,['required'],['class'=>'form-control']) !!}</div>
-                        </div>
-
-
-                            {{--<div class="col-lg-6">{!! Form::text('state',null,['required'],['class'=>'form-control' ]) !!}</div>--}}
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::label('Zip Code', '* Zip Code:', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['required'],['class'=>'form-control']) !!}</div>
-                        </div>
-
-
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
