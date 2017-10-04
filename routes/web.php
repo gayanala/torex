@@ -25,6 +25,8 @@ Route::get('securityquestions/insertcheck/{id}', 'SecurityquestionController@ins
 
 Route::resource('securityquestions', 'SecurityquestionController');
 
+Route::resource('attachment', 'DonationRequestController');
+
 Route::resource('/users', 'UserController');
 
 Route::post('user/register', 'UserController@create');
@@ -33,7 +35,7 @@ Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
 
-Route::post('/donate', 'DonationRequestController@store')->name('donation');
+// Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
 Route::get('/donationrequests/create', 'DonationRequestController@create')->name('donation');
 
@@ -57,4 +59,3 @@ Route::post('/sendmail', function (\Illuminate\Http\Request $request, \Illuminat
 Route::get('/email', 'EmailController@email') ->name('sendEmail');
 
 Route::resource('emailtemplates','EmailTemplateController');
-

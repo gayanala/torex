@@ -8,8 +8,13 @@
                     <div class="panel-heading">Donation Request Form</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ action('DonationRequestController@store') }}">
-                            {{ csrf_field() }}
+
+                        {!! Form::open(['url' => 'attachment', 'class' => 'form-horizontal', 'id' => 'attachment', 'files' => true]) !!}
+                                      {{ csrf_field() }}
+
+
+                        <!-- <form class="form-horizontal" method="POST" action="{{ action('DonationRequestController@store') }}">
+                            {{ csrf_field() }} -->
                             <input type="hidden" name="orgId" value="{{ $_GET['orgId'] }}">
                             <div class="form-group{{ $errors->has('requester') ? ' has-error' : '' }}">
                                 <label for="requester" class="col-md-4 control-label">Name Of The Organization <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
@@ -305,7 +310,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                  {!! Form::close() !!}
                     </div>
                 </div>
             </div>

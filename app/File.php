@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     protected $fillable=[
-        'user_id',
+        'organization_id',
         'file_path',
         'file_type',
         'original_filename',

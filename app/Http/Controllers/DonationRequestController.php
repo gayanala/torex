@@ -10,6 +10,10 @@ use App\Request_event_type;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Validator;
+use Auth;
+use App\File;
+use \Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 
 
 class DonationRequestController extends Controller
@@ -114,17 +118,15 @@ class DonationRequestController extends Controller
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
+        $donationRequest->save();
         if($request->hasFile('attachment')) {
             $file = new File();
             $file->organization_id = $request->orgId;
             $file->original_filename = $request->file('attachment')->getClientOriginalName();
-            $file->file_path = Storage::putFile('attachment', $request->file('attachment') );
+            $file->file_path = Storage::putFile('public', $request->file('attachment') );
             $file->file_type='attachment';
             $file->save();
         }
-
-        $donationRequest->save();
-
         return redirect('/');
     }
 
