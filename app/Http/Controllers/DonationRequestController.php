@@ -114,6 +114,15 @@ class DonationRequestController extends Controller
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
+        if($request->hasFile('attachment')) {
+            $file = new File();
+            $file->organization_id = $request->orgId;
+            $file->original_filename = $request->file('attachment')->getClientOriginalName();
+            $file->file_path = Storage::putFile('attachment', $request->file('attachment') );
+            $file->file_type='attachment';
+            $file->save();
+        }
+
         $donationRequest->save();
 
         return redirect('/');

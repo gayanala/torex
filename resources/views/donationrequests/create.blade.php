@@ -171,6 +171,13 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                {!! Form::label('attachment', 'attachment',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                                <div class="col-md-4">
+                                    {!! Form::file('attachment',['id'=>'attachment']) !!}                                                </div>
+                            </div>
+
+
                             <div class="form-group{{ $errors->has('item_requested') ? ' has-error' : '' }}">
                                 <label for="item_requested" class="col-md-4 control-label">Request For <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 

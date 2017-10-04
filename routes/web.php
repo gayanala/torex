@@ -60,3 +60,8 @@ Route::get('/emailtemplates/edit/{id}','EmailTemplateController@edit')->name('em
 
 Route::resource('emailtemplates','EmailTemplateController');
 
+Route::get('/emailtemplates/create', 'EmailTemplateController@create')->name('emailtemplate');
+
+// Rules stuff
+Route::get('guirules', 'RuleEngineController@rulesGui');
+
