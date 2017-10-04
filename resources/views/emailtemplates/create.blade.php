@@ -21,19 +21,6 @@
                                             style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                                 </label>
 
-                                <div class="col-md-6">
-                                    <input id="email_template_types" type="text" class="form-control" name="email_template_types"
-                                           value="{{ old('emaemail_template_typesil_subject') }}" placeholder="Template For" required
-                                           autofocus>
-
-                                    @if ($errors->has('email_template_types'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('email_template_types') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
 
                             <div class="form-group{{ $errors->has('email_subject') ? ' has-error' : '' }}">
                                 <label for="email_subject" class="col-md-4 control-label"> Subject <span

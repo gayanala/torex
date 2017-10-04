@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2900cde53413e9c812d1a96e6b977e3a",
+    "content-hash": "80adacff134a3980f07de870b28301a6",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -754,16 +754,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.13",
+            "version": "v5.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "bfbe20d32ee9f98c89df852847827407a5127be4"
+                "reference": "26c700eb79e5bb55b59df2c495c9c71f16f43302"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/bfbe20d32ee9f98c89df852847827407a5127be4",
-                "reference": "bfbe20d32ee9f98c89df852847827407a5127be4",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/26c700eb79e5bb55b59df2c495c9c71f16f43302",
+                "reference": "26c700eb79e5bb55b59df2c495c9c71f16f43302",
                 "shasum": ""
             },
             "require": {
@@ -882,7 +882,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-09-24T19:09:38+00:00"
+            "time": "2017-10-03T17:41:03+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2516,6 +2516,62 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2016-09-20T12:50:39+00:00"
+        },
+        {
+            "name": "timgws/query-builder-parser",
+            "version": "1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/timgws/QueryBuilderParser.git",
+                "reference": "254486179ba8806e068f030715d67778f034e5e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/timgws/QueryBuilderParser/zipball/254486179ba8806e068f030715d67778f034e5e9",
+                "reference": "254486179ba8806e068f030715d67778f034e5e9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "4.1 - 5.5"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "4.7.*@dev"
+            },
+            "suggest": {
+                "jenssegers/mongodb": "Use QueryBuilderParser with MongoDB"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "timgws\\": "src/QueryBuilderParser/",
+                    "timgws\\test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Groeneveld",
+                    "email": "tim@timg.ws",
+                    "homepage": "http://timg.ws"
+                }
+            ],
+            "description": "Build complex Eloquent & QueryBuilder queries automatically when using jQuery-QueryBuilder",
+            "homepage": "http://github.com/timgws/QueryBuilderParser",
+            "keywords": [
+                "ajax",
+                "eloquent",
+                "jquery",
+                "laravel",
+                "mongodb",
+                "parser",
+                "query builder",
+                "sql"
+            ],
+            "time": "2017-09-05T07:20:52+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

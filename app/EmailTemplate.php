@@ -13,4 +13,5 @@ class EmailTemplate extends Model
         'email_message'
     ];
 
+public $primaryKey = 'template_type_id';
 }

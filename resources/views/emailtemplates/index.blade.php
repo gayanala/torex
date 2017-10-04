@@ -21,7 +21,8 @@
                                       <td style="vertical-align: middle">{{ $emailtemplate[0]->template_type_id }}</td>
                                     <td style="vertical-align: middle">{{ $emailtemplate[0]->email_subject }}</td>
                                     <td style="vertical-align: middle">{{ $emailtemplate[0]->email_message }}</td>
-                                    <td style="vertical-align: middle"><a href=" {{route('emailtemplates.edit',$emailtemplate->template_type_id)}}" class="btn btn-warning"> Edit </a>
+                                    <td style="vertical-align: middle"><a href="{{route('emailtemplate', ['id' => $emailtemplate[0]->template_type_id])}}
+                                    " class="btn btn-warning"> Edit </a>
 
                                 </tr>
                                 

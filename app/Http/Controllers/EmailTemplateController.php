@@ -17,9 +17,10 @@ class EmailTemplateController extends Controller
     	return view('emailtemplates.index', compact('emailtemplate'));
     }
 
- public function edit($template_type_id)
-    {
-        $emailtemplate = EmailTemplate::find($template_type_id);
+ public function edit($id)
+    {//dd($id);
+        $emailtemplate = EmailTemplate::find(1);
         return view('emailtemplates.edit', compact('emailtemplate'));
     }
 }
+
