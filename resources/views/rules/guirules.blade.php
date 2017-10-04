@@ -17,7 +17,7 @@
     <script src="http://querybuilder.js.org/assets/js/script.js"></script>
 
 
-    <section class="bs-docs-section clearfix">
+    <!--<section class="bs-docs-section clearfix"> -->
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
     <div id="builder-plugins"></div>
     <div class="btn-group">
@@ -26,7 +26,7 @@
         <button class="btn btn-primary parse-json" data-target="plugins">Show Rules</button>
     </div>
     </div>
-    </section>
+    <!-- </section> -->
     <link href="http://querybuilder.js.org/dist/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/dist/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/dist/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
