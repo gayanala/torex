@@ -66,7 +66,7 @@ class UserController extends Controller
         $user->phone_number = $request->phone_number;
         $user->organization_id = $orgId;
         $user->save();
-        $user->roles()->attach(3);
+        $user->roles()->attach(4);
 
         $userid = $user->id;
 
