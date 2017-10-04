@@ -59,3 +59,6 @@ Route::get('/email', 'EmailController@email') ->name('sendEmail');
 Route::resource('emailtemplates','EmailTemplateController');
 
 Route::get('/emailtemplates/create', 'EmailTemplateController@create')->name('emailtemplate');
+
+// Rules stuff
+Route::get('guirules', 'RuleEngineController@rulesGui');
