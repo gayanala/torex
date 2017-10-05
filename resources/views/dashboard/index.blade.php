@@ -49,7 +49,7 @@
                 <h1 class="page-header">Request Management Dashboard</h1>
                 <h4>  <div class="pull-right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-xs dropdown-toggle"
+                            <button type="button" class="btn btn-default dropdown-toggle btn-lg"
                                     data-toggle="dropdown">
                                 Year to Date
                                 <span class="caret"></span>
@@ -158,7 +158,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Pending Requests Ready For Denial</b>
+                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Pending Requests Ready For Approval</b>
 
                     </div>
                     <!-- /.panel-heading -->
@@ -268,9 +268,38 @@
 
                                 <tr>
                                     <td>
-                                        <button type="button" class="btn btn-primary">View All Request </button>
+                                        <button type="button" class="btn btn-primary btn-lg">View All Request</button>
                                     </td>
-                                    <td>   <button type="button" class="btn btn-primary">Set Status</button>
+                                    <td>     <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <!-- Button trigger modal -->
+                                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                                                Set Status
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                            <h4 class="modal-title" id="myModalLabel">Request Completed Successfully</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Requests DENIED: 4
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Requests APPROVED: 1
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+                                            <!-- /.modal -->
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -283,7 +312,7 @@
                 <!-- /.panel -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top Items Approved</b></div>
+                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Items Approved</b></div>
                     <!-- /.panel-heading -->
 
                     <div class="panel-body">
@@ -292,78 +321,31 @@
                                 <thead>
                                 <tr>
                                     <th>Amount</th>
-                                    <th>Event Date & Time</th>
-                                    <th>Cause</th>
-                                    <th>Organization</th>
-                                    <th>Donation Type</th>
-                                    <th>Request Date</th>
+                                    <th>Category/th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <td>$321.33</td>
-                                    <td>10/21/2013 3:29 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-
+                                    <td>Food, Agriculture and Nutrition</td>
                                 </tr>
                                 <tr>
                                     <td>$321.33</td>
-                                    <td>10/21/2013 3:20 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-
+                                    <td>Higher Education</td>
                                 </tr>
                                 <tr>
                                     <td>$721.33</td>
-                                    <td> 10/21/2013 3:03 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 3:00 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 2:49 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>CASA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-
+                                    <td>Corporate Giving</td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <table style="width:100%">
-                                <col align="left">
-                                <col align="left">
-                                <col align="right">
 
-                                <tr>
                                     <td>
-                                        <button type="button" class="btn btn-primary">View All  Requests</button>
+                                        <button type="button" class="btn btn-primary btn-lg">View Requests</button>
                                     </td>
-                                    <td>   <button type="button" class="btn btn-primary">Set Requests Status</button>
-                                    </td>
-                                </tr>
-                            </table>
                         </div>
                         <!-- /.panel-body -->
                     </div>
-
                     <!-- /.panel-body -->
                 </div>
             </div>
@@ -371,7 +353,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Pending Requests Ready For Approval</b>
+                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Pending Requests Ready For Denial</b>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -478,79 +460,40 @@
 
                                 <tr>
                                     <td>
-                                        <button type="button" class="btn btn-primary">View All Request</button>
+                                        <button type="button" class="btn btn-primary btn-lg">View All Requests</button>
                                     </td>
-                                    <td>   <button type="button" class="btn btn-primary">Set Status</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    <!-- /.panel-body -->
-                </div>
-
-                <!-- /.panel -->
-            </div>
-            <!-- /.col-lg-4 -->
-        </div>
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top Cause Categories</b>
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                <tr>
-                                    <th>Amount</th>
-                                    <th>Cause</th>
-                                    <th>Organization</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>Fund raising for violence against women</td>
-                                    <td>WCA</td>
-
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 3:20 PM</td>
-                                    <td>10/21/2013</td>
-
-                                </tr>
-                                <tr>
-                                    <td>$721.33</td>
-                                    <td> 10/21/2013 3:03 PM</td>
-                                    <td>10/21/2013</td>
-
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 3:00 PM</td>
-                                    <td>10/21/2013</td>
-
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 2:49 PM</td>
-                                    <td>10/21/2013</td>
-
-                                </tr>
-                                </tbody>
-                            </table>
-                            <table style="width:100%">
-                                <col align="left">
-                                <col align="left">
-                                <col align="right">
-
-                                <tr>
                                     <td>
-                                        <button type="button" class="btn btn-primary">View All  Requests</button>
-                                    </td>
-                                    <td>   <button type="button" class="btn btn-primary">Set Requests Status</button>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <!-- Button trigger modal -->
+                                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                                                Set Status
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                            <h4 class="modal-title" id="myModalLabel">Request Completed Successfully</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Requests DENIED: 4
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Requests APPROVED: 1
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+                                            <!-- /.modal -->
+                                        </div>
+                                        <!-- .panel-body -->
                                     </td>
                                 </tr>
                             </table>
@@ -562,29 +505,82 @@
                 </div>
                 <!-- /.col-lg-4 -->
             </div>
-        <!-- /.row -->
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Cause Categories</b>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>Total Spend</th>
+                                    <th>Cause</th>
+                                    <th>Organization</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>$921.33</td>
+                                    <td>Fund raising for violence against women</td>
+                                    <td>WCA</td>
+
+                                </tr>
+                                <tr>
+                                    <td>$821.33</td>
+                                    <td>Back to school supplies</td>
+                                    <td>Boystown</td>
+
+                                </tr>
+                                <tr>
+                                    <td>$721.33</td>
+                                    <td>Gloves for winter</td>
+                                    <td>Lydia House</td>
+
+                                </tr>
+                                <tr>
+                                    <td>$321.33</td>
+                                    <td>Meals on wheels</td>
+                                    <td>Ron McDonald</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-primary btn-lg">View Requests</button>
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
     </div>
-    <!-- /#page-wrapper -->
+    <!-- /#wrapper -->
 
-</div>
-<!-- /#wrapper -->
+    <!-- jQuery Version 1.11.0 -->
+    <script src="js/jquery-1.11.0.js"></script>
 
-<!-- jQuery Version 1.11.0 -->
-<script src="js/jquery-1.11.0.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.min.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script>
 
-<!-- Morris Charts JavaScript -->
-<script src="js/plugins/morris/raphael.min.js"></script>
-<script src="js/plugins/morris/morris.min.js"></script>
-<script src="js/plugins/morris/morris-data.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="js/sb-admin-2.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="js/sb-admin-2.js"></script>
 
 </body>
 
