@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Organization;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Route;
+use App\Organization;
+use App\State;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
-use App\State;
 
 
 class UserController extends Controller

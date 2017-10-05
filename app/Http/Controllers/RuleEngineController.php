@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Rule;
 use App\DonationRequest;
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Builder;
 use timgws\QueryBuilderParser;
+
 // use timgws\JoinSupportingQueryBuilderParser;
 
 class RuleEngineController extends Controller
