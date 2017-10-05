@@ -47,7 +47,24 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">Request Management Dashboard</h1>
-                <h4>Year To Date</h4>
+                <h4>  <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle"
+                                    data-toggle="dropdown">
+                                Year to Date
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li><a href="#">Past months</a>
+                                </li>
+                                <li><a href="#">Past 6 months</a>
+                                </li>
+                                <li><a href="#">Past 12 months</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div></h4>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -66,13 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>
+
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -147,27 +158,8 @@
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Pending Requests Ready For Approval</b>
-                        <div class="pull-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle"
-                                        data-toggle="dropdown">
-                                    Actions
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li><a href="#">Action</a>
-                                    </li>
-                                    <li><a href="#">Another action</a>
-                                    </li>
-                                    <li><a href="#">Something else here</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Pending Requests Ready For Denial</b>
+
                     </div>
                     <!-- /.panel-heading -->
                     <!-- /.panel-heading -->
@@ -179,8 +171,8 @@
                                         <thead>
                                         <tr>
                                             <th>Amount</th>
-                                            <th>Cause</th>
                                             <th>Event Date & Time</th>
+                                            <th>Cause</th>
                                             <th>Organization</th>
                                             <th>Donation Type</th>
                                             <th>Request Date</th>
@@ -189,152 +181,76 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>3326</td>
-                                            <td>10/21/2013</td>
+                                            <td>$321.33</td>
                                             <td>10/21/2013 3:29 PM</td>
                                             <td>10/21/2013</td>
+                                            <td>WCA</td>
                                             <td>Gift Cards</td>
-                                            <td>$321.33</td>
+                                            <td>10/21/2013</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle"
-                                                            data-toggle="dropdown">
-                                                        Actions
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu pull-right" role="menu">
-                                                        <li><a href="#">Action</a>
-                                                        </li>
-                                                        <li><a href="#">Another action</a>
-                                                        </li>
-                                                        <li><a href="#">Something else here</a>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#">Separated link</a>
-                                                        </li>
-                                                    </ul>
+                                                    <select>
+                                                        <option value="approve">APPROVE</option>
+                                                        <option value="deny">DENY</option>
+                                                    </select>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>3325</td>
-                                            <td>10/21/2013</td>
+                                            <td>$321.33</td>
                                             <td>10/21/2013 3:20 PM</td>
                                             <td>10/21/2013</td>
+                                            <td>WCA</td>
                                             <td>Gift Cards</td>
-                                            <td>$234.34</td>
+                                            <td>10/21/2013</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle"
-                                                            data-toggle="dropdown">
-                                                        Actions
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu pull-right" role="menu">
-                                                        <li><a href="#">Action</a>
-                                                        </li>
-                                                        <li><a href="#">Another action</a>
-                                                        </li>
-                                                        <li><a href="#">Something else here</a>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#">Separated link</a>
-                                                        </li>
-                                                    </ul>
+                                                    <select>
+                                                        <option value="approve">APPROVE</option>
+                                                        <option value="deny">DENY</option>
+                                                    </select>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>3324</td>
-                                            <td>10/21/2013</td>
+                                            <td>$721.33</td>
                                             <td> 10/21/2013 3:03 PM</td>
                                             <td>10/21/2013</td>
+                                            <td>WCA</td>
                                             <td>Gift Cards</td>
-                                            <td>$724.17</td>
+                                            <td>10/21/2013</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle"
-                                                            data-toggle="dropdown">
-                                                        Actions
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu pull-right" role="menu">
-                                                        <li><a href="#">Action</a>
-                                                        </li>
-                                                        <li><a href="#">Another action</a>
-                                                        </li>
-                                                        <li><a href="#">Something else here</a>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#">Separated link</a>
-                                                        </li>
-                                                    </ul>
+                                                    <select>
+                                                        <option value="approve">APPROVE</option>
+                                                        <option value="deny">DENY</option>
+                                                    </select>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>3323</td>
-                                            <td>10/21/2013</td>
+                                            <td>$321.33</td>
                                             <td>10/21/2013 3:00 PM</td>
                                             <td>10/21/2013</td>
+                                            <td>WCA</td>
                                             <td>Gift Cards</td>
-                                            <td>$23.71</td>
+                                            <td>10/21/2013</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle"
-                                                            data-toggle="dropdown">
-                                                        Actions
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu pull-right" role="menu">
-                                                        <li><a href="#">Action</a>
-                                                        </li>
-                                                        <li><a href="#">Another action</a>
-                                                        </li>
-                                                        <li><a href="#">Something else here</a>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#">Separated link</a>
-                                                        </li>
-                                                    </ul>
+                                                    <select>
+                                                        <option value="approve">APPROVE</option>
+                                                        <option value="deny">DENY</option>
+                                                    </select>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>3322</td>
-                                            <td>10/21/2013</td>
+                                            <td>$321.33</td>
                                             <td>10/21/2013 2:49 PM</td>
                                             <td>10/21/2013</td>
+                                            <td>CASA</td>
                                             <td>Gift Cards</td>
-                                            <td>$8345.23</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle"
-                                                            data-toggle="dropdown">
-                                                        Actions
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu pull-right" role="menu">
-                                                        <li><a href="#">Action</a>
-                                                        </li>
-                                                        <li><a href="#">Another action</a>
-                                                        </li>
-                                                        <li><a href="#">Something else here</a>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#">Separated link</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3321</td>
                                             <td>10/21/2013</td>
-                                            <td>10/21/2013 2:23 PM</td>
-                                            <td>10/21/2013</td>
-                                            <td>Gift Cards</td>
-                                            <td>$245.12</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <select>
@@ -347,8 +263,23 @@
                                       </tbody>
                                     </table>
                                 </div>
-                                <a href="#" class="btn btn-default btn-block"> requests</a>
-                                <a href="#" class="btn btn-default btn-block">View All Pending Request</a>
+
+                                <table style="width:100%">
+                                    <col align="left">
+                                    <col align="left">
+                                    <col align="right">
+
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-primary">View All  Request </button>
+
+                                           </td>
+                                        <td>                                            <button type="button" class="btn btn-primary">Set Requests Status</button>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
                             </div>
                             <!-- /.col-lg-4 (nested) -->
                             <div class="col-lg-8">
