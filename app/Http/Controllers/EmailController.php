@@ -26,9 +26,11 @@ class EmailController extends Controller
     public function email(){
 
         Mail::send(['text'=>'emails.startmail'],[],function($message){
-            $message->to(\Auth::user()->email,\Auth::user()->first_name)->subject('Welcome to CommUnityQ');
+            $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CommUnityQ');
             $message->from('tagg@gmail.com','tagg');
         });
+        //Mail::send(new RegistrationSuccessful())->to('akontham@unomaha.edu');
+        //Mail::send(new RegistrationSuccessful())->to(Auth::user()->email);
         return redirect('\home');
 
     }
