@@ -1,11 +1,13 @@
 @component('mail::message')
-# Welcome to CharityQ!
+# Welcome to CommunityQ!
 
 The body of your message.
 
 @component('mail::button', ['url' => ''])
 Button Text
-@endcomponent
+@endcomponent'
+
+
 
 Thanks,<br>
 {{ config('app.name') }}
