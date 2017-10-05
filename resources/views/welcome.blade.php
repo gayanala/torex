@@ -21,6 +21,7 @@
         </form>
     </div>--}}
 
-@yield('content')
+
 
 </body>
+@endsection
