@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Request_event_type;
+use Illuminate\Database\Seeder;
 
 class Request_event_typesTableSeeder extends Seeder
 {
