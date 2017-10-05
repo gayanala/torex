@@ -3,16 +3,55 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Styles -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tagg</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
+<style>
+
+    html, body {
+        background-color: #71c4ff;
+        /*color: #636b6f;*/
+        /*font-family: 'Raleway', sans-serif;*/
+        /*font-weight: 100;*/
+        /*height: 100vh;*/
+        /*margin: 0;*/
+    }
+
+
+
+    /*.content {*/
+        /*text-align: center;*/
+    /*}*/
+
+    /*.title {*/
+        /*font-size: 84px;*/
+    /*}*/
+
+    /*.links > a {*/
+        /*color: #636b6f;*/
+        /*padding: 0 25px;*/
+        /*font-size: 12px;*/
+        /*font-weight: 600;*/
+        /*letter-spacing: .1rem;*/
+        /*text-decoration: none;*/
+        /*text-transform: uppercase;*/
+    /*}*/
+
+    /*.m-b-md {*/
+        /*margin-bottom: 30px;*/
+    /*}*/
+</style>
+
+
+
 <body>
 <div id="app">
     <nav class="navbar navbar-default navbar-static-top">
@@ -43,12 +82,14 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    @guest
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
-                        <li><a href="donationrequest?orgId=1">Request Donation</a></li>
+                    @if (Auth::guest())
+                        <a href="{{ route('login') }}" class="w3-bar-item w3-button">Login</a>
+                        <a href="{{ route('register') }}" class="w3-bar-item w3-button">Register</a>
+                        <a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button">Request Donation</a>
                         @else
-                            <li><a href="{{ url('/home') }}">Dashboard</a></li>
+                            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
+                            <li><a href="{{ url('/guirules')}}" class="w3-bar-item w3-button">Rule Management</a></li>
+                            <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-expanded="false">
@@ -58,7 +99,7 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="users">Update Profile</a>
+                                        <a href="{{ route('users.index')}}">Profile Management</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('reset-password') }}">
@@ -91,4 +132,6 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 </body>
-</html>
+
+
+

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Securityquestion;
 use App\PasswordReset;
+use App\Security_question;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class SecurityquestionController extends Controller
     public function index()
     {
         //
-        $securityquestions = Securityquestion::all();
+        $securityquestions = Security_question::all();
         return view('securityquestions.index', compact('securityquestions'));
     }
 
@@ -42,7 +42,7 @@ class SecurityquestionController extends Controller
      */
     public function store(Request $request)
     {
-        $securityquestion = new Securityquestion($request->all());
+        $securityquestion = new Security_question($request->all());
 
         $validator = Validator::make($request->all(), [
             'question1' => 'required',
@@ -69,7 +69,7 @@ class SecurityquestionController extends Controller
     public function insertcheck(Request $request)
     {
         $users = Auth::id();
-        $securityquestion = Securityquestion::where('user_id', $users)->first();
+        $securityquestion = Security_question::where('user_id', $users)->first();
         return view('securityquestions.insertcheck', compact('securityquestion'));
     }
 
@@ -81,7 +81,7 @@ class SecurityquestionController extends Controller
 
         $userId = Auth::id();
 
-        $answers = Securityquestion::where('user_id', $userId)->firstOrFail();
+        $answers = Security_question::where('user_id', $userId)->firstOrFail();
         $securityAnswer1 = $answers->answer1;
         $securityAnswer2 = $answers->answer2;
         $securityAnswer3 = $answers->answer3;
@@ -130,7 +130,7 @@ class SecurityquestionController extends Controller
 
     public function destroy($id)
     {
-        Securityquestion::find($id)->delete();
+        Security_question::find($id)->delete();
         return redirect('securityquestions');
     }
 }

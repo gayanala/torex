@@ -1,6 +1,7 @@
 <?php
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+
 class DonationRequest extends Model
 {
     protected $fillable = [
@@ -22,9 +23,10 @@ class DonationRequest extends Model
         'event_name',
         'event_start_date',
         'event_end_date',
-        'event_purpose',
+        'event_type',
         'est_attendee_count',
         'venue',
-        'marketing_opportunities'];
-     protected $table = 'donation_requests';
+        'marketing_opportunities'
+    ];
+//     protected $table = 'donation_requests';
 }

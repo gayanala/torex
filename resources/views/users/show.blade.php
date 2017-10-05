@@ -1,62 +1,66 @@
-@extends('app')
+@extends('layouts.app')
 @section('content')
-    <h1>Profile Details</h1>
-
     <div class="container">
-        <table class="table table-striped table-bordered table-hover">
-            <tbody>
-            <tr class="bg-info">
-            <tr>
-                <td>First Name</td>
-                <td><?php echo($user['first_name']); ?></td>
-            </tr>
-            <tr>
-                <td>Last Name</td>
-                <td><?php echo($user['last_name']); ?></td>
-            </tr>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> Create A User</div>
+                    <div class="panel-body">
 
-            <tr>
-                <td>User Name</td>
-                <td><?php echo($user['user_name']); ?></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><?php echo($user['email']); ?></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td><?php echo($user['password']); ?></td>
-            </tr>
+                        {!! Form::open(['url' => 'users']) !!}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-            <td>Street Address 1</td>
-            <td><?php echo($user['street_address1']); ?></td>
-            </tr>
+                        {{ Form::hidden('organization_id', Auth::user()->organization_id) }}
+                        {!! Form::open(['url' => 'users']) !!}
 
-            <td>Street Address 2</td>
-            <td><?php echo($user['street_address2']); ?></td>
-            </tr>
+                        <div class="form-group">
+                            {!! Form::label('First Name', 'First Name:') !!}
+                            {!! Form::text('first_name',null,['class'=>'form-control', 'required']) !!}
+                        </div>
 
-            <tr>
-                <td>City</td>
-                <td><?php echo($user['city']); ?></td>
-            </tr>
+                        <div class="form-group">
+                            {!! Form::label('Last Name', 'Last Name:') !!}
+                            {!! Form::text('last_name',null,['class'=>'form-control', 'required']) !!}
+                        </div>
 
-            <td>State</td>
-            <td><?php echo($user['state']); ?></td>
-            </tr>
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email">E-Mail Address:</label>
+                                <input id="email" type="email" class="form-control" name="email"
+                                       value="{{ old('email') }}" required>
 
-            <tr>
-                <td>ZipCode</td>
-                <td><?php echo($user['zipcode']); ?></td>
-            </tr>
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
-            <td>Phone Number</td>
-            <td><?php echo($user['phone_number']); ?></td>
-            </tr>
-
-
-            </tbody>
-        </table>
+                        <div class="form-group">
+                            <div class=" col-md-offset-4">
+                                <button type="submit" class="" onclick="myFunction();">Submit</button>
+                                <input type="button" value="Cancel" onClick="history.go(-1);">
+                                <span style="color: red"> <h5> * All Fields Are Mandatory</h5></span>
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+   {{--<script>
+        function myFunction() {
+            alert("You have Successfully Register a User");
+        }
+    </script>--}}
 @stop

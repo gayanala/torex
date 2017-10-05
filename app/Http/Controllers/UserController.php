@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Organization;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Route;
+use App\Organization;
+use App\State;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Http\withErrors;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
 
 class UserController extends Controller
 {
@@ -22,9 +28,8 @@ class UserController extends Controller
 
     public function index()
     {
-        //
-        $users = User::all();
-        return view('users.index', compact('users'));
+        $user = Auth::user();
+        return view('users.index', compact('user'));
     }
 
     public function show($id)
@@ -33,12 +38,11 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
-
     public function create(Request $request)
     {
         $organization = new Organization;
         $organization->org_name = $request->org_name;
-        $organization->org_description = $request->org_description;
+        $organization->organization_type_id = $request->organization_type_id;
         $organization->street_address1 = $request->street_address1;
         $organization->street_address2 = $request->street_address2;
         $organization->city = $request->city;
@@ -62,32 +66,31 @@ class UserController extends Controller
         $user->phone_number = $request->phone_number;
         $user->organization_id = $orgId;
         $user->save();
-        $user->roles()->attach(3);
+        $user->roles()->attach(4);
 
         $userid = $user->id;
 
         return redirect('/securityquestions/create')-> with('userId',$userid);
 
-
-
-        //return view('users.create');
     }
     /**
      * Store a newly created resource in storage.
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        $user = Request::all();
+        //dd($request->organization_id);
+        $user = $request->all();
         User::create($user);
         return redirect('users');
     }
 
     public function edit($id)
     {
+        $states = State::pluck('state_name', 'state_code');
         $user = User::find($id);
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user'))->with('states', $states);
     }
 
     /**
@@ -98,11 +101,24 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'phone_number' => 'required|regex:/[0-9]{9}/',
+            'zipcode' => 'required|regex:/[0-9]{5}/',
+            'state' => 'required',
+                'email' => [
+                    'required',
+                    Rule::unique('users')->ignore($id),
+                ],
+        ]);
+
+        if ($validator->fails())
+        {
+            return redirect() ->back()->withErrors($validator)->withInput();
+        }
+
         $userUpdate = $request->all();
-        //dd($userUpdate);
         User::find($id)->update($userUpdate);
-        //$user;
+
         return redirect('users');
     }
 

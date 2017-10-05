@@ -1,5 +1,4 @@
 <?php
-
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 $server = $url["host"];
@@ -54,8 +53,10 @@ return [
             'prefix' => '',
             'strict' => false,
             'engine' => null,
+
+            'unix_socket'=> env('UNIX_SOCKET', ''),
         ],
-        
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

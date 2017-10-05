@@ -27,6 +27,8 @@ Route::get('securityquestions/insertcheck/{id}', 'SecurityquestionController@ins
 
 Route::resource('securityquestions', 'SecurityquestionController');
 
+Route::resource('attachment', 'DonationRequestController');
+
 Route::resource('/users', 'UserController');
 
 Route::post('user/register', 'UserController@create');
@@ -35,12 +37,34 @@ Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
 
-Route::post('/donate', 'DonationRequestController@store')->name('donation');
+// Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
-Route::resource('/donationrequest', 'DonationRequestController');
+Route::get('/donationrequests/create', 'DonationRequestController@create')->name('donation');
+
+Route::get('donationrequests/search','DonationRequestController@searchDonationRequest');
+
+Route::resource('/donationrequests', 'DonationRequestController');
 
 Route::get('change-password', function() {
     return view('change-password');
 })->name('reset-password');
 
 Route::post('change-password', 'Auth\UpdatePasswordController@update');
+
+Route::post('/sendmail', function (\Illuminate\Http\Request $request, \Illuminate\Mail\Mailer $mailer) {
+    $mailer
+        ->to($request->input('mail'))
+        ->send(new \App\Mail\StartMail($request->input('title')));
+    return redirect()->back();
+})->name('sendmail');
+
+Route::get('/email', 'EmailController@email') ->name('sendEmail');
+
+Route::get('/emailtemplates/edit/{id}','EmailTemplateController@edit')->name('emailtemplate');
+
+Route::resource('emailtemplates','EmailTemplateController');
+
+Route::get('/dashboard', 'DashboardController@index');
+
+// Rules stuff
+Route::get('guirules', 'RuleEngineController@rulesGui');
