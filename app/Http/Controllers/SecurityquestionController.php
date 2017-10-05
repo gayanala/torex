@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Security_question;
-use Carbon\Carbon;
 use App\PasswordReset;
+use App\Security_question;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Auth;

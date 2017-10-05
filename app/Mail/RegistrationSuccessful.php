@@ -12,15 +12,15 @@ class RegistrationSuccessful extends Mailable
 {
     use Queueable, SerializesModels;
 
-    //public $user;
+    public $user;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //$this->user = $user;
+        $this->user = $user;
     }
 
     /**

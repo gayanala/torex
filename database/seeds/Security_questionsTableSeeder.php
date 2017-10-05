@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Security_question;
+use Illuminate\Database\Seeder;
 
 class Security_questionsTableSeeder extends Seeder
 {
