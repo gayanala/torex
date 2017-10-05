@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Request_item_purpose;
+use Illuminate\Database\Seeder;
 
 class Request_item_purposesTableSeeder extends Seeder
 {

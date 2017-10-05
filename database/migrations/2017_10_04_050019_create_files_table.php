@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateFilesTable extends Migration
 {
@@ -23,7 +23,7 @@ class CreateFilesTable extends Migration
         });
 
         Schema::table('files', function (Blueprint $table) {
-                  $table->foreign('organization_id')->references('id')->on('users')->onDelete('cascade');
+                  $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
               });
 
     }
