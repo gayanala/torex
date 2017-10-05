@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Storage;
 class DonationRequestController extends Controller
 {
     public function index()
-    {dd('yup');
+    {
         $requester_types = Requester_type::pluck('type_name', 'id');
-        $donationrequests = DonationRequest::paginate(5);
+        $donationrequests = DonationRequest::paginate(5);dd($donationrequests);
         return view('donationrequests.index', compact('donationrequests'))->with('organization_types', $requester_types);
     }
 
