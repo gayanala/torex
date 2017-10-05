@@ -54,7 +54,7 @@ return [
             'strict' => false,
             'engine' => null,
 
-            'unix_socket'=> '/Applications/MAMP/tmp/mysql/mysql.sock',
+            'unix_socket'=> env('UNIX_SOCKET', ''),
         ],
 
         'pgsql' => [
