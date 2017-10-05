@@ -21,7 +21,7 @@ class DonationRequestController extends Controller
     {
         $requester_types = Requester_type::pluck('type_name', 'id');
         $donationrequests = DonationRequest::paginate(5);
-        return view('donationrequests.index');
+        return view('donationrequests.Index');
         //return view('donationrequests.index', compact('donationrequests'))->with('organization_types', $requester_types);
     }
 
