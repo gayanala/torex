@@ -64,6 +64,7 @@
         @else
             <div class="w3-right">
                 <a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a>
+                <a href="{{ url('/guirules')}}" class="w3-bar-item w3-button">Rule Management</a>
                 <a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a>
                 <a href="{{ url('/home') }}" class="w3-bar-item w3-button">
                         {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
