@@ -23,9 +23,13 @@ class EmailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function email()
-    {
-        Mail::to(Auth::user()->email)->send(new RegistrationSuccessful());
-        return view('home');
+    public function email(){
+
+        Mail::send(['text'=>'emails.startmail'],[],function($message){
+            $message->to(\Auth::user()->email,\Auth::user()->first_name)->subject('Welcome to CommUnityQ');
+            $message->from('tagg@gmail.com','tagg');
+        });
+        return redirect('\home');
+
     }
 }

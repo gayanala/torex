@@ -103,7 +103,6 @@
     'command.controller.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'command.event.generate' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'command.event.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
-    'command.exception.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'command.factory.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'command.job.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'command.listener.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
