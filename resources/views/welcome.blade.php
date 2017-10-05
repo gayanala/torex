@@ -13,6 +13,7 @@
 
 
 
-@yield('content')
+
 
 </body>
+@endsection
