@@ -54,7 +54,7 @@
                         {{$donationrequests->links()}}
                             <div class="panel-heading"><h1>Add a Donation Request</h1></div>
                             <input type="button" value="Manual Entry for Donation Request"
-                        onClick="window.open('http://tagg-preprod.herokuapp.com/donationrequest?orgId={{Auth::user()->organization_id}}', '_blank');"/>
+                        onClick="window.open('http://tagg-preprod.herokuapp.com/donationrequests/create?orgId={{Auth::user()->organization_id}}', '_blank');"/>
 
 
                     </div>
