@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h1> View & Update Profile </h1></div>
+                    <div class="panel-heading"><h1>  View & Update Profile </h1></div>
 
                     <div class="panel-body">
                         <table class="table table-striped table-bordered table-hover">
@@ -29,12 +29,18 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="col-10">
+                            <div class="panel panel-default">
                         <div class="panel-heading"><h1>Add a User</h1></div>
+                            </div>
+                        </div>
                         <td><a href="{{route('users.show',$user->id)}}" class="btn btn-warning"> Create Account </a>
 
+                            <div class="col-10">
+                                <div class="panel panel-default">
                             <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
-
-
+                                </div>
+                            </div>
 
                             <script type="text/javascript">
                                 function Copy() {
@@ -46,26 +52,15 @@
                                     //Copied.execCommand("Copy");
                                     window.confirm("You have successfully generated the URL needed for donation Requests on your website")
                                     var txt;
-
                                 }
                             </script>
                             <body>
                             <div>
-
                                 <input type="button" value="Copy Url" onclick="Copy();" />
                                 <br />
-
                                 Paste: <textarea id="urlCopied" rows="1" cols="75"></textarea>
-
                             </div>
-
-
-
-
-
-
                             </body>
-
                     </div>
                 </div>
             </div>
