@@ -23,7 +23,6 @@ class CreateFilesTable extends Migration
         });
 
         Schema::table('files', function (Blueprint $table) {
-                  $table->foreign('organization_id')->references('id')->on('users')->onDelete('cascade');
               });
 
     }

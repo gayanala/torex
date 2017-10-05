@@ -11,6 +11,6 @@ class File extends Model
         'original_filename',
     ];
     public function customer() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Organization');
     }
 }
