@@ -43,5 +43,11 @@ class AddCashierTables extends Migration
     public function down()
     {
         Schema::dropIfExists('subscriptions');
+		Schema::table('organizations', function ($table)  {
+            $table->dropColumn('stripe_id');
+            $table->dropColumn('card_brand');
+            $table->dropColumn('card_last_four');
+            $table->dropColumn('trial_ends_at');
+        });
     }
 }
