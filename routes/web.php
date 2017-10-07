@@ -29,6 +29,8 @@ Route::resource('attachment', 'DonationRequestController');
 
 Route::resource('/users', 'UserController');
 
+Route::resource('organizations', 'OrganizationController');
+
 Route::post('user/register', 'UserController@create');
 
 Route::get('/organization', 'OrganizationController@index');
