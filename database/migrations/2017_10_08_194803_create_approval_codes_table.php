@@ -20,7 +20,7 @@ class CreateApprovalCodesTable extends Migration
             $table->timestamps();
         });
         Schema::table('donation_requests', function (Blueprint $table) {
-            $table->integer('approval_status_id')->unsigned();
+            $table->integer('approval_status_id')->unsigned()->default(1);
             $table->foreign('approval_status_id')->references('id')->on('approval_statuses');
         });
     }
