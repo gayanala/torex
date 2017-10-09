@@ -15,6 +15,7 @@ class Organization extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'org_name',
         'organization_type_id',
         'street_address1',
@@ -24,4 +25,9 @@ class Organization extends Model
         'state',
         'phone_number',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }

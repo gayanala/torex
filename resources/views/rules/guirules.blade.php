@@ -1,4 +1,4 @@
-@extends('layouts.app')
+
 @section('content')
     <!--<link rel="stylesheet" href="../../../node_modules/jQuery-QueryBuilder/dist/css/query-builder.default.css">-->
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -178,4 +178,4 @@
             }
         });
     </script>
-@stop
+

@@ -2,18 +2,17 @@
 namespace App\Http\Controllers;
 
 use App\DonationRequest;
-use App\State;
-use App\Requester_type;
-use App\Request_item_type;
-use App\Request_item_purpose;
+use App\File;
 use App\Request_event_type;
+use App\Request_item_purpose;
+use App\Request_item_type;
+use App\Requester_type;
+use App\State;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Illuminate\Support\Facades\Validator;
-use Auth;
-use App\File;
-use \Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 
 class DonationRequestController extends Controller

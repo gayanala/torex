@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistrationSuccessful;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
 
 
 class EmailController extends Controller
@@ -24,9 +23,15 @@ class EmailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function email()
-    {
-        Mail::to(Auth::user()->email)->send(new RegistrationSuccessful());
-        return view('home');
+    public function email(){
+
+        Mail::send(['text'=>'emails.startmail'],[],function($message){
+            $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CommUnityQ');
+            $message->from('tagg@gmail.com','tagg');
+        });
+        //Mail::send(new RegistrationSuccessful())->to('akontham@unomaha.edu');
+        //Mail::send(new RegistrationSuccessful())->to(Auth::user()->email);
+        return redirect('\home');
+
     }
 }
