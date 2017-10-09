@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\PasswordUpdate' => [
             'App\Listeners\PasswordUpdateEmail',
         ],
+        'App\Events\DonationRequestReceived' => [
+            'App\Listeners\RequestReceivedMail',
+        ],
+
     ];
 
     /**

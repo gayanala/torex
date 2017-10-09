@@ -8,11 +8,11 @@ use App\Request_item_purpose;
 use App\Request_item_type;
 use App\Requester_type;
 use App\State;
-use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use App\Events\DonationRequestReceived;
 
 
 class DonationRequestController extends Controller
@@ -126,6 +126,11 @@ class DonationRequestController extends Controller
             $file->file_type='attachment';
             $file->save();
         }
+
+        //fire NewBusiness event to initiate sending welcome mail
+
+        event(new DonationRequestReceived($donationRequest));
+
         return redirect('/');
     }
 

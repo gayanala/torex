@@ -42,9 +42,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    //user has many to many relationship with roles
+
     public function roles()
     {
         return $this->belongsToMany('App\Role');
+    }
+
+    //user has one to many(inverse) relationship with organizations
+
+    public function organization() {
+        return $this->belongsTo('App\Organization');
     }
 
 }
