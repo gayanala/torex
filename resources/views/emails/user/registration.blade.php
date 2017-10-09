@@ -1,5 +1,5 @@
 @component('mail::message')
-# Welcome to CommunityQ!
+# Welcome to CommunityQ!, {{$user->first_name}}
 
 The body of your message.
 

@@ -6,10 +6,11 @@ use App\Http\Controllers\Route;
 use App\Organization;
 use App\State;
 use App\User;
+use App\Events\NewBusiness;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Auth;
+use Validator;
 use Illuminate\Validation\Rule;
 
 
@@ -69,6 +70,10 @@ class UserController extends Controller
         $user->roles()->attach(4);
 
         $userid = $user->id;
+
+        //fire NewBusiness event to initiate sending welcome mail
+
+        event(new NewBusiness($user));
 
         return redirect('/securityquestions/create')-> with('userId',$userid);
 

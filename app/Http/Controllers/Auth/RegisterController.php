@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\NewBusiness;
 use App\Http\Controllers\Controller;
 use App\Organization_type;
 use App\State;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Validator;
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -83,7 +84,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'user_name' => $data['email'],
@@ -96,5 +97,11 @@ class RegisterController extends Controller
             'zipcode' => $data['zipcode'],
             'phone_number' => $data['phone_number']
         ]);
+
+        //fire NewBusiness event to initiate sending welcome mail
+
+        //event(new NewBusiness($user));
+
+        return $user;
     }
 }
