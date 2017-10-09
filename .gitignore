@@ -14,6 +14,7 @@ yarn-error.log
 .env.*.php
 .env.php
 .env
+_ide_helper.php
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
 

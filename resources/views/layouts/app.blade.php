@@ -1,139 +1,251 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
+    <title>A Tagg Intiative</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tagg</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            font: 16px Montserrat, sans-serif;
+            font-size: large;
+            line-height: 2.0;
+            color: #0077aa;
+        }
+
+        h2
+        {
+            font-size: 30px;
+            color: #66512c;
+            position: relative;
+            float: bottom;
+            top: 75%;
+            left: 55%;
+            transform: translate(-60%, 30%);
+        }
+
+        h3
+        {
+            font-size: 30px;
+            color: #ffffff;
+            position: relative;
+            float: bottom;
+            top: 75%;
+            left: 55%;
+            transform: translate(-60%, 30%);
+        }
+
+        p {font-size: 16px;
+            color: #3a87ad;
+            position: relative;
+            float: bottom;
+            top: 75%;
+            left: 53%;
+            transform: translate(-55%, 30%);
+            vertical-align: middle;
+        }
+        h1 {font-size: 16px;
+            color: #3a87ad;
+            position: relative;
+            float: bottom;
+            top: 75%;
+            left: 55%;
+            transform: translate(-55%, 30%);
+        }
+
+        .margin {margin-bottom: 45px;}
+        .bg-1 {
+
+            background-color: #ffab40;
+            color: #ffffff;
+        }
+
+        img {
+            background-size: cover;
+            display: block;
+            vertical-align: middle;
+
+        }
+
+
+        .imgalign
+        {
+            margin-left: auto;
+            margin-right: auto;
+            background-size: cover;
+            display: block;
+            vertical-align: middle;
+        }
+
+        .txtalign
+        {
+            margin-left: auto;
+            margin-right: auto;
+            vertical-align: middle;
+            width: 8em
+        }
+        .bgimg {
+            background-image: url("http://www.bikemaui.com/wp-content/uploads/2016/06/sunrise-maui-hawaii.jpg");
+            background-size: cover;
+            display: block;
+            vertical-align: middle;
+
+        }
+        .bg-2 {
+            background-color: #ffffff; /* Dark Blue */
+            color: #ffffff;
+        }
+        .bg-3 {
+            background-color: #f1f8e9; /* White */
+            color: #555555;
+        }
+        .bg-4 {
+            background-color: #ffab00; /* Black Gray */
+            color: #fff;
+        }
+        .container-fluid {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+        .navbar {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border: 0;
+            border-radius: 0;
+            margin-bottom: 0;
+            font-size: 12px;
+            letter-spacing: 5px;
+        }
+        .navbar-nav  li a:hover {
+            color: #1abc9c !important;
+        }
+        .col-sm-6
+        {display: block;}
+        .background-image {
+            background: no-repeat fixed;
+            max-width: 100%;
+            display: block;
+            left: -50px;
+            top:-5px;
+            bottom:-5px;
+            right: -5px;
+            z-index: 1;
+            -ms-filter: blur(5px);
+            filter: blur(5px);
+            margin:1px -50px 2px -50px;
+            -webkit-background-size: contain;
+            -moz-background-size: contain;
+            -o-background-size: contain;
+            background-size: contain;
+        }
+        .footer {
+            position: relative;
+            right: 0;
+            bottom: -72px;
+            left: 0;
+            top: auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+    </style>
 </head>
-
-<style>
-
-    html, body {
-        background-color: #71c4ff;
-        /*color: #636b6f;*/
-        /*font-family: 'Raleway', sans-serif;*/
-        /*font-weight: 100;*/
-        /*height: 100vh;*/
-        /*margin: 0;*/
-    }
-
-
-
-    /*.content {*/
-        /*text-align: center;*/
-    /*}*/
-
-    /*.title {*/
-        /*font-size: 84px;*/
-    /*}*/
-
-    /*.links > a {*/
-        /*color: #636b6f;*/
-        /*padding: 0 25px;*/
-        /*font-size: 12px;*/
-        /*font-weight: 600;*/
-        /*letter-spacing: .1rem;*/
-        /*text-decoration: none;*/
-        /*text-transform: uppercase;*/
-    /*}*/
-
-    /*.m-b-md {*/
-        /*margin-bottom: 30px;*/
-    /*}*/
-</style>
-
 
 
 <body>
 <div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
+    <nav class="navbar navbar-light" style="background-color: #ffffff;">
+        <div class="container-fluid">
 
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+            <!-- Collapsed Hamburger -->
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-            </div>
+            <div class="row">
+                <div class="col-sm-3">
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    &nbsp;
-                </ul>
+                    <img src="https://lh3.googleusercontent.com/_bMEcYfrLI5-cm87ebHKdaVgMQVWy4EZgqJ0zlkDBqGLlxVqgBtp4bc5lNA2Fjp6U6fHiA0=s170" alt="TAGG" id="logo"  class="img-responsive"/>
 
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <a href="{{ route('login') }}" class="w3-bar-item w3-button">Login</a>
-                        <a href="{{ route('register') }}" class="w3-bar-item w3-button">Register</a>
-                        <a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button">Request Donation</a>
-                    @else
-                        <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
-                        <li><a href="{{ url('/guirules')}}" class="w3-bar-item w3-button">Rule Management</a></li>
-                        <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false">
-                                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
-                                        class="caret"></span>
-                            </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ route('users.index')}}">Profile Management</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('organizations.index')}}">Organization Management</a>
-                                </li>
-
-                                <li>
-                                    <a href="{{ route('reset-password') }}">
-                                        Reset Password
+                </div>
+                <div class="col-sm-5 col-md-offset-3"; style='position:absolute;right: 0px;top:15px;' >
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <!-- Right Side Of Navbar -->
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- Authentication Links -->
+                            @if (Auth::guest())
+                                <a href="{{ route('login') }}" class="w3-bar-item w3-button">Login</a>
+                                <a href="{{ route('register') }}" class="w3-bar-item w3-button">Register</a>
+                                <a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button">RequestDonation</a>
+                            @else
+                                <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
+                                <li><a href="{{ url('/guirules')}}" class="w3-bar-item w3-button">Rule Management</a></li>
+                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false">
+                                        {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
+                                                class="caret"></span>
                                     </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{ route('users.index')}}">Profile Management</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('reset-password') }}">
+                                                Reset Password
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('logout') }}"
+                                               onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
+                                                Logout
+                                            </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                          style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                  style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
+                                        </li>
+                                    </ul>
                                 </li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
+                            @endif
+                        </ul>
+                    </div>
+                </div>
     </nav>
+
+
 
     @yield('content')
 </div>
+
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+
+<footer class="footer bg-4">
+
+    <img src="http://www.unhcr.ca/wp-content/uploads/2016/04/icon-partner.png" class="imgalign" style="width:20%" alt="Image" align="middle">
+
+
+</footer>
 
 </body>
 

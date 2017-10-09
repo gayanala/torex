@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Mail\RegistrationSuccessful;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
+use Auth;
+use Mail;
 
 
 class EmailController extends Controller
@@ -25,12 +25,14 @@ class EmailController extends Controller
      */
     public function email(){
 
-        Mail::send(['text'=>'emails.startmail'],[],function($message){
+        /*Mail::send(
+
+            ['text'=>'emails.startmail'],[],function($message){
             $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CommUnityQ');
             $message->from('tagg@gmail.com','tagg');
-        });
-        //Mail::send(new RegistrationSuccessful())->to('akontham@unomaha.edu');
-        //Mail::send(new RegistrationSuccessful())->to(Auth::user()->email);
+        });*/
+        Mail::to(Auth::user()->email)->send(new RegistrationSuccessful(Auth::user()));
+
         return redirect('\home');
 
     }
