@@ -15,7 +15,6 @@
                         @endif
 
                         <strong>{{$role}}</strong> is logged in!
-                        <a href="{{route('sendWelcomeEmail')}}" class="btn btn-block btn-primary">welcome email</a>
                     </div>
                 </div>
             </div>

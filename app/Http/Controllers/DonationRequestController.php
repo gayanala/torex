@@ -8,11 +8,11 @@ use App\Request_item_purpose;
 use App\Request_item_type;
 use App\Requester_type;
 use App\State;
-use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use App\Events\DonationRequestReceived;
 
 
 class DonationRequestController extends Controller
@@ -37,7 +37,6 @@ class DonationRequestController extends Controller
 
     public function edit($id)
     {
-
         $states = State::pluck('state_name', 'state_code');
         $requester_types = Requester_type::pluck('type_name', 'id');
         $request_item_types = Request_item_type::pluck('item_name', 'id');
@@ -57,6 +56,7 @@ class DonationRequestController extends Controller
         $donationrequest->update($request->all());
         return redirect('donationrequests');
     }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -126,6 +126,11 @@ class DonationRequestController extends Controller
             $file->file_type='attachment';
             $file->save();
         }
+
+        //fire NewBusiness event to initiate sending welcome mail
+
+        event(new DonationRequestReceived($donationRequest));
+
         return redirect('/');
     }
 

@@ -2,6 +2,7 @@
 // Thanks to http://paulcracknell.com/9/create-a-change-password-page-laravel-5-3/ for the reset password code
 namespace App\Http\Controllers\Auth;
 
+use App\Events\PasswordUpdate;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
@@ -43,6 +44,10 @@ class UpdatePasswordController extends Controller
             ])->save();
 
             $request->session()->flash('success', 'Your password has been changed.');
+
+            //Password changed email notification event trigger
+
+            event(new PasswordUpdate($user));
 
             return back();
         }

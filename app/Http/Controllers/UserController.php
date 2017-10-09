@@ -6,10 +6,11 @@ use App\Http\Controllers\Route;
 use App\Organization;
 use App\State;
 use App\User;
+use App\Events\NewBusiness;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Auth;
+use Validator;
 use Illuminate\Validation\Rule;
 
 
@@ -70,6 +71,10 @@ class UserController extends Controller
 
         $userid = $user->id;
 
+        //fire NewBusiness event to initiate sending welcome mail
+
+        event(new NewBusiness($user));
+
         return redirect('/securityquestions/create')-> with('userId',$userid);
 
     }
@@ -100,13 +105,14 @@ class UserController extends Controller
      * @return Response
      */
     public function update(Request $request, $id)
-    {
+    {//dd($request);
         $validator = Validator::make($request->all(), [
             'phone_number' => 'required|regex:/[0-9]{9}/',
             'zipcode' => 'required|regex:/[0-9]{5}/',
             'state' => 'required',
                 'email' => [
                     'required',
+                    'email',
                     Rule::unique('users')->ignore($id),
                 ],
         ]);
