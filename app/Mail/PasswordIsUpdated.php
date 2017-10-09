@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 
-class RegistrationSuccessful extends Mailable
+class PasswordIsUpdated extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,7 +18,6 @@ class RegistrationSuccessful extends Mailable
      *
      * @return void
      */
-    //public function __construct()
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -31,6 +30,6 @@ class RegistrationSuccessful extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user.welcomemail');
+        return $this->markdown('emails.user.passwordupdatedmail');
     }
 }

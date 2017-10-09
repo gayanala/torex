@@ -51,16 +51,6 @@ Route::get('change-password', function() {
 
 Route::post('change-password', 'Auth\UpdatePasswordController@update');
 
-//route for test mail
-/*Route::post('/sendmail', function (\Illuminate\Http\Request $request, \Illuminate\Mail\Mailer $mailer) {
-    $mailer
-        ->to($request->input('mail'))
-        ->send(new \App\Mail\StartMail($request->input('title')));
-    return redirect()->back();
-})->name('sendmail');*/
-
-Route::get('/email', 'EmailController@email') ->name('sendWelcomeEmail');
-
 //Route::get('/emailtemplates/edit/{id}','EmailTemplateController@edit')->name('emailtemplate');
 
 //Route::post('/emailtemplate', 'EmailTemplateController@edit');
@@ -68,6 +58,12 @@ Route::get('/email', 'EmailController@email') ->name('sendWelcomeEmail');
 Route::get('/emailtemplates/edit/{id}', 'EmailTemplateController@edit');
 
 Route::resource('emailtemplates', 'EmailTemplateController');
+
+//Emails
+
+Route::get('/email', 'EmailController@email') ->name('sendWelcomeEmail');
+
+//Dashboard
 
 Route::get('/dashboard', 'DashboardController@index');
 

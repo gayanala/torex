@@ -15,6 +15,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\NewBusiness' => [
             'App\Listeners\SendWelcomeMail',
         ],
+        'App\Events\PasswordUpdate' => [
+            'App\Listeners\PasswordUpdateEmail',
+        ],
     ];
 
     /**
