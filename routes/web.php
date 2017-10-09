@@ -61,9 +61,13 @@ Route::post('change-password', 'Auth\UpdatePasswordController@update');
 
 Route::get('/email', 'EmailController@email') ->name('sendWelcomeEmail');
 
-Route::get('/emailtemplates/edit/{id}','EmailTemplateController@edit')->name('emailtemplate');
+//Route::get('/emailtemplates/edit/{id}','EmailTemplateController@edit')->name('emailtemplate');
 
-Route::resource('emailtemplates','EmailTemplateController');
+//Route::post('/emailtemplate', 'EmailTemplateController@edit');
+
+Route::get('/emailtemplates/edit/{id}', 'EmailTemplateController@edit');
+
+Route::resource('emailtemplates', 'EmailTemplateController');
 
 Route::get('/dashboard', 'DashboardController@index');
 

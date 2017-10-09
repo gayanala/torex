@@ -37,7 +37,6 @@ class DonationRequestController extends Controller
 
     public function edit($id)
     {
-
         $states = State::pluck('state_name', 'state_code');
         $requester_types = Requester_type::pluck('type_name', 'id');
         $request_item_types = Request_item_type::pluck('item_name', 'id');
@@ -57,6 +56,7 @@ class DonationRequestController extends Controller
         $donationrequest->update($request->all());
         return redirect('donationrequests');
     }
+    
     /**
      * Store a newly created resource in storage.
      *
