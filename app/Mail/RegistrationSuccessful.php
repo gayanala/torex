@@ -31,6 +31,9 @@ class RegistrationSuccessful extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user.welcomemail');
+
+        return $this ->from('noreply@charityq.com')
+                     ->subject('Welcome to CommunityQ!')
+                     ->markdown('emails.user.welcomemail');
     }
 }
