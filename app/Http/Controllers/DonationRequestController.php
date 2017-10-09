@@ -120,7 +120,7 @@ class DonationRequestController extends Controller
         $donationRequest->save();
         if($request->hasFile('attachment')) {
             $file = new File();
-            $file->organization_id = $request->orgId;
+            $file->donation_request_id = $donationRequest->id;
             $file->original_filename = $request->file('attachment')->getClientOriginalName();
             $file->file_path = Storage::putFile('public', $request->file('attachment') );
             $file->file_type='attachment';
