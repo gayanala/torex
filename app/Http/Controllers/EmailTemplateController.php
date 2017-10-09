@@ -9,17 +9,25 @@ use App\Http\Controllers\Controller;
 
 class EmailTemplateController extends Controller
 {
-  public function index()
+    public function index()
     {
     	
-    	$emailtemplate = EmailTemplate::all();//find($template_type_id);
-    	//dd($emailtemplate);
-    	return view('emailtemplates.index', compact('emailtemplate'));
+    	$emailtemplates = EmailTemplate::all();//find($template_type_id);
+    	return view('emailtemplates.index', compact('emailtemplates'));
     }
 
- public function edit($id)
-    {//dd($id);
-        $emailtemplate = EmailTemplate::find(1);
+    public function update(Request $request, $id)
+    {
+
+        $emailtemplate = EmailTemplate::find($id);
+        $emailtemplate -> update($request->all());
+        $emailtemplate->save();
+        return redirect('emailtemplates');
+    }
+
+    public function edit($id)
+    {
+        $emailtemplate = EmailTemplate::find($id);//dd($emailtemplate);
         return view('emailtemplates.edit', compact('emailtemplate'));
     }
 }

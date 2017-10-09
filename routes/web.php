@@ -58,9 +58,13 @@ Route::post('/sendmail', function (\Illuminate\Http\Request $request, \Illuminat
 
 Route::get('/email', 'EmailController@email') ->name('sendEmail');
 
-Route::get('/emailtemplates/edit/{id}','EmailTemplateController@edit')->name('emailtemplate');
+//Route::get('/emailtemplates/edit/{id}','EmailTemplateController@edit')->name('emailtemplate');
 
-Route::resource('emailtemplates','EmailTemplateController');
+//Route::post('/emailtemplate', 'EmailTemplateController@edit');
+
+Route::get('/emailtemplates/edit/{id}', 'EmailTemplateController@edit');
+
+Route::resource('emailtemplates', 'EmailTemplateController');
 
 Route::get('/dashboard', 'DashboardController@index');
 
