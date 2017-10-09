@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+<script type="text/javascript">
+
+function yesnoCheck() {
+    if (document.getElementById('yesCheck').checked) {
+        document.getElementById('file_upload').style.visibility = 'visible';
+    }
+    else document.getElementById('file_upload').style.visibility = 'hidden';
+
+}
+
+</script>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -166,8 +177,12 @@
 
                                 <div class="col-md-6">
 
-                                    <input type="radio" name="taxexempt" value="true">Yes
-                                    <input type="radio" name="taxexempt" value="false">No
+                                  <label for="chkYes">
+                                    <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck" >Yes
+                                    </label>
+                                    <label for="chkNo">
+                                    <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck">No
+                                    </label>
                                     @if ($errors->has('taxexempt'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('taxexempt') }}</strong>
@@ -176,10 +191,11 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                {!! Form::label('attachment', 'attachment',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                            <div class="form-group" id="file_upload"  style="visibility:hidden">
+                                {!! Form::label('attachment', 'Attachment',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
                                 <div class="col-md-4">
-                                    {!! Form::file('attachment',['id'=>'attachment']) !!}                                                </div>
+                                    {!! Form::file('attachment',['id'=>'attachment']) !!}
+                                  </div>
                             </div>
 
 
