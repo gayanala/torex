@@ -17,7 +17,13 @@ class ModifyForiegnKeyFilesTable extends Migration
             $table->dropForeign(['organization_id']);
         });
         Schema::table('files', function (Blueprint $table) {
-            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+            $table->dropColumn('organization_id');
+        });
+        Schema::table('files', function (Blueprint $table) {
+            $table->integer('donation_request_id')->unsigned();
+        });
+        Schema::table('files', function (Blueprint $table) {
+            $table->foreign('donation_request_id')->references('id')->on('donation_requests')->onDelete('cascade');
         });
     }
 
@@ -29,7 +35,7 @@ class ModifyForiegnKeyFilesTable extends Migration
     public function down()
     {
         Schema::table('files', function (Blueprint $table) {
-            $table->dropColumn('organization_id');
+            $table->dropColumn('donation_request_id');
         });
         Schema::table('files', function (Blueprint $table) {
             $table->integer('organization_id')->unsigned();
