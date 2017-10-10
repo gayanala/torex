@@ -19,7 +19,7 @@
     <style>
         body {
             font: 16px Montserrat, sans-serif;
-            font-size: medium;
+            font-size: small;
             line-height: 2.0;
             color: #0077aa;
         }
