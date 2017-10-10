@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
-  <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+  
+  <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=8ti9sy5hwrnyd1keswz66t0f6skecvy5wlkxwii3206xt0sp"></script>
   <script type="text/javascript">
   tinymce.init({
     selector: 'textarea',
@@ -54,7 +55,7 @@
 
                         <div class="form-group">
                         <!--div class="col-lg-6"-->
-                                                        {!! Form::textarea('email_message',null,['required'], ['class' => 'col-md-4 control-label']) !!}
+                              {!! Form::textarea('email_message',null,['required'], ['class' => 'col-md-4 control-label']) !!}
                                                         </div>
                         
 
