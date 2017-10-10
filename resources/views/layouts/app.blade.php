@@ -210,6 +210,9 @@
                                             <a href="{{ route('users.index')}}">Profile Management</a>
                                         </li>
                                         <li>
+                                            <a href="{{ route('organizations.index')}}">Organization Management</a>
+                                        </li>
+                                        <li>
                                             <a href="{{ route('reset-password') }}">
                                                 Reset Password
                                             </a>
