@@ -1,12 +1,12 @@
 <?php
-//$url = parse_url(getenv("mysql://adffdadf2341:adf4234@us-cdbr-east.cleardb.com/heroku_db?reconnect=true"));
-//
-//$server = $url["host"];
-//$username = $url["user"];
-//$password = $url["pass"];
-//$db = substr($url["path"], 1);
-//
-//$conn = new mysqli($server, $username, $password, $db);
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"] ?? '';
+$db = substr($url["path"], 1);
+
+$conn = new mysqli($server, $username, $password, $db);
 
 return [
     /*
@@ -43,11 +43,11 @@ return [
         ],
         'mysql' => [
             'driver' => 'mysql',
-            'host' => 'localhost',
+            'host' => $server,
             'port' => env('DB_PORT', '3306'),
-            'database' => 'tagg',
-            'username' => 'root',
-            'password' => '',
+            'database' => $db,
+            'username' => $username,
+            'password' => $password,
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
