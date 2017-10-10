@@ -15,11 +15,13 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <style>
         body {
             font: 16px Montserrat, sans-serif;
-            font-size: large;
+            font-size: small;
             line-height: 2.0;
             color: #0077aa;
         }
@@ -141,7 +143,7 @@
             bottom:-5px;
             right: -5px;
             z-index: 1;
-            -ms-filter: blur(5px);
+            -ms-filter: blur(3px);
             filter: blur(5px);
             margin:1px -50px 2px -50px;
             -webkit-background-size: contain;
@@ -183,7 +185,7 @@
 
 
                 </div>
-                <div class="col-sm-5 col-md-offset-3"; style='position:absolute;right: 0px;top:15px;' >
+                <div class="col-sm-9 col-md-offset-3"; style='position:absolute;right: 0px;top:15px;' >
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
@@ -206,6 +208,9 @@
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="{{ route('users.index')}}">Profile Management</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('organizations.index')}}">Organization Management</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('reset-password') }}">
