@@ -38,13 +38,14 @@
 
                             <div class="col-10">
                                 <div class="panel panel-default">
-                                    <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
+                            <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
                                 </div>
                             </div>
 
                             <script type="text/javascript">
                                 function Copy() {
                                     var orgId = "{{Auth::user()->organization_id}}";
+
                                     urlCopied.value = "http://tagg-preprod.herokuapp.com/donationrequests/create?orgId={{Auth::user()->organization_id}}" ;
                                     //Copied = Url.createTextRange();
                                     //Copied.execCommand("Copy");
@@ -54,10 +55,11 @@
                             <body>
                             <div>
                                 <input type="button" value="Generate Url" onclick="Copy();" />
-                                <input type="text" id="urlCopied" size="80"/>
+                                <input type="text" id="urlCopied" maxlength="30"/>
 
                             </div>
                             </body>
+                    </div>
                 </div>
             </div>
         </div>

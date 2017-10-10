@@ -15,6 +15,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <style>
         body {
@@ -22,6 +24,11 @@
             font-size: small;
             line-height: 2.0;
             color: #0077aa;
+            margin-bottom:100px;
+            padding:0;
+            min-height: 100%;
+            position:relative;
+            clear: both;
         }
 
         h2
@@ -111,7 +118,7 @@
             color: #555555;
         }
         .bg-4 {
-            background-color: #ffab00; /* Black Gray */
+            background-color: #0097a7; /* Black Gray */
             color: #fff;
         }
         .container-fluid {
@@ -142,22 +149,21 @@
             right: -5px;
             z-index: 1;
             -ms-filter: blur(3px);
-            filter: blur(5px);
-            margin:1px -50px 2px -50px;
-            -webkit-background-size: contain;
-            -moz-background-size: contain;
-            -o-background-size: contain;
-            background-size: contain;
+            filter: blur(2px);
+            margin:1px -30px 1px -25px;
+            box-shadow: 0px 5px -1px rgba(34,34,34,0.6);
         }
+
         .footer {
-            position: relative;
+            position: fixed;
             right: 0;
-            bottom: -72px;
+            bottom: 0px;
             left: 0;
-            top: auto;
-            padding: 2rem;
+            top: inherit;
+            padding-top: -200px;
             text-align: center;
         }
+
 
     </style>
 </head>
@@ -183,7 +189,7 @@
 
 
                 </div>
-                <div class="col-sm-5 col-md-offset-3"; style='position:absolute;right: 0px;top:15px;' >
+                <div class="col-sm-9 col-md-offset-3"; style='position:absolute;right: 0px;top:15px;' >
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
@@ -206,6 +212,9 @@
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="{{ route('users.index')}}">Profile Management</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('organizations.index')}}">Organization Management</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('reset-password') }}">
@@ -240,13 +249,17 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 
-<footer class="footer bg-4">
 
-    <img src="http://www.unhcr.ca/wp-content/uploads/2016/04/icon-partner.png" class="imgalign" style="width:20%" alt="Image" align="middle">
+   <footer class="footer bg-4">
+
+    <img src="http://www.unhcr.ca/wp-content/uploads/2016/04/icon-partner.png" class="imgalign"  style="width:100px;height:50px;"  >
+
+    <h5>A tagg Intiative</h5>
 
 
-</footer>
 
+</div>
+</div>
 </body>
 
 

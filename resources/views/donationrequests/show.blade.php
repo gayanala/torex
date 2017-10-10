@@ -16,7 +16,6 @@
                         <tr>
                             <td>Name of Organization</td>
                             <td><?php echo ($donationrequest['requester']); ?></td>
-
                         </tr>
                         <tr>
                             <td>Type of Organization</td>
