@@ -13,13 +13,14 @@
                                       {{ csrf_field() }}
 
 
-                        <!-- <form class="form-horizontal" method="POST" action="{{ action('DonationRequestController@store') }}">
-                            {{ csrf_field() }} -->
+                         {{--<form class="form-horizontal" method="POST" action="{{ action('DonationRequestController@store') }}">--}}
+                            {{ csrf_field() }}
                             <input type="hidden" name="orgId" value="{{ $_GET['orgId'] }}">
+                            <input type="hidden" name="orgName" value="{{ $_GET['orgName'] }}">
                             <div class="form-group{{ $errors->has('requester') ? ' has-error' : '' }}">
                                 <label for="requester" class="col-md-4 control-label">Name Of The Organization <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                                 <div class="col-md-6">
-                                    <input id="requester" type="text" class="form-control" name="requester" value="{{ old('requester') }}" placeholder="Name of your organization" required autofocus>
+                                    <input id="requester" type="text" class="form-control" name="requester" value="{{Auth::user()->organization->org_name}}" placeholder="Name of your organization" required autofocus>
 
                                     @if ($errors->has('requester'))
                                         <span class="help-block">

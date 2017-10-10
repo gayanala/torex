@@ -96,6 +96,7 @@ class DonationRequestController extends Controller
         }*/
         $donationRequest = new DonationRequest;
         $donationRequest->organization_id = $request->orgId;
+        $donationRequest->organization_name = $request->orgName;
         $donationRequest->requester = $request->requester;
         $donationRequest->requester_type = $request->requester_type;
         $donationRequest->first_name = $request->firstname;
@@ -121,6 +122,7 @@ class DonationRequestController extends Controller
         if($request->hasFile('attachment')) {
             $file = new File();
             $file->organization_id = $request->orgId;
+            $file->org_name = $request->orgName;
             $file->original_filename = $request->file('attachment')->getClientOriginalName();
             $file->file_path = Storage::putFile('public', $request->file('attachment') );
             $file->file_type='attachment';
@@ -141,4 +143,6 @@ class DonationRequestController extends Controller
         $donationrequests = DonationRequest::where('requester', 'LIKE', "%$query%")->paginate(3);
         return view('donationrequests.index', compact('donationrequests'));
     }
+
+
 }

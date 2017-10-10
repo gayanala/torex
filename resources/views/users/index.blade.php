@@ -38,26 +38,24 @@
 
                             <div class="col-10">
                                 <div class="panel panel-default">
-                            <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
-                                </div>
-                            </div>
-
-                            <script type="text/javascript">
-                                function Copy() {
-                                    var orgId = "{{Auth::user()->organization_id}}";
-
-                                    urlCopied.value = "http://tagg-preprod.herokuapp.com/donationrequests/create?orgId={{Auth::user()->organization_id}}" ;
-                                    //Copied = Url.createTextRange();
-                                    //Copied.execCommand("Copy");
-                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website");
-                                }
-                            </script>
+                                    <script type="text/javascript">
+                                        function Copy()
+                                        {
+                                            var Url = document.createElement("textarea");
+                                            urlCopied.innerHTML = window.location.href ;
+                                            Copied = Url.createTextRange();
+                                            Copied.execCommand("Copy");
+                                        }
+                                    </script>
                             <body>
                             <div>
-                                <input type="button" value="Generate Url" onclick="Copy();" />
-                                <input type="text" id="urlCopied" maxlength="30"/>
 
+                                <input type="button" value="Copy Url" onclick="Copy();" />
+                                <br />
+
+                                Paste: <textarea id="urlCopied" rows="1" cols="50"></textarea>
                             </div>
+
                             </body>
                     </div>
                 </div>
