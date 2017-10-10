@@ -23,10 +23,8 @@ class HomeController extends Controller
     {
         $loggedInUserId = \Auth::user()->id;
         $user = \App\User::find($loggedInUserId);
-        foreach($user->roles as $role) {
-            $userRole = $role->name;
-        }
-        $userRole = 'Business Admin';
+        $userRole = $user->roles[0]->name;
+
         return view('home', ['role' => $userRole]);
     }
 

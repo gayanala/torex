@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Request_event_typesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->command->info("Users table seeded");
+        $this->call(RolesUserTableSeeder::class);
+        $this->command->info("role_user table seeded");
     }
 }
