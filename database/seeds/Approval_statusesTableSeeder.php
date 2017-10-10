@@ -18,5 +18,6 @@ class Approval_statusesTableSeeder extends Seeder
         Approval_status::create(['id' => 3, 'status_name' => 'Pending Approval', 'status_description' => 'Request flagged as ready for business to approve.']);
         Approval_status::create(['id' => 4, 'status_name' => 'Rejected', 'status_description' => 'Request rejected by business.']);
         Approval_status::create(['id' => 5, 'status_name' => 'Approved', 'status_description' => 'Request accepted by business.']);
+        Approval_status::create(['id' => 6, 'status_name' => 'Auto Rejected', 'status_description' => 'Request rejected via the rules engine.']);
     }
 }
