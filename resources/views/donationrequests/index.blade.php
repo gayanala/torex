@@ -53,10 +53,11 @@
                         @endif
                         {{$donationrequests->links()}}
                             <div class="panel-heading"><h1>Add a Donation Request</h1></div>
+
                             <input type="button" value="Manual Entry for Donation Request"
-                        onClick="window.open('http://tagg-preprod.herokuapp.com/donationrequests/create?orgId={{Auth::user()->organization_id}} & {{Auth::user()->organization->org_name}}', '_blank');"/>
+                        onClick="window.open('http://localhost/tagg/public/donationrequests/create?orgId={{Auth::user()->organization_id}} & orgName={{Auth::user()->organization->org_name}}', '_blank');"/>
 
-
+{{--tagg-preprod.herokuapp.com--}}
                     </div>
 
                 </div>
