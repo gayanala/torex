@@ -3,20 +3,50 @@
 <head>
     <title> Profile Management Page</title>
 
-    <link rel="stylesheet" type="text/css" href="{{url('css/app.css')}}">
-    <script type="text/javascript"></script>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
-    <style type="text/css"><!--
-        body {
-            top: 10%;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-            width: 50%;
-            height: 100px;
-        }
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Open</a>
 
-        --></style>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <h3 id="myModalLabel">Modal header</h3>
+    </div>
+    <div class="modal-body">
+        <textarea name="content"></textarea>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+
+<script>
+tinymce.init({
+    selector:   "textarea",
+    width:      '100%',
+    height:     270,
+    plugins:    "link",
+    statusbar:  false,
+    menubar:    false,
+    toolbar:    "link"
+});
+
+// Prevent bootstrap dialog from blocking focusin
+$(document).on('focusin', function(e) {
+    if ($(e.target).closest(".mce-window").length) {
+        e.stopImmediatePropagation();
+    }
+});
+
+$('#open').click(function() {
+    $("#dialog").dialog({
+        width: 800,
+        modal: true
+    });
+});
+</script>
+
 
 
 </head>

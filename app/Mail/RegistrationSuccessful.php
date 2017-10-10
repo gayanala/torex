@@ -6,22 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-//use App\User;
+use App\User;
 
 class RegistrationSuccessful extends Mailable
 {
     use Queueable, SerializesModels;
 
-    //public $user;
+    public $user;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
-    //public function __construct(User $user)
+    //public function __construct()
+    public function __construct(User $user)
     {
-        //$this->user = $user;
+        $this->user = $user;
     }
 
     /**
@@ -31,6 +31,9 @@ class RegistrationSuccessful extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user.registration');
+
+        return $this ->from('noreply@charityq.com')
+                     ->subject('Welcome to CommunityQ!')
+                     ->markdown('emails.user.welcomemail');
     }
 }

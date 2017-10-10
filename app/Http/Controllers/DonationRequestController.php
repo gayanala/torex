@@ -8,11 +8,11 @@ use App\Request_item_purpose;
 use App\Request_item_type;
 use App\Requester_type;
 use App\State;
-use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use App\Events\DonationRequestReceived;
 
 
 class DonationRequestController extends Controller
@@ -37,7 +37,6 @@ class DonationRequestController extends Controller
 
     public function edit($id)
     {
-
         $states = State::pluck('state_name', 'state_code');
         $requester_types = Requester_type::pluck('type_name', 'id');
         $request_item_types = Request_item_type::pluck('item_name', 'id');
@@ -57,6 +56,7 @@ class DonationRequestController extends Controller
         $donationrequest->update($request->all());
         return redirect('donationrequests');
     }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -96,7 +96,6 @@ class DonationRequestController extends Controller
         }*/
         $donationRequest = new DonationRequest;
         $donationRequest->organization_id = $request->orgId;
-        $donationRequest->organization_name = $request->orgName;
         $donationRequest->requester = $request->requester;
         $donationRequest->requester_type = $request->requester_type;
         $donationRequest->first_name = $request->firstname;
@@ -121,13 +120,17 @@ class DonationRequestController extends Controller
         $donationRequest->save();
         if($request->hasFile('attachment')) {
             $file = new File();
-            $file->organization_id = $request->orgId;
-            $file->org_name = $request->orgName;
+            $file->donation_request_id = $donationRequest->id;
             $file->original_filename = $request->file('attachment')->getClientOriginalName();
             $file->file_path = Storage::putFile('public', $request->file('attachment') );
             $file->file_type='attachment';
             $file->save();
         }
+
+        //fire NewBusiness event to initiate sending welcome mail
+
+        event(new DonationRequestReceived($donationRequest));
+
         return redirect('/');
     }
 
@@ -143,6 +146,4 @@ class DonationRequestController extends Controller
         $donationrequests = DonationRequest::where('requester', 'LIKE', "%$query%")->paginate(3);
         return view('donationrequests.index', compact('donationrequests'));
     }
-
-
 }
