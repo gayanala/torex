@@ -1,7 +1,8 @@
 <?php $__env->startSection('content'); ?>
 
-    <body>
+<body>
 
+<<<<<<< HEAD
 
     <div id="image1" class="container-fluid" style='text-align:center; background-image: url("http://citadelnyc.com/wp-content/uploads/2015/04/background-outer-wrapper2.png");background-repeat:repeat;height:155px;' align="center" >
 
@@ -97,6 +98,12 @@
                 <img src="https://flickerleap.com/wp-content/uploads/2017/05/5-steps-to-create-effective-content.jpg" class="img-responsive" alt="Full Size Background Image" >
 
             </div>
+=======
+    <div class="content">
+        <div style="text-align:center;padding:170px;">
+            <br><br><br><br><br>
+            <h1 style="font-size:150px"><img src="http://i66.tinypic.com/2wfl06o.gif" border="0"><img src="http://i65.tinypic.com/2lnwvmd.gif" border="0"></h1>
+>>>>>>> aa4eff035396ed2e3900a5d62106199eacbcc9b8
         </div>
     </div>
 
@@ -104,6 +111,6 @@
 
 
 
-    </body>
+</body>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
