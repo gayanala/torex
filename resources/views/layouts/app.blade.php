@@ -102,13 +102,7 @@
             vertical-align: middle;
             width: 8em
         }
-        .bgimg {
-            background-image: url("http://www.bikemaui.com/wp-content/uploads/2016/06/sunrise-maui-hawaii.jpg");
-            background-size: cover;
-            display: block;
-            vertical-align: middle;
 
-        }
         .bg-2 {
             background-color: #ffffff; /* Dark Blue */
             color: #ffffff;
@@ -185,7 +179,7 @@
             <div class="row">
                 <div class="col-sm-3">
 
-                    <img src="https://lh3.googleusercontent.com/_bMEcYfrLI5-cm87ebHKdaVgMQVWy4EZgqJ0zlkDBqGLlxVqgBtp4bc5lNA2Fjp6U6fHiA0=s170" alt="TAGG" id="logo"  class="img-responsive"/>
+                    <img src="https://lh3.googleusercontent.com/LztMKmMMgzoLugM5QPjZbOafJJUZ8SZa-LX5CYa8qNqtwosMed3NnCF-PE1Atd5i5-AM8A=s170" alt="TAGG" id="logo"  class="img-responsive"/>
 
 
                 </div>
