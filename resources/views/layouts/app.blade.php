@@ -15,6 +15,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <style>
         body {
@@ -183,7 +185,7 @@
 
 
                 </div>
-                <div class="col-sm-5 col-md-offset-3"; style='position:absolute;right: 0px;top:15px;' >
+                <div class="col-sm-9 col-md-offset-3"; style='position:absolute;right: 0px;top:15px;' >
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
