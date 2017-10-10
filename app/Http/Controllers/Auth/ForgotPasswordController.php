@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
+
 class ForgotPasswordController extends Controller
 {
     /*
@@ -29,4 +30,10 @@ class ForgotPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
 }
