@@ -13,7 +13,7 @@
                             <tr class="bg-info">
                                 <th>Email Type</th>
                                 <th>Email Subject</th>
-                                <th>Email Body</th>
+                               
                                 <th colspan="3">Actions</th>
                             </tr>
                             </thead>
@@ -21,7 +21,7 @@
                             @foreach($emailtemplates as $emailtemplate)
                                       <td style="vertical-align: middle">{{ $emailtemplate->template_type_id }}</td>
                                     <td style="vertical-align: middle">{{ $emailtemplate->email_subject }}</td>
-                                    <td style="vertical-align: middle">{{ $emailtemplate->email_message }}</td>
+                                   
                                     <td style="vertical-align: middle"><a href="
                                     {{action('EmailTemplateController@edit', ['id' => $emailtemplate->template_type_id])}}
                                     " class="btn btn-warning"> Edit </a>

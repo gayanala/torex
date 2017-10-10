@@ -102,13 +102,7 @@
             vertical-align: middle;
             width: 8em
         }
-        .bgimg {
-            background-image: url("http://www.bikemaui.com/wp-content/uploads/2016/06/sunrise-maui-hawaii.jpg");
-            background-size: cover;
-            display: block;
-            vertical-align: middle;
 
-        }
         .bg-2 {
             background-color: #ffffff; /* Dark Blue */
             color: #ffffff;
@@ -185,7 +179,7 @@
             <div class="row">
                 <div class="col-sm-3">
 
-                    <img src="https://lh3.googleusercontent.com/_bMEcYfrLI5-cm87ebHKdaVgMQVWy4EZgqJ0zlkDBqGLlxVqgBtp4bc5lNA2Fjp6U6fHiA0=s170" alt="TAGG" id="logo"  class="img-responsive"/>
+                    <img src="https://lh3.googleusercontent.com/LztMKmMMgzoLugM5QPjZbOafJJUZ8SZa-LX5CYa8qNqtwosMed3NnCF-PE1Atd5i5-AM8A=s170" alt="TAGG" id="logo"  class="img-responsive"/>
 
 
                 </div>
@@ -202,6 +196,7 @@
                                 <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
                                 <li><a href="{{ url('/guirules')}}" class="w3-bar-item w3-button">Rule Management</a></li>
                                 <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a></li>
+                                <li><a href="{{ route('emailtemplates.index')}}" class="w3-bar-item w3-button">Template Editor</a></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                        aria-expanded="false">
