@@ -28,6 +28,6 @@ class GotDonationRequest extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user.donationrequestreceived');
+        return $this->markdown('emails.user.donationrequestmail');
     }
 }
