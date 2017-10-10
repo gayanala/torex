@@ -9,6 +9,7 @@
     <div class="container-fluid">
         <div class="background-image">
             <img src="http://www.bikemaui.com/wp-content/uploads/2016/06/sunrise-maui-hawaii.jpg" />
+
         </div>
     </div>
     <div id="image" class="container-fluid" style='text-align:center; background-image: url("http://www.seniorsfishandchips.co.uk/images/community-header.png");background-repeat:repeat;height:155px;' align="center" >
@@ -31,6 +32,8 @@
                 <p class="text-center">CommunityQ helps caring business managers in streamlining contributions to
                     their community, charities, non-profits, and other organizations.  This allows our business partners to operate more
                     efficiently and successfully within their community.
+
+
                 </p>
             </div>
         </div>
