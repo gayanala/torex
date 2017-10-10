@@ -19,7 +19,7 @@
     <style>
         body {
             font: 16px Montserrat, sans-serif;
-            font-size: large;
+            font-size: medium;
             line-height: 2.0;
             color: #0077aa;
         }
@@ -141,7 +141,7 @@
             bottom:-5px;
             right: -5px;
             z-index: 1;
-            -ms-filter: blur(5px);
+            -ms-filter: blur(3px);
             filter: blur(5px);
             margin:1px -50px 2px -50px;
             -webkit-background-size: contain;
