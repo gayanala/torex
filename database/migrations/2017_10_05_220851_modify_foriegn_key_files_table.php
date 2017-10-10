@@ -35,6 +35,9 @@ class ModifyForiegnKeyFilesTable extends Migration
     public function down()
     {
         Schema::table('files', function (Blueprint $table) {
+            $table->dropForeign(['donation_request_id']);
+        });
+        Schema::table('files', function (Blueprint $table) {
             $table->dropColumn('donation_request_id');
         });
         Schema::table('files', function (Blueprint $table) {

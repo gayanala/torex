@@ -20,7 +20,11 @@ class DonationRequestController extends Controller
     public function index()
     {
         $requester_types = Requester_type::pluck('type_name', 'id');
+        //dd($requester_types);
         $donationrequests = DonationRequest::paginate(5);
+//        dd($donationrequests[0]);
+//        return view('donationrequests.index', compact('donationrequests'));
+
         return view('donationrequests.index', compact('donationrequests'))->with('organization_types', $requester_types);
     }
 

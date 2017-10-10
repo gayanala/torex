@@ -24,6 +24,11 @@
             font-size: small;
             line-height: 2.0;
             color: #0077aa;
+            margin-bottom:100px;
+            padding:0;
+            min-height: 100%;
+            position:relative;
+            clear: both;
         }
 
         h2
@@ -97,13 +102,7 @@
             vertical-align: middle;
             width: 8em
         }
-        .bgimg {
-            background-image: url("http://www.bikemaui.com/wp-content/uploads/2016/06/sunrise-maui-hawaii.jpg");
-            background-size: cover;
-            display: block;
-            vertical-align: middle;
 
-        }
         .bg-2 {
             background-color: #ffffff; /* Dark Blue */
             color: #ffffff;
@@ -113,7 +112,7 @@
             color: #555555;
         }
         .bg-4 {
-            background-color: #ffab00; /* Black Gray */
+            background-color: #0097a7; /* Black Gray */
             color: #fff;
         }
         .container-fluid {
@@ -144,22 +143,21 @@
             right: -5px;
             z-index: 1;
             -ms-filter: blur(3px);
-            filter: blur(5px);
-            margin:1px -50px 2px -50px;
-            -webkit-background-size: contain;
-            -moz-background-size: contain;
-            -o-background-size: contain;
-            background-size: contain;
+            filter: blur(2px);
+            margin:1px -30px 1px -25px;
+            box-shadow: 0px 5px -1px rgba(34,34,34,0.6);
         }
+
         .footer {
-            position: relative;
+            position: fixed;
             right: 0;
-            bottom: -72px;
+            bottom: 0px;
             left: 0;
-            top: auto;
-            padding: 2rem;
+            top: inherit;
+            padding-top: -200px;
             text-align: center;
         }
+
 
     </style>
 </head>
@@ -181,7 +179,7 @@
             <div class="row">
                 <div class="col-sm-3">
 
-                    <img src="https://lh3.googleusercontent.com/_bMEcYfrLI5-cm87ebHKdaVgMQVWy4EZgqJ0zlkDBqGLlxVqgBtp4bc5lNA2Fjp6U6fHiA0=s170" alt="TAGG" id="logo"  class="img-responsive"/>
+                    <img src="https://lh3.googleusercontent.com/LztMKmMMgzoLugM5QPjZbOafJJUZ8SZa-LX5CYa8qNqtwosMed3NnCF-PE1Atd5i5-AM8A=s170" alt="TAGG" id="logo"  class="img-responsive"/>
 
 
                 </div>
@@ -198,6 +196,7 @@
                                 <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
                                 <li><a href="{{ url('/guirules')}}" class="w3-bar-item w3-button">Rule Management</a></li>
                                 <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a></li>
+                                <li><a href="{{ route('emailtemplates.index')}}" class="w3-bar-item w3-button">Template Editor</a></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                        aria-expanded="false">
@@ -245,13 +244,17 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 
-<footer class="footer bg-4">
 
-    <img src="http://www.unhcr.ca/wp-content/uploads/2016/04/icon-partner.png" class="imgalign" style="width:20%" alt="Image" align="middle">
+   <footer class="footer bg-4">
+
+    <img src="http://www.unhcr.ca/wp-content/uploads/2016/04/icon-partner.png" class="imgalign"  style="width:100px;height:50px;"  >
+
+    <h5>A tagg Intiative</h5>
 
 
-</footer>
 
+</div>
+</div>
 </body>
 
 
