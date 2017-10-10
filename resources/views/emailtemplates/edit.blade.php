@@ -4,10 +4,11 @@
   
   <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=8ti9sy5hwrnyd1keswz66t0f6skecvy5wlkxwii3206xt0sp"></script>
   <script type="text/javascript">
+
   tinymce.init({
     selector: 'textarea',
     theme: 'modern',
-    width: 750,
+    width: 745,
     height: 300,
     plugins: [
       'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
@@ -15,9 +16,12 @@
       'save table contextmenu directionality emoticons template paste textcolor'
     ],
     content_css: 'css/content.css',
-    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons'
+    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
   });
+  
+
   </script>
+
 
 
 
