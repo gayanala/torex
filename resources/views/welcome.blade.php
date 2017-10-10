@@ -9,7 +9,7 @@
 
     </div>
     <div class="container-fluid">
-        <div class="background-image">
+        <div class="background-image" style="overflow: hidden ; height: 100%; min-width: 102.7% ; position: inherit ">
             <img src="http://www.bikemaui.com/wp-content/uploads/2016/06/sunrise-maui-hawaii.jpg" />
 
         </div>
@@ -66,7 +66,7 @@
                 Q Reports can enable your business to easily organize donations and figure out potential tax advantages.
 
             </p>
-
+<br>
             <br>
             <br>
 
