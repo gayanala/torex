@@ -29,8 +29,4 @@ class DonationRequest extends Model
         'marketing_opportunities'
     ];
 //     protected $table = 'donation_requests';
-
-    public function donationRequestTypes() {
-        return $this->hasOne('App\Requester_type');
-    }
 }
