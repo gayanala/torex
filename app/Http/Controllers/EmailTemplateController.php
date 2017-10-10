@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+
 use App\EmailTemplate;
+
+
+
 use App\Http\Controllers\Controller;
 
 class EmailTemplateController extends Controller
