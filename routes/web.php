@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/about-us', function () { return view('Front-page');});
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('Securityquestions/check/{id}', 'SecurityquestionController@check')->name('check');
