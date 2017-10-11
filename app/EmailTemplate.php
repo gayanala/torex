@@ -12,4 +12,8 @@ class EmailTemplate extends Model
         'email_subject',
         'email_message'
     ];
+
+    public function emailTemplateTypes() {
+        return $this->belongsTo('App\EmailTemplateType', 'template_type_id');
+    }
 }
