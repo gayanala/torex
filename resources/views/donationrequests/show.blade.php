@@ -79,7 +79,7 @@
                         </tr>
                         <tr>
                             <td>Event Purpose</td>
-                            <td><?php echo ($donationrequest['event_purpose']); ?></td>
+                            <td><?php echo ($requester_purpose_name); ?></td>
                         </tr>
                         <tr>
                             <td>Estimated Number Of Attendes</td>
