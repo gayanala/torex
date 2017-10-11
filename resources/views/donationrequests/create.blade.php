@@ -43,7 +43,6 @@
 
 
 
-
                                 @if ($errors->has('requester'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('requester') }}</strong>
