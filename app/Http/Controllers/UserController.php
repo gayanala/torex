@@ -85,9 +85,29 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->organization_id);
-        $user = $request->all();
-        User::create($user);
+        $loggedInUserDetails = User::findOrFail(Auth::user()->id);
+
+        $user = new User;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->user_name = $request->email;
+        $user->email = $request->email;
+        $user->password = bcrypt('password');
+        $user->street_address1 = $loggedInUserDetails->street_address1;
+        $user->street_address2 = $loggedInUserDetails->street_address2;
+        $user->city = $loggedInUserDetails->city;
+        $user->state = $loggedInUserDetails->state;
+        $user->zipcode = $loggedInUserDetails->zipcode;
+        $user->organization_id = $loggedInUserDetails->organization_id;
+        $user->phone_number = $loggedInUserDetails->phone_number;
+
+        $user->save();
+
+        $user->roles()->attach(5);
+
+        //dd($loggedInUserDetails);
+
+        //User::create($user);
         return redirect('users');
     }
 
