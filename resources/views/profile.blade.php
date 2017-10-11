@@ -137,5 +137,6 @@ $('#open').click(function() {
 
                 </div>
             </div>
+        </div>
     </fieldset>
 </form>

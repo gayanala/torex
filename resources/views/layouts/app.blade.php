@@ -9,15 +9,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <script src="{{ asset('js/jquery-1.11.0.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    @yield('header')
     <style>
         body {
             font: 16px Montserrat, sans-serif;
@@ -183,7 +184,7 @@
 
 
                 </div>
-                <div class="col-sm-9 col-md-offset-3"; style='position:absolute;right: 0px;top:15px;' >
+                <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:15px;' >
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
@@ -234,28 +235,29 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+        </div>
     </nav>
 
+    <div id="content">
+        @yield('content')
+    </div>
 
-
-    @yield('content')
 </div>
 
-<!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
+<!-- Scripts
+<script src="{{ asset('js/app.js') }}"></script> -->
 
-
+</body>
    <footer class="footer bg-4">
 
     <img src="http://www.unhcr.ca/wp-content/uploads/2016/04/icon-partner.png" class="imgalign"  style="width:100px;height:50px;"  >
 
     <h5>A tagg Intiative</h5>
 
+   </footer>
 
 
-</div>
-</div>
-</body>
 
 
 
