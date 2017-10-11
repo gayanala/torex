@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\State;
 use App\Organization_type;
+use Auth;
 
 
 class OrganizationController extends Controller
@@ -14,10 +15,10 @@ class OrganizationController extends Controller
 
     public function index()
     {
-        //$user = Auth::user();
-        $Organization_types = Organization_type::pluck('type_name', 'id');
-        $organizations=organization::orderBy('org_name', 'DESC')->paginate(25);
-        return view('organizations.index', compact('organizations', 'Organization_types'));
+        $user = Auth::user();
+        $orgID = $user->organization_id;
+        $organization = Organization::findOrFail($orgID);
+        return view('organizations.index')->with(compact('organization'));
     }
 
     public function edit($id)
