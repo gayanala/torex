@@ -31,7 +31,7 @@ class EmailTemplateController extends Controller
 
     public function edit($id)
     {
-        $emailtemplate = EmailTemplate::find($id);//dd($emailtemplate);
+        $emailtemplate = EmailTemplate::where('template_type_id', '=', $id)->get();
         return view('emailtemplates.edit', compact('emailtemplate'));
     }
 }
