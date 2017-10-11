@@ -55,7 +55,7 @@
                             <body>
                             <div>
                                 <input type="button" value="Generate Url" onclick="Copy();" />
-                                <input type="text" id="urlCopied" maxlength="30"/>
+                                <input type="text" id="urlCopied" size="80"/>
 
                             </div>
                             </body>

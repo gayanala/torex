@@ -26,11 +26,13 @@
     22 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     23 => 'Laravel\\Tinker\\TinkerServiceProvider',
     24 => 'Collective\\Html\\HtmlServiceProvider',
-    25 => 'Collective\\Html\\HtmlServiceProvider',
-    26 => 'App\\Providers\\AppServiceProvider',
-    27 => 'App\\Providers\\AuthServiceProvider',
-    28 => 'App\\Providers\\EventServiceProvider',
-    29 => 'App\\Providers\\RouteServiceProvider',
+    25 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
+    26 => 'Collective\\Html\\HtmlServiceProvider',
+    27 => 'App\\Providers\\AppServiceProvider',
+    28 => 'App\\Providers\\AuthServiceProvider',
+    29 => 'App\\Providers\\EventServiceProvider',
+    30 => 'App\\Providers\\RouteServiceProvider',
+    31 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
   ),
   'eager' => 
   array (
@@ -103,6 +105,7 @@
     'command.controller.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'command.event.generate' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'command.event.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
+    'command.exception.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'command.factory.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'command.job.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'command.listener.make' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
@@ -152,6 +155,8 @@
     'form' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\HtmlBuilder' => 'Collective\\Html\\HtmlServiceProvider',
     'Collective\\Html\\FormBuilder' => 'Collective\\Html\\HtmlServiceProvider',
+    'command.ide-helper.generate' => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
+    'command.ide-helper.models' => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
   ),
   'when' => 
   array (
@@ -195,6 +200,9 @@
     array (
     ),
     'Collective\\Html\\HtmlServiceProvider' => 
+    array (
+    ),
+    'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider' => 
     array (
     ),
   ),

@@ -25,4 +25,9 @@ class Organization extends Model
         'state',
         'phone_number',
     ];
+
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
 }
