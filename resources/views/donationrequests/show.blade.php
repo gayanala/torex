@@ -63,7 +63,7 @@
                         </tr>
                         <tr>
                             <td>Donation Purpose</td>
-                            <td><?php echo ($donationrequest['item_purpose']); ?></td>
+                            <td><?php echo ($donation_purpose_name); ?></td>
                         </tr>
                         <tr>
                             <td>Event Name</td>
@@ -79,7 +79,7 @@
                         </tr>
                         <tr>
                             <td>Event Purpose</td>
-                            <td><?php echo ($donationrequest['event_purpose']); ?></td>
+                            <td><?php echo ($event_purpose_name); ?></td>
                         </tr>
                         <tr>
                             <td>Estimated Number Of Attendes</td>

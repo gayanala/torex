@@ -141,7 +141,15 @@ class DonationRequestController extends Controller
     public function show($id)
     {
         $donationrequest = DonationRequest::findOrFail($id);
-        return view('donationrequests.show',compact('donationrequest'));
+        $event_purpose_id = $donationrequest->event_type;
+        $event_purpose = Request_item_type::findOrFail($event_purpose_id);
+        $event_purpose_name = $event_purpose->item_name;
+
+        $donation_purpose_id = $donationrequest->item_purpose;
+        $donation_purpose = Request_item_purpose::findOrFail($donation_purpose_id);
+        $donation_purpose_name = $donation_purpose->purpose_name;
+
+        return view('donationrequests.show',compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'));
     }
 
     public function searchDonationRequest(Request $request) {
