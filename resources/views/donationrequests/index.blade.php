@@ -37,7 +37,6 @@
                                 <tr>
                                     <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->requester_type}}</td>
-                                    {{--<td style="vertical-align: middle">{{ $donationrequest->donationRequestTypes->type_name}}</td>--}}
                                     <td style="vertical-align: middle">{{ $donationrequest->city }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->state }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->zipcode }}</td>
