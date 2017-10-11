@@ -6,21 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\DonationRequest;
+use App\User;
 
-class GotDonationRequest extends Mailable
+class UserCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $donationRequest;
+    public $user;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(DonationRequest $donationRequest)
+    public function __construct(User $user)
     {
-        $this->donationRequest = $donationRequest;
+        $this->user = $user;
     }
 
     /**
@@ -30,8 +30,9 @@ class GotDonationRequest extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@charityq.com')
-            ->subject('Thanks for using CharityQ')
-            ->markdown('emails.donationrequestmail');
+        //return $this->markdown('emails.user.usercreatedmail');
+        return $this ->from('noreply@charityq.com')
+            ->subject('Welcome to CommunityQ!')
+            ->markdown('emails.user.usercreatedmail');
     }
 }

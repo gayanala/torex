@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\DonationRequestReceived' => [
             'App\Listeners\RequestReceivedMail',
         ],
+        'App\Events\NewSubBusiness' => [
+            'App\Listeners\SendWelcomeMailSubOrg',
+        ],
 
     ];
 

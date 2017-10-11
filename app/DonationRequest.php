@@ -33,4 +33,16 @@ class DonationRequest extends Model
     public function donationRequestTypes() {
         return $this->hasOne('App\Requester_type');
     }
+
+    public function donationRequestType() {
+        return $this->hasOne('App\Request_item_type');
+    }
+
+    public function donationRequestPurpose() {
+        return $this->hasOne('App\Request_item_purpose');
+    }
+
+    public function donationOrganization() {
+        return $this->hasOne('App\Organization_type');
+    }
 }

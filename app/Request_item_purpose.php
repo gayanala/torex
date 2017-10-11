@@ -9,6 +9,7 @@ class Request_item_purpose extends Model
 {
     use Notifiable;
     protected $fillable = [
+        'id',
         'purpose_name',
         'purpose_description',
         'active',

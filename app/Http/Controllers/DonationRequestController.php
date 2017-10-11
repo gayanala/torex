@@ -13,19 +13,20 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\Events\DonationRequestReceived;
+use App\Organization_type;
 
 
 class DonationRequestController extends Controller
 {
     public function index()
     {
-        $requester_types = Requester_type::pluck('type_name', 'id');
-        //dd($requester_types);
         $donationrequests = DonationRequest::paginate(5);
-//        dd($donationrequests[0]);
-//        return view('donationrequests.index', compact('donationrequests'));
+//        $type_organization_id = $donationrequests->requester_type;
+//        dd($type_organization_id);
+//        $type_organization = Organization_type::findOrFail($type_organization_id);
+//        $type_organization_name = $type_organization->type_name;
 
-        return view('donationrequests.index', compact('donationrequests'))->with('organization_types', $requester_types);
+        return view('donationrequests.index', compact('donationrequests'));
     }
 
     public function create()
@@ -141,7 +142,24 @@ class DonationRequestController extends Controller
     public function show($id)
     {
         $donationrequest = DonationRequest::findOrFail($id);
-        return view('donationrequests.show',compact('donationrequest'));
+        $event_purpose_id = $donationrequest->event_type;
+        $event_purpose = Request_item_type::findOrFail($event_purpose_id);
+        $event_purpose_name = $event_purpose->item_name;
+
+        $donation_purpose_id = $donationrequest->item_purpose;
+        $donation_purpose = Request_item_purpose::findOrFail($donation_purpose_id);
+        $donation_purpose_name = $donation_purpose->purpose_name;
+
+        $item_requested_id = $donationrequest->item_requested;
+        $item_requested = Request_event_type::findOrFail($item_requested_id);
+        $item_requested_name = $item_requested->type_name;
+
+        $type_organization_id = $donationrequest->requester_type;
+        $type_organization = Organization_type::findOrFail($type_organization_id);
+        $type_organization_name = $type_organization->type_name;
+
+        return view('donationrequests.show',compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
+        , 'item_requested_name', 'type_organization_name'));
     }
 
     public function searchDonationRequest(Request $request) {
