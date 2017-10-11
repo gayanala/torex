@@ -7,7 +7,6 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><h1>  View & Update Organization Portfolio </h1></div>
                     <div class="panel-body">
-                        @if(sizeOf($organizations) != 0)
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr class="bg-info">
@@ -19,8 +18,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($organizations as $organization)
-
                                 <tr class="text-center">
                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
                                 <td style="vertical-align: middle">{{ $organization->organization_type_id }}</td>
@@ -29,14 +26,8 @@
                                 <td style="vertical-align: middle"><a href="{{route('organizations.edit',$organization->id)}}" class="btn btn-warning"> Edit </a>
                                 </td>
                             </tr>
-                            @endforeach
-                            {{$organizations->links()}}
                             </tbody>
                         </table>
-                        @else
-                            <p>No Organization is stored in the system yet.</p>
-                        @endif
-                        {{$organizations->links()}}
                     </div>
                 </div>
             </div>
