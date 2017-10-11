@@ -29,7 +29,7 @@
 
                     <div class="panel-body">
 
-                        {!! Form::model($emailtemplate, ['method' => 'PUT', 'route'=>['emailtemplates.update', $emailtemplate[0]->template_type_id], 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($emailtemplate, ['method' => 'PUT', 'route'=>['emailtemplates.update', $emailtemplate->id], 'class' => 'form-horizontal']) !!}
 
                         @if ($errors->any())
                             <div class="alert alert-danger">
