@@ -11,5 +11,6 @@ class RoleUser extends Model
         'user_id',
     ];
 
+
     protected $table = 'role_user';
 }
