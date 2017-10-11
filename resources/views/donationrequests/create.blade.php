@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
     <script type="text/javascript">
 
@@ -30,7 +31,18 @@
                         <div class="form-group{{ $errors->has('requester') ? ' has-error' : '' }}">
                             <label for="requester" class="col-md-4 control-label">Name Of The Organization <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-md-6">
-                                <input id="requester" type="text" class="form-control" name="requester" value="{{ old('requester') }}" placeholder="Name of your organization" required autofocus>
+                                @auth
+                                <input id="requester" type="text" class="form-control" name="requester" value="{{Auth::user()->organization->org_name}}" placeholder="Name of your organization" required autofocus>
+                                @endauth
+                                @guest
+                                <input id="requester" type="text" class="form-control" name="requester" value="{{ old('requester')}}" placeholder="Name of your organization" required autofocus>
+                                @endguest
+
+
+
+
+
+
 
                                 @if ($errors->has('requester'))
                                     <span class="help-block">
