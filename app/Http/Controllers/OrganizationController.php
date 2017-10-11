@@ -18,7 +18,12 @@ class OrganizationController extends Controller
         $user = Auth::user();
         $orgID = $user->organization_id;
         $organization = Organization::findOrFail($orgID);
-        return view('organizations.index')->with(compact('organization'));
+
+        $type_organization_id = $organization->organization_type_id;
+        $type_organization = Organization_type::findOrFail($type_organization_id);
+        $type_organization_name = $type_organization->type_name;
+
+        return view('organizations.index')->with(compact('organization', 'type_organization_name'));
     }
 
     public function edit($id)

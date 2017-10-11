@@ -20,7 +20,7 @@
                             <tbody>
                                 <tr class="text-center">
                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
-                                <td style="vertical-align: middle">{{ $organization->organization_type_id }}</td>
+                                <td style="vertical-align: middle">{{ $type_organization_name }}</td>
                                 <td style="vertical-align: middle">{{ $organization->street_address1 }} {{ $organization->street_address2 }}, {{ $organization->city }}, {{ $organization->state }} {{ $organization->zipcode }}</td>
                                 <td style="vertical-align: middle">{{ $organization->phone_number }}</td>
                                 <td style="vertical-align: middle"><a href="{{route('organizations.edit',$organization->id)}}" class="btn btn-warning"> Edit </a>
