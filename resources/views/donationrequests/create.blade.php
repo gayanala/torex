@@ -38,11 +38,7 @@
                                 <input id="requester" type="text" class="form-control" name="requester" value="{{ old('requester')}}" placeholder="Name of your organization" required autofocus>
                                 @endguest
 
-
-
-
-
-
+                                
                                 @if ($errors->has('requester'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('requester') }}</strong>
