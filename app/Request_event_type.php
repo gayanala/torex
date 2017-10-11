@@ -9,6 +9,7 @@ class Request_event_type extends Model
 {
     use Notifiable;
     protected $fillable = [
+        'id',
         'type_name',
         'type_description',
         'active',
