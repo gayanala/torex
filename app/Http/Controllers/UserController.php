@@ -7,6 +7,7 @@ use App\Organization;
 use App\State;
 use App\User;
 use App\Events\NewBusiness;
+use App\Events\NewSubBusiness;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Auth;
@@ -108,6 +109,12 @@ class UserController extends Controller
         //dd($loggedInUserDetails);
 
         //User::create($user);
+
+        //fire NewBusiness event to initiate sending welcome mail
+
+        event(new NewSubBusiness($user));
+
+
         return redirect('users');
     }
 
