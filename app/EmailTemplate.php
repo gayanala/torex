@@ -8,10 +8,8 @@ class EmailTemplate extends Model
 {
        protected $fillable=[
         'template_type_id',
-        'email_template_types',
+        'organization_id',
         'email_subject',
         'email_message'
     ];
-
-public $primaryKey = 'template_type_id';
 }

@@ -1,5 +1,5 @@
-
-@section('content')
+@extends('layouts.app')
+@section('header')
     <!--<link rel="stylesheet" href="../../../node_modules/jQuery-QueryBuilder/dist/css/query-builder.default.css">-->
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/assets/css/docs.min.css" rel="stylesheet">
@@ -9,14 +9,14 @@
     <script type="text/javascript" src="../../../node_modules/jquery-extendext/jQuery.extendext.js"></script>
     <script type="text/javascript" src="../../../node_modules/dot/doT.js"></script>
     <script type="text/javascript" src="../../../node_modules/moment/moment.js"></script>
-    <script type="text/javascript" src="../../../node_modules/jQuery-QueryBuilder/dist/js/query-builder.js"></script> -->
+    <script type="text/javascript" src="../../../node_modules/jQuery-QueryBuilder/dist/js/query-builder.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
     <script src="http://querybuilder.js.org/assets/js/docs.min.js"></script>
     <script src="http://querybuilder.js.org/assets/js/script.js"></script>
-
-
+@endsection
+@section('content')
     <!--<section class="bs-docs-section clearfix"> -->
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
     <div id="builder-plugins"></div>
@@ -179,3 +179,4 @@
         });
     </script>
 
+@endsection
