@@ -1,7 +1,7 @@
 @component('mail::message')
 # Welcome to CharityQ, _{{$user->first_name}}!_
 
-Your Organization ***{{$user->organization->org_name}}*** has been successfully registered.
+You have been registered as a business user for ***{{$user->organization->org_name}}***.
 
 Thank you for registering your business on CharityQ.
 We look forward to helping your business save time and make it easy to support the charities you truly care about.
@@ -16,7 +16,7 @@ All requests for donation are streamlined and organized.
 
 
 @component('mail::button', ['url' => 'http://tagg-preprod.herokuapp.com/'])
-Go to CharityQ
+    Go to CharityQ
 @endcomponent'
 
 

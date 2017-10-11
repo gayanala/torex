@@ -19,7 +19,7 @@
                         </tr>
                         <tr>
                             <td>Type of Organization</td>
-                            <td><?php echo ($donationrequest['requester_type']); ?></td>
+                            <td><?php echo ($type_organization_name); ?></td>
                         </tr>
                         <tr>
                             <td>Name</td>
@@ -59,11 +59,11 @@
                         </tr>
                         <tr>
                             <td>Request For</td>
-                            <td><?php echo ($donationrequest['item_requested']); ?></td>
+                            <td><?php echo ($item_requested_name); ?></td>
                         </tr>
                         <tr>
                             <td>Donation Purpose</td>
-                            <td><?php echo ($donationrequest['item_purpose']); ?></td>
+                            <td><?php echo ($donation_purpose_name); ?></td>
                         </tr>
                         <tr>
                             <td>Event Name</td>
@@ -79,7 +79,7 @@
                         </tr>
                         <tr>
                             <td>Event Purpose</td>
-                            <td><?php echo ($donationrequest['event_purpose']); ?></td>
+                            <td><?php echo ($event_purpose_name); ?></td>
                         </tr>
                         <tr>
                             <td>Estimated Number Of Attendes</td>

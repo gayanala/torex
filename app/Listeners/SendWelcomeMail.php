@@ -38,4 +38,5 @@ class SendWelcomeMail
         //return redirect('\home');
 
     }
+
 }

@@ -32,7 +32,6 @@
     28 => 'App\\Providers\\AuthServiceProvider',
     29 => 'App\\Providers\\EventServiceProvider',
     30 => 'App\\Providers\\RouteServiceProvider',
-    31 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
   ),
   'eager' => 
   array (
@@ -202,7 +201,7 @@
     'Collective\\Html\\HtmlServiceProvider' => 
     array (
     ),
-    'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider' => 
+    'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider' =>
     array (
     ),
   ),

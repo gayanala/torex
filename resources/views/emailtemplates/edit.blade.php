@@ -18,12 +18,8 @@
     content_css: 'css/content.css',
     toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
   });
-  
 
   </script>
-
-
-
 
     <div class="container">
         <div class="row">
@@ -33,7 +29,7 @@
 
                     <div class="panel-body">
 
-                        {!! Form::model($emailtemplate, ['method' => 'PUT','route'=>['emailtemplates.update', $emailtemplate->template_type_id], 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($emailtemplate, ['method' => 'PUT', 'route'=>['emailtemplates.update', $emailtemplate->id], 'class' => 'form-horizontal']) !!}
 
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -48,7 +44,7 @@
                         <div class="form-group">
                             {!! Form::label('Email Subject', '* Email Subject:', ['class'=>'col-md-3 control-label', ]) !!}
                             <div class="col-lg-9">
-                                {!! Form::text('email_subject',null,['required'], ['class' => 'form-control']) !!}
+                                {!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}
                             </div>
                         </div>
 
@@ -59,7 +55,7 @@
 
                         <div class="form-group">
                         <!--div class="col-lg-6"-->
-                              {!! Form::textarea('email_message',null,['required'], ['class' => 'col-md-4 control-label']) !!}
+                              {!! Form::textarea('email_message', null, ['required'], ['class' => 'col-md-4 control-label']) !!}
                                                         </div>
                         
 
