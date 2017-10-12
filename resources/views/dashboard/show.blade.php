@@ -1,11 +1,7 @@
 @extends('app')
-@section('content')
 
-        <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Layouts &raquo; Hero Sidebar</title>
+
+@section('header')
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'/>
 
     <!-- Demo Dependencies -->
@@ -28,8 +24,9 @@
 
     <!-- Dashboard -->
     <link rel="stylesheet" type="text/css" href="../../assets/css/keen-dashboards.css"/>
-</head>
-<body class="keen-dashboard" style="padding-top: 80px;">
+@endsection
+@section('content')
+<div class="keen-dashboard" style="padding-top: 80px;">
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -180,6 +177,5 @@
 
 <!-- Project Analytics -->
 <script type="text/javascript" src="../../assets/js/keen-analytics.js"></script>
-</body>
-</html>
-@stop
+</div>
+@endsection

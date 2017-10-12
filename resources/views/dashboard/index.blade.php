@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('content')
 
 
-    <title>Dashboard</title>
+@section('header')
+    <!-- <title>Dashboard</title> -->
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -30,10 +30,9 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-</head>
+@endsection
 
-<body>
-
+@section('content')
 <div id="wrapper">
 
     <!-- Navigation -->
@@ -578,6 +577,5 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.js"></script>
 
-</body>
-
-</html>
+</div>
+    @endsection
