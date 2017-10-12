@@ -317,7 +317,7 @@
                                 <thead>
                                 <tr>
                                     <th>Amount</th>
-                                    <th>Category/th>
+                                    <th>Category</th>
                                 </tr>
                                 </thead>
                                 <tbody>
