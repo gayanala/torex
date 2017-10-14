@@ -18,9 +18,9 @@
                         {{--<a type="button" class="btn btn-primary" href="{{ action('DonationRequestController@index') }}">View All Donation Requests</a>--}}
                     {{--</div>--}}
 
-                    <div class="panel-body" style="text-align: center">
+                    <div class="panel-body">
                         @if(sizeOf($donationrequests) != 0)
-                        <table id="example" class="table table-striped table-bordered table-hover">
+                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr class="bg-info">
                                 <th class="text-center">Requester</th>
@@ -32,7 +32,7 @@
                                 {{--<th colspan="2" class="text-center">Actions</th>--}}
                             </tr>
                             </thead>
-                            <tfoot>
+                            <tfoot class="bg-info">
                                 <th class="text-center">Requester</th>
                                 <th class="text-center">Requester Type</th>
                                 <th class="text-center">City</th>
@@ -40,7 +40,7 @@
                                 <th class="text-center">Zip Code</th>
                                 <th class="text-center">Event Name</th>
                             </tfoot>
-                            <tbody>
+                            <tbody  style="text-align: center">
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
                                     <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
@@ -63,16 +63,14 @@
                             <div class="panel-heading"><h1>Add a Donation Request</h1></div>
                             <input type="button" value="Manual Entry for Donation Request"
                         onClick="window.open('http://tagg-preprod.herokuapp.com/donationrequests/create?orgId={{Auth::user()->organization_id}}', '_blank');"/>
-
-
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
