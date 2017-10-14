@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\Events\DonationRequestReceived;
 use App\Organization_type;
+use Illuminate\Contracts\Filesystem\Filesystem;
+
+
 
 
 class DonationRequestController extends Controller
@@ -61,7 +64,7 @@ class DonationRequestController extends Controller
         $donationrequest->update($request->all());
         return redirect('donationrequests');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -124,12 +127,19 @@ class DonationRequestController extends Controller
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
         $donationRequest->save();
         if($request->hasFile('attachment')) {
-            $file = new File();
-            $file->donation_request_id = $donationRequest->id;
-            $file->original_filename = $request->file('attachment')->getClientOriginalName();
-            $file->file_path = Storage::putFile('public', $request->file('attachment') );
-            $file->file_type='attachment';
-            $file->save();
+            // $file = new File();
+      //       $file->donation_request_id = $donationRequest->id;
+      //       $file->original_filename = $request->file('attachment')->getClientOriginalName();
+      // //       $file->file_path = Storage::putFile('public', $request->file('attachment') );
+      //       $file->file_type='attachment';
+      // $file->save();
+      $attachment =$request->file('attachment');
+      $imageFileName = time() . '.' . $attachment->getClientOriginalExtension();
+      $s3 = \Storage::disk('s3');
+      $filePath = '/tagg-uno/' . $imageFileName;
+      $s3->put($filePath, file_get_contents($attachment), 'public');
+
+            // return $path;
         }
 
         //fire NewBusiness event to initiate sending welcome mail
