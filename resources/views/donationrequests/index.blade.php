@@ -23,43 +23,50 @@
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr class="bg-info">
+                                <th class="text-center">Select</th>
                                 <th class="text-center">Requester</th>
-                                <th class="text-center">Requester Type</th>
-                                <th class="text-center">City</th>
-                                <th class="text-center">State</th>
-                                <th class="text-center">Zip Code</th>
+                                <th class="text-center">Request Amount</th>
+                                <th class="text-center">Request For</th>
                                 <th class="text-center">Event Name</th>
+                                <th class="text-center">Handout Date</th>
                                 {{--<th colspan="2" class="text-center">Actions</th>--}}
                             </tr>
                             </thead>
                             <tfoot class="bg-info">
+                                <th class="text-center">Select</th>
                                 <th class="text-center">Requester</th>
-                                <th class="text-center">Requester Type</th>
-                                <th class="text-center">City</th>
-                                <th class="text-center">State</th>
-                                <th class="text-center">Zip Code</th>
+                                <th class="text-center">Request Amount</th>
+                                <th class="text-center">Request For</th>
                                 <th class="text-center">Event Name</th>
+                                <th class="text-center">Handout Date</th>
                             </tfoot>
                             <tbody  style="text-align: center">
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
+                                    <td style="vertical-align: middle">
+                                        <input type="checkbox" name="selectBox" value="checked">
+                                    </td>
                                     <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->requester_type}}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->city }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->state }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->zipcode }}</td>
+                                    <td style="vertical-align: middle">...</td>
+                                    {{--<td style="vertical-align: middle">{{ $donationrequest->request_amount}}</td>--}}
+                                    <td style="vertical-align: middle">{{ $donationrequest->item_requested }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->event_end_date }}</td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
                                 </tr>
                             @endforeach
-                            {{$donationrequests->links()}}
                             </tbody>
                         </table>
                         @else
                             <p>No Donation Request is stored in the system yet.</p>
                         @endif
-                        {{$donationrequests->links()}}
+
+                        <div>
+                            <a href="" class="btn btn-warning" style="width:33%"> Approve Requester </a>
+                            <a href="" class="btn btn-warning" style="width:33%"> Deny Requester </a>
+                            <a href="" class="btn btn-warning" style="width:33%"> Contact Requester </a>
+                        </div>
                             <div class="panel-heading"><h1>Add a Donation Request</h1></div>
                             <input type="button" value="Manual Entry for Donation Request"
                         onClick="window.open('http://tagg-preprod.herokuapp.com/donationrequests/create?orgId={{Auth::user()->organization_id}}', '_blank');"/>

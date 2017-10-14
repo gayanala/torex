@@ -23,11 +23,7 @@ class DonationRequestController extends Controller
 {
     public function index()
     {
-        $donationrequests = DonationRequest::paginate(5);
-//        $type_organization_id = $donationrequests->requester_type;
-//        dd($type_organization_id);
-//        $type_organization = Organization_type::findOrFail($type_organization_id);
-//        $type_organization_name = $type_organization->type_name;
+        $donationrequests = DonationRequest::all();
 
         return view('donationrequests.index', compact('donationrequests'));
     }
