@@ -29,10 +29,11 @@
     25 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
       26 => 'Laravel\\Cashier\\CashierServiceProvider',
       27 => 'Collective\\Html\\HtmlServiceProvider',
-      28 => 'App\\Providers\\AppServiceProvider',
-      29 => 'App\\Providers\\AuthServiceProvider',
-      30 => 'App\\Providers\\EventServiceProvider',
-      31 => 'App\\Providers\\RouteServiceProvider',
+      28 => 'Laravel\\Cashier\\CashierServiceProvider',
+      29 => 'App\\Providers\\AppServiceProvider',
+      30 => 'App\\Providers\\AuthServiceProvider',
+      31 => 'App\\Providers\\EventServiceProvider',
+      32 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -48,10 +49,11 @@
     9 => 'Illuminate\\View\\ViewServiceProvider',
     10 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
       11 => 'Laravel\\Cashier\\CashierServiceProvider',
-      12 => 'App\\Providers\\AppServiceProvider',
-      13 => 'App\\Providers\\AuthServiceProvider',
-      14 => 'App\\Providers\\EventServiceProvider',
-      15 => 'App\\Providers\\RouteServiceProvider',
+      12 => 'Laravel\\Cashier\\CashierServiceProvider',
+      13 => 'App\\Providers\\AppServiceProvider',
+      14 => 'App\\Providers\\AuthServiceProvider',
+      15 => 'App\\Providers\\EventServiceProvider',
+      16 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (
