@@ -8,6 +8,10 @@ class StatesTableSeeder extends Seeder
 
     public function run()
     {
+        $this->command->info("States Table being seeded. All information from donation_requests, users, and organizations will be dropped");
+        DB::table('donation_requests')->delete();
+        DB::table('users')->delete();
+        DB::table('organizations')->delete();
         DB::table('states')->delete();
 
         State::create(['state_code' => 'AA', 'state_name' => 'Armed Forces America']);
