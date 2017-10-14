@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('content')
 
 
-    <title>Dashboard</title>
+@section('header')
+    <!-- <title>Dashboard</title> -->
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -30,10 +30,9 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-</head>
+@endsection
 
-<body>
-
+@section('content')
 <div id="wrapper">
 
     <!-- Navigation -->
@@ -42,15 +41,16 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Request Management Dashboard</h1>
-                <h4>  <div class="pull-right">
+                <h1 class="page-header text-center">Request Management Dashboard</h1>
+                <h4>
+                    <div class="pull-left">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle btn-lg"
                                     data-toggle="dropdown">
                                 Year to Date
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu pull-right" role="menu">
+                            <ul class="dropdown-menu pull-left" role="menu">
                                 <li><a href="#">Past months</a>
                                 </li>
                                 <li><a href="#">Past 6 months</a>
@@ -73,7 +73,7 @@
                             <div class="col-xs-3">
                                 <i class="fa fa-comments fa-5x"></i>
                             </div>
-                            <div class="col-xs-9 text-right">
+                            <div class="col-xs-9 text-left">
                                 <div class="huge">$9,160</div>
                                 <div>TOTAL AMOUNT DONATED</div>
                             </div>
@@ -89,7 +89,7 @@
                             <div class="col-xs-3">
                                 <i class="fa fa-tasks fa-5x"></i>
                             </div>
-                            <div class="col-xs-9 text-right">
+                            <div class="col-xs-9 text-left">
                                 <div class="huge">12</div>
                                 <div>REJECTED</div>
                             </div>
@@ -98,7 +98,7 @@
                     <a href="#">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
                             <div class="clearfix"></div>
                         </div>
                     </a>
@@ -111,7 +111,7 @@
                             <div class="col-xs-3">
                                 <i class="fa fa-shopping-cart fa-5x"></i>
                             </div>
-                            <div class="col-xs-9 text-right">
+                            <div class="col-xs-9 text-left">
                                 <div class="huge">124</div>
                                 <div>APPROVED</div>
                             </div>
@@ -120,7 +120,7 @@
                     <a href="#">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
                             <div class="clearfix"></div>
                         </div>
                     </a>
@@ -133,7 +133,7 @@
                             <div class="col-xs-3">
                                 <i class="fa fa-support fa-5x"></i>
                             </div>
-                            <div class="col-xs-9 text-right">
+                            <div class="col-xs-9 text-left">
                                 <div class="huge">13</div>
                                 <div>PENDING</div>
                             </div>
@@ -142,7 +142,7 @@
                     <a href="#">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
                             <div class="clearfix"></div>
                         </div>
                     </a>
@@ -152,7 +152,7 @@
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-6">
-                <div class="panel panel-default">
+                <div class="panel panel-default text-left">
                     <div class="panel-heading">
                         <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Pending Requests Ready For Approval</b>
 
@@ -260,7 +260,7 @@
                             <table style="width:100%">
                                 <col align="left">
                                 <col align="left">
-                                <col align="right">
+                                <col align="left">
 
                                 <tr>
                                     <td>
@@ -306,18 +306,19 @@
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
-                <div class="panel panel-default">
+                <div class="panel panel-default text-left">
                     <div class="panel-heading">
                         <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Items Approved</b></div>
                     <!-- /.panel-heading -->
 
                     <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <div class="table-responsive text-left">
+                            <table class="table table-striped table-bordered table-hover text-left"
+                                   id="dataTables-example">
                                 <thead>
                                 <tr>
                                     <th>Amount</th>
-                                    <th>Category/th>
+                                    <th>Category</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -347,7 +348,7 @@
             </div>
             <!-- /.col-lg-8 -->
             <div class="col-lg-6">
-                <div class="panel panel-default">
+                <div class="panel panel-default text-left">
                     <div class="panel-heading">
                         <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Pending Requests Ready For Denial</b>
                     </div>
@@ -452,7 +453,7 @@
                             <table style="width:100%">
                                 <col align="left">
                                 <col align="left">
-                                <col align="right">
+                                <col align="left">
 
                                 <tr>
                                     <td>
@@ -502,14 +503,15 @@
                 <!-- /.col-lg-4 -->
             </div>
             <div class="col-lg-6">
-                <div class="panel panel-default">
+                <div class="panel panel-default text-left">
                     <div class="panel-heading">
                         <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Cause Categories</b>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <table class="table table-striped table-bordered table-hover text-left"
+                                   id="dataTables-example">
                                 <thead>
                                 <tr>
                                     <th>Total Spend</th>
@@ -578,6 +580,5 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.js"></script>
 
-</body>
-
-</html>
+</div>
+    @endsection
