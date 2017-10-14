@@ -146,7 +146,7 @@
             -ms-filter: blur(3px);
             filter: blur(2px);
             margin:1px -30px 1px -25px;
-            box-shadow: 0px 5px -1px rgba(34,34,34,0.6);
+            box-shadow: 0px 5px 1px rgba(34, 34, 34, 0.6);
         }
 
         .footer {
@@ -165,6 +165,12 @@
 
 
 <body>
+<script>
+    var MON_CHAR = {{ config('variables.monthly_charge') }};
+    var ANUAL_CHAR = {{ config('variables.annual_charge') }};
+    var EXTRA_CHAR = {{ config('variables.extra_charge') }};
+</script>
+@yield('scripts')
 <div id="app">
     <nav class="navbar navbar-light" style="background-color: #ffffff;">
         <div class="container-fluid">
@@ -240,6 +246,7 @@
     </nav>
 
     <div id="content">
+        @include('layouts.partials._status');
         @yield('content')
     </div>
 

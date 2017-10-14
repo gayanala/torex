@@ -32,6 +32,16 @@ Route::resource('attachment', 'DonationRequestController');
 Route::resource('/users', 'UserController');
 
 Route::resource('organizations', 'OrganizationController');
+Route::group(['prefix' => 'subscription'], function () {
+    Route::get('/', [
+        'as' => 'subscription',
+        'uses' => 'SubscriptionController@getIndex'
+    ]);
+    Route::post('/', [
+
+        'uses' => 'SubscriptionController@postJoin'
+    ]);
+});
 
 Route::post('user/register', 'UserController@create');
 
@@ -71,3 +81,7 @@ Route::get('/dashboard', 'DashboardController@index');
 
 // Rules stuff
 Route::get('guirules', 'RuleEngineController@rulesGui');
+
+Route::get('/webhook/chargeSuccess', 'SubscriptionController@chargeSuccess');
+
+Route::get('subscription/popup', 'SubscriptionController@subscribe');
