@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+if(env('REDIRECT_HTTPS'))
+{
+    URL::forceScheme('https');
+};
 
 Route::get('/', function () {
     return view('welcome');
