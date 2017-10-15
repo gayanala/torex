@@ -251,8 +251,8 @@
 
 </div>
 
-<!-- Scripts
-<script src="{{ asset('js/app.js') }}"></script> -->
+
+{{--<script src="{{ asset('js/app.js') }}">--}}
 
 </body>
    <footer class="footer bg-4">
