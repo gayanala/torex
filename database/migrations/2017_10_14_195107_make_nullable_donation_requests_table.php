@@ -16,9 +16,9 @@ class MakeNullableDonationRequestsTable extends Migration
         Schema::table('donation_requests', function (Blueprint $table) {
             $table->decimal('dollar_amount', 11, 2)->nullable()->after('item_requested');
             $table->date('needed_by_date')->after('other_item_purpose');
-            $table->integer('approved_organization_id')->unsigned()->index()->after('marketing_opportunities');
+            $table->integer('approved_organization_id')->unsigned()->index()->nullable()->after('marketing_opportunities');
             $table->foreign('approved_organization_id')->references('id')->on('organizations')->onDelete('cascade');
-            $table->integer('approved_user_id')->unsigned()->index()->after('approved_organization_id');
+            $table->integer('approved_user_id')->unsigned()->index()->nullable()->after('approved_organization_id');
             $table->foreign('approved_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->dateTime('rule_process_date')->nullable()->after('approved_user_id');
             $table->string('event_name')->nullable()->change();
