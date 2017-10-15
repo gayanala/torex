@@ -25,11 +25,11 @@ Route::get('/about-us', function () { return view('Front-page');});
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('Securityquestions/check/{id}', 'SecurityquestionController@check')->name('check');
+//Route::get('Securityquestions/check/{id}', 'SecurityquestionController@check')->name('check');
+//
+//Route::get('securityquestions/insertcheck/{id}', 'SecurityquestionController@insertcheck')->name('insertcheck');
 
-Route::get('securityquestions/insertcheck/{id}', 'SecurityquestionController@insertcheck')->name('insertcheck');
-
-Route::resource('securityquestions', 'SecurityquestionController');
+Route::resource('securityquestions', 'UserSecurityQuestionController');
 
 Route::resource('attachment', 'DonationRequestController');
 

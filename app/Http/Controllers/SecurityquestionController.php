@@ -27,14 +27,14 @@ class SecurityquestionController extends Controller
 //        return view('securityquestions.show',compact('securityquestion'));
 //    }
 
-
-    public function create(Request $request)
-    {
-        $user = Auth::user();
-        $securityquestions = Security_question::pluck('question', 'id');
-        //$users = $request->session()->get('userId');
-        return view('securityquestions.create', compact('user', 'securityquestions'))->with('question', $securityquestions);
-    }
+//
+//    public function create(Request $request)
+//    {
+//        $user = Auth::user();
+//        $securityquestions = Security_question::pluck('question', 'id');
+//        //$users = $request->session()->get('userId');
+//        return view('securityquestions.create', compact('user', 'securityquestions'))->with('question', $securityquestions);
+//    }
 
     /**
      * Store a newly created resource in storage.
@@ -46,12 +46,8 @@ class SecurityquestionController extends Controller
         $securityquestion = new Security_question($request->all());
 
         $validator = Validator::make($request->all(), [
-            'question1' => 'required',
-            'answer1' => 'required',
-            'question2' => 'required',
-            'answer2' => 'required',
-            'question3' => 'required',
-            'answer3' => 'required',
+            'question' => 'required',
+            'answer' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -63,7 +59,7 @@ class SecurityquestionController extends Controller
         $securityquestion->save();
 
 
-        return redirect('/home');
+        return redirect('/');
 //        return redirect('securityquestions');
     }
 
