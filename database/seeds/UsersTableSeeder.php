@@ -111,7 +111,7 @@ class UsersTableSeeder extends Seeder
             'user_name' => 'email7@gmail.com',
             'email' => 'email7@gmail.com',
             'password' => bcrypt('password'),
-            'organization_id' => '2',
+            'organization_id' => '3',
             'street_address1' => 'business user',
             'street_address2' => 'business user',
             'city' => 'Tagg',
