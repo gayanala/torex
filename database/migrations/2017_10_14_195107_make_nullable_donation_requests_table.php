@@ -14,6 +14,10 @@ class MakeNullableDonationRequestsTable extends Migration
     public function up()
     {
         Schema::table('donation_requests', function (Blueprint $table) {
+            $table->dropForeign(['event_type']);
+        });
+
+        Schema::table('donation_requests', function (Blueprint $table) {
             $table->decimal('dollar_amount', 11, 2)->nullable()->after('item_requested');
             $table->date('needed_by_date')->after('other_item_purpose');
             $table->integer('approved_organization_id')->unsigned()->index()->nullable()->after('marketing_opportunities');
@@ -22,7 +26,6 @@ class MakeNullableDonationRequestsTable extends Migration
             $table->foreign('approved_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->dateTime('rule_process_date')->nullable()->after('approved_user_id');
             $table->string('event_name')->nullable()->change();
-            $table->dropForeign(['event_type']);
             $table->string('event_type')->nullable()->change();
             $table->foreign('event_type')->references('id')->on('request_event_types');
             $table->string('est_attendee_count')->nullable()->change();
