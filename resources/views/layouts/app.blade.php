@@ -245,7 +245,7 @@
     </nav>
 
     <div id="content">
-        @include('layouts.partials._status');
+        @include('layouts.partials._status')
         @yield('content')
     </div>
 
@@ -257,7 +257,7 @@
 </body>
    <footer class="footer bg-4">
 
-    <img src="http://www.unhcr.ca/wp-content/uploads/2016/04/icon-partner.png" class="imgalign"  style="width:100px;height:50px;"  >
+    <img src="{{ asset('img/icon-partner.png') }}" class="imgalign"  style="width:100px;height:50px;"  >
 
     <h5>A tagg Intiative</h5>
 
