@@ -26,7 +26,7 @@ class MakeNullableDonationRequestsTable extends Migration
             $table->foreign('approved_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->dateTime('rule_process_date')->nullable()->after('approved_user_id');
             $table->string('event_name')->nullable()->change();
-            $table->string('event_type')->nullable()->change();
+            $table->string('event_type')->unsigned()->index()->nullable()->change();
             $table->foreign('event_type')->references('id')->on('request_event_types');
             $table->string('est_attendee_count')->nullable()->change();
             $table->string('event_start_date')->nullable()->change();
