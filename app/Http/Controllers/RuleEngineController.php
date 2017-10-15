@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DonationRequest;
+use App\User;
 use timgws\QueryBuilderParser;
 
 // use timgws\JoinSupportingQueryBuilderParser;
@@ -12,6 +13,26 @@ class RuleEngineController extends Controller
     public function rulesGui(){
         return view('rules.guirules');
     }
+    public function rules(){
+        return view('rules.rules');
+    }
+    function displayUserDatatable() {
+        /* builder is POST'd by the datatable */
+        $queryBuilderJSON = Input::get('rules');
+
+        $show_columns = array('id', 'user_name', 'email');
+
+        $query = new QueryBuilderParser($show_columns);
+
+        /** Illuminate/Database/Query/Builder $queryBuilder **/
+        $queryBuilder = $query->parse(DB::table('users'));
+
+        return Datatable::query($queryBuilder)
+            ->showColumns($show_columns)
+            ->orderColumns($show_columns)
+            ->searchColumns($show_columns)
+            ->make();
+        }
 
     function getDonationData($input){
         /*$table = DB::table('donation_requests');

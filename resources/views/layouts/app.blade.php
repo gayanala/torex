@@ -13,11 +13,10 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href="http:////cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
     <script src="{{ asset('js/jquery-1.11.0.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
     @yield('header')
     <style>
         body {
@@ -246,19 +245,19 @@
     </nav>
 
     <div id="content">
-        @include('layouts.partials._status');
+        @include('layouts.partials._status')
         @yield('content')
     </div>
 
 </div>
 
-<!-- Scripts
-<script src="{{ asset('js/app.js') }}"></script> -->
+
+{{--<script src="{{ asset('js/app.js') }}">--}}
 
 </body>
    <footer class="footer bg-4">
 
-    <img src="http://www.unhcr.ca/wp-content/uploads/2016/04/icon-partner.png" class="imgalign"  style="width:100px;height:50px;"  >
+    <img src="{{ asset('img/icon-partner.png') }}" class="imgalign"  style="width:100px;height:50px;"  >
 
     <h5>A tagg Intiative</h5>
 

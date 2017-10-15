@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+if(env('REDIRECT_HTTPS'))
+{
+    URL::forceScheme('https');
+};
 
 Route::get('/', function () {
     return view('welcome');
@@ -81,6 +85,7 @@ Route::get('/dashboard', 'DashboardController@index');
 
 // Rules stuff
 Route::get('guirules', 'RuleEngineController@rulesGui');
+Route::get('rules', 'RuleEngineController@rules');
 
 Route::get('/webhook/chargeSuccess', 'SubscriptionController@chargeSuccess');
 
