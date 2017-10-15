@@ -81,6 +81,7 @@ Route::get('/dashboard', 'DashboardController@index');
 
 // Rules stuff
 Route::get('guirules', 'RuleEngineController@rulesGui');
+Route::get('rules', 'RuleEngineController@rules');
 
 Route::get('/webhook/chargeSuccess', 'SubscriptionController@chargeSuccess');
 
