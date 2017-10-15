@@ -219,6 +219,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('dollar_amount') ? ' has-error' : '' }}">
+                            <label for="dollar_amount" class="col-md-4 control-label">Dollar Amount<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="col-md-6">
+                                <input id="dollar_amount" type="text" class="form-control" name="dollar_amount" value="{{ old('formAttendees') }}" placeholder="Estimated Request Dollar Amount" required autofocus>
+
+                                @if ($errors->has('dollar_amount'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('dollar_amount') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('item_purpose') ? ' has-error' : '' }}">
                             <label for="item_purpose" class="col-md-4 control-label">Donation Purpose <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                             <div class="col-md-6">
@@ -226,6 +239,20 @@
                                 @if ($errors->has('item_purpose'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('item_purpose') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('startdate') ? ' has-error' : '' }}">
+                            <label for="needed_by_date" class="col-md-4 control-label">Needed by Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+
+                            <div class="col-md-6">
+                                <input id="needed_by_date" type="date" class="form-control" name="needed_by_date" value="{{ old('needed_by_date') }}" placeholder="The Request Needed Date" required autofocus>
+
+                                @if ($errors->has('needed_by_date'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('needed_by_date') }}</strong>
                                     </span>
                                 @endif
                             </div>

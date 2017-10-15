@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Events\DonationRequestReceived;
 use App\Organization_type;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Auth;
+use App\Organization;
 
 
 
@@ -23,13 +25,22 @@ class DonationRequestController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        $organizationId = $user->organization_id;
+        $organization = Organization::findOrFail($organizationId);
+        $organizationName = $organization->org_name;
         $donationrequests = DonationRequest::all();
 
-        return view('donationrequests.index', compact('donationrequests'));
+        return view('donationrequests.index', compact('donationrequests', 'organizationName'));
     }
 
     public function create()
     {
+//        $user = Auth::user();
+//        $organizationId = $user->organization_id;
+//        $organization = Organization::findOrFail($organizationId);
+//        $organizationName = $organization->org_name;
+
         $states = State::pluck('state_name', 'state_code');
         $requester_types = Requester_type::pluck('type_name', 'id');
         $request_item_types = Request_item_type::pluck('item_name', 'id');
@@ -113,7 +124,9 @@ class DonationRequestController extends Controller
         $donationRequest->zipcode = $request->zipcode;
         $donationRequest->tax_exempt = $request->taxexempt;
         $donationRequest->item_requested = $request->item_requested;
+        $donationRequest->dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
+        $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
         $donationRequest->event_start_date = $request->startdate;
         $donationRequest->event_end_date = $request->enddate;
