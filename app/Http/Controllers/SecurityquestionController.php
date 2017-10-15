@@ -30,9 +30,10 @@ class SecurityquestionController extends Controller
 
     public function create(Request $request)
     {
-
-        $users = $request->session()->get('userId');
-        return view('securityquestions.create', compact('users'));
+        $user = Auth::user();
+        $securityquestions = Security_question::pluck('question', 'id');
+        //$users = $request->session()->get('userId');
+        return view('securityquestions.create', compact('user', 'securityquestions'))->with('question', $securityquestions);
     }
 
     /**
