@@ -98,9 +98,14 @@ Route::get('/email', 'EmailController@email') ->name('sendWelcomeEmail');
 
 Route::get('/dashboard', 'DashboardController@index');
 
-// Rules stuff
-Route::get('guirules', 'RuleEngineController@rulesGui');
-Route::get('rules', 'RuleEngineController@rules');
+// Rules stuff// Rules stuff
+Route::get('denialrules', 'RuleEngineController@rulesDenial');
+Route::get('acceptancerules', 'RuleEngineController@rulesAcceptance');
+Route::get('pendingrules', 'RuleEngineController@rulesPending');
+Route::get('pendingrules', 'RuleEngineController@rulesAutodenial');
+Route::get('rules', 'RuleEngineController@rulesGUI');
+
+
 
 Route::get('/webhook/chargeSuccess', 'SubscriptionController@chargeSuccess');
 

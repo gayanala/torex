@@ -10,12 +10,21 @@ use timgws\QueryBuilderParser;
 
 class RuleEngineController extends Controller
 {
-    public function rulesGui(){
-        return view('rules.guirules');
-    }
-    public function rules(){
-        return view('rules.rules');
-    }
+  public function rulesPending(){
+       return view('rules.pending_rules');
+   }
+   public function rulesDenial(){
+       return view('rules.denial_rules');
+   }
+   public function rulesAcceptance(){
+       return view('rules.acceptance_rules');
+   }
+   public function rulesAutodenial(){
+       return view('rules.autodenial_rules');
+   }
+   public function rulesGUI(){
+       return view('rules.rules');
+   }
     function displayUserDatatable() {
         /* builder is POST'd by the datatable */
         $queryBuilderJSON = Input::get('rules');
