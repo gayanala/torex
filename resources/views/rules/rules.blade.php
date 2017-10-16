@@ -38,10 +38,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.0/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.3/dist/css/query-builder.default.min.css">
 
-    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
-
-    <script src="{{ asset('querybuilder/jquery-extendext/jQuery.extendext.js') }}"></script>
-    <script src="{{ asset('querybuilder/dot/doT.js') }}"></script> -->
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
@@ -55,9 +51,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.6/interact.min.js"></script>
 
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.4/dist/js/query-builder.min.js"></script>
-    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/js/query-builder.js') }}"></script>
-    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/i18n/query-builder.en.js') }}"></script>    -->
+<div class="panel panel-default">
+  <div class="panel-heading"style="font-size:20px"><b>Select the rule to edit</b></div>
+  <div class="panel-body" style="height:350px">
+
+  <div class="col-sm-6">
+    <label for="Denial">
+      <a href="{{ url('/denialrules')}}" style="font-size:23px"class="w3-bar-item w3-button">Denial Rule</a>
+    </label>
+
+
+<br><br>
+<label for="Pending">
+  <a href="{{ url('/pendingrules')}}" style="font-size:23px"class="w3-bar-item w3-button">Pending Rule</a>
+</label>
+    </div>
+    <div class="col-sm-6">
+      <label for="Acceptance">
+        <a href="{{ url('/acceptancerules')}}" style="font-size:23px"class="w3-bar-item w3-button">Acceptance Rule</a>
+      </label>
+      <br><br>
+        <label for="Auto Denial">
+          <a href="{{ url('/acceptancerules')}}" style="font-size:23px"class="w3-bar-item w3-button">Auto Denial Rule</a>
+        </label>
+      </div>
+</div>
+</div>
+
 
     <script src="{{ asset('querybuilder/rulebuilder.js') }}" type="text/javascript"></script>
     <style>
