@@ -1,20 +1,13 @@
-
 @extends('layouts.app')
+@section('css')
+    <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="http://querybuilder.js.org/assets/css/docs.min.css" rel="stylesheet">
+    <link href="http://querybuilder.js.org/assets/css/style.css" rel="stylesheet">
+@endsection
 @section('header')
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{{ asset('querybuilder/jquery/dist/jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('querybuilder/bootstrap/dist/js/bootstrap.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 @endsection
 @section('content')
-<<<<<<< HEAD
     <!--<section class="bs-docs-section clearfix"> -->
     <br />
     <br />
@@ -61,14 +54,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sql-parser@0.5.0/browser/sql-parser.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.6/interact.min.js"></script>
 
-=======
->>>>>>> f761f275b00a7f60dafe9b0d9259bbf426ff3730
 
-<div class="panel panel-default">
-  <div class="panel-heading"style="font-size:20px"><b>Select the rule to edit</b></div>
-  <div class="panel-body" style="height:350px">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.4/dist/js/query-builder.min.js"></script>
+    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/js/query-builder.js') }}"></script>
+    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/i18n/query-builder.en.js') }}"></script>    -->
 
-<<<<<<< HEAD
     <script src="{{ asset('querybuilder/rulebuilder.js') }}" type="text/javascript"></script>
     <style>
         .code-popup {
@@ -244,32 +234,28 @@
         }
 
         filterChange();
-=======
-  <div class="col-sm-6">
-    <label for="Denial">
-      <a href="{{ url('/denialrules')}}" style="font-size:23px"class="w3-bar-item w3-button">Denial Rule</a>
-    </label>
 
+        function reloadDatatables() {
+            // Datatables first...
+            filterChange();
 
-<br><br>
-<label for="Pending">
-  <a href="{{ url('/pendingrules')}}" style="font-size:23px"class="w3-bar-item w3-button">Pending Rule</a>
-</label>
-    </div>
-    <div class="col-sm-6">
-      <label for="Acceptance">
-        <a href="{{ url('/acceptancerules')}}" style="font-size:23px"class="w3-bar-item w3-button">Acceptance Rule</a>
-      </label>
-      <br><br>
-        <label for="Auto Denial">
-          <a href="{{ url('/acceptancerules')}}" style="font-size:23px"class="w3-bar-item w3-button">Auto Denial Rule</a>
-        </label>
-      </div>
-</div>
-</div>
->>>>>>> f761f275b00a7f60dafe9b0d9259bbf426ff3730
+            $('.dataTable').each(function() {
+                dt = $(this).dataTable();
+                dt.fnDraw();
+            })
+        }
 
-
-
+        jQuery(document).ready(function(){
+            // dynamic table
+            oTable = jQuery('.datatable').dataTable({
+                "fnServerParams": function(aoData) {
+                    // add the extra parameters from the jQuery QueryBuilder to the Datatable endpoint...
+                    $.each(datatablesRequest , function(k,v){
+                        aoData.push({"name": k, "value": v});
+                    })
+                }
+            })
+        });*/
+    </script>
 
 @endsection
