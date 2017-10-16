@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+use Illuminate\Support\Facades\Storage;
+
 Auth::routes();
 
 Route::get('/about-us', function () { return view('Front-page');});
@@ -32,6 +34,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('securityquestions', 'UserSecurityQuestionController');
 
 Route::resource('attachment', 'DonationRequestController');
+
+// Route::get('attachment', 'DonationRequestController@attachment');
+// Route::post('attachment', 'DonationRequestController@attachmentPost');
 
 Route::resource('/users', 'UserController');
 
@@ -66,6 +71,16 @@ Route::get('change-password', function() {
 })->name('reset-password');
 
 Route::post('change-password', 'Auth\UpdatePasswordController@update');
+
+// s3 Route
+//
+// get('donationrequests', function () {
+//
+//   $s3 = Storage::disk('s3');
+//   $s3->put('attachment','hello!', 'public');
+//
+// }
+//
 
 //Route::get('/emailtemplates/edit/{id}','EmailTemplateController@edit')->name('emailtemplate');
 
