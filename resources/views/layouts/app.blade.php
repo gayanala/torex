@@ -13,10 +13,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
-    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-    <script src="{{ asset('js/jquery-1.11.0.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    @yield('css')
+
+
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     @yield('header')
     <style>
         body {
@@ -255,14 +256,12 @@
 {{--<script src="{{ asset('js/app.js') }}">--}}
 
 </body>
-   <footer class="footer bg-4">
+   <!-- <footer class="footer bg-4">
 
     <img src="{{ asset('img/icon-partner.png') }}" class="imgalign"  style="width:100px;height:50px;"  >
 
     <h5>A tagg Intiative</h5>
-
-   </footer>
-
+ </footer> -->
 
 
 
