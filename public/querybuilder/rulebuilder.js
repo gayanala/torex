@@ -43,8 +43,8 @@ $('.parse-json').on('click', function() {
 $('.parse-sql').on('click', function() {
     var target = $(this).data('target');
     var result = $('#builder-'+target).queryBuilder('getSQL', $(this).data('stmt'));
-
     if (result.sql.length) {
+        $('#insql').val(result.sql.toString());
         bootbox.alert({
             title: $(this).text(),
             message: '<pre class="code-popup">' + format4popup(result.sql) + (result.params ? '\n\n' + format4popup(result.params) : '') + '</pre>'

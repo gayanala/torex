@@ -16,13 +16,15 @@
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
         <div id="builder-plugins"></div>
         <div class="btn-group">
-            <button class="btn btn-error parse-json" data-target="plugins">Preview Rules</button>
+            <button class="btn btn-error parse-sql" data-target="plugins">Preview Rules</button>
             <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
             <button class="btn btn-success set-json" data-target="plugins">Reset Rules</button>
             <button class="btn btn-primary parse-json" data-target="plugins">Save (Show) Rules</button>
-            <button type="submit" class="btn btn-success">Run Rule</button>
+            <a href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule</a>
         </div>
+        @if(Session::has('msg')) <div class="alert alert-info"> {{Session::get('msg')}} </div> @endif
         <br />
+        <input id="insql" type="text" name="insql" value="SQL" size="100" />
         <br />
         <br />
         <br />
@@ -36,10 +38,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.0/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.3/dist/css/query-builder.default.min.css">
 
-    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
-
-    <script src="{{ asset('querybuilder/jquery-extendext/jQuery.extendext.js') }}"></script>
-    <script src="{{ asset('querybuilder/dot/doT.js') }}"></script> -->
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
@@ -53,11 +51,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.6/interact.min.js"></script>
 
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.4/dist/js/query-builder.min.js"></script>
-    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/js/query-builder.js') }}"></script>
-    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/i18n/query-builder.en.js') }}"></script>    -->
+<div class="panel panel-default">
+  <div class="panel-heading"style="font-size:20px"><b>Select the rule to edit</b></div>
+  <div class="panel-body" style="height:350px">
 
-    <script src="{{ asset('querybuilder/rulebuilder.js') }}"></script>
+  <div class="col-sm-6">
+    <label for="Denial">
+      <a href="{{ url('/denialrules')}}" style="font-size:23px"class="w3-bar-item w3-button">Denial Rule</a>
+    </label>
+
+
+<br><br>
+<label for="Pending">
+  <a href="{{ url('/pendingrules')}}" style="font-size:23px"class="w3-bar-item w3-button">Pending Rule</a>
+</label>
+    </div>
+    <div class="col-sm-6">
+      <label for="Acceptance">
+        <a href="{{ url('/acceptancerules')}}" style="font-size:23px"class="w3-bar-item w3-button">Acceptance Rule</a>
+      </label>
+      <br><br>
+        <label for="Auto Denial">
+          <a href="{{ url('/acceptancerules')}}" style="font-size:23px"class="w3-bar-item w3-button">Auto Denial Rule</a>
+        </label>
+      </div>
+</div>
+</div>
+
+
+    <script src="{{ asset('querybuilder/rulebuilder.js') }}" type="text/javascript"></script>
     <style>
         .code-popup {
             max-height: 500px;
@@ -68,6 +90,8 @@
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
+        var rules_plugins = {!!  htmlspecialchars_decode($rule, ENT_NOQUOTES) !!};
+        /*
         var rules_plugins = {
             condition: 'AND',
             rules: [
@@ -78,15 +102,15 @@
                 }, {
                     condition: 'OR',
                     rules: [{
-                        id: 'category',
+                        id: 'requester_type',
                         operator: 'equal',
                         value: 2
                     }, {
-                        id: 'category',
+                        id: 'requester_type',
                         operator: 'equal',
                         value: 6
                     }, {
-                        id: 'category',
+                        id: 'requester_type',
                         operator: 'not_equal',
                         value: 1
                     }]
@@ -107,7 +131,7 @@
                     }]
                 }]
         };
-
+*/
         $('#builder-plugins').queryBuilder({
             plugins: [
                 'sortable',
@@ -127,6 +151,7 @@
                     format: 'MM/DD/YYYY'
                 },
                 plugin: 'datepicker',
+                operators: ['less_equal', 'greater_equal', 'between', 'not_between'],
                 plugin_config: {
                     format: 'mm/dd/yyyy',
                     todayBtn: 'linked',
@@ -138,38 +163,44 @@
                 label: 'Requester Name',
                 type: 'string'
             }, {
-                id: 'category',
-                label: 'Category',
+                id: 'requester_type',
+                label: 'Request Type',
                 type: 'integer',
                 input: 'select',
                 values: {
-                    1: 'Athletics',
-                    2: 'Cancer Research',
-                    3: 'Health Care',
-                    4: 'Housing',
-                    5: 'Youth Organization',
-                    6: 'Veteran Affairs'
+                    1: 'Animal Welfare',
+                    2: 'Arts, Culture & Humanities',
+                    3: 'Civil Rights, Social Action & Advocacy',
+                    4: 'Community Improvement',
+                    5: 'Corporate Giving',
+                    6: 'Education K-12',
+                    7: 'Environment',
+                    8: 'Faith/Religious',
+                    9: 'Food, Agriculture & Nutrition',
+                    10: 'Health Care',
+                    11: 'Human Services',
+                    12: 'Youth Sports/Activities',
+                    13: 'Others'
                 },
                 operators: ['equal', 'not_equal', 'in', 'not_in', 'is_null', 'is_not_null']
             }, {
-                id: 'in_stock',
-                label: 'In stock',
-                type: 'integer',
-                input: 'radio',
+                id: 'tax_exempt',
+                label: 'Tax Exempt',
+                type: 'boolean',
+                input: 'checkbox',
                 values: {
-                    1: 'Yes',
-                    0: 'No'
+                    1: 'Yes'
                 },
-                operators: ['equal']
+                operators: ['equal', 'not_equal']
             }, {
-                id: 'amount',
-                label: 'Amount',
+                id: 'dollar_amount',
+                label: 'Dollar Amount',
                 type: 'double',
                 validation: {
                     min: 0,
                     step: 0.01
                 }
-            }, {
+            }/*, {
                 id: 'id',
                 label: 'Identifier',
                 type: 'string',
@@ -178,11 +209,11 @@
                 validation: {
                     format: /^.{4}-.{4}-.{4}$/
                 }
-            }],
+            }*/],
 
             rules: rules_plugins
         });
-        $('#btn-reset').on('click', function() {
+       /*$('#btn-reset').on('click', function() {
             $('#builder-plugins').queryBuilder('reset');
         });
 
@@ -197,6 +228,13 @@
                 alert(JSON.stringify(result, null, 2));
             }
         });
+        $('#btn-getsql').on('click', function() {
+            var result = $('#builder-plugins').queryBuilder('getSQL');
+
+            if (!$.isEmptyObject(result)) {
+                alert(result);
+            }
+        });*/
         ////////////////////////////////////////////////////////////////////////////
         // the default rules, what will be used on page loads...
         /*var datatablesRequest = {};
