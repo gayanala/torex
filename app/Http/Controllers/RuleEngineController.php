@@ -2,8 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Rule;
 use App\DonationRequest;
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Http\withErrors;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\Builder;
+//use Illuminate\Database\Eloquent\Builder;
 use timgws\QueryBuilderParser;
 
 // use timgws\JoinSupportingQueryBuilderParser;
@@ -14,7 +23,29 @@ class RuleEngineController extends Controller
         return view('rules.guirules');
     }
     public function rules(){
-        return view('rules.rules');
+        $ruleRow = Rule::findOrFail(1)->first();
+        $queryBuilderJSON = $ruleRow->rule;
+
+        //dd($queryBuilderJSON);
+        return view('rules.rules')->with('rule', $queryBuilderJSON);
+    }
+    public function runRule(Request $request){
+        $input = $request->all();
+        $table = DB::table('donation_requests');
+        $ruleRow = Rule::findOrFail(1)->first();
+        $queryBuilderJSON = $ruleRow->rule;
+        $qbp = new QueryBuilderParser(
+            ['id','requester','needed_by_date','tax_exempt','dollar_amount','approved_organization_id','approval_status_id']
+        );
+        //dd($queryBuilderJSON);
+        //$query = DonationRequest::with('organizations','approval_statuses');
+        $query = $qbp->parse($queryBuilderJSON,  $table);
+        $rows = $query->get();
+        //Session::flash('msg', 'Thanks for voting');
+        dd($query);
+        dd($rows);
+        // return view('rules.rules');
+        return redirect('/rules')->with('msg', Response::JSON($rows));
     }
     function displayUserDatatable() {
         /* builder is POST'd by the datatable */
