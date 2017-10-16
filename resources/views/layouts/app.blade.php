@@ -186,7 +186,7 @@
             <div class="row">
                 <div class="col-sm-3">
 
-                    CharityQ
+                    <img src="https://files.slack.com/files-pri/T6UCXQ9SS-F7J7V3L10/charityq.png" alt="TAGG" id="logo"  class="img-responsive" height="60%" width="60%"/>
 
 
                 </div>
