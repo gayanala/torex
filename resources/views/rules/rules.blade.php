@@ -14,7 +14,7 @@
 
 @endsection
 @section('content')
-
+<<<<<<< HEAD
     <!--<section class="bs-docs-section clearfix"> -->
     <br />
     <br />
@@ -61,12 +61,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sql-parser@0.5.0/browser/sql-parser.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.6/interact.min.js"></script>
 
+=======
+>>>>>>> f761f275b00a7f60dafe9b0d9259bbf426ff3730
 
 <div class="panel panel-default">
   <div class="panel-heading"style="font-size:20px"><b>Select the rule to edit</b></div>
   <div class="panel-body" style="height:350px">
 
-
+<<<<<<< HEAD
     <script src="{{ asset('querybuilder/rulebuilder.js') }}" type="text/javascript"></script>
     <style>
         .code-popup {
