@@ -71,7 +71,7 @@ class RegisterController extends Controller
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
             'zipcode' => 'required|numeric|max:5',
-            'phone_number' => 'required||regex:/^(\+36)[0-9]{9}$/',
+            'phone_number' => 'required|regex:/^(\+36)[0-9]{9}$/',
 
         ]);
     }
