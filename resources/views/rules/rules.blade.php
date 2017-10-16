@@ -20,7 +20,11 @@
             <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
             <button class="btn btn-success set-json" data-target="plugins">Reset Rules</button>
             <button class="btn btn-primary parse-json" data-target="plugins">Save (Show) Rules</button>
+            <button type="submit" class="btn btn-success">Run Rule</button>
         </div>
+        <br />
+        <br />
+        <br />
         <br />
         <!-- <div id="querybuilder"></div> -->
     </div>
