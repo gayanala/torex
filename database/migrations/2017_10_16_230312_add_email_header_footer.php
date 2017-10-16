@@ -14,7 +14,7 @@ class AddEmailHeaderFooter extends Migration
     public function up()
     {
         Schema::table('email_templates', function (Blueprint $table) {
-            $table->string('email_footer', 250)->nullable()->after('email_messages');
+            $table->string('email_footer', 250)->nullable()->after('email_message');
             $table->string('email_header', 250)->nullable()->after('email_message');
         });
     }
