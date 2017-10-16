@@ -19,6 +19,7 @@ use timgws\QueryBuilderParser;
 
 class RuleEngineController extends Controller
 {
+<<<<<<< HEAD
     public function rulesGui(){
         return view('rules.guirules');
     }
@@ -47,6 +48,23 @@ class RuleEngineController extends Controller
         // return view('rules.rules');
         return redirect('/rules')->with('msg', Response::JSON($rows));
     }
+=======
+  public function rulesPending(){
+       return view('rules.pending_rules');
+   }
+   public function rulesDenial(){
+       return view('rules.denial_rules');
+   }
+   public function rulesAcceptance(){
+       return view('rules.acceptance_rules');
+   }
+   public function rulesAutodenial(){
+       return view('rules.autodenial_rules');
+   }
+   public function rulesGUI(){
+       return view('rules.rules');
+   }
+>>>>>>> f761f275b00a7f60dafe9b0d9259bbf426ff3730
     function displayUserDatatable() {
         /* builder is POST'd by the datatable */
         $queryBuilderJSON = Input::get('rules');

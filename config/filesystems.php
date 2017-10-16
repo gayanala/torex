@@ -56,11 +56,11 @@ return [
         ],
 
         's3' => [
-            'driver' => 's3',
-            'key' =>'AKIAJDB7DM6MPE54UZ2Q',
-            'secret' =>'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',
-            'region' =>'us-east-2',
-            'bucket' =>'tagguno',
+            'driver' => '',
+            'key' =>'',
+            'secret' =>'',
+            'region' =>'',
+            'bucket' =>'',
 
 
         ],
