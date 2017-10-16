@@ -186,7 +186,7 @@
             <div class="row">
                 <div class="col-sm-3">
 
-                    <img src="https://lh3.googleusercontent.com/LztMKmMMgzoLugM5QPjZbOafJJUZ8SZa-LX5CYa8qNqtwosMed3NnCF-PE1Atd5i5-AM8A=s170" alt="TAGG" id="logo"  class="img-responsive"/>
+                    CharityQ
 
 
                 </div>
