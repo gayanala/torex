@@ -6,6 +6,7 @@ use App\UserSecurityQuestion;
 use Illuminate\Http\Request;
 use Auth;
 use App\Security_question;
+use Validator;
 
 class UserSecurityQuestionController extends Controller
 {
@@ -19,24 +20,35 @@ class UserSecurityQuestionController extends Controller
 
     public function store(Request $request)
     {
-        $user_securityquestion = new UserSecurityQuestion($request->all());
-//        dd($user_securityquestion);
 
-//        $validator = Validator::make($request->all(), [
-//            'question_id' => 'required',
-//            'answer' => 'required',
-//        ]);
-//
-//        if ($validator->fails()) {
-//            return redirect('securityquestions/create')
-//                ->withErrors($validator)
-//                ->withInput();
-//        }
-
-        $user_securityquestion->save();
+        for ($i = 0; $i < sizeof($request->answer); $i++ ) {
+            $user_securityquestion = new UserSecurityQuestion();
+            $user_securityquestion->user_id = $request->user_id;
+            $user_securityquestion->question_id = $request->question_id[$i];
+            $user_securityquestion->answer = $request->answer[$i];
+            $user_securityquestion->save();
+        }
 
 
-        return redirect('/home');
+
+        $validator = Validator::make($request->all(), [
+            'question_id' => 'required',
+            'answer' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+
+            return redirect('securityquestions/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+//        $user_securityquestion->save();
+
+        else {
+            return redirect('/home');
+        }
+//        return redirect('/home');
 //        return redirect('securityquestions');
     }
 }

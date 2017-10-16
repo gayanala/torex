@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rule extends Model
+class Rule_type extends Model
 {
-    //
     protected $fillable = [
-        'rule_type_id',
-        'rule_owner_id',
-        'rule',
+        'type_name',
+        'type_description',
         'active',
     ];
+    protected $table = 'rule_types';
 }

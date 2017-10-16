@@ -1,14 +1,18 @@
 @extends('layouts.app')
+@section('css')
+    <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="http://querybuilder.js.org/assets/css/docs.min.css" rel="stylesheet">
+    <link href="http://querybuilder.js.org/assets/css/style.css" rel="stylesheet">
+@endsection
 @section('header')
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{{ asset('querybuilder/jquery/dist/jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('querybuilder/bootstrap/dist/js/bootstrap.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
 @endsection
 @section('content')
     <!--<section class="bs-docs-section clearfix"> -->
+    <br />
+    <br />
+    <br />
+    <br />
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
         <div id="builder-plugins"></div>
         <div class="btn-group">
@@ -16,33 +20,43 @@
             <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
             <button class="btn btn-success set-json" data-target="plugins">Reset Rules</button>
             <button class="btn btn-primary parse-json" data-target="plugins">Save (Show) Rules</button>
+            <button type="submit" class="btn btn-success">Run Rule</button>
         </div>
+        <br />
+        <br />
+        <br />
         <br />
         <!-- <div id="querybuilder"></div> -->
     </div>
     <!-- </section> -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/css/bootstrap-slider.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.bootstrap3.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.7/css/bootstrap-slider.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.bootstrap3.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.0/awesome-bootstrap-checkbox.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('querybuilder/jquery-querybuilder/dist/css/query-builder.default.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.3/dist/css/query-builder.default.min.css">
 
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <script src="{{ asset('querybuilder/jquery-extendext/jQuery.extendext.js') }}"></script>
-    <script src="{{ asset('querybuilder/moment/min/moment.min.js') }}"></script>
-    <script src="{{ asset('querybuilder/dot/doT.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script src="{{ asset('querybuilder/dot/doT.js') }}"></script> -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.7/bootstrap-slider.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.3/dist/js/query-builder.standalone.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sql-parser@0.5.0/browser/sql-parser.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.9/interact.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.6/interact.min.js"></script>
+
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.4/dist/js/query-builder.min.js"></script>
     <script src="{{ asset('querybuilder/jquery-querybuilder/dist/js/query-builder.js') }}"></script>
-    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/i18n/query-builder.en.js') }}"></script>
-    <!-- -->
+    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/i18n/query-builder.en.js') }}"></script>    -->
+
     <script src="{{ asset('querybuilder/rulebuilder.js') }}"></script>
     <style>
         .code-popup {
@@ -79,11 +93,11 @@
                 }, {
                     condition: 'AND',
                     rules: [{
-                        id: 'name',
+                        id: 'requester',
                         operator: 'equal',
                         value: 'Naggy Group 1'
                     }, {
-                        id: 'name',
+                        id: 'requester',
                         operator: 'equal',
                         value: 'Naggy Group 2'
                     }, {
@@ -105,10 +119,23 @@
                 'invert',
                 'not-group'
             ],
-
             filters: [{
-                id: 'name',
-                label: 'Name',
+                id: 'needed_by_date',
+                label: 'Date Needed',
+                type: 'date',
+                validation: {
+                    format: 'MM/DD/YYYY'
+                },
+                plugin: 'datepicker',
+                plugin_config: {
+                    format: 'mm/dd/yyyy',
+                    todayBtn: 'linked',
+                    todayHighlight: true,
+                    autoclose: true
+                }
+            }, {
+                id: 'requester',
+                label: 'Requester Name',
                 type: 'string'
             }, {
                 id: 'category',

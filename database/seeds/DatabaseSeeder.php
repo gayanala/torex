@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(Approval_statusesTableSeeder::class);
         $this->call(Security_questionsTableSeeder::class);
         $this->call(StatesTableSeeder::class);
+        $this->call(RuleTypesTableSeeder::class);
+        $this->call(RulesTableSeeder::class);
         $this->call(Organization_typesTableSeeder::class);
         $this->call(RequesterTypesTableSeeder::class);
         $this->call(Request_item_typesTableSeeder::class);
