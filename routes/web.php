@@ -19,8 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-use Illuminate\Support\Facades\Storage;
-
 Auth::routes();
 
 Route::get('/about-us', function () { return view('Front-page');});
@@ -34,9 +32,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('securityquestions', 'UserSecurityQuestionController');
 
 Route::resource('attachment', 'DonationRequestController');
-
-// Route::get('attachment', 'DonationRequestController@attachment');
-// Route::post('attachment', 'DonationRequestController@attachmentPost');
 
 Route::resource('/users', 'UserController');
 
@@ -72,16 +67,6 @@ Route::get('change-password', function() {
 
 Route::post('change-password', 'Auth\UpdatePasswordController@update');
 
-// s3 Route
-//
-// get('donationrequests', function () {
-//
-//   $s3 = Storage::disk('s3');
-//   $s3->put('attachment','hello!', 'public');
-//
-// }
-//
-
 //Route::get('/emailtemplates/edit/{id}','EmailTemplateController@edit')->name('emailtemplate');
 
 //Route::post('/emailtemplate', 'EmailTemplateController@edit');
@@ -98,21 +83,10 @@ Route::get('/email', 'EmailController@email') ->name('sendWelcomeEmail');
 
 Route::get('/dashboard', 'DashboardController@index');
 
-<<<<<<< HEAD
 // Rules stuff
 Route::get('guirules', 'RuleEngineController@rulesGui');
 Route::get('runRule', 'RuleEngineController@runRule');
 Route::get('rules', 'RuleEngineController@rules');
-=======
-// Rules stuff// Rules stuff
-Route::get('denialrules', 'RuleEngineController@rulesDenial');
-Route::get('acceptancerules', 'RuleEngineController@rulesAcceptance');
-Route::get('pendingrules', 'RuleEngineController@rulesPending');
-Route::get('pendingrules', 'RuleEngineController@rulesAutodenial');
-Route::get('rules', 'RuleEngineController@rulesGUI');
-
-
->>>>>>> f761f275b00a7f60dafe9b0d9259bbf426ff3730
 
 Route::get('/webhook/chargeSuccess', 'SubscriptionController@chargeSuccess');
 
