@@ -186,7 +186,7 @@
             <div class="row">
                 <div class="col-sm-3">
 
-               <a href="http://tagg-preprod.herokuapp.com">   <img src="https://files.slack.com/files-pri/T6UCXQ9SS-F7J7V3L10/charityq.png" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
+               <a href="http://tagg-preprod.herokuapp.com">   <img src="{{ asset('img/CharityQ.png') }}" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
                </a>
                 </div>
                 <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:15px;' >
