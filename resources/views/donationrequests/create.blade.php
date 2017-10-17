@@ -343,7 +343,7 @@
                             <label for="marketingopportunities" class="col-md-4 control-label">What are the marketing opportunities? <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                <input id="marketingopportunities" type="text" class="form-control" name="marketingopportunities" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" required autofocus>
+                                <textarea class="form-control" input id="marketingopportunities"   name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" required autofocus> </textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
@@ -352,6 +352,8 @@
                                 @endif
                             </div>
                         </div>
+
+                          
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

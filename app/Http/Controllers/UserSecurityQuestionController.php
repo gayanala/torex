@@ -10,9 +10,10 @@ use Validator;
 
 class UserSecurityQuestionController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-        $user = Auth::user();
+        $user = $request->session()->get('userId');
+//        dd($user);
         $securityquestions = Security_question::pluck('question', 'id');
         //$users = $request->session()->get('userId');
         return view('securityquestions.create', compact('user', 'securityquestions'))->with('question', $securityquestions);
