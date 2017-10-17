@@ -11,5 +11,4 @@ class Approval_status extends Model
         'status_name',
         'status_description'
     ];
-
 }
