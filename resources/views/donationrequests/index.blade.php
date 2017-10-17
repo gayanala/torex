@@ -24,19 +24,16 @@
                             <thead>
                             <tr class="bg-info">
                                 <th class="text-center">Select</th>
-                                {{--<th class="text-center">Requester</th>--}}
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Request For</th>
                                 <th class="text-center">Event Name</th>
                                 <th class="text-center">Handout Date</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Actions</th>
-                                {{--<th colspan="2" class="text-center">Actions</th>--}}
                             </tr>
                             </thead>
                             <tfoot class="bg-info">
                                 <th class="text-center">Select</th>
-                                {{--<th class="text-center">Requester</th>--}}
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Request For</th>
                                 <th class="text-center">Event Name</th>
@@ -50,19 +47,15 @@
                                     <td style="vertical-align: middle">
                                         <input type="checkbox" name="selectBox" value="checked">
                                     </td>
-                                    {{--<td style="vertical-align: middle">{{ $donationrequest->requester }}</td>--}}
                                     <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->event_end_date }}</td>
+                                    <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
+
                                     <td style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
                                     <td>
                                         <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info">
                                             <span class="glyphicon glyphicon-list-alt"></span> Detail</a>
-                                        {{--<button class="show-modal btn btn-info"--}}
-                                                {{--data-info="">--}}
-                                            {{--<span class="glyphicon glyphicon-list-alt"></span> Detail--}}
-                                        {{--</button>--}}
                                         <button class="edit-modal btn btn-success"
                                                 data-info="">
                                             <span class="glyphicon glyphicon-ok"></span> Approve
@@ -72,7 +65,6 @@
                                             <span class="glyphicon glyphicon-remove"></span> Deny
                                         </button>
                                     </td>
-
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
                                 </tr>
