@@ -187,7 +187,7 @@
             <div class="row">
                 <div class="col-sm-3">
 
-               <a href="{{ getenv("APP_URL") }}" >   <img src="{{ asset('img/CharityQ.png') }}" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
+               <a href="{{ url('/') }}" >   <img src="{{ asset('img/CharityQ.png') }}" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
                </a>
                 </div>
                 <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:15px;' >
