@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Organization;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\State;
 use App\Organization_type;
 use Auth;
+use Validator;
 
 
 class OrganizationController extends Controller
@@ -72,9 +72,43 @@ class OrganizationController extends Controller
         ]);
     }
 
+    public function createOrganization() {
+        return view('organizations.create');
+    }
+
+    /**
+     * Creating a new Organization
+     *
+     * @param Request $request
+     * @return mixed
+     */
     protected function create(Request $request)
     {
-        return Organization::create([
+        /*return Validator::make($request->all(), [
+            'org_name' => 'required|string|max:255',
+            'organization_type_id' => 'required',
+            'street_address1' => 'required|string|max:255',
+            'street_address2' => 'string|max:255',
+            'city' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
+            'zipcode' => 'required',
+            'phone_number' => 'required',
+        ]);*/
+
+        // Add validation
+
+        $organization = new Organization;
+        $organization->org_name = $request['org_name'];
+        $organization->organization_type_id = $request['org_description'];
+        $organization->street_address1 = $request['street_address1'];
+        $organization->street_address2 = $request['street_address2'];
+        $organization->city = $request['city'];
+        $organization->state = $request['state'];
+        $organization->zipcode = $request['zipcode'];
+        $organization->phone_number = $request['phone_number'];
+
+        return view('organizations.index');
+        /*return Organization::create([
             'org_name' => $request['org_name'],
             'organization_type_id' => $request['org_description'],
             'street_address1' => $request['street_address1'],
@@ -83,7 +117,7 @@ class OrganizationController extends Controller
             'state' => $request['state'],
             'zipcode' => $request['zipcode'],
             'phone_number' => $request['phone_number'],
-        ]);
+        ]);*/
     }
 
 // include organization id in the donation request URL//

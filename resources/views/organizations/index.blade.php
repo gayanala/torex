@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h1>  View & Update Organization Portfolio </h1></div>
+                    <div class="panel-heading"><h1>  View & Update Organization Portfolio </h1><a href="{{action('OrganizationController@createOrganization')}}" class="btn btn-primary"> [+] Add </a></div>
                     <div class="panel-body">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>

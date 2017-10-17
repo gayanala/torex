@@ -37,7 +37,10 @@ Route::resource('attachment', 'DonationRequestController');
 
 Route::resource('/users', 'UserController');
 
+Route::get('organizations/createOrganization', 'OrganizationController@createOrganization');
+
 Route::resource('organizations', 'OrganizationController');
+
 Route::group(['prefix' => 'subscription'], function () {
     Route::get('/', [
         'as' => 'subscription',
