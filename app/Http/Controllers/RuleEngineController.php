@@ -50,20 +50,9 @@ class RuleEngineController extends Controller
         // return view('rules.rules');
         return redirect('/rules')->with('msg', Response::JSON($rows));
     }
-    public function rulesPending(){
-        return view('rules.pending_rules');
-    }
-    public function rulesDenial(){
-        return view('rules.denial_rules');
-    }
-    public function rulesAcceptance(){
-        return view('rules.acceptance_rules');
-    }
-    public function rulesAutodenial(){
-        return view('rules.autodenial_rules');
-    }
+
     public function rulesGUI(){
-        return view('rules.rules');
+        return view('rules.guirules');
     }
     // EXAMPLE ONLY
     function displayUserDatatable() {
