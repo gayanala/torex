@@ -1,41 +1,48 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Organization;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Http\Controllers\WebhookController;
 
 class SubscriptionController extends Controller
 {
-
     protected $organization;
 
     public function getIndex()
     {
-        return view('subscriptions.payment');
-    }
+        $id = Auth::user()->organization_id;
+        $organization = Organization::find($id);
+        if ($organization->subscribed('main')) {
+            return redirect('/home');
+        } else {
+            return view('subscriptions.payment');
+        }
 
+
+    }
     public function postJoin(Request $request)
     {
-        $organization = organization::find(1);
+        $id = Auth::user()->organization_id;
+        $organization = Organization::find($id);
         $pickedPlan = $request->get('plan');
         if ($organization->subscribedToPlan($pickedPlan, 'main')) {
-            return redirect('subscription')->with('status', 'Plan Allready Submitted!');
+            return redirect('subscription')->with('status', 'Plan Already Submitted!');
         } else {
             if ($request->input('plan') == "annually") {
                 $organization->newSubscription('main', $request->input('plan'))->withCoupon("OFF20")->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
-                    'email' => 'shashikala@gmail.com'
+                    'email' => $organization->org_name
 
                 ]);
             } else {
                 $organization->newSubscription('main', $request->input('plan'))->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
-                    'email' => 'shashikala@gmail.com'
+                    'email' => $organization->org_name
                 ]);
             }
 
-            return redirect('subscription')->with('status', 'Successfully Submitted!');
+            return redirect('home')->with('status', 'Successfully Submitted!');
+
         }
     }
 
