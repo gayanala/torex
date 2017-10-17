@@ -13,23 +13,24 @@
     <br />
     <br />
     <br />
+    <form id="asdf" action="{{ action('RuleEngineController@runRule') }}">
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
         <div id="builder-plugins"></div>
         <div class="btn-group">
             <button class="btn btn-error parse-sql" data-target="plugins">Preview Rules</button>
             <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
-            <button class="btn btn-success set-json" data-target="plugins">Reset Rules</button>
+            <button class="btn btn-success set-json" type="submit" data-target="plugins">Reset Rules</button>
             <button class="btn btn-primary parse-json" data-target="plugins">Save (Show) Rules</button>
             <a href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule</a>
         </div>
-        @if(Session::has('msg')) <div class="alert alert-info"> {{Session::get('msg')}} </div> @endif
         <br />
-        <input id="insql" type="text" name="insql" value="SQL" size="100" />
+        <input id="insql" type="hidden" name="insql" value="SQL" size="100" />
         <br />
         <br />
         <br />
         <!-- <div id="querybuilder"></div> -->
     </div>
+    </form>
     <!-- </section> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.7/css/bootstrap-slider.min.css" rel="stylesheet">
@@ -90,6 +91,19 @@
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
+        $('.parse-json').on('click', function() {
+            var target = $(this).data('target');
+            var result = $('#builder-'+target).queryBuilder('getRules');
+
+            if (!$.isEmptyObject(result)) {
+                $('#insql').val(format4popup(result));
+                /*bootbox.alert({
+                    title: $(this).text(),
+                    message: '<pre class="code-popup">' + format4popup(result) + '</pre>'
+                });*/
+            }
+        });
+
         var rules_plugins = {!!  htmlspecialchars_decode($rule, ENT_NOQUOTES) !!};
         /*
         var rules_plugins = {
