@@ -15,7 +15,7 @@ class Request_item_type extends Model
         'active',
     ];
 
-    public function DonationRequest()
+    public function donationRequest()
     {
         return $this->hasMany('App\DonationRequest');
     }

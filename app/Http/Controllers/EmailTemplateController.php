@@ -34,5 +34,12 @@ class EmailTemplateController extends Controller
         $emailtemplate = EmailTemplate::findOrFail($id);
         return view('emailtemplates.edit', compact('emailtemplate'));
     }
+
+    public function send($id, $email)
+    {
+        $this->email = $email;
+        $emailtemplate = EmailTemplate::findOrFail($id);
+        return view('emaileditor.editsendmail', compact('emailtemplate'), compact('email'));
+    }
 }
 
