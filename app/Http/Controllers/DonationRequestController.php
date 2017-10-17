@@ -25,12 +25,10 @@ class DonationRequestController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        $organizationId = $user->organization_id;
+        $organizationId = Auth::user()->organization_id;
         $organization = Organization::findOrFail($organizationId);
         $organizationName = $organization->org_name;
-        $donationrequests = DonationRequest::all();
-
+        $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
         return view('donationrequests.index', compact('donationrequests', 'organizationName'));
     }
 

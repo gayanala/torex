@@ -12,6 +12,7 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     @yield('css')
 
@@ -186,7 +187,11 @@
             <div class="row">
                 <div class="col-sm-3">
 
-                    <a href="{{ getenv("APP_URL") }}"> <img src="{{ asset('img/CharityQ.png') }}" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
+
+
+
+               <a href="{{ url('/') }}" >   <img src="{{ asset('img/CharityQ.png') }}" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
+
                </a>
                 </div>
                 <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:15px;' >

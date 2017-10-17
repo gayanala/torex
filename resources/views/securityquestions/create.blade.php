@@ -5,12 +5,13 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Security Questions Setup - {{ $user->first_name }} {{$user->last_name}}</div>
+                <div class="panel-heading">Security Questions Setup</div>
+                {{--<div class="panel-heading">Security Questions Setup - {{ $user->first_name }} {{$user->last_name}}</div>--}}
                     <div class="panel-body">
 
                         {{--<form method="POST" action="{{ action('UserSecurityQuestionController@store') }}">--}}
                             {!! Form::open(['action' =>  'UserSecurityQuestionController@store', 'method' => 'post' ]) !!}
-                        {!! Form::hidden('user_id',$user->id,['class'=>'form-control', 'readonly']) !!}
+                        {!! Form::hidden('user_id',$user,['class'=>'form-control', 'readonly']) !!}
 
                         <div class="form-group{{ $errors->has('question_id[]') ? ' has-error' : '' }}">
                             <label for="question_id[]" class="control-label">First Security Question <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>

@@ -28,7 +28,7 @@ $('.set-mongo').on('click', function() {
 });
 
 // get rules
-$('.parse-json').on('click', function() {
+/*$('.parse-json').on('click', function() {
     var target = $(this).data('target');
     var result = $('#builder-'+target).queryBuilder('getRules');
 
@@ -38,7 +38,7 @@ $('.parse-json').on('click', function() {
             message: '<pre class="code-popup">' + format4popup(result) + '</pre>'
         });
     }
-});
+});*/
 
 $('.parse-sql').on('click', function() {
     var target = $(this).data('target');

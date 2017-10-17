@@ -19,13 +19,22 @@ use timgws\QueryBuilderParser;
 class RuleEngineController extends Controller
 {
     public function rules(){
-        $ruleRow = Rule::findOrFail(1)->first();
+        $ruleRow = Rule::findOrFail(2);
         $queryBuilderJSON = $ruleRow->rule;
         return view('rules.rules')->with('rule', $queryBuilderJSON);
     }
     public function runRule(Request $request){
         $input = $request->all();
-        $table = DB::table('donation_requests');
+        $strJSON = $request->insql;
+        /*$rule = new Rule;
+        $rule->rule_type_id = 2;
+        $rule->rule_owner_id = 1;
+        $rule->rule = $strJSON;
+        $rule->save();
+
+        dd($rule);*/
+        $table = DB::table('donation_requests')->where([['organization_id','=', 1], ['approval_status_id', '=', 1]])->get();
+        dd($table);
         $ruleRow = Rule::findOrFail(1)->first();
         $queryBuilderJSON = $ruleRow->rule;
         $qbp = new QueryBuilderParser(
@@ -34,7 +43,8 @@ class RuleEngineController extends Controller
         //dd($queryBuilderJSON);
         //$query = DonationRequest::with('organizations','approval_statuses');
         $query = $qbp->parse($queryBuilderJSON,  $table);
-        $rows = $query->get();
+        $rows = $query->update(['approval_status_id' => 2]);
+
         dd($query);
         dd($rows);
         // return view('rules.rules');

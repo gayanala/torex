@@ -4,7 +4,7 @@ $(document).ready(function () {
         var form = $('#subscription-form');
         var submit = form.find('button');
         var submitInitialText = submit.text();
-        submit.attr('disabled', 'disabled').text("oops");
+        submit.attr('disabled', 'disabled').text("Processing");
         Stripe.card.createToken(form, function (status, response) {
             var token;
             if (response.error) {
