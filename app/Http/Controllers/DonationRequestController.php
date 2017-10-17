@@ -28,7 +28,6 @@ class DonationRequestController extends Controller
         $organizationId = Auth::user()->organization_id;
         $organization = Organization::findOrFail($organizationId);
         $organizationName = $organization->org_name;
-
         $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
         return view('donationrequests.index', compact('donationrequests', 'organizationName'));
     }

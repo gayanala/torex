@@ -52,10 +52,10 @@
                                     </td>
                                     {{--<td style="vertical-align: middle">{{ $donationrequest->requester }}</td>--}}
                                     <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->item_requested }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->event_end_date }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->approval_status_id }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
                                     <td>
                                         <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info">
                                             <span class="glyphicon glyphicon-list-alt"></span> Detail</a>
