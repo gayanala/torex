@@ -64,7 +64,7 @@
                             <label for="firstname" class="col-md-4 control-label">First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" placeholder="Your First Name" required autofocus>
+                                <input id="firstname" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your First Name should be 2-20 characters long." class="form-control" name="firstname" value="{{ old('firstname') }}" placeholder="Your First Name" required autofocus>
 
                                 @if ($errors->has('firstname'))
                                     <span class="help-block">
@@ -78,7 +78,7 @@
                             <label for="lastname" class="col-md-4 control-label">Last Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" placeholder="Your Last Name" required autofocus>
+                                <input id="lastname" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your Last Name should be 2-20 characters long." class="form-control" name="lastname" value="{{ old('lastname') }}" placeholder="Your Last Name" required autofocus>
 
                                 @if ($errors->has('lastname'))
                                     <span class="help-block">
@@ -106,7 +106,7 @@
                             <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="phonenumber" type="tel" class="form-control" name="phonenumber" value="{{ old('phonenumber') }}" placeholder="Your Phonenumber" required autofocus>
+                                <input id="phonenumber" type="tel" pattern="[0-9]{10}" required title="Enter your 10 digit Phone Number" class="form-control" name="phonenumber" value="{{ old('phonenumber') }}" placeholder="Your Phonenumber" required autofocus>
 
                                 @if ($errors->has('phonenumber'))
                                     <span class="help-block">
@@ -169,7 +169,7 @@
                             <label for="zipcode" class="col-md-4 control-label">Zipcode <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{ old('zipcode') }}" placeholder="Your Zipcode" required autofocus>
+                                <input id="zipcode" type="text" pattern="[0-9]{5}" required title="Enter a 5 digit zipcode" class="form-control" name="zipcode" value="{{ old('zipcode') }}" placeholder="Your Zipcode" required autofocus>
 
                                 @if ($errors->has('zipcode'))
                                     <span class="help-block">
@@ -222,7 +222,7 @@
                         <div class="form-group{{ $errors->has('dollar_amount') ? ' has-error' : '' }}">
                             <label for="dollar_amount" class="col-md-4 control-label">Dollar Amount<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                             <div class="col-md-6">
-                                <input id="dollar_amount" type="text" class="form-control" name="dollar_amount" value="{{ old('formAttendees') }}" placeholder="Estimated Request Dollar Amount" required autofocus>
+                                <input id="dollar_amount" type="text" pattern="\d+(\.\d{2})?" required title="Please use the format $.$$ for this field. " class="form-control" name="dollar_amount" value="{{ old('formAttendees') }}" placeholder="Estimated Request Dollar Amount" required autofocus>
 
                                 @if ($errors->has('dollar_amount'))
                                     <span class="help-block">
@@ -343,7 +343,7 @@
                             <label for="marketingopportunities" class="col-md-4 control-label">What are the marketing opportunities? <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" input id="marketingopportunities"   name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" required autofocus> </textarea>
+                                <textarea class="form-control" input id="marketingopportunities"   pattern="[a-zA-Z0-9\s]+ {500}$" required title="Please restrict your Text Length to 500 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" required autofocus> </textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
