@@ -215,7 +215,7 @@
                                             <a href="{{ route('users.index')}}">Profile Management</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('organizations.index')}}">Organization Management</a>
+                                            <a href="{{ route('organizations.index')}}">Business Locations</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('reset-password') }}">

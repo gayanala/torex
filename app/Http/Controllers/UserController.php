@@ -99,16 +99,12 @@ class UserController extends Controller
         $user->city = $loggedInUserDetails->city;
         $user->state = $loggedInUserDetails->state;
         $user->zipcode = $loggedInUserDetails->zipcode;
-        $user->organization_id = $loggedInUserDetails->organization_id;
+        $user->organization_id = $request->location;
         $user->phone_number = $loggedInUserDetails->phone_number;
 
         $user->save();
 
         $user->roles()->attach(5);
-
-        //dd($loggedInUserDetails);
-
-        //User::create($user);
 
         //fire NewBusiness event to initiate sending welcome mail
 

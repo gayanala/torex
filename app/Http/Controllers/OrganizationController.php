@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Organization;
+use App\ParentChildOrganizations;
 use Illuminate\Http\Request;
 use App\State;
 use App\Organization_type;
@@ -15,15 +16,12 @@ class OrganizationController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
-        $orgID = $user->organization_id;
-        $organization = Organization::findOrFail($orgID);
-
-        $type_organization_id = $organization->organization_type_id;
-        $type_organization = Organization_type::findOrFail($type_organization_id);
-        $type_organization_name = $type_organization->type_name;
-
-        return view('organizations.index')->with(compact('organization', 'type_organization_name'));
+        $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
+        /*foreach ($childOrganizations as $org) {
+            dd($org->organization);
+        }*/
+        //dd($childOrganizations[0]->organization->organization_type_id);
+        return view('organizations.index', compact('childOrganizations'));
     }
 
     public function edit($id)
@@ -106,20 +104,24 @@ class OrganizationController extends Controller
         $organization->state = $request['state'];
         $organization->zipcode = $request['zipcode'];
         $organization->phone_number = $request['phone_number'];
+        $organization->save();
 
-        return view('organizations.index');
-        /*return Organization::create([
-            'org_name' => $request['org_name'],
-            'organization_type_id' => $request['org_description'],
-            'street_address1' => $request['street_address1'],
-            'street_address2' => $request['street_address2'],
-            'city' => $request['city'],
-            'state' => $request['state'],
-            'zipcode' => $request['zipcode'],
-            'phone_number' => $request['phone_number'],
-        ]);*/
+        // Inserting the relation between parent organization and child organization
+        ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);
+
+        $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
+        //dd($childOrganizations[0]->organization->organization_type_id);
+        return view('organizations.index')->with(compact('childOrganizations'));
+        //return view('organizations.index');
     }
 
+    public function destroy($id) {
+        //dd();
+        $organization = Organization::findOrFail($id);
+        $organization->delete();
+
+        //Session::flash('message', 'Successfully deleted the nerd!');
+    }
 // include organization id in the donation request URL//
 
 
