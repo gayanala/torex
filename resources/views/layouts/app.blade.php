@@ -248,6 +248,7 @@
             </div>
         </div>
     </nav>
+    <br><br><br>
 
     <div id="content">
         @include('layouts.partials._status')
