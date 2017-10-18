@@ -12,11 +12,12 @@
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
         "illuminate/mail": "^5.5",
-      "laravel/cashier": "~7.0",
+        "laravel/cashier": "~7.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5",
         "league/flysystem-aws-s3-v3": "~1.0",
+        "maatwebsite/excel": "^2.1",
         "timgws/query-builder-parser": "^1.4"
     },
     "require-dev": {

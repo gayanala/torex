@@ -65,6 +65,8 @@ Route::get('donationrequests/search','DonationRequestController@searchDonationRe
 
 Route::resource('/donationrequests', 'DonationRequestController');
 
+Route::get('donationrequests/export', 'DonationRequestController@export');
+
 Route::get('change-password', function() {
     return view('change-password');
 })->name('reset-password');
