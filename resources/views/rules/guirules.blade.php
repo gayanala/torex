@@ -13,8 +13,8 @@
 <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Select Rule
 <span class="caret"></span></button>
 <ul class="dropdown-menu">
-  <li>PreApproval</a></li>
-  <li>AutoReject</a></li>
+  <li><a href="">PreApproval</a></li>
+  <li><a href="">AutoReject</a></li>
 </ul>
 </div></div>
 <br>

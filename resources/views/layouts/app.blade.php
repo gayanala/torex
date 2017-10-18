@@ -205,7 +205,7 @@
                                 <a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button">RequestDonation</a>
                             @else
                                 <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
-                                <li><a href="{{ url('/guirules')}}" class="w3-bar-item w3-button">Rule Management</a></li>
+                                <li><a href="{{ url('/rules?rule=1')}}" class="w3-bar-item w3-button">Rule Management</a></li>
                                 <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a></li>
                                 <li><a href="{{ route('emailtemplates.index')}}" class="w3-bar-item w3-button">Template Editor</a></li>
                                 <li class="dropdown">

@@ -90,8 +90,10 @@ Route::get('/dashboard', 'DashboardController@index');
 // Rules stuff
 Route::get('guirules', 'RuleEngineController@rulesGui');
 Route::get('runRule', 'RuleEngineController@runRule');
-Route::get('runRule', 'RuleEngineController@saveRule');
-Route::get('rules', 'RuleEngineController@rules');
+Route::get('saveRule', 'RuleEngineController@saveRule');
+Route::get('loadRule', 'RuleEngineController@loadRule');
+//Route::get('/rules', 'RuleEngineController@rules');
+Route::resource('/rules', 'RuleEngineController');
 // Rules stuff// Rules stuff
 //Route::get('rules', 'RuleEngineController@rulesGUI');
 Route::get('/webhook/chargeSuccess', 'SubscriptionController@chargeSuccess');

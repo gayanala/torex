@@ -9,38 +9,49 @@
 @endsection
 @section('content')
     <!--<section class="bs-docs-section clearfix"> -->
-    <br />
-    <br />
-    <br />
-    <br />
-    <form id="asdf" action="{{ action('RuleEngineController@saveRule') }}">
-    <div class="col-md-12 col-lg-10 col-lg-offset-1">
-        <div id="builder-plugins"></div>
-        <div class="btn-group">
-            <button class="btn btn-error parse-sql" data-target="plugins">Preview Rules</button>
-            <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
-            <button class="btn btn-success set-json" type="submit" data-target="plugins">Reset Rules</button>
-            <button class="btn btn-primary parse-json" data-target="plugins">Save (Show) Rules</button>
-            <a href="{{ action('RuleEngineController@saveRule') }}" class="btn btn-default">Run Rule</a>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
+        <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
+            <label>Rule Selected:</label>
+            <div class="col-md-6">{!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType']) !!}</div>
         </div>
-        <br />
-        <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100" />
-        <br />
-        <br />
-        <br />
-        <!-- <div id="querybuilder"></div> -->
-    </div>
+        <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
+        <div class="col-md-12 col-lg-10 col-lg-offset-1">
+            <div id="builder-plugins"></div>
+            <div class="btn-group">
+                <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
+                <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
+                <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
+                <button class="btn btn-primary parse-json" type="submit" data-target="plugins">Save Rules</button>
+                <!-- <a href="{{ action('RuleEngineController@saveRule') }}" class="btn btn-default">Run Rule</a> -->
+
+            </div>
+            <br/>
+            <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
+
+            <br/>
+            <br/>
+            <br/>
+            <!-- <div id="querybuilder"></div> -->
+        </div>
     </form>
     <!-- </section> -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker3.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.7/css/bootstrap-slider.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.bootstrap3.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.0/awesome-bootstrap-checkbox.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.3/dist/css/query-builder.default.min.css">
-
-
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker3.min.css"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.7/css/bootstrap-slider.min.css"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.bootstrap3.css"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.3/css/bootstrap-select.min.css"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.0/awesome-bootstrap-checkbox.css"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.3/dist/css/query-builder.default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/js/bootstrap-datepicker.min.js"></script>
@@ -50,50 +61,32 @@
     <script src="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder@2.4.3/dist/js/query-builder.standalone.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sql-parser@0.5.0/browser/sql-parser.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.6/interact.min.js"></script>
-
-
-<div class="panel panel-default">
-  <div class="panel-heading"style="font-size:20px"><b>Select the rule to edit</b></div>
-  <div class="panel-body" style="height:350px">
-
-  <div class="col-sm-6">
-    <label for="Denial">
-      <a href="{{ url('/denialrules')}}" style="font-size:23px"class="w3-bar-item w3-button">Denial Rule</a>
-    </label>
-
-
-<br><br>
-<label for="Pending">
-  <a href="{{ url('/pendingrules')}}" style="font-size:23px"class="w3-bar-item w3-button">Pending Rule</a>
-</label>
-    </div>
-    <div class="col-sm-6">
-      <label for="Acceptance">
-        <a href="{{ url('/acceptancerules')}}" style="font-size:23px"class="w3-bar-item w3-button">Acceptance Rule</a>
-      </label>
-      <br><br>
-        <label for="Auto Denial">
-          <a href="{{ url('/acceptancerules')}}" style="font-size:23px"class="w3-bar-item w3-button">Auto Denial Rule</a>
-        </label>
-      </div>
-</div>
-</div>
-
-
     <script src="{{ asset('querybuilder/rulebuilder.js') }}" type="text/javascript"></script>
     <style>
         .code-popup {
             max-height: 500px;
         }
+
         .modal-backdrop {
             z-index: -1;
+        }
+        .ddlType {
+            width: 50%;
         }
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
-        $('.parse-json').on('click', function() {
+        $('#ddlRuleType').val({{ $_GET['rule'] }});
+
+        $('#ddlRuleType').change(function () {
+            var ddlValue = $(this).val();
+            $('#ruleType').val(ddlValue);
+            window.location.href = '{{ action('RuleEngineController@index') }}?rule=' + ddlValue;
+        });
+
+        $('.parse-json').on('click', function () {
             var target = $(this).data('target');
-            var result = $('#builder-'+target).queryBuilder('getRules');
+            var result = $('#builder-' + target).queryBuilder('getRules');
 
             if (!$.isEmptyObject(result)) {
                 $('#ruleSet').val(format4popup(result));
@@ -227,28 +220,28 @@
 
             rules: rules_plugins
         });
-       /*$('#btn-reset').on('click', function() {
-            $('#builder-plugins').queryBuilder('reset');
-        });
+        /*$('#btn-reset').on('click', function() {
+             $('#builder-plugins').queryBuilder('reset');
+         });
 
-        $('#btn-set').on('click', function() {
-            $('#builder-plugins').queryBuilder('setRules', rules_plugins);
-        });
+         $('#btn-set').on('click', function() {
+             $('#builder-plugins').queryBuilder('setRules', rules_plugins);
+         });
 
-        $('#btn-get').on('click', function() {
-            var result = $('#builder-plugins').queryBuilder('getRules');
+         $('#btn-get').on('click', function() {
+             var result = $('#builder-plugins').queryBuilder('getRules');
 
-            if (!$.isEmptyObject(result)) {
-                alert(JSON.stringify(result, null, 2));
-            }
-        });
-        $('#btn-getsql').on('click', function() {
-            var result = $('#builder-plugins').queryBuilder('getSQL');
+             if (!$.isEmptyObject(result)) {
+                 alert(JSON.stringify(result, null, 2));
+             }
+         });
+         $('#btn-getsql').on('click', function() {
+             var result = $('#builder-plugins').queryBuilder('getSQL');
 
-            if (!$.isEmptyObject(result)) {
-                alert(result);
-            }
-        });*/
+             if (!$.isEmptyObject(result)) {
+                 alert(result);
+             }
+         });*/
         ////////////////////////////////////////////////////////////////////////////
         // the default rules, what will be used on page loads...
         /*var datatablesRequest = {};

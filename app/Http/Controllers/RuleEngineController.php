@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rule_type;
 use Auth;
 use App\Rule;
 use App\DonationRequest;
@@ -19,21 +20,45 @@ use timgws\QueryBuilderParser;
 
 class RuleEngineController extends Controller
 {
-    public function rules(){
-        $ruleRow = Rule::findOrFail(2);
+    public function index(Request $request){
+        //dd($request);
+        $rule_types = Rule_type::where('active', '=', 1)->pluck('type_name', 'id');
+        $orgId = Auth::user()->organization_id;
+        $ruleType = $request->rule ?? 1;
+        $ruleRow = Rule::query()->where([['rule_owner_id','=', $orgId],['rule_type_id', '=', $ruleType],['active', '=', true]])->first();
+        //dd($ruleRow);
+        if ($ruleRow) {
+            $queryBuilderJSON = $ruleRow->rule;
+        }
+        else {
+            $queryBuilderJSON = '{"condition": "AND", "rules": [{}], "not": false, "valid": true }';
+        }
+        //dd($queryBuilderJSON);
+        return view('rules.rules')->with('rule', $queryBuilderJSON)->with('rule_types', $rule_types)->with('ruleType', $ruleType);
+    }
+    public function loadRule(Request $request){
+        dd($request);
+        $rule_types = Rule_type::where('active', '=', 1)->pluck('type_name', 'id');
+        $orgId = Auth::user()->organization_id;
+        $ruleType = $request->rule ?? 1;
+
+        //dd($ruleType);
+        $ruleRow = Rule::query()->where([['rule_owner_id','=', $orgId],['rule_type_id', '=', $ruleType],['active', '=', true]])->first();
         $queryBuilderJSON = $ruleRow->rule;
-        return view('rules.rules')->with('rule', $queryBuilderJSON);
+        return redirect()->back()->with('rule', $queryBuilderJSON)->with('rule_types', $rule_types)->with('ruleType', $ruleType);
     }
     public function saveRule(Request $request){
         //
         $strJSON = $request->ruleSet;
-        $rule = new Rule;
+        $ruleType = $request->ruleType;
+        $ruleOwner = Auth::user()->organization_id;
+
+        /*$rule = new Rule;
         $rule->rule_type_id = 2;
         $rule->rule_owner_id = Auth::user()->organization_id;
-        $rule->rule = $strJSON;
-        $rule->save();
-        dd($rule);
-
+        $rule->rule = $strJSON;*/
+        Rule::updateOrCreate(['rule_owner_id' => $ruleOwner, 'rule_type_id' => $ruleType], ['rule' => $strJSON]);
+        return redirect()->back();
     }
 
     public function runRule(Request $request){
