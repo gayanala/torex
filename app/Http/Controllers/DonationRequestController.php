@@ -134,21 +134,27 @@ class DonationRequestController extends Controller
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
         $donationRequest->save();
         if($request->hasFile('attachment')) {
-            // $file = new File();
-      //       $file->donation_request_id = $donationRequest->id;
-      //       $file->original_filename = $request->file('attachment')->getClientOriginalName();
-      // //       $file->file_path = Storage::putFile('public', $request->file('attachment') );
-      //       $file->file_type='attachment';
-      // $file->save();
-      $attachment =$request->file('attachment');
-      $imageFileName = time() . '.' . $attachment->getClientOriginalExtension();
-      $s3 = \Storage::disk('s3');
-      $filePath = '/tagg-uno/' . $imageFileName;
-      $s3->put($filePath, file_get_contents($attachment), 'public');
+            $file = new File();
+            $file->donation_request_id = $donationRequest->id;
+            $file->original_filename = $request->file('attachment')->getClientOriginalName();
+            $file->file_path = Storage::putFile('public', $request->file('attachment') );
+            $file->file_type='attachment';
+      $file->save();
+      // $attachment =$request->file('attachment');
+      // $imageFileName = time() . '.' . $attachment->getClientOriginalExtension();
+      // $s3 = \Storage::disk('s3');
+      // $filePath = '/tagg-uno/' . $imageFileName;
+      // $s3->put($filePath, file_get_contents($attachment), 'public');
+      // $this->validate($request, [
+      //     'attachment' => 'image|mimes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
+      // ]);
 
-            // return $path;
+      $imageName = time().'.'.$request->attachment->getClientOriginalExtension();
+      $image = $request->file('attachment');
+      $t = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+      $imageName = Storage::disk('s3')->url($imageName);
+        // return $path;
         }
-
         //fire NewBusiness event to initiate sending welcome mail
 
         event(new DonationRequestReceived($donationRequest));
