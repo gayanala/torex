@@ -52,4 +52,15 @@ class UserSecurityQuestionController extends Controller
 //        return redirect('/home');
 //        return redirect('securityquestions');
     }
+
+    public function insertcheck(Request $request)
+    {
+        $users = Auth::id();
+        $user_securityquestion = UserSecurityQuestion::where('user_id', $users)->inRandomOrder()->first();
+        $question_name_id = $user_securityquestion->question_id;
+        $question = Security_question::findOrFail($question_name_id);
+        $question_name = $question->question;
+        //dd($question_name);
+        return view('securityquestions.insertcheck', compact('user_securityquestion', 'question_name'));
+    }
 }

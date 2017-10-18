@@ -13,7 +13,7 @@
     <br />
     <br />
     <br />
-    <form id="asdf" action="{{ action('RuleEngineController@runRule') }}">
+    <form id="asdf" action="{{ action('RuleEngineController@saveRule') }}">
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
         <div id="builder-plugins"></div>
         <div class="btn-group">
@@ -21,10 +21,10 @@
             <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
             <button class="btn btn-success set-json" type="submit" data-target="plugins">Reset Rules</button>
             <button class="btn btn-primary parse-json" data-target="plugins">Save (Show) Rules</button>
-            <a href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule</a>
+            <a href="{{ action('RuleEngineController@saveRule') }}" class="btn btn-default">Run Rule</a>
         </div>
         <br />
-        <input id="insql" type="hidden" name="insql" value="SQL" size="100" />
+        <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100" />
         <br />
         <br />
         <br />
@@ -96,7 +96,7 @@
             var result = $('#builder-'+target).queryBuilder('getRules');
 
             if (!$.isEmptyObject(result)) {
-                $('#insql').val(format4popup(result));
+                $('#ruleSet').val(format4popup(result));
                 /*bootbox.alert({
                     title: $(this).text(),
                     message: '<pre class="code-popup">' + format4popup(result) + '</pre>'
@@ -165,7 +165,7 @@
                     format: 'MM/DD/YYYY'
                 },
                 plugin: 'datepicker',
-                operators: ['less_equal', 'greater_equal', 'between', 'not_between'],
+                operators: ['less_equal', 'equal_less', 'greater_equal', 'between', 'not_between'],
                 plugin_config: {
                     format: 'mm/dd/yyyy',
                     todayBtn: 'linked',
@@ -196,7 +196,7 @@
                     12: 'Youth Sports/Activities',
                     13: 'Others'
                 },
-                operators: ['equal', 'not_equal', 'in', 'not_in', 'is_null', 'is_not_null']
+                operators: ['equal', 'not_equal', 'in', 'not_in']
             }, {
                 id: 'tax_exempt',
                 label: 'Tax Exempt',

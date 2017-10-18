@@ -12,10 +12,12 @@ class UserSecurityQuestion extends Model
         'answer'
     ];
 
+    public function securityQuestionsName()
+    {
+        return $this->belongsTo('App\Security_question', 'id');
+    }
+
     protected $table = 'user_security_questions';
 
-    public function securityQuestions()
-    {
-        return $this->belongsTo('App\Security_question');
-    }
+
 }
