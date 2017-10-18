@@ -1,3 +1,5 @@
+
+
 <?php
 
 /*
@@ -19,7 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-use Illuminate\Support\Facades\Storage;
+
 
 Auth::routes();
 
@@ -91,14 +93,13 @@ Route::get('/email', 'EmailController@email') ->name('sendWelcomeEmail');
 Route::get('/dashboard', 'DashboardController@index');
 
 // Rules stuff
-//Route::get('guirules', 'RuleEngineController@rulesGui');
+Route::get('guirules', 'RuleEngineController@rulesGui');
 Route::get('runRule', 'RuleEngineController@runRule');
-Route::get('rules', 'RuleEngineController@rules');
+Route::get('saveRule', 'RuleEngineController@saveRule');
+Route::get('loadRule', 'RuleEngineController@loadRule');
+//Route::get('/rules', 'RuleEngineController@rules');
+Route::resource('/rules', 'RuleEngineController');
 // Rules stuff// Rules stuff
-Route::get('denialrules', 'RuleEngineController@rulesDenial');
-Route::get('acceptancerules', 'RuleEngineController@rulesAcceptance');
-Route::get('pendingrules', 'RuleEngineController@rulesPending');
-Route::get('pendingrules', 'RuleEngineController@rulesAutodenial');
 //Route::get('rules', 'RuleEngineController@rulesGUI');
 Route::get('/webhook/chargeSuccess', 'SubscriptionController@chargeSuccess');
 

@@ -24,22 +24,21 @@
                             <thead>
                             <tr class="bg-info">
                                 <th class="text-center">Select</th>
-                                {{--<th class="text-center">Requester</th>--}}
+                                <th class="text-center">Organization Name</th>
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Request For</th>
-                                <th class="text-center">Event Name</th>
+                                {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Handout Date</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Actions</th>
-                                {{--<th colspan="2" class="text-center">Actions</th>--}}
                             </tr>
                             </thead>
                             <tfoot class="bg-info">
                                 <th class="text-center">Select</th>
-                                {{--<th class="text-center">Requester</th>--}}
+                                <th class="text-center">Organization Name</th>
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Request For</th>
-                                <th class="text-center">Event Name</th>
+                                {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Handout Date</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Actions</th>
@@ -50,29 +49,21 @@
                                     <td style="vertical-align: middle">
                                         <input type="checkbox" name="selectBox" value="checked">
                                     </td>
-                                    {{--<td style="vertical-align: middle">{{ $donationrequest->requester }}</td>--}}
+                                    <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
                                     <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->item_requested }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->event_end_date }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->approval_status_id }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
+                                    {{--<td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>--}}
+                                    <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
+
+                                    <td style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
                                     <td>
                                         <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info">
                                             <span class="glyphicon glyphicon-list-alt"></span> Detail</a>
-                                        {{--<button class="show-modal btn btn-info"--}}
-                                                {{--data-info="">--}}
-                                            {{--<span class="glyphicon glyphicon-list-alt"></span> Detail--}}
-                                        {{--</button>--}}
-                                        <button class="edit-modal btn btn-success"
+                                        <button class="edit-modal btn btn-warning"
                                                 data-info="">
-                                            <span class="glyphicon glyphicon-ok"></span> Approve
-                                        </button>
-                                        <button class="edit-modal btn btn-danger"
-                                                data-info="">
-                                            <span class="glyphicon glyphicon-remove"></span> Deny
+                                            <span class="glyphicon glyphicon-pencil"></span> Status
                                         </button>
                                     </td>
-
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
                                 </tr>
@@ -84,9 +75,9 @@
                         @endif
 
                         <div>
-                            <a href="" class="btn btn-success" style="width:33%"> Approve Requesters </a>
-                            <a href="" class="btn btn-danger" style="width:33%"> Deny Requesters </a>
-                            <a href="" class="btn btn-warning" style="width:33%"> Contact Requesters </a>
+                            <a href="" class="btn btn-success" style="width:33%"> Approve Request(s) </a>
+                            <a href="" class="btn btn-danger" style="width:33%"> Deny Request(s) </a>
+                            <a href="" class="btn btn-warning" style="width:33%"> Contact Requester(s) </a>
                         </div>
                             <div class="panel-heading"><h1>Add a Donation Request</h1></div>
                             <input type="button" value="Manual Entry for Donation Request"
@@ -96,9 +87,11 @@
             {{--</div>--}}
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#example').DataTable();

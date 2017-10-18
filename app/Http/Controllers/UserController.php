@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewBusiness;
+use App\Events\NewSubBusiness;
 use App\Http\Controllers\Route;
 use App\Organization;
 use App\State;
 use App\User;
-use App\Events\NewBusiness;
-use App\Events\NewSubBusiness;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Auth;
-use Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Validator;
 
 
 class UserController extends Controller
@@ -37,7 +38,15 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show', compact('user'));
+        $organization = Auth::user()->organization_id;
+        $count = User::where('organization_id', $organization)->count();
+        $subscription = DB::table('subscriptions')->where('organization_id', $organization)->value('quantity');
+        if ($count <= $subscription) {
+            return view('users.show', compact('user'));
+        } else {
+            \Session::flash('flash_message', 'Adding users crossed plan limit!');
+            return view('users.index', compact('user'));
+        }
     }
 
     public function create(Request $request)
@@ -79,6 +88,7 @@ class UserController extends Controller
         return redirect('/securityquestions/create')-> with('userId',$userid);
 
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -133,15 +143,14 @@ class UserController extends Controller
             'phone_number' => 'required|regex:/[0-9]{9}/',
             'zipcode' => 'required|regex:/[0-9]{5}/',
             'state' => 'required',
-                'email' => [
-                    'required',
-                    'email',
-                    Rule::unique('users')->ignore($id),
-                ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
         ]);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return redirect() ->back()->withErrors($validator)->withInput();
         }
 

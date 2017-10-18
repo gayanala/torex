@@ -49,4 +49,5 @@ class Organization extends Model
     public function parentChildOrganization() {
         return $this->hasMany('App\ParentChildOrganizations');
     }
+
 }

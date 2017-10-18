@@ -12,6 +12,7 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     @yield('css')
 
@@ -186,7 +187,11 @@
             <div class="row">
                 <div class="col-sm-3">
 
-               <a href="{{ getenv("APP_URL") }}" >   <img src="{{ asset('img/CharityQ.png') }}" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
+
+
+
+               <a href="{{ url('/') }}" >   <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
+
                </a>
                 </div>
                 <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:15px;' >
@@ -200,7 +205,7 @@
                                 <a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button">RequestDonation</a>
                             @else
                                 <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
-                                <li><a href="{{ url('/guirules')}}" class="w3-bar-item w3-button">Rule Management</a></li>
+                                <li><a href="{{ url('/rules?rule=1')}}" class="w3-bar-item w3-button">Rule Management</a></li>
                                 <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a></li>
                                 <li><a href="{{ route('emailtemplates.index')}}" class="w3-bar-item w3-button">Template Editor</a></li>
                                 <li class="dropdown">
@@ -243,6 +248,7 @@
             </div>
         </div>
     </nav>
+    <br><br><br>
 
     <div id="content">
         @include('layouts.partials._status')

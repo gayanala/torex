@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('header')
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -8,7 +9,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
 @endsection
 @section('content')
+<div class="container"style="padding-left:800px"> <div class="dropdown">
+<button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Select Rule
+<span class="caret"></span></button>
+<ul class="dropdown-menu">
+  <li><a href="">PreApproval</a></li>
+  <li><a href="">AutoReject</a></li>
+</ul>
+</div></div>
+<br>
     <!--<section class="bs-docs-section clearfix"> -->
+
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
         <div id="builder-plugins"></div>
         <div class="btn-group">
@@ -55,6 +66,7 @@
         }
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
+
     <script>
         var rules_plugins = {
             condition: 'AND',
