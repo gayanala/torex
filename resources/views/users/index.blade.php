@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if(Session::has('flash_message'))
+            <div class="col-md-8 alert alert-success">
+                {{Session::get('flash_message')}}
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
