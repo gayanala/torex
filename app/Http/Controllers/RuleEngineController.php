@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Rule;
 use App\DonationRequest;
 use App\User;
@@ -23,16 +24,21 @@ class RuleEngineController extends Controller
         $queryBuilderJSON = $ruleRow->rule;
         return view('rules.rules')->with('rule', $queryBuilderJSON);
     }
-    public function runRule(Request $request){
-        $input = $request->all();
-        $strJSON = $request->insql;
-        /*$rule = new Rule;
+    public function saveRule(Request $request){
+        //
+        $strJSON = $request->ruleSet;
+        $rule = new Rule;
         $rule->rule_type_id = 2;
-        $rule->rule_owner_id = 1;
+        $rule->rule_owner_id = Auth::user()->organization_id;
         $rule->rule = $strJSON;
         $rule->save();
+        dd($rule);
 
-        dd($rule);*/
+    }
+
+    public function runRule(Request $request){
+        $strJSON = $request->ruleSet;
+
         $table = DB::table('donation_requests')->where([['organization_id','=', 1], ['approval_status_id', '=', 1]])->get();
         dd($table);
         $ruleRow = Rule::findOrFail(1)->first();

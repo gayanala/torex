@@ -90,6 +90,7 @@ Route::get('/dashboard', 'DashboardController@index');
 // Rules stuff
 Route::get('guirules', 'RuleEngineController@rulesGui');
 Route::get('runRule', 'RuleEngineController@runRule');
+Route::get('runRule', 'RuleEngineController@saveRule');
 Route::get('rules', 'RuleEngineController@rules');
 // Rules stuff// Rules stuff
 //Route::get('rules', 'RuleEngineController@rulesGUI');
