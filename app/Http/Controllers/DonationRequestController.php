@@ -145,9 +145,9 @@ class DonationRequestController extends Controller
       // $s3 = \Storage::disk('s3');
       // $filePath = '/tagg-uno/' . $imageFileName;
       // $s3->put($filePath, file_get_contents($attachment), 'public');
-      $this->validate($request, [
-          'attachment' => 'image|mimes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
-      ]);
+      // $this->validate($request, [
+      //     'attachment' => 'image|mimes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
+      // ]);
 
       $imageName = time().'.'.$request->attachment->getClientOriginalExtension();
       $image = $request->file('attachment');
