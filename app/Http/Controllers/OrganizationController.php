@@ -11,16 +11,13 @@ use Auth;
 use Validator;
 
 
+
 class OrganizationController extends Controller
 {
 
     public function index()
     {
         $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
-        /*foreach ($childOrganizations as $org) {
-            dd($org->organization);
-        }*/
-        //dd($childOrganizations[0]->organization->organization_type_id);
         return view('organizations.index', compact('childOrganizations'));
     }
 
@@ -34,7 +31,6 @@ class OrganizationController extends Controller
 
     public function update(Request $request, $id)
     {
-//        $organization= new Organization($request->all());
         $validator = Validator::make($request->all(), [
             'phone_number' => 'required|regex:/[0-9]{9}/',
             'zipcode' => 'required|regex:/[0-9]{5}/',
@@ -110,17 +106,13 @@ class OrganizationController extends Controller
         ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);
 
         $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
-        //dd($childOrganizations[0]->organization->organization_type_id);
-        return view('organizations.index')->with(compact('childOrganizations'));
-        //return view('organizations.index');
+        return view('organizations.index', compact('childOrganizations'))->with('message', 'Successfully added a Business Location');
     }
 
     public function destroy($id) {
-        //dd();
-        $organization = Organization::findOrFail($id);
+        $organization = ParentChildOrganizations::where('child_org_id', '=', $id);
         $organization->delete();
-
-        //Session::flash('message', 'Successfully deleted the nerd!');
+        return redirect()->back()->with('message', 'Successfully deleted the Business Location');
     }
 // include organization id in the donation request URL//
 
