@@ -26,8 +26,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="form-group{{ $errors->has('answer[]') ? ' has-error' : '' }}">
                             <label for="answer[]" class="control-label">First Answer <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="">

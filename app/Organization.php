@@ -20,6 +20,7 @@ class Organization extends Model
         'trial_ends_at',
         'subscription_ends_at'
     ];
+
     protected $fillable = [
         'id',
         'org_name',
@@ -33,10 +34,20 @@ class Organization extends Model
         'trial_ends_at',
         'subscription_ends_at',
     ];
+
     protected $cardUpFront = false;
+
     public function users()
     {
         return $this->hasMany('App\User');
+    }
+
+    public function organizationType() {
+        return $this->belongsTo('App\Organization_type');
+    }
+
+    public function parentChildOrganization() {
+        return $this->hasMany('App\ParentChildOrganizations');
     }
 
 }

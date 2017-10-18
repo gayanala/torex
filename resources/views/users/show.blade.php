@@ -7,7 +7,7 @@
                     <div class="panel-heading"> Create A User</div>
                     <div class="panel-body">
 
-                        {!! Form::open(['url' => 'users']) !!}
+                        {{--{!! Form::open(['url' => 'users']) !!}--}}
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -41,8 +41,15 @@
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
-                            </div>
                         </div>
+
+                        <div class="form-group">
+                            {!! Form::label('Business Location', 'Business Location:') !!}
+                            {!! Form::select('location', [Auth::user()->organization->org_name], null, ['class' => 'form-control']) !!}
+                        </div>
+
+                        </div>
+
 
                         <div class="form-group">
                             <div class=" col-md-offset-4">
