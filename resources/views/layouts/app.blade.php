@@ -190,7 +190,7 @@
 
 
 
-               <a href="{{ url('/') }}" >   <img src="{{ asset('img/CharityQ.png') }}" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
+               <a href="{{ url('/') }}" >   <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
 
                </a>
                 </div>
