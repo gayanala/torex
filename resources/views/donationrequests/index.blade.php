@@ -68,11 +68,13 @@
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
                                 </tr>
                             @endforeach
+
                             </tbody>
+                            @else
+                                <div>No Donation Request is stored in the system yet.</div>
+                            @endif
                         </table>
-                        @else
-                            <p>No Donation Request is stored in the system yet.</p>
-                        @endif
+
 
                         <div>
                             <a href="" class="btn btn-success" style="width:33%"> Approve Request(s) </a>
