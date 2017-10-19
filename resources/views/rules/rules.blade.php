@@ -33,11 +33,11 @@
             </div>
             <br/>
             <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
-            @if ($msg)
-                <span class="help-block">
-                                        <strong>{{ $msg }}</strong>
-                                    </span>
-            @endif
+            {{--@if ($msg)--}}
+                {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $msg }}</strong>--}}
+                                    {{--</span>--}}
+            {{--@endif--}}
             <br/>
             <br/>
             <br/>
@@ -91,7 +91,9 @@
         });
 
         $('#btnRun').on('click', function () {
-            window.location.href = '{{ action('RuleEngineController@runRule') }}';
+            var iRuleType = $('#ruleType').val();
+            window.location.href = '{{ action('RuleEngineController@runRule') }}?rule=' + iRuleType;
+
         });
 
         $('.parse-json').on('click', function () {
