@@ -53,7 +53,7 @@ class RuleEngineController extends Controller
         $strJSON = $request->ruleSet;
         $ruleType = $request->ruleType;
         $ruleOwner = Auth::user()->organization_id;
-        dd($strJSON);
+        //dd($strJSON);
         /*$rule = new Rule;
         $rule->rule_type_id = 2;
         $rule->rule_owner_id = Auth::user()->organization_id;

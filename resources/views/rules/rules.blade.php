@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('css')
-    <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/assets/css/docs.min.css" rel="stylesheet">
-    <link href="http://querybuilder.js.org/assets/css/style.css" rel="stylesheet">
+    <link href="http://querybuilder.js.org/assets/css/style.css" rel="stylesheet"> -->
 @endsection
 @section('header')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
@@ -14,8 +14,8 @@
     <br/>
     <br/>
 
-    {{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}
-    {{--<form id="mainForm" method="post" action="{{ action('RuleEngineController@saveRule') }}">--}}
+    {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
+    <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
         <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
                 <div class="col-md-6"><label>Rule Selected:</label>{!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType']) !!}</div>
@@ -43,8 +43,8 @@
             <br/>
             <!-- <div id="querybuilder"></div> -->
         </div>
-    {{--</form>--}}
-    {{ Form::close() }}
+    </form>
+    {{--{{ Form::close() }}--}}
     <!-- </section> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker3.min.css"
           rel="stylesheet">
