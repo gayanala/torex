@@ -3,15 +3,12 @@
 
 @section('content')
     <script type="text/javascript">
-
         function yesnoCheck() {
             if (document.getElementById('yesCheck').checked) {
                 document.getElementById('file_upload').style.visibility = 'visible';
             }
             else document.getElementById('file_upload').style.visibility = 'hidden';
-
         }
-
     </script>
     <div class="container">
         <div class="row">

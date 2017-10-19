@@ -1,5 +1,3 @@
-
-
 <?php
 
 /*
@@ -39,7 +37,12 @@ Route::resource('attachment', 'DonationRequestController');
 
 Route::resource('/users', 'UserController');
 
+Route::get('organizations/createOrganization', 'OrganizationController@createOrganization');
+
+Route::delete('organizations', 'OrganizationController@destroy');
+
 Route::resource('organizations', 'OrganizationController');
+
 Route::group(['prefix' => 'subscription'], function () {
     Route::get('/', [
         'as' => 'subscription',
@@ -63,7 +66,11 @@ Route::get('/donationrequests/create', 'DonationRequestController@create')->name
 
 Route::get('donationrequests/search','DonationRequestController@searchDonationRequest');
 
+Route::get('donationrequests/export', 'DonationRequestController@export');
+
 Route::resource('/donationrequests', 'DonationRequestController');
+
+
 
 Route::get('change-password', function() {
     return view('change-password');

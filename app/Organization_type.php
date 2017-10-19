@@ -12,4 +12,10 @@ class Organization_type extends Model
         'type_description',
         'active'
     ];
+
+    protected $table = 'organization_types';
+
+    public function organizations() {
+        return $this->hasMany('App\Organization');
+    }
 }
