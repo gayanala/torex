@@ -51,7 +51,7 @@
                                 function Copy() {
                                     var orgId = "{{Auth::user()->organization_id}}";
 
-                                    urlCopied.value = "http://tagg-preprod.herokuapp.com/donationrequests/create?orgId={{Auth::user()->organization_id}}" ;
+                                    urlCopied.value = "{{url('donationrequests/create')}}?orgId={{Auth::user()->organization_id}}" ;
                                     //Copied = Url.createTextRange();
                                     //Copied.execCommand("Copy");
                                     window.confirm("You have successfully generated the URL needed for donation Requests on your website");
