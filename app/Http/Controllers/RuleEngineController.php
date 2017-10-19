@@ -7,6 +7,7 @@ use Auth;
 use App\Rule;
 use App\DonationRequest;
 use App\User;
+use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Input;
@@ -21,7 +22,7 @@ use timgws\QueryBuilderParser;
 class RuleEngineController extends Controller
 {
     public function index(Request $request){
-        //dd($request);
+       // dd($request);
         $rule_types = Rule_type::where('active', '=', 1)->pluck('type_name', 'id');
         $orgId = Auth::user()->organization_id;
         $ruleType = $request->rule ?? 1;
@@ -52,7 +53,7 @@ class RuleEngineController extends Controller
         $strJSON = $request->ruleSet;
         $ruleType = $request->ruleType;
         $ruleOwner = Auth::user()->organization_id;
-
+        dd($strJSON);
         /*$rule = new Rule;
         $rule->rule_type_id = 2;
         $rule->rule_owner_id = Auth::user()->organization_id;
@@ -62,10 +63,10 @@ class RuleEngineController extends Controller
     }
 
     public function runRule(Request $request){
-        $strJSON = $request->ruleSet;
-
-        $table = DB::table('donation_requests')->where([['organization_id','=', 1], ['approval_status_id', '=', 1]])->get();
-        dd($table);
+        // $strJSON = $request->ruleSet;
+        $ruleOwner = Auth::user()->organization_id;
+        $table = DB::table('donation_requests')->where([['organization_id','=', $ruleOwner], ['approval_status_id', '=', 1]])->get();
+        // dd($table);
         $ruleRow = Rule::findOrFail(1)->first();
         $queryBuilderJSON = $ruleRow->rule;
         $qbp = new QueryBuilderParser(
@@ -76,10 +77,10 @@ class RuleEngineController extends Controller
         $query = $qbp->parse($queryBuilderJSON,  $table);
         $rows = $query->update(['approval_status_id' => 2]);
 
-        dd($query);
-        dd($rows);
+        // dd($query);
+        // dd($rows);
         // return view('rules.rules');
-        return redirect('/rules')->with('msg', Response::JSON($rows));
+        return redirect()->back()->with('msg', Response::JSON($rows));
     }
 
     public function rulesGUI(){

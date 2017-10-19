@@ -63,6 +63,10 @@
                                                 data-info="">
                                             <span class="glyphicon glyphicon-pencil"></span> Status
                                         </button>
+                                        <button class="edit-modal btn btn-danger"
+                                                data-info="">
+                                            <span class="glyphicon glyphicon-remove"></span> EXPORT
+                                        </button>
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
@@ -83,12 +87,21 @@
                         </div>
                             <div class="panel-heading"><h1>Add a Donation Request</h1></div>
                             <input type="button" value="Manual Entry for Donation Request"
-                        onClick="window.open('http://tagg-preprod.herokuapp.com/donationrequests/create?orgId={{Auth::user()->organization_id}}', '_blank');"/>
+                        onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank');"/>
                     </div>
+
+                    
+ <div class="col-md-2">
+          <form action="{{url('donationrequest/export')}}" enctype="multipart/form-data">
+            <button class="btn btn-success" type="submit">Export</button>
+          </form>
+        </div>
+      </div>
                 </div>
             {{--</div>--}}
         </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
