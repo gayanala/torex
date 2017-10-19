@@ -256,10 +256,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('eventname') ? ' has-error' : '' }}">
-                            <label for="eventname" class="col-md-4 control-label">Name of the Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="eventname" class="col-md-4 control-label">Name of the Event <span style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
 
                             <div class="col-md-6">
-                                <input id="eventname" type="text" class="form-control" name="eventname" value="{{ old('eventname') }}" placeholder="Your Event Name" required autofocus>
+                                <input id="eventname" type="text" class="form-control" name="eventname" value="{{ old('eventname') }}" placeholder="Your Event Name" autofocus>
 
                                 @if ($errors->has('eventname'))
                                     <span class="help-block">
@@ -270,10 +270,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('startdate') ? ' has-error' : '' }}">
-                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
 
                             <div class="col-md-6">
-                                <input id="startdate" type="date" class="form-control" name="startdate" value="{{ old('startdate') }}" placeholder="Start Date" required autofocus>
+                                <input id="startdate" type="date" class="form-control" name="startdate" value="{{ old('startdate') }}" placeholder="Start Date" autofocus>
 
                                 @if ($errors->has('startdate'))
                                     <span class="help-block">
@@ -284,10 +284,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('enddate') ? ' has-error' : '' }}">
-                            <label for="enddate" class="col-md-4 control-label">End Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="enddate" class="col-md-4 control-label">End Date <span style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
 
                             <div class="col-md-6">
-                                <input id="enddate" type="date" class="form-control" name="enddate" value="{{ old('enddate') }}" placeholder="End Date" required autofocus>
+                                <input id="enddate" type="date" class="form-control" name="enddate" value="{{ old('enddate') }}" placeholder="End Date" autofocus>
 
                                 @if ($errors->has('enddate'))
                                     <span class="help-block">
@@ -326,7 +326,7 @@
                             <label for="inputvenue" class="col-md-4 control-label">Event Venue or Address<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                <input id="venue" type="text" class="form-control" name="venue" value="{{ old('venue') }}" placeholder="Place event will be held" required autofocus>
+                                <input id="venue" type="text" class="form-control" name="venue" value="{{ old('venue') }}" placeholder="Place event will be held" autofocus>
 
                                 @if ($errors->has('venue'))
                                     <span class="help-block">
