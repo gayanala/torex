@@ -14,10 +14,11 @@
     <br/>
     <br/>
 
-    <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
+    {{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}
+    {{--<form id="mainForm" method="post" action="{{ action('RuleEngineController@saveRule') }}">--}}
         <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
-            <label>Rule Selected:</label>
-            <div class="col-md-6">{!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType']) !!}</div>
+
+                <div class="col-md-6"><label>Rule Selected:</label>{!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType']) !!}</div>
         </div>
         <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
         <div class="col-md-12 col-lg-10 col-lg-offset-1">
@@ -27,18 +28,23 @@
                 <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
                 <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
                 <button class="btn btn-primary parse-json" type="submit" data-target="plugins">Save Rules</button>
-                <!-- <a href="{{ action('RuleEngineController@saveRule') }}" class="btn btn-default">Run Rule</a> -->
+                <button id="btnRun" type="button" href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule</button>
 
             </div>
             <br/>
             <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
-
+            @if ($msg)
+                <span class="help-block">
+                                        <strong>{{ $msg }}</strong>
+                                    </span>
+            @endif
             <br/>
             <br/>
             <br/>
             <!-- <div id="querybuilder"></div> -->
         </div>
-    </form>
+    {{--</form>--}}
+    {{ Form::close() }}
     <!-- </section> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker3.min.css"
           rel="stylesheet">
@@ -82,6 +88,10 @@
             var ddlValue = $(this).val();
             $('#ruleType').val(ddlValue);
             window.location.href = '{{ action('RuleEngineController@index') }}?rule=' + ddlValue;
+        });
+
+        $('#btnRun').on('click', function () {
+            window.location.href = '{{ action('RuleEngineController@runRule') }}';
         });
 
         $('.parse-json').on('click', function () {
