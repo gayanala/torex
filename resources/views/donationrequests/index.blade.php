@@ -89,7 +89,7 @@
 
                     
  <div class="col-md-2">
-          <form action="{{url('donationrequest/export')}}" enctype="multipart/form-data">
+          <form action="{{url('donationrequests/export')}}" method='GET' enctype="multipart/form-data">
             <button class="btn btn-success" type="submit">Export</button>
           </form>
         </div>

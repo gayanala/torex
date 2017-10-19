@@ -16,6 +16,7 @@ use App\Events\DonationRequestReceived;
 use App\Organization_type;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Auth;
+use Excel;
 use App\Organization;
 
 
@@ -62,9 +63,10 @@ class DonationRequestController extends Controller
     }
 
      public function export(){
+       
       $donationrequest = DonationRequest::all();
       Excel::create('donationrequest', function($excel) use($donationrequest) {
-          $excel->sheet('ExportFile', function($sheet) use($donationrequest) {
+              $excel->sheet('ExportFile', function($sheet) use($donationrequest) {
               $sheet->fromArray($donationrequest);
           });
       })->export('xls');
