@@ -78,18 +78,19 @@
     </div>
 </div>
 
+
 <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
-    <label for="state" class="col-md-4 control-label">State<span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+    <label for="state" class="col-md-4 control-label">State <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
     <div class="col-md-6">
-        <input id="state" type="text" class="form-control" name="state" value="{{ old('state') }}"  required autofocus>
-
+        {!! Form::select('state', array(null => 'Select...') + $states->all(), null, ['class'=>'form-control']) !!}
         @if ($errors->has('state'))
             <span class="help-block">
-                <strong>{{ $errors->first('state') }}</strong>
-            </span>
+                                        <strong>{{ $errors->first('state') }}</strong>
+                                    </span>
         @endif
     </div>
+
 </div>
 
 <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
