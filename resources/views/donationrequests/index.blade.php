@@ -63,10 +63,7 @@
                                                 data-info="">
                                             <span class="glyphicon glyphicon-pencil"></span> Status
                                         </button>
-                                        <button class="edit-modal btn btn-danger"
-                                                data-info="">
-                                            <span class="glyphicon glyphicon-remove"></span> EXPORT
-                                        </button>
+                                       
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
@@ -92,7 +89,7 @@
 
                     
  <div class="col-md-2">
-          <form action="{{url('donationrequest/export')}}" enctype="multipart/form-data">
+          <form action="{{url('donationrequests/export')}}" method='GET' enctype="multipart/form-data">
             <button class="btn btn-success" type="submit">Export</button>
           </form>
         </div>

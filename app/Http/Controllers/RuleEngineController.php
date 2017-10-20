@@ -53,7 +53,7 @@ class RuleEngineController extends Controller
         $strJSON = $request->ruleSet;
         $ruleType = $request->ruleType;
         $ruleOwner = Auth::user()->organization_id;
-        dd($strJSON);
+        //dd($strJSON);
         /*$rule = new Rule;
         $rule->rule_type_id = 2;
         $rule->rule_owner_id = Auth::user()->organization_id;
@@ -64,11 +64,18 @@ class RuleEngineController extends Controller
 
     public function runRule(Request $request){
         // $strJSON = $request->ruleSet;
+        if ($request->rule){
+            $ruleType = $request->rule;
+        }
+        else {
+            $ruleType = 1;
+        }
         $ruleOwner = Auth::user()->organization_id;
         $table = DB::table('donation_requests')->where([['organization_id','=', $ruleOwner], ['approval_status_id', '=', 1]])->get();
-        // dd($table);
-        $ruleRow = Rule::findOrFail(1)->first();
+        //dd($request);
+        $ruleRow = Rule::query()->where([['rule_owner_id','=', $ruleOwner],['rule_type_id', '=', $ruleType]])->first();
         $queryBuilderJSON = $ruleRow->rule;
+        //dd($queryBuilderJSON);
         $qbp = new QueryBuilderParser(
             ['id','requester','needed_by_date','tax_exempt','dollar_amount','approved_organization_id','approval_status_id']
         );
@@ -80,7 +87,7 @@ class RuleEngineController extends Controller
         // dd($query);
         // dd($rows);
         // return view('rules.rules');
-        return redirect()->back()->with('msg', Response::JSON($rows));
+        return redirect()->back(); //->with('msg', Response::JSON($rows));
     }
 
     public function rulesGUI(){

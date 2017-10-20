@@ -1,5 +1,3 @@
-
-
 <?php
 
 /*
@@ -72,9 +70,11 @@ Route::get('/donationrequests/create', 'DonationRequestController@create')->name
 
 Route::get('donationrequests/search','DonationRequestController@searchDonationRequest');
 
+Route::get('donationrequests/export', 'DonationRequestController@export');
+
 Route::resource('/donationrequests', 'DonationRequestController');
 
-Route::get('donationrequests/export', 'DonationRequestController@export');
+
 
 Route::get('change-password', function() {
     return view('change-password');

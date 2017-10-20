@@ -104,18 +104,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="eventname" class="col-md-4 control-label">Name of the Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">{!! Form::text('event_name',null,['class' => 'form-control', 'required']) !!}</div>
+                            <label for="eventname" class="col-md-4 control-label">Name of the Event <span style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
+                            <div class="col-lg-6">{!! Form::text('event_name',null,['class' => 'form-control']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">{!! Form::date('event_start_date',null,['class' => 'form-control', 'required']) !!}</div>
+                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
+                            <div class="col-lg-6">{!! Form::date('event_start_date',null,['class' => 'form-control']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="enddate" class="col-md-4 control-label">End Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">{!! Form::date('event_end_date',null,['class' => 'form-control', 'required']) !!}</div>
+                            <label for="enddate" class="col-md-4 control-label">End Date <span style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
+                            <div class="col-lg-6">{!! Form::date('event_end_date',null,['class' => 'form-control']) !!}</div>
                         </div>
 
                         <div class="form-group">
