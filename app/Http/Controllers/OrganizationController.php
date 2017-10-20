@@ -106,7 +106,7 @@ class OrganizationController extends Controller
         ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);
 
         $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
-        return view('organizations.index', compact('childOrganizations'))->with('message', 'Successfully added a Business Location');
+        return redirect()->route("organizations.index")->with('message','Successfully added the Business Location');
     }
 
     public function destroy($id) {
