@@ -5,11 +5,16 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Answer Security Questions</div>
-                        {!! Form::model($user_securityquestion, ['method' => 'GET','action'=>['UserSecurityquestionController@check', $user_securityquestion->id]]) !!}
+                        {!! Form::model($user_securityquestion, ['method' => 'GET','action'=>['UserSecurityquestionController@check', $user_securityquestion->question_id, $email_address]]) !!}
 
                     <div class="panel-body">
                         <div class="form-group">
                                 <label for="question" class="control-label">Security Question</label>
+
+                            {!! Form::hidden('question_id', null, ['class'=>'form-control readonly']) !!}
+
+                            {!! Form::hidden('email_address', $email_address, ['class'=>'form-control readonly']) !!}
+
                             {{--{!! Form::label('Question', 'Question:', ['class'=>'control-label']) !!}--}}
                                 <div class="form-control"><?php echo ($question_name); ?></div>
                             {{--{!! Form::text('question_name', null,['class'=>'form-control','readonly']) !!}--}}

@@ -251,7 +251,7 @@
     <br><br><br>
 
     <div id="content">
-        @include('layouts.partials._status')
+        {{--@include('layouts.partials._status')--}}
         @yield('content')
     </div>
 

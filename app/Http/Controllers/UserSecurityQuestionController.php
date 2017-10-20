@@ -7,35 +7,48 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Security_question;
 use Validator;
+use App\User;
+use Hash;
+
 
 class UserSecurityQuestionController extends Controller
 {
     public function create(Request $request)
     {
         $user = $request->session()->get('userId');
-//        dd($user);
         $securityquestions = Security_question::pluck('question', 'id');
-        //$users = $request->session()->get('userId');
-        return view('securityquestions.create', compact('user', 'securityquestions'))->with('question', $securityquestions);
+        $question_list1 = collect(array($securityquestions[1], $securityquestions[2], $securityquestions[3],
+            $securityquestions[4], $securityquestions[5]));
+        $question_list2 = collect(array($securityquestions[6], $securityquestions[7], $securityquestions[8],
+            $securityquestions[9], $securityquestions[10]));
+        $question_list3 = collect(array($securityquestions[11], $securityquestions[12], $securityquestions[13],
+            $securityquestions[14], $securityquestions[15]));
+        return view('securityquestions.create',
+            compact('user', 'securityquestions', 'question_list1', 'question_list2', 'question_list3'))
+            ->with('question', $securityquestions);
     }
+
+//    public function withValidator($validator)
+//    {
+//        $validator->after(function ($validator) {
+//            if ($this->somethingElseIsInvalid()) {
+//                $validator->errors()->add('field', 'Something is wrong with this field!');
+//            }
+//        });
+//    }
 
     public function store(Request $request)
     {
-
-        for ($i = 0; $i < sizeof($request->answer); $i++ ) {
-            $user_securityquestion = new UserSecurityQuestion();
-            $user_securityquestion->user_id = $request->user_id;
-            $user_securityquestion->question_id = $request->question_id[$i];
-            $user_securityquestion->answer = $request->answer[$i];
-            $user_securityquestion->save();
-        }
-
-
-
         $validator = Validator::make($request->all(), [
             'question_id' => 'required',
             'answer' => 'required',
         ]);
+
+//        $validator->after(function ($validator) {
+//            if ($this->somethingElseIsInvalid()) {
+//                $validator->errors()->add('field', 'Something is wrong with this field!');
+//            }
+//        });
 
         if ($validator->fails()) {
 
@@ -44,23 +57,75 @@ class UserSecurityQuestionController extends Controller
                 ->withInput();
         }
 
-//        $user_securityquestion->save();
-
-        else {
-            return redirect('/home');
+        for ($i = 0; $i < sizeof($request->answer); $i++ ) {
+            $user_securityquestion = new UserSecurityQuestion();
+            $user_securityquestion->user_id = $request->user_id;
+            $user_securityquestion->question_id = $request->question_id[$i];
+            $user_securityquestion->answer = $request->answer[$i];
+            $user_securityquestion->answer = strtolower($user_securityquestion->answer);
+            $user_securityquestion->answer = Hash::make($user_securityquestion->answer);
+            $user_securityquestion->save();
         }
-//        return redirect('/home');
-//        return redirect('securityquestions');
+
+
+        return redirect('/home');
+
+
+
+//        else {
+//            return redirect('/home');
+//        }
+    }
+
+
+
+
+    public function showemailpage() {
+        return view('securityquestions/insertemail');
     }
 
     public function insertcheck(Request $request)
     {
-        $users = Auth::id();
+        $email_address = $request->email;
+        $user_info = User::where('email', $email_address)->first();
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'email' => 'exists:users,email'
+        ]);
+
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $users = $user_info->id;
         $user_securityquestion = UserSecurityQuestion::where('user_id', $users)->inRandomOrder()->first();
         $question_name_id = $user_securityquestion->question_id;
         $question = Security_question::findOrFail($question_name_id);
         $question_name = $question->question;
-        //dd($question_name);
-        return view('securityquestions.insertcheck', compact('user_securityquestion', 'question_name'));
+        return view('securityquestions.insertcheck', compact('user_securityquestion', 'question_name', 'email_address'));
+    }
+
+    public function check(Request $request)
+    {
+        $checkanswer = strtolower($request->answer_by_user);
+        $question_id1 = $request->question_id;
+        $email_address = $request->email_address;
+
+        $user_info = User::where('email', $email_address)->first();
+        $users = $user_info->id;
+
+        $user_securityquestion = UserSecurityQuestion::where('user_id', $users)->where('question_id', $question_id1)->first();
+
+        $user_answer = $user_securityquestion->answer;
+
+        if (Hash::check($checkanswer, $user_answer))
+        {
+            return view('auth.passwords.email', compact('email_address'));
+        }
+        else {
+            return back()->with('error', '* Answers do not match the record.');
+        }
     }
 }

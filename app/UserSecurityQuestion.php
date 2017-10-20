@@ -14,7 +14,7 @@ class UserSecurityQuestion extends Model
 
     public function securityQuestionsName()
     {
-        return $this->belongsTo('App\Security_question', 'id');
+        return $this->belongsTo('App\Security_question');
     }
 
     protected $table = 'user_security_questions';
