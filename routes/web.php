@@ -29,9 +29,13 @@ Route::get('/about-us', function () { return view('Front-page');});
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::get('Securityquestions/check/{id}', 'SecurityquestionController@check')->name('check');
-//
-//Route::get('securityquestions/insertcheck/{id}', 'SecurityquestionController@insertcheck')->name('insertcheck');
+Route::get('forgotpassword/insertemail','UserSecurityquestionController@showemailpage');
+
+Route::get('forgotpassword/checksecurityquestion','UserSecurityquestionController@insertcheck');
+
+Route::get('Securityquestions/check/{id}', 'UserSecurityquestionController@check')->name('check');
+
+Route::get('securityquestions/insertcheck/{id}', 'UserSecurityquestionController@insertcheck')->name('insertcheck');
 
 Route::resource('securityquestions', 'UserSecurityQuestionController');
 
