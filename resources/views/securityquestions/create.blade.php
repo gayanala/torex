@@ -14,7 +14,7 @@
                             <label for="question_id[]" class="control-label">First Security Question </label>
 
                             <div class="form-group{{ $errors->has('question_id[]') ? ' has-error' : '' }}">
-                                {!! Form::select('question_id[]', array(null => 'Select...') + $securityquestions->all(), null, ['class'=>'form-control']) !!}
+                                {!! Form::select('question_id[]', array(null => 'Select...') + $question_list1->all(), null, ['class'=>'form-control']) !!}
                                 @if ($errors->has('question_id[]'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('question_id[]') }}</strong>
@@ -41,7 +41,7 @@
                             <label for="question_id[]" class="control-label">Second Security Question </label>
 
                             <div class="">
-                                {!! Form::select('question_id[]', array(null => 'Select...') + $securityquestions->all(), null, ['class'=>'form-control']) !!}
+                                {!! Form::select('question_id[]', array(null => 'Select...') + $question_list2->all(), null, ['class'=>'form-control']) !!}
                                 @if ($errors->has('question_id[]'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('question_id[]') }}</strong>
@@ -67,7 +67,7 @@
                             <label for="question_id[]" class="control-label">Third Security Question </label>
 
                             <div class="">
-                                {!! Form::select('question_id[]', array(null => 'Select...') + $securityquestions->all(), null, ['class'=>'form-control']) !!}
+                                {!! Form::select('question_id[]', array(null => 'Select...') + $question_list3->all(), null, ['class'=>'form-control']) !!}
                                 @if ($errors->has('question_id[]'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('question_id[]') }}</strong>

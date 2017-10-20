@@ -17,7 +17,15 @@ class UserSecurityQuestionController extends Controller
     {
         $user = $request->session()->get('userId');
         $securityquestions = Security_question::pluck('question', 'id');
-        return view('securityquestions.create', compact('user', 'securityquestions'))->with('question', $securityquestions);
+        $question_list1 = collect(array($securityquestions[1], $securityquestions[2], $securityquestions[3],
+            $securityquestions[4], $securityquestions[5]));
+        $question_list2 = collect(array($securityquestions[6], $securityquestions[7], $securityquestions[8],
+            $securityquestions[9], $securityquestions[10]));
+        $question_list3 = collect(array($securityquestions[11], $securityquestions[12], $securityquestions[13],
+            $securityquestions[14], $securityquestions[15]));
+        return view('securityquestions.create',
+            compact('user', 'securityquestions', 'question_list1', 'question_list2', 'question_list3'))
+            ->with('question', $securityquestions);
     }
 
 //    public function withValidator($validator)

@@ -28,7 +28,7 @@ class Security_questionsTableSeeder extends Seeder
         Security_question::create(['id' => 12, 'question' => 'What is your grandmother\'s (on your mother\'s side) maiden name?']);
         Security_question::create(['id' => 13, 'question' => 'What is your spouse or partner\'s mother\'s maiden name?']);
         Security_question::create(['id' => 14, 'question' => 'In what town or city did your mother and father meet?']);
-        Security_question::create(['id' => 15, 'question' => 'hat time of the day were you born? (hh:mm)']);
+        Security_question::create(['id' => 15, 'question' => 'What time of the day were you born? (hh:mm)']);
         Security_question::create(['id' => 16, 'question' => 'What time of the day was your first child born? (hh:mm)']);
 
     }
