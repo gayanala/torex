@@ -64,6 +64,7 @@ class RuleEngineController extends Controller
 
     public function runRule(Request $request){
         // $strJSON = $request->ruleSet;
+        dd($request->rule);
         if ($request->rule){
             $ruleType = $request->rule;
         }
