@@ -70,7 +70,7 @@
                             <td><?php echo ($donation_purpose_name); ?></td>
                         </tr>
                         <tr>
-                            <td>Hangout Date</td>
+                            <td>Handout Date</td>
                             <td><?php echo date("m/d/Y", strtotime($donationrequest['needed_by_date'])); ?></td>
                         </tr>
                         <tr>
