@@ -27,24 +27,19 @@
                 <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
                 <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
                 <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
-                <button class="btn btn-primary parse-json" type="submit" data-target="plugins">Save Rules</button>
+                <button id="btnSave" class="btn btn-primary parse-json" type="submit" data-target="plugins">Save Rules</button>
                 <button id="btnRun" type="button" href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule</button>
 
             </div>
             <br/>
             <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
-            {{--@if ($msg)--}}
-                {{--<span class="help-block">--}}
-                                        {{--<strong>{{ $msg }}</strong>--}}
-                                    {{--</span>--}}
-            {{--@endif--}}
             <br/>
             <br/>
             <br/>
             <!-- <div id="querybuilder"></div> -->
         </div>
     </form>
-    {{--{{ Form::close() }}--}}
+{{--    {{ Form::close() }}--}}
     <!-- </section> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker3.min.css"
           rel="stylesheet">
@@ -84,6 +79,27 @@
     <script>
         $('#ddlRuleType').val({{ $_GET['rule'] }});
 
+        @if ($rule)
+        var rules_plugins = {!!  htmlspecialchars_decode($rule, ENT_NOQUOTES) !!};
+        @else
+        var rules_plugins = {
+        'condition': 'AND',
+            'rules': [
+                {
+                    'id': 'dollar_amount',
+                   'field': 'dollar_amount',
+                    'type': 'double',
+                    'input': 'number',
+                    'operator': 'equal',
+                    'value': '0'
+                }
+                ],
+                'not': false,
+                'valid': true
+        };
+        @endif
+
+
         $('#ddlRuleType').change(function () {
             var ddlValue = $(this).val();
             $('#ruleType').val(ddlValue);
@@ -96,10 +112,9 @@
 
         });
 
-        $('.parse-json').on('click', function () {
+        $('#btnSave').on('click', function () {
             var target = $(this).data('target');
             var result = $('#builder-' + target).queryBuilder('getRules');
-
             if (!$.isEmptyObject(result)) {
                 $('#ruleSet').val(format4popup(result));
                 /*bootbox.alert({
@@ -109,7 +124,6 @@
             }
         });
 
-        var rules_plugins = {!!  htmlspecialchars_decode($rule, ENT_NOQUOTES) !!};
         /*
         var rules_plugins = {
             condition: 'AND',
@@ -219,41 +233,11 @@
                     min: 0,
                     step: 0.01
                 }
-            }/*, {
-                id: 'id',
-                label: 'Identifier',
-                type: 'string',
-                placeholder: '____-____-____',
-                operators: ['equal', 'not_equal'],
-                validation: {
-                    format: /^.{4}-.{4}-.{4}$/
-                }
-            }*/],
+            }],
 
             rules: rules_plugins
         });
-        /*$('#btn-reset').on('click', function() {
-             $('#builder-plugins').queryBuilder('reset');
-         });
 
-         $('#btn-set').on('click', function() {
-             $('#builder-plugins').queryBuilder('setRules', rules_plugins);
-         });
-
-         $('#btn-get').on('click', function() {
-             var result = $('#builder-plugins').queryBuilder('getRules');
-
-             if (!$.isEmptyObject(result)) {
-                 alert(JSON.stringify(result, null, 2));
-             }
-         });
-         $('#btn-getsql').on('click', function() {
-             var result = $('#builder-plugins').queryBuilder('getSQL');
-
-             if (!$.isEmptyObject(result)) {
-                 alert(result);
-             }
-         });*/
         ////////////////////////////////////////////////////////////////////////////
         // the default rules, what will be used on page loads...
         /*var datatablesRequest = {};
