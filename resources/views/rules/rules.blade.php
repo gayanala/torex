@@ -3,22 +3,30 @@
     <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/assets/css/docs.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/assets/css/style.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 @endsection
 @section('header')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 @endsection
 @section('content')
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
     <!--<section class="bs-docs-section clearfix"> -->
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-
     {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
     <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
-        <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
-                <div class="col-md-6"><label>Rule Selected:</label>{!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType']) !!}</div>
+        <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
+           <div class="col-md-8">
+             <a href="#" data-title="Rule management help" data-toggle="popover" data-content="Select individual fields and corresponding conditions to set the rules for auto rejection and pre approval of donation requests.The auto rejection rule helps you in setting parameters to reject the donation request and the pre approval rule helps you in setting parameters for approving the donation requests for further evaluation.">Help</a>
+&nbsp;&nbsp<label>Rule Selected:</label>{!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType']) !!}</div>
         </div>
         <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
         <div class="col-md-12 col-lg-10 col-lg-offset-1">
@@ -38,8 +46,11 @@
             <br/>
             <!-- <div id="querybuilder"></div> -->
         </div>
+
+
     </form>
 {{--    {{ Form::close() }}--}}
+
     <!-- </section> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker3.min.css"
           rel="stylesheet">
