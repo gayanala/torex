@@ -210,7 +210,7 @@ $(document).ready(function(){
                 operators: ['equal', 'not_equal', 'contains', 'not_contains', 'begins_with', 'not_begins_with', 'ends_with', 'not_ends_with']
             }, {
                 id: 'requester_type',
-                label: 'Request Type',
+                label: 'Requester Type',
                 type: 'integer',
                 input: 'select',
                 values: {
