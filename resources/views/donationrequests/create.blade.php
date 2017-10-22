@@ -33,7 +33,7 @@
                             <div class="col-md-6">
 
                                 <input id="requester" type="text" class="form-control" name="requester" value="{{ old('requester')}}" placeholder="Name of your organization" required autofocus>
-                               
+
 
 
                                 @if ($errors->has('requester'))
