@@ -295,9 +295,9 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('event_type') ? ' has-error' : '' }}">
-                            <label for="event_type" class="col-md-4 control-label">Purpose Of The Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="event_type" class="col-md-4 control-label">Purpose Of The Event <span style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
                             <div class="col-md-6">
-                                {!! Form::select('event_type', array(null => 'Select...') + $request_event_type->all(), null, ['class'=>'form-control', 'required']) !!}
+                                {!! Form::select('event_type', array(null => 'Select...') + $request_event_type->all(), null, ['class'=>'form-control']) !!}
                                 @if ($errors->has('event_type'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('event_type') }}</strong>
@@ -308,9 +308,9 @@
 
 
                         <div class="form-group{{ $errors->has('formAttendees') ? ' has-error' : '' }}">
-                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number Of Attendees<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number Of Attendees<span style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
                             <div class="col-md-6">
-                                <input id="formAttendees" type="text" class="form-control" name="formAttendees" value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees" required autofocus>
+                                <input id="formAttendees" type="text" class="form-control" name="formAttendees" value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees" autofocus>
 
                                 @if ($errors->has('formAttendees'))
                                     <span class="help-block">
@@ -320,7 +320,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('inputvenue') ? ' has-error' : '' }}">
-                            <label for="inputvenue" class="col-md-4 control-label">Event Venue or Address<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <label for="inputvenue" class="col-md-4 control-label">Event Venue or Address<span style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
 
                             <div class="col-md-6">
                                 <input id="venue" type="text" class="form-control" name="venue" value="{{ old('venue') }}" placeholder="Place event will be held" autofocus>
@@ -334,10 +334,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('marketingopportunities') ? ' has-error' : '' }}">
-                            <label for="marketingopportunities" class="col-md-4 control-label">What are the marketing opportunities? <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <label for="marketingopportunities" class="col-md-4 control-label">What are the marketing opportunities? <span style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" input id="marketingopportunities"   pattern="[a-zA-Z0-9\s]+ {500}$" required title="Please restrict your Text Length to 500 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" required autofocus> </textarea>
+                                <textarea class="form-control" input id="marketingopportunities"   pattern="[a-zA-Z0-9\s]+ {500}$" required title="Please restrict your Text Length to 500 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" autofocus> </textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
