@@ -72,19 +72,20 @@
 
                         <div class="form-group">
                             <label for="zipcode" class="col-md-4 control-label">Zipcode <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'required']) !!}</div>
+                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'required']) !!}
+                            </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('phonenumber') ? ' has-error' : '' }}">
-                                <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                                <div class="col-lg-6">
-                                    {!! Form::text('phone_number',null,['class' => 'form-control', 'required']) !!}
-                                    @if ($errors->has('phonenumber'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('phonenumber') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                        <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
+                            <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">
+                                {!! Form::text('phone_number',null,['class' => 'form-control', 'required']) !!}
+                                @if ($errors->has('phone_number'))
+                                    <span class="help-block">
+                                      <strong>{{ $errors->first('phone_number') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
 
                         <div class="form-group">
