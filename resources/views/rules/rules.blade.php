@@ -2,14 +2,14 @@
 @section('css')
     <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://querybuilder.js.org/assets/css/docs.min.css" rel="stylesheet">
-    <link href="http://querybuilder.js.org/assets/css/style.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="http://querybuilder.js.org/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
 @endsection
 @section('header')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--}}
+     {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}}
 
 
 @endsection
@@ -26,7 +26,7 @@ $(document).ready(function(){
         <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
            <div class="col-md-8">
              <a href="#" data-title="Rule management help" data-toggle="popover" data-content="Select individual fields and corresponding conditions to set the rules for auto rejection and pre approval of donation requests.The auto rejection rule helps you in setting parameters to reject the donation request and the pre approval rule helps you in setting parameters for approving the donation requests for further evaluation.">Help</a>
-&nbsp;&nbsp<label>Rule Selected:</label>{!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType']) !!}</div>
+&nbsp;&nbsp;<label>Rule Selected:</label>{!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType']) !!}</div>
         </div>
         <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
         <div class="col-md-12 col-lg-10 col-lg-offset-1">
@@ -36,7 +36,7 @@ $(document).ready(function(){
                 <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
                 <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
                 <button id="btnSave" class="btn btn-primary parse-json" type="submit" data-target="plugins">Save Rules</button>
-                <button id="btnRun" type="button" href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule</button>
+                <button id="btnRun" type="button" href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule Workflow</button>
 
             </div>
             <br/>
@@ -190,12 +190,13 @@ $(document).ready(function(){
             filters: [{
                 id: 'needed_by_date',
                 label: 'Date Needed',
-                type: 'date',
+                type: 'datetime',
                 validation: {
                     format: 'MM/DD/YYYY'
                 },
                 plugin: 'datepicker',
-                operators: ['less_equal', 'equal_less', 'greater_equal', 'between', 'not_between'],
+                // operators: ['less_or_equal', 'greater_or_equal', 'greater', 'less', 'between', 'not_between'],
+                operators: ['less_or_equal', 'greater_or_equal', 'greater', 'less'],
                 plugin_config: {
                     format: 'mm/dd/yyyy',
                     todayBtn: 'linked',
@@ -205,7 +206,8 @@ $(document).ready(function(){
             }, {
                 id: 'requester',
                 label: 'Requester Name',
-                type: 'string'
+                type: 'string',
+                operators: ['equal', 'not_equal', 'contains', 'not_contains', 'begins_with', 'not_begins_with', 'ends_with', 'not_ends_with']
             }, {
                 id: 'requester_type',
                 label: 'Request Type',

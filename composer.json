@@ -7,6 +7,12 @@
   ],
     "license": "MIT",
     "type": "project",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/wpanec-uno/QueryBuilderParser"
+    }
+  ],
     "require": {
         "php": ">=7.0.0",
         "doctrine/dbal": "^2.5",
@@ -18,7 +24,7 @@
         "laravelcollective/html": "^5.5",
         "league/flysystem-aws-s3-v3": "~1.0",
         "maatwebsite/excel": "~2.1.0",
-        "timgws/query-builder-parser": "^1.4"
+        "timgws/query-builder-parser": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.4",

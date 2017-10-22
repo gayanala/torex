@@ -140,8 +140,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {//dd($request);
         $validator = Validator::make($request->all(), [
-            'phone_number' => 'required|regex:/[0-9]{9}/',
-            'zipcode' => 'required|regex:/[0-9]{5}/',
+            'phone_number' => 'required|numeric|digits:10',
+            'zipcode' => 'required|numeric|digits:5',
             'state' => 'required',
             'email' => [
                 'required',
