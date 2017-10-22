@@ -67,7 +67,8 @@ class OrganizationController extends Controller
     }
 
     public function createOrganization() {
-        return view('organizations.create');
+        $states = State::pluck('state_name', 'state_code');
+        return view('organizations.create', compact('states'));
     }
 
     /**
@@ -106,7 +107,7 @@ class OrganizationController extends Controller
         ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);
 
         $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
-        return view('organizations.index', compact('childOrganizations'))->with('message', 'Successfully added a Business Location');
+        return redirect()->route("organizations.index")->with('message','Successfully added the Business Location');
     }
 
     public function destroy($id) {

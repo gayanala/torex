@@ -32,7 +32,7 @@ class RuleEngineController extends Controller
             $queryBuilderJSON = $ruleRow->rule;
         }
         else {
-            $queryBuilderJSON = '{"condition": "AND", "rules": [{}], "not": false, "valid": true }';
+            $queryBuilderJSON = ''; //'{"condition": "AND", "rules": [{}], "not": false, "valid": true }';
         }
         //dd($queryBuilderJSON);
         return view('rules.rules')->with('rule', $queryBuilderJSON)->with('rule_types', $rule_types)->with('ruleType', $ruleType);
@@ -64,6 +64,7 @@ class RuleEngineController extends Controller
 
     public function runRule(Request $request){
         // $strJSON = $request->ruleSet;
+        dd($request->rule);
         if ($request->rule){
             $ruleType = $request->rule;
         }

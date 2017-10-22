@@ -7,7 +7,7 @@
             if (document.getElementById('yesCheck').checked) {
                 document.getElementById('file_upload').style.visibility = 'visible';
             }
-            else document.getElementById('file_upload').style.visibility = 'hidden';
+            else {document.getElementById('file_upload').style.visibility = 'hidden';}
         }
     </script>
     <div class="container">
@@ -28,12 +28,9 @@
                         <div class="form-group{{ $errors->has('requester') ? ' has-error' : '' }}">
                             <label for="requester" class="col-md-4 control-label">Name Of The Organization <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-md-6">
-                                @auth
-                                <input id="requester" type="text" class="form-control" name="requester" value="{{Auth::user()->organization->org_name}}" placeholder="Name of your organization" required autofocus>
-                                @endauth
-                                @guest
+
                                 <input id="requester" type="text" class="form-control" name="requester" value="{{ old('requester')}}" placeholder="Name of your organization" required autofocus>
-                                @endguest
+
 
 
                                 @if ($errors->has('requester'))
@@ -182,10 +179,10 @@
                             <div class="col-md-6">
 
                                 <label for="chkYes">
-                                    <input type="radio" onclick="javascript:yesnoCheck();" name="taxexempt" id="yesCheck" value="true" >Yes
+                                    <input type="radio" onclick="javascript:yesnoCheck();" name="taxexempt" id="yesCheck" value="1" >Yes
                                 </label>
                                 <label for="chkNo">
-                                    <input type="radio" onclick="javascript:yesnoCheck();" name="taxexempt" id="noCheck" value="false">No
+                                    <input type="radio" onclick="javascript:yesnoCheck();" name="taxexempt" id="noCheck" value="0">No
                                 </label>
                                 @if ($errors->has('taxexempt'))
                                     <span class="help-block">
@@ -350,7 +347,7 @@
                             </div>
                         </div>
 
-                          
+
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
