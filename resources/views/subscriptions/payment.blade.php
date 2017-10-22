@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('content')
-    <h2 style="text-align:center;">Subscription</h2>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h1>  Subscription </h1></div>
+
+
+                <h2 style="text-align:center;"> </h2>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -30,7 +36,16 @@
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <div class="form-group{{ $errors->has('user_locations') ? ' has-error' : '' }}">
-                        <label class="col-md-4 control-label" for="user_locations">Number Of Users</label>
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+
+                                    <div class="panel-heading"><h1>  Number of Users & Type of Plan </h1></div>
+                                </div>
+                            </div>
+                        <label class="control-label" for="user_locations">Number Of Users</label>
+
                         <div class="col-md-6">
                             <input id="user_locations" type="text" class="form-control" name="user_locations"
                                    value="{{ old('user_locations') }}" placeholder="User locations" required
@@ -42,30 +57,25 @@
                                     </span>
                             @endif
                         </div>
-
-
                     </div>
-                    </br>
-                    </br>
                     <div>
-                        <label for="plan" class="col-lg-2 control-label">Plan</label>
+                            <label for="plan" class="control-label" >Plan</label>
                         <div class="col-lg-6">
-                            <select class="form-control" name="plan" id="plan" required>
+
+                        <select class="form-control" name="plan" id="plan" required>
                                 <option value="">Select...</option>
                                 <option value="monthly">Monthly</option>
                                 <option value="annually">Annually</option>
-
                             </select>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">
-                                Payment Details
-                            </h3>
+
+                            <div class="panel-heading"><h1>  Payment Details </h1></div>
+
                             <div class="checkbox pull-right">
                                 <label>
                                     <input type="checkbox"/>
