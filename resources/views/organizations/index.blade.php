@@ -16,8 +16,8 @@
 
                     <div class="panel-heading"><a href="{{action('OrganizationController@createOrganization')}}" class="btn btn-primary pull-right">
                             [+] Add </a><h1> Manage Business Locations </h1>
-
                     </div>
+
                     <div class="panel-body">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>

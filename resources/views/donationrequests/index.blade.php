@@ -23,7 +23,6 @@
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr class="bg-info">
-                                <th class="text-center">Select</th>
                                 <th class="text-center">Organization Name</th>
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Request For</th>
@@ -34,7 +33,6 @@
                             </tr>
                             </thead>
                             <tfoot class="bg-info">
-                                <th class="text-center">Select</th>
                                 <th class="text-center">Organization Name</th>
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Request For</th>
@@ -46,9 +44,6 @@
                             <tbody  style="text-align: center">
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
-                                    <td style="vertical-align: middle">
-                                        <input type="checkbox" name="selectBox" value="checked">
-                                    </td>
                                     <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
                                     <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
@@ -57,15 +52,15 @@
 
                                     <td style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
                                     <td>
-                                        <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info">
-                                            <span class="glyphicon glyphicon-list-alt"></span> Detail</a>
-                                        <button class="edit-modal btn btn-warning"
-                                                data-info="">
-                                            <span class="glyphicon glyphicon-pencil"></span> Status
-                                        </button>
+                                        <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-warning" title="Detail">
+                                            <span class="glyphicon glyphicon-list-alt"></span></a>
+                                        <a href="" class="btn btn-success" title="Approve">
+                                            <span class="glyphicon glyphicon-ok"></span></a>
+                                        <a href="" class="btn btn-danger" title="Reject">
+                                            <span class="glyphicon glyphicon-remove"></span></a>
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
-                                    {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
+{{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
                                 </tr>
                             @endforeach
 
@@ -75,20 +70,23 @@
                             @endif
                         </table>
 
-
-                        <div>
-                            <a href="" class="btn btn-success" style="width:33%"> Approve Request(s) </a>
-                            <a href="" class="btn btn-danger" style="width:33%"> Deny Request(s) </a>
-                            <a href="" class="btn btn-warning" style="width:33%"> Contact Requester(s) </a>
-                        </div>
                             <div class="panel-heading"><h1>Add a Donation Request</h1></div>
                             <input type="button" value="Manual Entry for Donation Request"
-                        onClick="window.open('http://tagg-preprod.herokuapp.com/donationrequests/create?orgId={{Auth::user()->organization_id}}', '_blank');"/>
+                        onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank');"/>
                     </div>
+
+                    
+ <div class="col-md-2">
+          <form action="{{url('donationrequests/export')}}" method='GET' enctype="multipart/form-data">
+            <button class="btn btn-success" type="submit">Export</button>
+          </form>
+        </div>
+      </div>
                 </div>
             {{--</div>--}}
         </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>

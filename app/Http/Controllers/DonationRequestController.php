@@ -16,6 +16,7 @@ use App\Events\DonationRequestReceived;
 use App\Organization_type;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Auth;
+use Excel;
 use App\Organization;
 
 
@@ -60,6 +61,17 @@ class DonationRequestController extends Controller
             ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
 //        return view('donationrequests.edit',compact('donationrequest', 'requester_types'));
     }
+
+     public function export(){
+       
+      $donationrequest = DonationRequest::all();
+      Excel::create('donationrequest', function($excel) use($donationrequest) {
+              $excel->sheet('ExportFile', function($sheet) use($donationrequest) {
+              $sheet->fromArray($donationrequest);
+          });
+      })->export('xls');
+  }
+
 
     public function update($id,Request $request)
     {

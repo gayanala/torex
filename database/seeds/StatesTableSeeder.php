@@ -14,9 +14,9 @@ class StatesTableSeeder extends Seeder
         DB::table('organizations')->delete();
         DB::table('states')->delete();
 
-        State::create(['state_code' => 'AA', 'state_name' => 'Armed Forces America']);
-        State::create(['state_code' => 'AE', 'state_name' => 'Armed Forces']);
-        State::create(['state_code' => 'AP', 'state_name' => 'Armed Forces Pacific']);
+        //State::create(['state_code' => 'AA', 'state_name' => 'Armed Forces America']);
+        //State::create(['state_code' => 'AE', 'state_name' => 'Armed Forces']);
+        //State::create(['state_code' => 'AP', 'state_name' => 'Armed Forces Pacific']);
         State::create(['state_code' => 'AK', 'state_name' => 'Alaska']);
         State::create(['state_code' => 'AL', 'state_name' => 'Alabama']);
         State::create(['state_code' => 'AR', 'state_name' => 'Arkansas']);
@@ -24,7 +24,7 @@ class StatesTableSeeder extends Seeder
         State::create(['state_code' => 'CA', 'state_name' => 'California']);
         State::create(['state_code' => 'CO', 'state_name' => 'Colorado']);
         State::create(['state_code' => 'CT', 'state_name' => 'Connecticut']);
-        State::create(['state_code' => 'DC', 'state_name' => 'Washington DC']);
+        State::create(['state_code' => 'DC', 'state_name' => 'District of Columbia']);
         State::create(['state_code' => 'DE', 'state_name' => 'Delaware']);
         State::create(['state_code' => 'FL', 'state_name' => 'Florida']);
         State::create(['state_code' => 'GA', 'state_name' => 'Georgia']);

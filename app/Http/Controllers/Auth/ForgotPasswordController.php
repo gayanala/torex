@@ -26,6 +26,12 @@ class ForgotPasswordController extends Controller
      *
      * @return void
      */
+
+    public function showLinkRequestForm() //override the function from SendsPasswordResetEmails
+    {
+        return redirect('forgotpassword/insertemail');
+    }
+
     public function __construct()
     {
         $this->middleware('guest');
