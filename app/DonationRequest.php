@@ -35,15 +35,15 @@ class DonationRequest extends Model
 //     protected $table = 'donation_requests';
 
     public function donationRequestTypes() {
-        return $this->hasOne('App\Requester_type', 'id');
+        return $this->hasOne('App\Requester_type','requester_type', 'id');
     }
 
     public function donationRequestType() {
-        return $this->belongsTo('App\Request_item_type', 'id');
+        return $this->belongsTo('App\Request_item_type', 'item_requested', 'id');
     }
 
     public function donationRequestPurpose() {
-        return $this->hasOne('App\Request_item_purpose');
+        return $this->hasOne('App\Request_item_purpose', 'item_purpose','id');
     }
 
     public function donationOrganization() {
@@ -51,6 +51,6 @@ class DonationRequest extends Model
     }
 
     public function donationApprovalStatus() {
-        return $this->belongsTo('App\Approval_Status', 'id');
+        return $this->belongsTo('App\Approval_Status', 'approval_status_id', 'id');
     }
 }

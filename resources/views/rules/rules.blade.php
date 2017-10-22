@@ -28,7 +28,7 @@
                 <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
                 <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
                 <button id="btnSave" class="btn btn-primary parse-json" type="submit" data-target="plugins">Save Rules</button>
-                <button id="btnRun" type="button" href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule</button>
+                <button id="btnRun" type="button" href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule Workflow</button>
 
             </div>
             <br/>
@@ -179,12 +179,13 @@
             filters: [{
                 id: 'needed_by_date',
                 label: 'Date Needed',
-                type: 'date',
+                type: 'datetime',
                 validation: {
                     format: 'MM/DD/YYYY'
                 },
                 plugin: 'datepicker',
-                operators: ['less_equal', 'equal_less', 'greater_equal', 'between', 'not_between'],
+                // operators: ['less_or_equal', 'greater_or_equal', 'greater', 'less', 'between', 'not_between'],
+                operators: ['less_or_equal', 'greater_or_equal', 'greater', 'less'],
                 plugin_config: {
                     format: 'mm/dd/yyyy',
                     todayBtn: 'linked',
@@ -194,7 +195,8 @@
             }, {
                 id: 'requester',
                 label: 'Requester Name',
-                type: 'string'
+                type: 'string',
+                operators: ['equal', 'not_equal', 'contains', 'not_contains', 'begins_with', 'not_begins_with', 'ends_with', 'not_ends_with']
             }, {
                 id: 'requester_type',
                 label: 'Request Type',
