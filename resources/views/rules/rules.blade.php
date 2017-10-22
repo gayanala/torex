@@ -26,7 +26,7 @@ $(document).ready(function(){
         <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
            <div class="col-md-8">
              <a href="#" data-title="Rule management help" data-toggle="popover" data-content="Select individual fields and corresponding conditions to set the rules for auto rejection and pre approval of donation requests.The auto rejection rule helps you in setting parameters to reject the donation request and the pre approval rule helps you in setting parameters for approving the donation requests for further evaluation.">Help</a>
-&nbsp;&nbsp<label>Rule Selected:</label>{!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType']) !!}</div>
+&nbsp;&nbsp;<label>Rule Selected:</label>{!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType']) !!}</div>
         </div>
         <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
         <div class="col-md-12 col-lg-10 col-lg-offset-1">
