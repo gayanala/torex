@@ -38,28 +38,33 @@ class CronJobExpiredDonationRequests extends Command
      */
     public function handle()
     {
-
+        date_default_timezone_set("America/Belize");
 
         DB::transaction(
             function () {
                 $expired_requests = DB::select('select * from donation_requests where needed_by_date <=  CURRENT_DATE ', [5000]);
-                print_r($expired_requests);
+                //    print_r($expired_requests);
+
+                $rejected_status_id_in_db = DB::table('approval_statuses')->where('status_name', 'Rejected')->value('id');
+                //      $this->info($rejected_status_id_in_db);
 
                 // Update all expired requests.
-                //      DB::table('donation_requests')->where('needed_by_date', DATE(NOW()))->update(['city' => 'HOORAY']);
-                //   DB::table('donation_requests')->where('id', 1)->update(['approval_status_id' => 2]);
-                DB::table('donation_requests')->where('needed_by_date', date("Y-m-d"))->update(['city' => 'HOORAY']);
+                DB::table('donation_requests')
+                    ->where('needed_by_date', date("Y-m-d"))
+                    ->update(['approval_status_id' => $rejected_status_id_in_db]);
 
                 // Loop iterate over expired requests and send email to each requester
                 foreach ($expired_requests as $expired_request) {
+
                     $this->info($expired_request->email);
                     $this->info($expired_request->approval_status_id);
                     // Call SENT EMAIL FUNCTION using $expired_request->email
                 }
 
-
-                // $this->info(date("Y-m-d"));
-
+                // $this->info(DATE(NOW()));
+                // $this->info(date("Y-m-de"));
+                // $expired_requests = DB::select('select * from donation_requests where needed_by_date <=  CURRENT_DATE ', [5000]);
+                // print_r($expired_requests);
             });
 
         Log::info('Expired Donation Request Status Updated To REJECTED!');
