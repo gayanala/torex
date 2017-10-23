@@ -7,6 +7,9 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+    const FIRST_RUN_HOUR = 2;
+    const SECOND_RUN_HOUR = 4;
+
     /**
      * The Artisan commands provided by your application.
      *
@@ -25,7 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('CronJob:cronjob')
-            ->everyMinute();
+            ->twiceDaily(self::FIRST_RUN_HOUR, self::SECOND_RUN_HOUR);
     }
 
     /**

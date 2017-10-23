@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CronJobExpiredDonationRequests extends Command
 {
@@ -39,29 +40,29 @@ class CronJobExpiredDonationRequests extends Command
     {
 
 
-        DB::transaction(function () {
-            $expired_requests = DB::select('select * from donation_requests where id = ?', [1]);
-            print_r($expired_requests);
+        DB::transaction(
+            function () {
+                $expired_requests = DB::select('select * from donation_requests where needed_by_date <=  CURRENT_DATE ', [5000]);
+                print_r($expired_requests);
 
-            // Update all expired requests.
-            //  DB::table('donation_requests')->where('needed_by_date', DATE(NOW()))->update(['city' => str_random(10)]);
-            DB::table('donation_requests')->where('id', 1)->update(['approval_status_id' => 2]);
+                // Update all expired requests.
+                //      DB::table('donation_requests')->where('needed_by_date', DATE(NOW()))->update(['city' => 'HOORAY']);
+                //   DB::table('donation_requests')->where('id', 1)->update(['approval_status_id' => 2]);
+                DB::table('donation_requests')->where('needed_by_date', date("Y-m-d"))->update(['city' => 'HOORAY']);
 
-            // Loop iterate over expired requests and send email to each requester
-            foreach ($expired_requests as $expired_request) {
-                $this->info($expired_request->email);
-                $this->info($expired_request->approval_status_id);
-                // Call SENT EMAIL FUNCTION using $expired_request->email
-            }
-
-
-            // $this->info(DATE(NOW()));
-
-            //    $results = DB::select('select * from donation_requests where id = ?', [1]);
+                // Loop iterate over expired requests and send email to each requester
+                foreach ($expired_requests as $expired_request) {
+                    $this->info($expired_request->email);
+                    $this->info($expired_request->approval_status_id);
+                    // Call SENT EMAIL FUNCTION using $expired_request->email
+                }
 
 
-            //    print_r($results);
-        });
+                // $this->info(date("Y-m-d"));
+
+            });
+
+        Log::info('Expired Donation Request Status Updated To REJECTED!');
         $this->info('Request Status Updated Successfully!');
     }
 }
