@@ -209,10 +209,32 @@
                                 <a href="{{ route('register') }}" class="w3-bar-item w3-button">Register</a>
                                 <a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button">RequestDonation</a>
                             @else
+
                                 <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
-                                <li><a href="{{ url('/rules?rule=1')}}" class="w3-bar-item w3-button">Rule Management</a></li>
                                 <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a></li>
-                                <li><a href="{{ route('emailtemplates.index')}}" class="w3-bar-item w3-button">Template Editor</a></li>
+                                <li>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false">
+                                        My Organization
+                                        <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('emailtemplates.index') }}">
+                                                Communication Template
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                        aria-expanded="false">
@@ -223,9 +245,6 @@
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="{{ route('users.index')}}">Profile Management</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('organizations.index')}}">Business Locations</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('reset-password') }}">
