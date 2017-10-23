@@ -10,7 +10,7 @@ A few things you can do with CharityQ:
 
 All requests for donation are streamlined and organized.
 * Filters can be used to ensure the organizations your business wants to support are front and center
-* Automatically decline donation requests that don’t make sense for your business.
+* Automatically reject donation requests that don’t make sense for your business.
 * Add additional users to assist with approving or declining requests.
 * Please follow the link below to login to your account:
 
