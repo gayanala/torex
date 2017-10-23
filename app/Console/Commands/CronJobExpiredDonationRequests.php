@@ -50,7 +50,7 @@ class CronJobExpiredDonationRequests extends Command
 
                 // Update all expired requests.
                 DB::table('donation_requests')
-                    ->where('needed_by_date', date("Y-m-d"))
+                    ->where('needed_by_date', '<=', date("Y-m-d"))
                     ->update(['approval_status_id' => $rejected_status_id_in_db]);
 
                 // Loop iterate over expired requests and send email to each requester
