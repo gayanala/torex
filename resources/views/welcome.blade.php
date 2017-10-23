@@ -61,8 +61,10 @@
             <h2>Save Time = Save Money</h2>
             <p class="text-left">  Request management can be delegated to multiple users within your organization.
                 Filters can be enabled to sort donation requests to ensure your business supports causes important to you.
-                As a business user, you will be able to approve or decline requests in bulk and respond within the application.
-                Custom or generic responses can communicate instructions to approved organizations, and gently inform other organizations when requests are declined.
+                As a business user, you will be able to approve or reject requests in bulk and respond within the
+                application.
+                Custom or generic responses can communicate instructions to approved organizations, and gently inform
+                other organizations when requests are rejectd.
                 Q Reports can enable your business to easily organize donations and figure out potential tax advantages.
 
             </p>
