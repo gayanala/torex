@@ -164,7 +164,11 @@
             padding-top: -200px;
             text-align: center;
         }
-
+        #myNavbar ul li.active-link>a{
+            border-bottom: 1px solid red;
+            color:blueviolet;
+            padding-bottom:1px;
+        }
 
     </style>
 </head>
@@ -211,7 +215,7 @@
                             @else
 
                                 <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
-                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a></li>
+                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Search Donations</a></li>
                                 <li>
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                        aria-expanded="false">
