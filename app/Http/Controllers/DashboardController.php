@@ -8,6 +8,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Organization;
+use App\DonationRequest;
 
 class DashboardController extends Controller
 {
@@ -15,8 +18,12 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('dashboard.index');
-
+        $organizationId = Auth::user()->organization_id;
+        $organization = Organization::findOrFail($organizationId);
+        $organizationName = $organization->org_name;
+        $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
+        //dd($donationrequests);
+        return view('dashboard.index', compact('donationrequests', 'organizationName'));
     }
 
 
