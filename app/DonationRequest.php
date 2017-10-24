@@ -31,7 +31,9 @@ class DonationRequest extends Model
         'est_attendee_count',
         'venue',
         'marketing_opportunities',
-        'approval_status_id'
+        'approved_dollar_amount',
+        'approval_status_id',
+        'email_sent'
     ];
 //     protected $table = 'donation_requests';
 
