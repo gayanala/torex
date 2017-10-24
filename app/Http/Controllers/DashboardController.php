@@ -20,10 +20,15 @@ class DashboardController extends Controller
     {
         $organizationId = Auth::user()->organization_id;
         $organization = Organization::findOrFail($organizationId);
+
         $organizationName = $organization->org_name;
         $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-        //dd($donationrequests);
-        return view('dashboard.index', compact('donationrequests', 'organizationName'));
+        $amountDonated = DonationRequest::where('approval_status_id', 5)->where('organization_id', $organizationId)->sum('dollar_amount');
+        $rejectedNumber = DonationRequest::where('approval_status_id', 4)->where('organization_id', $organizationId)->count();
+        $approvedNumber = DonationRequest::where('approval_status_id', 5)->where('organization_id', $organizationId)->count();
+        $pendingNumber = DonationRequest::where('approval_status_id', 3)->where('organization_id', $organizationId)->count();
+
+        return view('dashboard.index', compact('donationrequests', 'organizationName', 'amountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber'));
     }
 
 

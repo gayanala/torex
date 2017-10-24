@@ -27,11 +27,7 @@ _ide_helper.php
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 bootstrap/cache/packages.php
-	bootstrap/cache/services.php
-	storage/logs/laravel.log
 bootstrap/cache/services.php
+storage/logs/laravel.log
 composer.lock
 config/database.php
-composer.lock
-
-bootstrap/cache/services.php
