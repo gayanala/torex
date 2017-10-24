@@ -13,7 +13,7 @@ const REJECTED = 'Rejected';
 
 const APPROVED = 'Approved';
 
-class CronJobExpiredDonationRequests extends Command
+class CronJob extends Command
 {
     /**
      * The name and signature of the console command.
