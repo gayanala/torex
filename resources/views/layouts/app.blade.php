@@ -144,20 +144,24 @@
         }
         .col-sm-6
         {display: block;}
-        .background-image {
-            background: no-repeat fixed;
-            max-width: 100%;
-            display: block;
-            left: -50px;
-            top:-5px;
-            bottom:-5px;
-            right: -5px;
-            z-index: 1;
-            -ms-filter: blur(3px);
-            filter: blur(2px);
-            margin:1px -30px 1px -25px;
-            box-shadow: 0px 5px 1px rgba(34, 34, 34, 0.6);
+
+        .containerimg {
+            width: 100%;
+            height: 40%;
+            background: purple;
+            margin: 0 auto;
+            padding-top: 0px;
         }
+        .containerimg img.wide {
+            max-width: 100%;
+            max-height: 100%;
+            height: auto;
+        }
+        .containerimg img.tall {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+        }​
 
         .footer {
             position: fixed;
@@ -218,10 +222,21 @@
                         <ul class="nav navbar-nav navbar-right">
                             <!-- Authentication Links -->
                             @if (Auth::guest())
+                                <li><a href="{{ url('/') }}#about">About Us</a></li>
+                                <li><a href="{{ url('/') }}#sign">Sign Up !</a></li>
+                                <li><a href="{{ url('/') }}#how">How This Works</a></li>
+                                <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false"> My Account
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login</a></li>
                                <li> <a href="{{ route('register') }}" class="w3-bar-item w3-button ">Register</a></li>
                                <li><a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button ">RequestDonation</a></li>
-                            @else
+                                </ul>
+                                </li>
+                                    @else
 
                                 <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
                                 <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search Donations</a></li>
@@ -285,8 +300,7 @@
             </div>
         </div>
     </nav>
-    <br><br><br>
-
+<br>
     <div id="content">
         {{--@include('layouts.partials._status')--}}
         @yield('content')
