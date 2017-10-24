@@ -135,7 +135,7 @@
                             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                 <tr class="bg-info">
-                                    <th class="text-center">Check</th>
+                                    <th class="text-center">SelectAll <input type="checkbox" id="selectall"/></th>
                                     <th class="text-center">Organization Name</th>
                                     <th class="text-center">Request Amount</th>
                                     <th class="text-center">Request For</th>
@@ -149,7 +149,7 @@
                                 <tbody  style="text-align: center">
                                 @foreach ($donationrequests as $donationrequest)
                                     <tr>
-                                        <td style="vertical-align: middle"><input type="checkbox"/></td>
+                                        <td style="vertical-align: middle"><input type="checkbox" class="myCheckbox"/></td>
                                         <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
                                         <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
                                         <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
@@ -172,8 +172,8 @@
                                     <div>No Donation Request is stored in the system yet.</div>
                                 @endif
                             </table>
-                            <button class="active btn-group">Yes</button>
-                            <button class="active btn-group">No</button>
+                            <button class="active btn-group-lg btn-primary">Approve Selected Donations</button>
+                            <button class="active btn-group-lg btn-primary">Reject Selected Donation</button>
                     </div>
 
 <!-- Donation request -->
@@ -203,6 +203,10 @@
         $(document).ready(function() {
             $('#example').DataTable();
         } );
+
+        $('#selectall').change(function() {
+            $('.myCheckbox').prop('checked', true);
+        });
     </script>
 
 </div>
