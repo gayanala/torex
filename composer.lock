@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e02b412db844f1b8474c2581b78ed0d",
+    "content-hash": "f46c7101b2188c24bb72c5c24bb9109c",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.36.27",
+            "version": "3.36.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6a4c2643cd0883987da815f292f07d00ee098622"
+                "reference": "7ba49dbd24366647a41cd4a13eab972b2264b8db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6a4c2643cd0883987da815f292f07d00ee098622",
-                "reference": "6a4c2643cd0883987da815f292f07d00ee098622",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7ba49dbd24366647a41cd4a13eab972b2264b8db",
+                "reference": "7ba49dbd24366647a41cd4a13eab972b2264b8db",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2017-10-16T18:49:51+00:00"
+            "time": "2017-10-23T20:40:28+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1135,16 +1135,16 @@
         },
         {
             "name": "laravel/cashier",
-            "version": "v7.0.11",
+            "version": "v7.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/cashier.git",
-                "reference": "d563114d19eb49307c13c4e33a30b7f87309f311"
+                "reference": "f5323837a9ff0d660cd28e4f05dc25d1a1580898"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/cashier/zipball/d563114d19eb49307c13c4e33a30b7f87309f311",
-                "reference": "d563114d19eb49307c13c4e33a30b7f87309f311",
+                "url": "https://api.github.com/repos/laravel/cashier/zipball/f5323837a9ff0d660cd28e4f05dc25d1a1580898",
+                "reference": "f5323837a9ff0d660cd28e4f05dc25d1a1580898",
                 "shasum": ""
             },
             "require": {
@@ -1196,20 +1196,20 @@
                 "laravel",
                 "stripe"
             ],
-            "time": "2017-07-07T20:18:05+00:00"
+            "time": "2017-10-19T12:37:44+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.16",
+            "version": "v5.5.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "95efce1e16c82a72f9aab52e96562282e7c35bf0"
+                "reference": "1cc21baac11551377734b8c17ead17db4c34fe21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/95efce1e16c82a72f9aab52e96562282e7c35bf0",
-                "reference": "95efce1e16c82a72f9aab52e96562282e7c35bf0",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/1cc21baac11551377734b8c17ead17db4c34fe21",
+                "reference": "1cc21baac11551377734b8c17ead17db4c34fe21",
                 "shasum": ""
             },
             "require": {
@@ -1250,7 +1250,6 @@
                 "illuminate/database": "self.version",
                 "illuminate/encryption": "self.version",
                 "illuminate/events": "self.version",
-                "illuminate/exception": "self.version",
                 "illuminate/filesystem": "self.version",
                 "illuminate/hashing": "self.version",
                 "illuminate/http": "self.version",
@@ -1328,7 +1327,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-10-16T14:18:46+00:00"
+            "time": "2017-10-19T12:50:26+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2325,16 +2324,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.8.12",
+            "version": "v0.8.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "1502354ebc70d59d8e3a87c325b0eb78a79da25b"
+                "reference": "cdb5593c3684bab74e10fcfffe4a0c8d1c39695d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/1502354ebc70d59d8e3a87c325b0eb78a79da25b",
-                "reference": "1502354ebc70d59d8e3a87c325b0eb78a79da25b",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/cdb5593c3684bab74e10fcfffe4a0c8d1c39695d",
+                "reference": "cdb5593c3684bab74e10fcfffe4a0c8d1c39695d",
                 "shasum": ""
             },
             "require": {
@@ -2394,7 +2393,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2017-10-14T17:14:13+00:00"
+            "time": "2017-10-19T06:13:20+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -3536,16 +3535,16 @@
         },
         {
             "name": "timgws/query-builder-parser",
-            "version": "1.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/timgws/QueryBuilderParser.git",
-                "reference": "254486179ba8806e068f030715d67778f034e5e9"
+                "url": "https://github.com/wpanec-uno/QueryBuilderParser.git",
+                "reference": "036415fe0d9d6face5440dd14cec3d3f2712d334"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/timgws/QueryBuilderParser/zipball/254486179ba8806e068f030715d67778f034e5e9",
-                "reference": "254486179ba8806e068f030715d67778f034e5e9",
+                "url": "https://api.github.com/repos/wpanec-uno/QueryBuilderParser/zipball/036415fe0d9d6face5440dd14cec3d3f2712d334",
+                "reference": "036415fe0d9d6face5440dd14cec3d3f2712d334",
                 "shasum": ""
             },
             "require": {
@@ -3565,7 +3564,6 @@
                     "timgws\\test\\": "tests/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3588,7 +3586,10 @@
                 "query builder",
                 "sql"
             ],
-            "time": "2017-09-05T07:20:52+00:00"
+            "support": {
+                "source": "https://github.com/wpanec-uno/QueryBuilderParser/tree/master"
+            },
+            "time": "2017-10-22T05:53:17+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -4088,37 +4089,40 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.6.1",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "8e6e04167378abf1ddb4d3522d8755c5fd90d102"
+                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/8e6e04167378abf1ddb4d3522d8755c5fd90d102",
-                "reference": "8e6e04167378abf1ddb4d3522d8755c5fd90d102",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
+                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": "^5.6 || ^7.0"
             },
             "require-dev": {
-                "doctrine/collections": "1.*",
-                "phpunit/phpunit": "~4.1"
+                "doctrine/collections": "^1.0",
+                "doctrine/common": "^2.6",
+                "phpunit/phpunit": "^4.1"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "DeepCopy\\": "src/DeepCopy/"
-                }
+                },
+                "files": [
+                    "src/DeepCopy/deep_copy.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "description": "Create deep copies (clones) of your objects",
-            "homepage": "https://github.com/myclabs/DeepCopy",
             "keywords": [
                 "clone",
                 "copy",
@@ -4126,7 +4130,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2017-04-12T18:52:22+00:00"
+            "time": "2017-10-19T19:58:43+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -5540,7 +5544,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "timgws/query-builder-parser": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
