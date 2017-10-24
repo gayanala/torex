@@ -69,6 +69,7 @@ class CronJob extends Command
                 foreach ($expired_requests as $expired_request) {
                     $this->info($expired_request->email);
                     event(new SendAutoRejectEmail($expired_request));
+                    usleep(500000);
                     $this->info($expired_request->approval_status_id);
                 }
 
