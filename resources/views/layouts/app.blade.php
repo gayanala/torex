@@ -11,13 +11,14 @@
 
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     @yield('css')
 
@@ -37,7 +38,10 @@
             position:relative;
             clear: both;
         }
-
+        @media screen and (max-width: 600px){
+            ul.topnav li.right,
+            ul.topnav li {float: none;}
+        }
         h2
         {
             font-size: 30px;
@@ -164,12 +168,16 @@
             padding-top: -200px;
             text-align: center;
         }
-        #myNavbar ul li.active-link>a{
-            border-bottom: 1px solid red;
-            color:blueviolet;
-            padding-bottom:1px;
+        .navbar-nav > li >a{
+            color:white;
+            style:bold;
+            font-size: 15px;
         }
 
+        .main-navigation ul li a {
+            padding-right: 25px !important;
+            padding-left: 25px !important;
+        }
     </style>
 </head>
 
@@ -182,7 +190,7 @@
 </script>
 @yield('scripts')
 <div id="app">
-    <nav class="navbar navbar-light" style="background-color: #ffffff;">
+    <nav class="navbar-toggleable-md navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
         <div class="container-fluid">
 
             <!-- Collapsed Hamburger -->
@@ -194,28 +202,29 @@
             </button>
 
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3" style='padding-left: 0px;padding-top: 0.5px'>
 
 
 
 
-               <a href="{{ url('/') }}" >   <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" height="50%" width="60%"/>
+               <a href="{{ url('/') }}" >
+                   <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
 
                </a>
                 </div>
-                <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:15px;' >
-                    <div class="collapse navbar-collapse" id="myNavbar">
+                <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:0px;' >
+                    <div class="collapse navbar-collapse" id="myNavbar" >
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
                             <!-- Authentication Links -->
                             @if (Auth::guest())
-                                <a href="{{ route('login') }}" class="w3-bar-item w3-button">Login</a>
-                                <a href="{{ route('register') }}" class="w3-bar-item w3-button">Register</a>
-                                <a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button">RequestDonation</a>
+                                <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login</a></li>
+                               <li> <a href="{{ route('register') }}" class="w3-bar-item w3-button ">Register</a></li>
+                               <li><a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button ">RequestDonation</a></li>
                             @else
 
-                                <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
-                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Search Donations</a></li>
+                                <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
+                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search Donations</a></li>
                                 <li>
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                        aria-expanded="false">
