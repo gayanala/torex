@@ -29,9 +29,5 @@ _ide_helper.php
 bootstrap/cache/packages.php
 bootstrap/cache/services.php
 storage/logs/laravel.log
-bootstrap/cache/services.php
 composer.lock
 config/database.php
-composer.lock
-
-bootstrap/cache/services.php
