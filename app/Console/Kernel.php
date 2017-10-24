@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        '\App\Console\Commands\CronJobExpiredDonationRequests',
+        \App\Console\Commands\CronJob::class,
     ];
 
     /**
@@ -28,7 +28,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('CronJob:cronjob')
-            ->twiceDaily(self::FIRST_RUN_HOUR, self::SECOND_RUN_HOUR);
+        //->twiceDaily(self::FIRST_RUN_HOUR, self::SECOND_RUN_HOUR);
+        ->everyFiveMinutes();
+
     }
 
     /**

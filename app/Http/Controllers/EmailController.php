@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Mail\RegistrationSuccessful;
-use Auth;
+use App\Mail\SendManualRequest;
 use Mail;
 
 
@@ -15,7 +14,7 @@ class EmailController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     /**
@@ -23,17 +22,24 @@ class EmailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function email(){
+ /*   public function email(){
 
-        /*Mail::send(
+        Mail::send(
 
             ['text'=>'emails.startmail'],[],function($message){
             $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CommUnityQ');
             $message->from('tagg@gmail.com','tagg');
-        });*/
+        });
         Mail::to(Auth::user()->email)->send(new RegistrationSuccessful(Auth::user()));
 
         return redirect('\home');
 
+    }*/
+
+    public function manualRequestMail() {
+
+        Mail::to('somebody@gmail.com')->send(new SendManualRequest());
+
+        return redirect('\home');
     }
 }

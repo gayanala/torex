@@ -13,4 +13,8 @@ class Requester_type extends Model
         'type_description',
         'active',
     ];
+    public function donationRequest()
+    {
+        return $this->hasMany('App\DonationRequest');
+    }
 }
