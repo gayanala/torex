@@ -2,9 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\DonationRequest;
+use App\Events\SendAutoRejectEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Listeners\SendAutoRejectMessage;
+
 
 class CronJobExpiredDonationRequests extends Command
 {
@@ -42,7 +46,12 @@ class CronJobExpiredDonationRequests extends Command
 
         DB::transaction(
             function () {
-                $expired_requests = DB::select('select * from donation_requests where needed_by_date <=  CURRENT_DATE ', [5000]);
+//                $expired_requests = DB::select('select * from donation_requests where needed_by_date <=  CURRENT_DATE', [5000]);
+//                dd($expired_requests);
+
+                $expired_requests = DonationRequest::where('needed_by_date', '<=', date('Y-m-d'))->get();
+//                dd($expired_requests);
+
                 //    print_r($expired_requests);
 
                 $rejected_status_id_in_db = DB::table('approval_statuses')->where('status_name', 'Rejected')->value('id');
@@ -53,10 +62,13 @@ class CronJobExpiredDonationRequests extends Command
                     ->where('needed_by_date', '<=', date("Y-m-d"))
                     ->update(['approval_status_id' => $rejected_status_id_in_db]);
 
+
+
                 // Loop iterate over expired requests and send email to each requester
                 foreach ($expired_requests as $expired_request) {
 
                     $this->info($expired_request->email);
+                    event(new SendAutoRejectEmail($expired_request));
                     $this->info($expired_request->approval_status_id);
                     // Call SENT EMAIL FUNCTION using $expired_request->email
                 }
