@@ -151,411 +151,78 @@
         </div>
         <!-- /.row -->
         <div class="row">
-            <div class="col-lg-6">
-                <div class="panel panel-default text-left">
-                    <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Pending Requests Ready For Approval</b>
 
-                    </div>
-                    <!-- /.panel-heading -->
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                <tr>
-                                    <th>Amount</th>
-                                    <th>Event Date & Time</th>
-                                    <th>Cause</th>
-                                    <th>Organization</th>
-                                    <th>Donation Type</th>
-                                    <th>Request Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 3:29 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <select>
-                                                <option value="approve">APPROVE</option>
-                                                <option value="deny">DENY</option>
-
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 3:20 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <select>
-                                                <option value="approve">APPROVE</option>
-                                                <option value="deny">DENY</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>$721.33</td>
-                                    <td> 10/21/2013 3:03 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <select>
-                                                <option value="approve">APPROVE</option>
-                                                <option value="deny">DENY</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 3:00 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <select>
-                                                <option value="approve">APPROVE</option>
-                                                <option value="deny">DENY</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 2:49 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>CASA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <select>
-                                                <option value="approve">APPROVE</option>
-                                                <option value="deny">DENY</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <table style="width:100%">
-                                <col align="left">
-                                <col align="left">
-                                <col align="left">
-
-                                <tr>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-lg">View All Request</button>
-                                    </td>
-                                    <td>     <!-- /.panel-heading -->
-                                        <div class="panel-body">
-                                            <!-- Button trigger modal -->
-                                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                                                Set Status
-                                            </button>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                            <h4 class="modal-title" id="myModalLabel">Request Completed Successfully</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Requests DENIED: 4
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Requests APPROVED: 1
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-                                            <!-- /.modal -->
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel-body -->
-                    <!-- /.panel-body -->
-                </div>
-                <!-- /.panel -->
-                <div class="panel panel-default text-left">
-                    <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Items Approved</b></div>
-                    <!-- /.panel-heading -->
-
-                    <div class="panel-body">
-                        <div class="table-responsive text-left">
-                            <table class="table table-striped table-bordered table-hover text-left"
-                                   id="dataTables-example">
-                                <thead>
-                                <tr>
-                                    <th>Amount</th>
-                                    <th>Category</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>Food, Agriculture and Nutrition</td>
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>Higher Education</td>
-                                </tr>
-                                <tr>
-                                    <td>$721.33</td>
-                                    <td>Corporate Giving</td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-lg">View Requests</button>
-                                    </td>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-            </div>
             <!-- /.col-lg-8 -->
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="panel panel-default text-left">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Pending Requests Ready For Denial</b>
+                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Donation Requests</b>
                     </div>
+
+<!-- Donation request -->
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        @if(sizeOf($donationrequests) != 0)
+                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
-                                <tr>
-                                    <th>Amount</th>
-                                    <th>Event Date & Time</th>
-                                    <th>Cause</th>
-                                    <th>Organization</th>
-                                    <th>Donation Type</th>
-                                    <th>Request Date</th>
-                                    <th>Actions</th>
+                                <tr class="bg-info">
+                                    <th class="text-center">Organization Name</th>
+                                    <th class="text-center">Request Amount</th>
+                                    <th class="text-center">Request For</th>
+                                    {{--<th class="text-center">Event Name</th>--}}
+                                    <th class="text-center">Handout Date</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Actions</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 3:29 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <select>
-                                                <option value="deny">DENY</option>
-                                                <option value="approve">APPROVE</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 3:20 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <select>
-                                                <option value="deny">DENY</option>
-                                                <option value="approve">APPROVE</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>$721.33</td>
-                                    <td> 10/21/2013 3:03 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <select>
-                                                <option value="deny">DENY</option>
-                                                <option value="approve">APPROVE</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 3:00 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>WCA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <select>
-                                                <option value="deny">DENY</option>
-                                                <option value="approve">APPROVE</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>10/21/2013 2:49 PM</td>
-                                    <td>10/21/2013</td>
-                                    <td>CASA</td>
-                                    <td>Gift Cards</td>
-                                    <td>10/21/2013</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <select>
-                                                <option value="deny">DENY</option>
-                                                <option value="approve">APPROVE</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <tfoot class="bg-info">
+                                <th class="text-center">Organization Name</th>
+                                <th class="text-center">Request Amount</th>
+                                <th class="text-center">Request For</th>
+                                {{--<th class="text-center">Event Name</th>--}}
+                                <th class="text-center">Handout Date</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Actions</th>
+                                </tfoot>
+                                <tbody  style="text-align: center">
+                                @foreach ($donationrequests as $donationrequest)
+                                    <tr>
+                                        <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
+                                        <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
+                                        <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
+                                        {{--<td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>--}}
+                                        <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
+
+                                        <td style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
+                                        <td>
+                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-warning" title="Detail">
+                                                <span class="glyphicon glyphicon-list-alt"></span></a>
+                                            <a href="" class="btn btn-success" title="Approve">
+                                                <span class="glyphicon glyphicon-ok"></span></a>
+                                            <a href="" class="btn btn-danger" title="Reject">
+                                                <span class="glyphicon glyphicon-remove"></span></a>
+                                        </td>
+                                        {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
+                                        {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
+                                    </tr>
+                                @endforeach
+
                                 </tbody>
+                                @else
+                                    <div>No Donation Request is stored in the system yet.</div>
+                                @endif
                             </table>
-                            <table style="width:100%">
-                                <col align="left">
-                                <col align="left">
-                                <col align="left">
 
-                                <tr>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-lg">View All Requests</button>
-                                    </td>
-                                    <td>
-                                        <!-- /.panel-heading -->
-                                        <div class="panel-body">
-                                            <!-- Button trigger modal -->
-                                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                                                Set Status
-                                            </button>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                            <h4 class="modal-title" id="myModalLabel">Request Completed Successfully</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Requests DENIED: 4
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Requests APPROVED: 1
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-                                            <!-- /.modal -->
-                                        </div>
-                                        <!-- .panel-body -->
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!-- /.panel-body -->
+                            <div class="panel-heading"><h1>Add a Donation Request</h1></div>
+                            <input type="button" value="Manual Entry for Donation Request"
+                                   onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank');"/>
                     </div>
-
+<!-- Donation request -->
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-4 -->
             </div>
-            <div class="col-lg-6">
-                <div class="panel panel-default text-left">
-                    <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> <b>Top 10 Cause Categories</b>
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover text-left"
-                                   id="dataTables-example">
-                                <thead>
-                                <tr>
-                                    <th>Total Spend</th>
-                                    <th>Cause</th>
-                                    <th>Organization</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>$921.33</td>
-                                    <td>Fund raising for violence against women</td>
-                                    <td>WCA</td>
 
-                                </tr>
-                                <tr>
-                                    <td>$821.33</td>
-                                    <td>Back to school supplies</td>
-                                    <td>Boystown</td>
-
-                                </tr>
-                                <tr>
-                                    <td>$721.33</td>
-                                    <td>Gloves for winter</td>
-                                    <td>Lydia House</td>
-
-                                </tr>
-                                <tr>
-                                    <td>$321.33</td>
-                                    <td>Meals on wheels</td>
-                                    <td>Ron McDonald</td>
-
-                                </tr>
-                                </tbody>
-                            </table>
-                            <button type="button" class="btn btn-primary btn-lg">View Requests</button>
-
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-4 -->
-            </div>
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
@@ -564,10 +231,10 @@
     <!-- /#wrapper -->
 
     <!-- jQuery Version 1.11.0 -->
-    <script src="js/jquery-1.11.0.js"></script>
+    <!--script src="js/jquery-1.11.0.js"></script-->
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <!--script src="js/bootstrap.min.js"></script-->
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="js/plugins/metisMenu/metisMenu.min.js"></script>

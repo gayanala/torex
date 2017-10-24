@@ -41,17 +41,20 @@ class RuleEngineController extends Controller
         return view('rules.rules')->with('rule', $queryBuilderJSON)->with('rule_types', $rule_types)->with('ruleType', $ruleType);
     }
 
-    public function loadRule(Request $request)
+    public function loadRule($request)
     {
-        dd($request);
+        // dd($request);
         $rule_types = Rule_type::where('active', '=', 1)->pluck('type_name', 'id');
         $orgId = Auth::user()->organization_id;
         $ruleType = $request->rule ?? 1;
-
-        //dd($ruleType);
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $orgId], ['rule_type_id', '=', $ruleType], ['active', '=', true]])->first();
-        $queryBuilderJSON = $ruleRow->rule;
-        return redirect()->back()->with('rule', $queryBuilderJSON)->with('rule_types', $rule_types)->with('ruleType', $ruleType);
+        //dd($ruleRow);
+        if ($ruleRow) {
+            $queryBuilderJSON = $ruleRow->rule;
+        } else {
+            $queryBuilderJSON = ''; //'{"condition": "AND", "rules": [{}], "not": false, "valid": true }';
+        }
+        //dd($queryBuilderJSON);
     }
 
     public function saveRule(Request $request)
@@ -83,35 +86,39 @@ class RuleEngineController extends Controller
     {
         $table = DB::table('donation_requests');
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', 1], ['active', '=', 1]])->first();
-        $queryBuilderJSON = $ruleRow->rule;
-        $json = json_decode($queryBuilderJSON);
-        $qbp = new QueryBuilderParser(
-            ['id', 'requester', 'requester_type', 'needed_by_date', 'tax_exempt', 'dollar_amount', 'approved_organization_id', 'approval_status_id']
-        );
-        $query = $qbp->parse(json_encode($json), $table)->where([['organization_id', '=', $ruleOwner], ['approval_status_id', '=', 1]]);
-        //$rows =
-        $query->update(['approval_status_id' => 4, 'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now()]);
-        //$rows = $query->get();
-        //dd($query);
-        //dd($rows);
+        if ($ruleRow) {
+            $queryBuilderJSON = $ruleRow->rule;
+            $json = json_decode($queryBuilderJSON);
+            $qbp = new QueryBuilderParser(
+                ['id', 'requester', 'requester_type', 'needed_by_date', 'tax_exempt', 'dollar_amount', 'approved_organization_id', 'approval_status_id']
+            );
+            $query = $qbp->parse(json_encode($json), $table)->where([['organization_id', '=', $ruleOwner], ['approval_status_id', '=', 1]]);
+            //$rows =
+            $query->update(['approval_status_id' => 4, 'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now()]);
+            //$rows = $query->get();
+            //dd($query);
+            //dd($rows);
+        }
     }
 
     protected function runPendingApprovalRule($ruleOwner)
     {
         $table = DB::table('donation_requests');
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', 2], ['active', '=', 1]])->first();
-        $queryBuilderJSON = $ruleRow->rule;
-        $json = json_decode($queryBuilderJSON);
-        $qbp = new QueryBuilderParser(
-            ['id', 'requester', 'requester_type', 'needed_by_date', 'tax_exempt', 'dollar_amount', 'approved_organization_id', 'approval_status_id']
-        );
-        //dd(json_encode($json));
-        $query = $qbp->parse(json_encode($json), $table)->where([['organization_id', '=', $ruleOwner], ['approval_status_id', '=', 1]]);
-        //$rows =
-        $query->update(['approval_status_id' => 3, 'rule_process_date' => Carbon::now()]);
-        //$rows = $query->get();
-        //dd($query);
-        //dd($rows);
+        if ($ruleRow) {
+            $queryBuilderJSON = $ruleRow->rule;
+            $json = json_decode($queryBuilderJSON);
+            $qbp = new QueryBuilderParser(
+                ['id', 'requester', 'requester_type', 'needed_by_date', 'tax_exempt', 'dollar_amount', 'approved_organization_id', 'approval_status_id']
+            );
+            //dd(json_encode($json));
+            $query = $qbp->parse(json_encode($json), $table)->where([['organization_id', '=', $ruleOwner], ['approval_status_id', '=', 1]]);
+            //$rows =
+            $query->update(['approval_status_id' => 3, 'rule_process_date' => Carbon::now()]);
+            //$rows = $query->get();
+            //dd($query);
+            //dd($rows);
+        }
     }
 
     protected function runPendingRejectionRule($ruleOwner)
