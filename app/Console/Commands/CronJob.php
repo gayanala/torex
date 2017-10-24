@@ -7,10 +7,13 @@ use App\Events\SendAutoRejectEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use App\Listeners\SendAutoRejectMessage;
 
 
-class CronJobExpiredDonationRequests extends Command
+const REJECTED = 'Rejected';
+
+const APPROVED = 'Approved';
+
+class CronJob extends Command
 {
     /**
      * The name and signature of the console command.
@@ -46,31 +49,28 @@ class CronJobExpiredDonationRequests extends Command
 
         DB::transaction(
             function () {
-//                $expired_requests = DB::select('select * from donation_requests where needed_by_date <=  CURRENT_DATE', [5000]);
-//                dd($expired_requests);
 
-                $expired_requests = DonationRequest::where('needed_by_date', '<=', date('Y-m-d'))->get();
-//                dd($expired_requests);
 
-                //    print_r($expired_requests);
-
-                $rejected_status_id_in_db = DB::table('approval_statuses')->where('status_name', 'Rejected')->value('id');
-                //      $this->info($rejected_status_id_in_db);
-
+                $expired_requests = DonationRequest::where('needed_by_date', '<=', date('Y-m-d'))->wherenotin('approval_status_id', array(4, 5))->get();
+                $rejected_status_id_from_approval_statuses = DB::table('approval_statuses')->where('status_name', REJECTED)->value('id');
+                $approved_status_id_in_approval_statuses = DB::table('approval_statuses')->where('status_name', APPROVED)->value('id');
+                // print_r($rejected_status_id_from_approval_statuses + $approved_status_id_in_approval_statuses);
                 // Update all expired requests.
                 DB::table('donation_requests')
-                    ->where('needed_by_date', '<=', date("Y-m-d"))
-                    ->update(['approval_status_id' => $rejected_status_id_in_db]);
-
+                    ->where([
+                        ['needed_by_date', '<=', date("Y-m-d")],
+                        ['approval_status_id', '<>', $rejected_status_id_from_approval_statuses],
+                        ['approval_status_id', '<>', $approved_status_id_in_approval_statuses]
+                    ])
+                    ->update(['approval_status_id' => $rejected_status_id_from_approval_statuses]);
 
 
                 // Loop iterate over expired requests and send email to each requester
                 foreach ($expired_requests as $expired_request) {
-
                     $this->info($expired_request->email);
                     event(new SendAutoRejectEmail($expired_request));
+                    usleep(500000);
                     $this->info($expired_request->approval_status_id);
-                    // Call SENT EMAIL FUNCTION using $expired_request->email
                 }
 
                 // $this->info(DATE(NOW()));
@@ -79,7 +79,7 @@ class CronJobExpiredDonationRequests extends Command
                 // print_r($expired_requests);
             });
 
-        Log::info('Expired Donation Request Status Updated To REJECTED!');
-        $this->info('Request Status Updated Successfully!');
+        Log::error('Expired Donation Requests Status Updated To REJECTED!');
+        $this->error('Request Status Updated Successfully!');
     }
 }

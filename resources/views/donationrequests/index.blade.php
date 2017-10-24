@@ -54,10 +54,12 @@
                                     <td>
                                         <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-warning" title="Detail">
                                             <span class="glyphicon glyphicon-list-alt"></span></a>
-                                        <a href="" class="btn btn-success" title="Approve">
-                                            <span class="glyphicon glyphicon-ok"></span></a>
-                                        <a href="" class="btn btn-danger" title="Reject">
-                                            <span class="glyphicon glyphicon-remove"></span></a>
+                                        @if($donationrequest->donationApprovalStatus->id == 2 || $donationrequest->donationApprovalStatus->id == 3)
+                                            <a href="" class="btn btn-success" title="Approve">
+                                                <span class="glyphicon glyphicon-ok"></span></a>
+                                            <a href="" class="btn btn-danger" title="Reject">
+                                                <span class="glyphicon glyphicon-remove"></span></a>
+                                        @endif
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
 {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
