@@ -205,7 +205,12 @@
         } );
 
         $('#selectall').change(function() {
-            $('.myCheckbox').prop('checked', true);
+            if(document.getElementById('selectall').checked) {
+                $('.myCheckbox').prop('checked', true);
+            } else {
+                $('.myCheckbox').prop('checked', false);
+            }
+
         });
     </script>
 
