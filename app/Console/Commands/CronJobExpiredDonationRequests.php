@@ -54,7 +54,7 @@ class CronJobExpiredDonationRequests extends Command
                 $expired_requests = DonationRequest::where('needed_by_date', '<=', date('Y-m-d'))->wherenotin('approval_status_id', array(4, 5))->get();
                 $rejected_status_id_from_approval_statuses = DB::table('approval_statuses')->where('status_name', REJECTED)->value('id');
                 $approved_status_id_in_approval_statuses = DB::table('approval_statuses')->where('status_name', APPROVED)->value('id');
-
+                // print_r($rejected_status_id_from_approval_statuses + $approved_status_id_in_approval_statuses);
                 // Update all expired requests.
                 DB::table('donation_requests')
                     ->where([
