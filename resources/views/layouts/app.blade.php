@@ -226,7 +226,7 @@
                                 <li><a href="{{ url('/') }}#sign">Sign Up !</a></li>
                                 <li><a href="{{ url('/') }}#how">How This Works</a></li>
                                 <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                <a href="#" id="myaccount" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-expanded="false"> My Account
                                     <span class="caret"></span>
                                 </a>
