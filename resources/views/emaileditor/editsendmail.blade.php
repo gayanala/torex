@@ -42,6 +42,13 @@
                         @endif
 
                         <div class="form-group">
+                            {!! Form::label('To', 'To:', ['class'=>'col-md-3 control-label', ]) !!}
+                            <div class="col-lg-9">
+                                {!! Form:: !!}
+                                {{--{!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}--}}
+                            </div>
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('Email Subject', '* Email Subject:', ['class'=>'col-md-3 control-label', ]) !!}
                             <div class="col-lg-9">
                                 {!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}

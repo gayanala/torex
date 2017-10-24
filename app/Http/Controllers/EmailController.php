@@ -38,7 +38,7 @@ class EmailController extends Controller
 
     public function manualRequestMail() {
 
-        Mail::to('somebody@gmail.coom')->send(new SendManualRequest());
+        Mail::to('somebody@gmail.com')->send(new SendManualRequest());
 
         return redirect('\home');
     }
