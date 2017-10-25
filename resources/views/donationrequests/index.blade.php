@@ -68,17 +68,7 @@
                         onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank');"/>
                     </div>
 
-                    
- <div class="col-md-2">
-          <form action="{{url('donationrequests/export')}}" method='GET' enctype="multipart/form-data">
-            <button class="btn btn-success" type="submit">Export</button>
-          </form>
-        </div>
-      </div>
-                </div>
-            {{--</div>--}}
-        </div>
-    </div>
+
 
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

@@ -63,17 +63,7 @@ class DonationRequestController extends Controller
 //        return view('donationrequests.edit',compact('donationrequest', 'requester_types'));
     }
 
-     public function export(Request $request){
-       //dd('bro');
-       $query = $request-> q;
-      $donationrequest = DonationRequest::where('requester','LIKE', "%$query%");
 
-      Excel::create('donationrequest', function($excel) use($donationrequest) {
-              $excel->sheet('ExportFile', function($sheet) use($donationrequest) {
-              $sheet->fromArray($donationrequest);
-          });
-      })->export('xls');
-  }
 
 
     public function update($id,Request $request)
