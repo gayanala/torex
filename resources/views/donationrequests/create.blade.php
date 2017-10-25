@@ -179,10 +179,10 @@
                             <div class="col-md-6">
 
                                 <label for="chkYes">
-                                    <input type="radio" onclick="javascript:yesnoCheck();" name="taxexempt" id="yesCheck" value="1" >Yes
+                                    <input type="radio" onclick="javascript:yesnoCheck();" name="taxexempt" id="yesCheck" value='Yes' >Yes
                                 </label>
                                 <label for="chkNo">
-                                    <input type="radio" onclick="javascript:yesnoCheck();" name="taxexempt" id="noCheck" value="0">No
+                                    <input type="radio" onclick="javascript:yesnoCheck();" name="taxexempt" id="noCheck" value='No'>No
                                 </label>
                                 @if ($errors->has('taxexempt'))
                                     <span class="help-block">

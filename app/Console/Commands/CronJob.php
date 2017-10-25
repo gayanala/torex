@@ -13,7 +13,7 @@ const REJECTED = 'Rejected';
 
 const APPROVED = 'Approved';
 
-class CronJobExpiredDonationRequests extends Command
+class CronJob extends Command
 {
     /**
      * The name and signature of the console command.
@@ -54,7 +54,7 @@ class CronJobExpiredDonationRequests extends Command
                 $expired_requests = DonationRequest::where('needed_by_date', '<=', date('Y-m-d'))->wherenotin('approval_status_id', array(4, 5))->get();
                 $rejected_status_id_from_approval_statuses = DB::table('approval_statuses')->where('status_name', REJECTED)->value('id');
                 $approved_status_id_in_approval_statuses = DB::table('approval_statuses')->where('status_name', APPROVED)->value('id');
-
+                // print_r($rejected_status_id_from_approval_statuses + $approved_status_id_in_approval_statuses);
                 // Update all expired requests.
                 DB::table('donation_requests')
                     ->where([
@@ -69,6 +69,7 @@ class CronJobExpiredDonationRequests extends Command
                 foreach ($expired_requests as $expired_request) {
                     $this->info($expired_request->email);
                     event(new SendAutoRejectEmail($expired_request));
+                    usleep(500000);
                     $this->info($expired_request->approval_status_id);
                 }
 

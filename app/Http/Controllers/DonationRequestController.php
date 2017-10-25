@@ -63,15 +63,7 @@ class DonationRequestController extends Controller
 //        return view('donationrequests.edit',compact('donationrequest', 'requester_types'));
     }
 
-     public function export(){
-       
-      $donationrequest = DonationRequest::all();
-      Excel::create('donationrequest', function($excel) use($donationrequest) {
-              $excel->sheet('ExportFile', function($sheet) use($donationrequest) {
-              $sheet->fromArray($donationrequest);
-          });
-      })->export('xls');
-  }
+
 
 
     public function update($id,Request $request)
@@ -145,6 +137,9 @@ class DonationRequestController extends Controller
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
+        $this->validate($request, [
+       'needed_by_date' => 'after:today',
+        ]);
         $donationRequest->save();
         if($request->hasFile('attachment')) {
             $file = new File();

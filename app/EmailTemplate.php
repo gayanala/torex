@@ -12,7 +12,7 @@ class EmailTemplate extends Model
         'email_subject',
         'email_message',
         'email_header',
-        'email_footer'
+        'email_footer',
     ];
 
     public function emailTemplateTypes()

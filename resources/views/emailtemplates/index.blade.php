@@ -33,7 +33,10 @@
                 </div>
                 {{--Akhilesh--}}
                 <a href="{{action('EmailTemplateController@send', ['id' => 3, 'email'=>'akhileshkontham@gmail.com'])}}
-                        " class="btn btn-info btn-lg">"hallelujah"</a>
+                        " class="btn btn-info btn-lg">hallelujah</a>
+                <a href="{{action('EmailController@manualRequestMail', [])}}
+                        " class="btn btn-info btn-lg">Amen</a>
+
             </div>
         </div>
     </div>

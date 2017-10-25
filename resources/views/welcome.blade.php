@@ -4,16 +4,22 @@
 
     <body>
 
-
     <div id="image1" class="container-fluid" style='text-align:center; background-image: url("http://citadelnyc.com/wp-content/uploads/2015/04/background-outer-wrapper2.png");background-repeat:repeat;height:155px;' align="center" >
 
     </div>
-    <div class="container-fluid">
-        <div class="background-image" style="overflow: hidden ; height: 100%; min-width: 102.7% ; position: inherit ">
-            <img src="http://www.bikemaui.com/wp-content/uploads/2016/06/sunrise-maui-hawaii.jpg" />
 
+        <div class="containerimg" >
+            <img src="{{ asset('img/cover.jpg') }}" style="overflow: hidden ; height: 100%; width: 100% ; position:static;  "/>
+<script>
+    $(window).load(function(){
+        $('.containerimg').find('img').each(function(){
+            var imgClass = (this.width/this.height > 1) ? 'wide' : 'tall';
+            $(this).addClass(imgClass);
+        })
+    })
+</script>
         </div>
-    </div>
+
     <div id="image" class="container-fluid" style='text-align:center; background-image: url("http://www.seniorsfishandchips.co.uk/images/community-header.png");background-repeat:repeat;height:155px;' align="center" >
 
     </div>

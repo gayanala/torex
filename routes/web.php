@@ -94,7 +94,7 @@ Route::resource('emailtemplates', 'EmailTemplateController');
 
 //Emails
 
-Route::get('/email', 'EmailController@email') ->name('approveandsendmail');
+Route::get('/sendingemail', 'EmailController@manualRequestMail') ->name('approveandsendmail');
 
 //Dashboard
 
