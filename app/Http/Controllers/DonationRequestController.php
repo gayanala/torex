@@ -67,7 +67,7 @@ class DonationRequestController extends Controller
        //dd('bro');
        $query = $request-> q;
       $donationrequest = DonationRequest::where('requester','LIKE', "%$query%");
-      
+
       Excel::create('donationrequest', function($excel) use($donationrequest) {
               $excel->sheet('ExportFile', function($sheet) use($donationrequest) {
               $sheet->fromArray($donationrequest);
@@ -147,6 +147,9 @@ class DonationRequestController extends Controller
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
+        $this->validate($request, [
+       'needed_by_date' => 'after:today',
+        ]);
         $donationRequest->save();
         if($request->hasFile('attachment')) {
             $file = new File();
