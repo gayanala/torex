@@ -229,7 +229,7 @@
             // checkboxes to update to either approved or rejected
             $.ajax({
                 type: "POST",
-                url: '/tagg/public/donation/change-status',
+                url: 'donation/change-status',
                 dataType: 'json',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
