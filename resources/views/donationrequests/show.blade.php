@@ -19,7 +19,7 @@
                         </tr>
                         <tr>
                             <td>Type of Organization</td>
-                            <td><?php echo ($type_organization_name); ?></td>
+                            <td><?php echo ($donationRequestName); ?></td>
                         </tr>
                         <tr>
                             <td>Name</td>

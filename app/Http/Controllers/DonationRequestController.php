@@ -184,12 +184,12 @@ class DonationRequestController extends Controller
         $item_requested_id = $donationrequest->item_requested;
         $item_requested = Request_item_type::findOrFail($item_requested_id);
         $item_requested_name = $item_requested->item_name;
-//dd(Organization_type::findOrFail(11));
-        $type_organization_id = $donationrequest->requester_type;
-        $type_organization = Organization_type::findOrFail($type_organization_id);
-        $type_organization_name = $type_organization->type_name;
+
+        $donationRequestId = $donationrequest->requester_type;
+        $donationRequest = Requester_type::findOrFail($donationRequestId);
+        $donationRequestName = $donationRequest->type_name;
         return view('donationrequests.show',compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
-        , 'item_requested_name', 'type_organization_name'));
+        , 'item_requested_name', 'donationRequestName'));
     }
 
     public function searchDonationRequest(Request $request) {
