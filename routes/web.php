@@ -100,6 +100,8 @@ Route::get('/email', 'EmailController@email') ->name('approveandsendmail');
 
 Route::get('/dashboard', 'DashboardController@index');
 
+Route::post('/donation/change-status', 'DonationRequestController@changeDonationStatus');
+
 // Rules stuff
 Route::get('guirules', 'RuleEngineController@rulesGui');
 Route::get('runRule', 'RuleEngineController@runRule');

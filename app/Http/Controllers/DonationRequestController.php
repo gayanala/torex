@@ -203,4 +203,15 @@ class DonationRequestController extends Controller
         $donationrequests = DonationRequest::where('requester', 'LIKE', "%$query%")->paginate(3);
         return view('donationrequests.index', compact('donationrequests'));
     }
+
+    public function changeDonationStatus(Request $request) {
+
+        if ($request['status'] == 0) {
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5]);
+        } elseif ($request['status'] == 1) {
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4]);
+        }
+
+        return response()->json(['idsArray' => $request['ids'], 'status' => $request['status']]);
+    }
 }
