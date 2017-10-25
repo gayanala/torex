@@ -28,7 +28,7 @@ class CreateDonationRequestsTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->integer('zipcode');
-            $table->boolean('tax_exempt');
+            $table->string('tax_exempt');
             $table->string('item_requested');
             $table->string('item_purpose');
             $table->string('event_name');
