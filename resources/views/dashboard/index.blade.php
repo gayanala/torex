@@ -35,11 +35,11 @@
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-3 col-md-6">
-                <div class="panel panel-primary">
+                <div class="panel panel-green">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-comments fa-5x"></i>
+                                <i class="fa fa-money fa-5x" style="color: #3e8f3e"></i>
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div class="huge">{{$amountDonated}}</div>
@@ -55,7 +55,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-tasks fa-5x"></i>
+                                <i class="fa fa-window-close-o fa-5x" style="color: red"></i>
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div class="huge">{{$rejectedNumber}}</div>
@@ -63,13 +63,13 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    {{--<a href="#">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
                             <div class="clearfix"></div>
                         </div>
-                    </a>
+                    </a>--}}
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -77,7 +77,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-shopping-cart fa-5x"></i>
+                                <i class="fa fa-check-square-o fa-5x" style="color: #00dd00"></i>
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div class="huge">{{$approvedNumber}}</div>
@@ -85,13 +85,13 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    {{--<a href="#">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
                             <div class="clearfix"></div>
                         </div>
-                    </a>
+                    </a>--}}
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -99,7 +99,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-support fa-5x"></i>
+                                <i class="fa fa-clock-o fa-5x" style="color: darkorange"></i>
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div class="huge">{{$pendingNumber}}</div>
@@ -107,13 +107,13 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    {{--<a href="#">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
                             <div class="clearfix"></div>
                         </div>
-                    </a>
+                    </a>--}}
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         @if(sizeOf($donationrequests) != 0)
-                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
                                 <thead>
                                 <tr class="bg-info">
                                     <th class="text-center">SelectAll <input type="checkbox" id="selectall"/></th>
@@ -141,7 +141,7 @@
                                     {{--<th class="text-center">Event Name</th>--}}
                                     <th class="text-center">Handout Date</th>
                                     <th class="text-center">Status</th>
-                                    <th class="text-center">Actions</th>
+                                    <th class="text-center">View Details</th>
                                 </tr>
                                 </thead>
 
@@ -236,7 +236,8 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function( resp ){
+                success: function( resp ) {
+                    //window.location.href = 'emaileditor/editsendmail/' + $.param(idsArray);
                     setStatusText = '';
                     if(resp.status == 0) {
                         setStatusText = 'Approved';
@@ -249,12 +250,13 @@
                         //1- rejected
                         $('#status' + resp.idsArray[i]).text(setStatusText);
                     }
+                    //alert(resp.emailids);
                 },
                 data: {ids:idsArray, status:actionStatus}
             });
 
             // clearing the array
-            idsArray = [];
+             idsArray = [];
 
             $('input:checkbox:checked').prop('checked', false);
 
