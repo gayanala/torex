@@ -190,6 +190,7 @@ class DonationRequestController extends Controller
         $donationRequestId = $donationrequest->requester_type;
         $donationRequest = Requester_type::findOrFail($donationRequestId);
         $donationRequestName = $donationRequest->type_name;
+        dd('193');
         return view('donationrequests.show',compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
         , 'item_requested_name', 'donationRequestName'));
     }
