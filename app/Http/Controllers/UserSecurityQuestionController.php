@@ -17,12 +17,10 @@ class UserSecurityQuestionController extends Controller
     {
         $user = $request->session()->get('userId');
         $securityquestions = Security_question::pluck('question', 'id');
-        $question_list1 = collect(array($securityquestions[1], $securityquestions[2], $securityquestions[3],
-            $securityquestions[4], $securityquestions[5]));
-        $question_list2 = collect(array($securityquestions[6], $securityquestions[7], $securityquestions[8],
-            $securityquestions[9], $securityquestions[10]));
-        $question_list3 = collect(array($securityquestions[11], $securityquestions[12], $securityquestions[13],
-            $securityquestions[14], $securityquestions[15]));
+        $questionChunks = $securityquestions->chunk(ceil(sizeof($securityquestions)/3));
+        $question_list1 = $questionChunks[0];
+        $question_list2 = $questionChunks[1];
+        $question_list3 = $questionChunks[2];
         return view('securityquestions.create',
             compact('user', 'securityquestions', 'question_list1', 'question_list2', 'question_list3'))
             ->with('question', $securityquestions);
@@ -56,7 +54,6 @@ class UserSecurityQuestionController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
         for ($i = 0; $i < sizeof($request->answer); $i++ ) {
             $user_securityquestion = new UserSecurityQuestion();
             $user_securityquestion->user_id = $request->user_id;
