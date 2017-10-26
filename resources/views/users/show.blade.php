@@ -45,7 +45,7 @@
 
                         <div class="form-group">
                             {!! Form::label('Business Location', 'Business Location:') !!}
-                            {!! Form::select('location', [Auth::user()->organization->org_name], null, ['class' => 'form-control']) !!}
+                            {!! Form::select('location', $childOrgNames, null, ['class' => 'form-control']) !!}
                         </div>
 
                         </div>

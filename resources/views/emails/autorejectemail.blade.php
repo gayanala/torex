@@ -1,7 +1,7 @@
 @component('mail::message')
 # Dear Customer,
 
-Your donation request has been rejected. Sorry about that.
+We're sorry to inform you that your donation request has been rejected.
 
 Thanks,<br>
 {{ config('app.name') }}

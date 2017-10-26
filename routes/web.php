@@ -27,13 +27,13 @@ Route::get('/about-us', function () { return view('Front-page');});
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('forgotpassword/insertemail','UserSecurityquestionController@showemailpage');
+Route::get('forgotpassword/insertemail','UserSecurityQuestionController@showemailpage');
 
-Route::get('forgotpassword/checksecurityquestion','UserSecurityquestionController@insertcheck');
+Route::get('forgotpassword/checksecurityquestion','UserSecurityQuestionController@insertcheck');
 
-Route::get('Securityquestions/check/{id}', 'UserSecurityquestionController@check')->name('check');
+Route::get('Securityquestions/check/{id}', 'UserSecurityQuestionController@check')->name('check');
 
-Route::get('securityquestions/insertcheck/{id}', 'UserSecurityquestionController@insertcheck')->name('insertcheck');
+Route::get('securityquestions/insertcheck/{id}', 'UserSecurityQuestionController@insertcheck')->name('insertcheck');
 
 Route::resource('securityquestions', 'UserSecurityQuestionController');
 
@@ -95,10 +95,13 @@ Route::resource('emailtemplates', 'EmailTemplateController');
 //Emails
 
 Route::get('/sendingemail', 'EmailController@manualRequestMail') ->name('approveandsendmail');
+Route::get('/emaileditor/editsendmail','EmailTemplateController@send');
 
 //Dashboard
 
 Route::get('/dashboard', 'DashboardController@index');
+
+Route::post('/donation/change-status', 'DonationRequestController@changeDonationStatus');
 
 // Rules stuff
 Route::get('guirules', 'RuleEngineController@rulesGui');

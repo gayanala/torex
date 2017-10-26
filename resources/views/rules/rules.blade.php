@@ -228,20 +228,23 @@ $(document).ready(function(){
                     12: 'Youth Sports/Activities',
                     13: 'Others'
                 },
-                operators: ['equal', 'not_equal', 'in', 'not_in']
+                //operators: ['equal', 'not_equal', 'in', 'not_in']
+                operators: ['equal', 'not_equal']
             }, {
                 id: 'tax_exempt',
                 label: 'Tax Exempt',
                 type: 'boolean',
-                input: 'checkbox',
+                input: 'radio',
                 values: {
-                    1: 'Yes'
+                    1: 'Yes',
+                    0: 'No'
                 },
                 operators: ['equal', 'not_equal']
             }, {
                 id: 'dollar_amount',
                 label: 'Dollar Amount',
                 type: 'double',
+                operators: ['less_or_equal', 'greater_or_equal', 'greater', 'less', 'equal', 'not_equal'],
                 validation: {
                     min: 0,
                     step: 0.01

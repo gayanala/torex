@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\DonationRequest;
+use App\Events\SendAutoRejectEmail;
+use App\Events\TriggerAcceptEmailEvent;
 use App\File;
 use App\Request_event_type;
 use App\Request_item_purpose;
@@ -63,15 +65,7 @@ class DonationRequestController extends Controller
 //        return view('donationrequests.edit',compact('donationrequest', 'requester_types'));
     }
 
-     public function export(){
-       
-      $donationrequest = DonationRequest::all();
-      Excel::create('donationrequest', function($excel) use($donationrequest) {
-              $excel->sheet('ExportFile', function($sheet) use($donationrequest) {
-              $sheet->fromArray($donationrequest);
-          });
-      })->export('xls');
-  }
+
 
 
     public function update($id,Request $request)
@@ -145,6 +139,9 @@ class DonationRequestController extends Controller
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
+        $this->validate($request, [
+       'needed_by_date' => 'after:today',
+        ]);
         $donationRequest->save();
         if($request->hasFile('attachment')) {
             $file = new File();
@@ -189,12 +186,12 @@ class DonationRequestController extends Controller
         $item_requested_id = $donationrequest->item_requested;
         $item_requested = Request_item_type::findOrFail($item_requested_id);
         $item_requested_name = $item_requested->item_name;
-//dd(Organization_type::findOrFail(11));
-        $type_organization_id = $donationrequest->requester_type;
-        $type_organization = Organization_type::findOrFail($type_organization_id);
-        $type_organization_name = $type_organization->type_name;
+
+        $donationRequestId = $donationrequest->requester_type;
+        $donationRequest = Requester_type::findOrFail($donationRequestId);
+        $donationRequestName = $donationRequest->type_name;
         return view('donationrequests.show',compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
-        , 'item_requested_name', 'type_organization_name'));
+        , 'item_requested_name', 'donationRequestName'));
     }
 
     public function searchDonationRequest(Request $request) {
@@ -202,5 +199,30 @@ class DonationRequestController extends Controller
         $query = $request->q;
         $donationrequests = DonationRequest::where('requester', 'LIKE', "%$query%")->paginate(3);
         return view('donationrequests.index', compact('donationrequests'));
+    }
+
+    public function changeDonationStatus(Request $request) {
+        
+        $emailids = [];
+        if ($request['status'] == 0) {
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5]);
+            $acceptedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
+
+            foreach ($acceptedrequests as $acceptedrequest) {
+                event(new TriggerAcceptEmailEvent($acceptedrequest));
+                usleep(500000);
+            }
+
+        } elseif ($request['status'] == 1) {
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4]);
+            $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
+
+            foreach ($rejectedrequests as $rejectedrequest) {
+                event(new TriggerAcceptEmailEvent($rejectedrequest));
+                usleep(500000);
+            }
+        }
+
+        return response()->json(['idsArray' => $request['ids'], 'status' => $request['status']]);
     }
 }
