@@ -106,7 +106,7 @@ class OrganizationController extends Controller
         // Inserting the relation between parent organization and child organization
         ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);
 
-        $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
+        //$childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
         return redirect()->route("organizations.index")->with('message','Successfully added the Business Location');
     }
 
