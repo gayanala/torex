@@ -6,6 +6,7 @@ use App\Events\NewBusiness;
 use App\Events\NewSubBusiness;
 use App\Http\Controllers\Route;
 use App\Organization;
+use App\ParentChildOrganizations;
 use App\State;
 use App\User;
 use Auth;
@@ -41,8 +42,13 @@ class UserController extends Controller
         $organization = Auth::user()->organization_id;
         $count = User::where('organization_id', $organization)->count();
         $subscription = DB::table('subscriptions')->where('organization_id', $organization)->value('quantity');
+        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
+        $childOrgIds = $parentChildOrg->pluck('child_org_id');
+
+        $childOrgNames = Organization::whereIn('id', $childOrgIds)->pluck('org_name', 'id');
+
         if ($count <= $subscription) {
-            return view('users.show', compact('user'));
+            return view('users.show', compact('user', 'childOrgNames'));
         } else {
             \Session::flash('flash_message', 'Adding users crossed plan limit!');
             return view('users.index', compact('user'));
@@ -138,7 +144,7 @@ class UserController extends Controller
      * @return Response
      */
     public function update(Request $request, $id)
-    {//dd($request);
+    {
         $validator = Validator::make($request->all(), [
             'phone_number' => 'required|numeric|digits:10',
             'zipcode' => 'required|numeric|digits:5',
