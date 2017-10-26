@@ -171,9 +171,11 @@
                                     <div>No Donation Request is stored in the system yet.</div>
                                 @endif
                             </table>
+                        <div>
+                            <a type="button" class="btn active btn-group-sm btn-primary" onClick="func(0)">Approve Selected Donations</a>
+                            <a type="button" class="btn active btn-group-sm btn-primary" onClick="func(1)">Reject Selected Donations</a>
 
-                            <a type="button" class="active btn-group-lg btn-primary" onClick="func(0)">Approve Selected Donations</a>
-                            <a type="button" class="active btn-group-lg btn-primary" onClick="func(1)">Reject Selected Donations</a>
+                        </div>
                     </div>
 
 <!-- Donation request -->
