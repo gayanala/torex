@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\DonationRequest;
+use App\Events\SendAutoRejectEmail;
+use App\Events\TriggerAcceptEmailEvent;
 use App\File;
 use App\Request_event_type;
 use App\Request_item_purpose;
@@ -200,11 +202,25 @@ class DonationRequestController extends Controller
     }
 
     public function changeDonationStatus(Request $request) {
-
+        
+        $emailids = [];
         if ($request['status'] == 0) {
             $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5]);
+            $acceptedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
+
+            foreach ($acceptedrequests as $acceptedrequest) {
+                event(new TriggerAcceptEmailEvent($acceptedrequest));
+                usleep(500000);
+            }
+
         } elseif ($request['status'] == 1) {
             $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4]);
+            $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
+
+            foreach ($rejectedrequests as $rejectedrequest) {
+                event(new TriggerAcceptEmailEvent($rejectedrequest));
+                usleep(500000);
+            }
         }
 
         return response()->json(['idsArray' => $request['ids'], 'status' => $request['status']]);
