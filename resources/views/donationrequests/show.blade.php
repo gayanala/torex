@@ -19,7 +19,7 @@
                         </tr>
                         <tr>
                             <td>Type of Organization</td>
-                            <td><?php echo ($type_organization_name); ?></td>
+                            <td><?php echo ($donationRequestName); ?></td>
                         </tr>
                         <tr>
                             <td>Name</td>
@@ -62,8 +62,16 @@
                             <td><?php echo ($item_requested_name); ?></td>
                         </tr>
                         <tr>
+                            <td>Dollar Amount</td>
+                            <td>$<?php echo ($donationrequest['dollar_amount']); ?></td>
+                        </tr>
+                        <tr>
                             <td>Donation Purpose</td>
                             <td><?php echo ($donation_purpose_name); ?></td>
+                        </tr>
+                        <tr>
+                            <td>Handout Date</td>
+                            <td><?php echo date("m/d/Y", strtotime($donationrequest['needed_by_date'])); ?></td>
                         </tr>
                         <tr>
                             <td>Event Name</td>

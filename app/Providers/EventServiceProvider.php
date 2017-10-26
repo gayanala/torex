@@ -24,6 +24,16 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\NewSubBusiness' => [
             'App\Listeners\SendWelcomeMailSubOrg',
         ],
+        'App\Events\SendAutoRejectEmail' => [
+            'App\Listeners\SendAutoRejectMessage',
+        ],
+        'App\Events\TriggerAcceptEmailEvent' => [
+            'App\Listeners\TriggerAcceptMailView',
+        ],
+        'App\Events\TriggerRejectEmailEvent' => [
+            'App\Listeners\TriggerRejectMailView',
+        ],
+
 
     ];
 

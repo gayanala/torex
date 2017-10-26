@@ -33,7 +33,7 @@ class ModifyDonationRequestsTable extends Migration
             $table->integer('item_purpose')->unsigned()->index()->after('item_requested');
             $table->foreign('item_purpose')->references('id')->on('request_item_purposes');
             $table->string('other_item_purpose')->nullable()->after('item_purpose');
-            $table->integer('event_type')->unsigned()->index()->after('event_name');
+            $table->integer('event_type')->unsigned()->index()->nullable()->after('event_name');
             $table->foreign('event_type')->references('id')->on('request_event_types');
             $table->integer('est_attendee_count')->unsigned()->index()->after('event_type');
 

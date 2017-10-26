@@ -10,11 +10,7 @@
     theme: 'modern',
     width: 745,
     height: 300,
-    plugins: [
-      'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-      'save table contextmenu directionality emoticons template paste textcolor'
-    ],
+  
     content_css: 'css/content.css',
     toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
   });
@@ -48,6 +44,16 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            {!! Form::label('Email Greetings', 'Email Greetings:', ['class'=>'col-md-3 control-label', ]) !!}
+                            <div class="col-lg-9">
+                                {!! Form::text('email_header', null, ['required'], ['class' => 'form-control']) !!}
+
+                                
+                            </div>
+                        </div>
+
+                     
                         
                         <div class="form-group">
                             {!! Form::label('Email Message', '* Email Message:', ['class'=>'col-md-3 control-label' ]) !!}
@@ -57,6 +63,13 @@
                         <!--div class="col-lg-6"-->
                               {!! Form::textarea('email_message', null, ['required'], ['class' => 'col-md-4 control-label']) !!}
                                                         </div>
+
+                       <div class="form-group">
+                            {!! Form::label('Email Footer', '* Email Footer:', ['class'=>'col-md-3 control-label', ]) !!}
+                            <div class="col-lg-9">
+                                {!! Form::text('email_footer', null, ['required'], ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
                         
 
                         <div class="form-group">
@@ -64,7 +77,7 @@
                                 {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
                                <a href="{{ route('emailtemplates.index')}}" class="btn btn-primary">Cancel</a>
                                 <span style="color: red"> <h5>Fields Marked With (<span
-                                                style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>             
+                                                style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory </h5></span>             
 
                             </div>
                         </div>

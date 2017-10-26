@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Route;
-use App\Organization;
-use App\State;
-use App\User;
 use App\Events\NewBusiness;
 use App\Events\NewSubBusiness;
+use App\Http\Controllers\Route;
+use App\Organization;
+use App\ParentChildOrganizations;
+use App\State;
+use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Auth;
-use Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Validator;
 
 
 class UserController extends Controller
@@ -37,7 +39,20 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show', compact('user'));
+        $organization = Auth::user()->organization_id;
+        $count = User::where('organization_id', $organization)->count();
+        $subscription = DB::table('subscriptions')->where('organization_id', $organization)->value('quantity');
+        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
+        $childOrgIds = $parentChildOrg->pluck('child_org_id');
+
+        $childOrgNames = Organization::whereIn('id', $childOrgIds)->pluck('org_name', 'id');
+
+        if ($count <= $subscription) {
+            return view('users.show', compact('user', 'childOrgNames'));
+        } else {
+            \Session::flash('flash_message', 'Adding users crossed plan limit!');
+            return view('users.index', compact('user'));
+        }
     }
 
     public function create(Request $request)
@@ -79,6 +94,7 @@ class UserController extends Controller
         return redirect('/securityquestions/create')-> with('userId',$userid);
 
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -99,16 +115,12 @@ class UserController extends Controller
         $user->city = $loggedInUserDetails->city;
         $user->state = $loggedInUserDetails->state;
         $user->zipcode = $loggedInUserDetails->zipcode;
-        $user->organization_id = $loggedInUserDetails->organization_id;
+        $user->organization_id = $request->location;
         $user->phone_number = $loggedInUserDetails->phone_number;
 
         $user->save();
 
         $user->roles()->attach(5);
-
-        //dd($loggedInUserDetails);
-
-        //User::create($user);
 
         //fire NewBusiness event to initiate sending welcome mail
 
@@ -132,20 +144,19 @@ class UserController extends Controller
      * @return Response
      */
     public function update(Request $request, $id)
-    {//dd($request);
+    {
         $validator = Validator::make($request->all(), [
-            'phone_number' => 'required|regex:/[0-9]{9}/',
-            'zipcode' => 'required|regex:/[0-9]{5}/',
+            'phone_number' => 'required|numeric|digits:10',
+            'zipcode' => 'required|numeric|digits:5',
             'state' => 'required',
-                'email' => [
-                    'required',
-                    'email',
-                    Rule::unique('users')->ignore($id),
-                ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
         ]);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return redirect() ->back()->withErrors($validator)->withInput();
         }
 

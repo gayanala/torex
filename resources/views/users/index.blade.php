@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if(Session::has('flash_message'))
+            <div class="col-md-8 alert alert-success">
+                {{Session::get('flash_message')}}
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
@@ -34,7 +39,7 @@
                         <div class="panel-heading"><h1>Add a User</h1></div>
                             </div>
                         </div>
-                        <td><a href="{{route('users.show',$user->id)}}" class="btn btn-warning"> Create Account </a>
+                        <td><a href="{{route('users.show',$user->id)}}" class="btn btn-warning"> Add User </a>
 
                             <div class="col-10">
                                 <div class="panel panel-default">
@@ -46,7 +51,7 @@
                                 function Copy() {
                                     var orgId = "{{Auth::user()->organization_id}}";
 
-                                    urlCopied.value = "http://tagg-preprod.herokuapp.com/donationrequests/create?orgId={{Auth::user()->organization_id}}" ;
+                                    urlCopied.value = "{{url('donationrequests/create')}}?orgId={{Auth::user()->organization_id}}" ;
                                     //Copied = Url.createTextRange();
                                     //Copied.execCommand("Copy");
                                     window.confirm("You have successfully generated the URL needed for donation Requests on your website");

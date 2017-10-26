@@ -10,13 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-if (env('APP_ENV') === 'production') {
-    URL::forceSchema('https');
-}
+if(env('REDIRECT_HTTPS'))
+{
+    URL::forceScheme('https');
+};
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 Auth::routes();
 
@@ -24,17 +27,36 @@ Route::get('/about-us', function () { return view('Front-page');});
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('Securityquestions/check/{id}', 'SecurityquestionController@check')->name('check');
+Route::get('forgotpassword/insertemail','UserSecurityQuestionController@showemailpage');
 
-Route::get('securityquestions/insertcheck/{id}', 'SecurityquestionController@insertcheck')->name('insertcheck');
+Route::get('forgotpassword/checksecurityquestion','UserSecurityQuestionController@insertcheck');
 
-Route::resource('securityquestions', 'SecurityquestionController');
+Route::get('Securityquestions/check/{id}', 'UserSecurityQuestionController@check')->name('check');
+
+Route::get('securityquestions/insertcheck/{id}', 'UserSecurityQuestionController@insertcheck')->name('insertcheck');
+
+Route::resource('securityquestions', 'UserSecurityQuestionController');
 
 Route::resource('attachment', 'DonationRequestController');
 
 Route::resource('/users', 'UserController');
 
+Route::get('organizations/createOrganization', 'OrganizationController@createOrganization');
+
+Route::delete('organizations', 'OrganizationController@destroy');
+
 Route::resource('organizations', 'OrganizationController');
+
+Route::group(['prefix' => 'subscription'], function () {
+    Route::get('/', [
+        'as' => 'subscription',
+        'uses' => 'SubscriptionController@getIndex'
+    ]);
+    Route::post('/', [
+
+        'uses' => 'SubscriptionController@postJoin'
+    ]);
+});
 
 Route::post('user/register', 'UserController@create');
 
@@ -48,7 +70,11 @@ Route::get('/donationrequests/create', 'DonationRequestController@create')->name
 
 Route::get('donationrequests/search','DonationRequestController@searchDonationRequest');
 
+Route::get('donationrequests/export', 'DonationRequestController@export');
+
 Route::resource('/donationrequests', 'DonationRequestController');
+
+
 
 Route::get('change-password', function() {
     return view('change-password');
@@ -62,15 +88,30 @@ Route::post('change-password', 'Auth\UpdatePasswordController@update');
 
 Route::get('/emailtemplates/edit/{id}', 'EmailTemplateController@edit');
 
+Route::get('/emailtemplates/editsendmail', 'EmailTemplateController@send');
+
 Route::resource('emailtemplates', 'EmailTemplateController');
 
 //Emails
 
-Route::get('/email', 'EmailController@email') ->name('sendWelcomeEmail');
+Route::get('/sendingemail', 'EmailController@manualRequestMail') ->name('approveandsendmail');
+Route::get('/emaileditor/editsendmail','EmailTemplateController@send');
 
 //Dashboard
 
 Route::get('/dashboard', 'DashboardController@index');
 
+Route::post('/donation/change-status', 'DonationRequestController@changeDonationStatus');
+
 // Rules stuff
 Route::get('guirules', 'RuleEngineController@rulesGui');
+Route::get('runRule', 'RuleEngineController@runRule');
+Route::get('saveRule', 'RuleEngineController@saveRule');
+Route::get('loadRule', 'RuleEngineController@loadRule');
+//Route::get('/rules', 'RuleEngineController@rules');
+Route::resource('/rules', 'RuleEngineController');
+// Rules stuff// Rules stuff
+//Route::get('rules', 'RuleEngineController@rulesGUI');
+Route::get('/webhook/chargeSuccess', 'SubscriptionController@chargeSuccess');
+
+Route::get('subscription/popup', 'SubscriptionController@subscribe');

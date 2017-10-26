@@ -1,56 +1,62 @@
+
 @extends('layouts.app')
 @section('header')
-    <!--<link rel="stylesheet" href="../../../node_modules/jQuery-QueryBuilder/dist/css/query-builder.default.css">-->
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://querybuilder.js.org/assets/css/docs.min.css" rel="stylesheet">
-    <link href="http://querybuilder.js.org/assets/css/style.css" rel="stylesheet">
-    <!-- <script type="text/javascript" src="../../../node_modules/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="../../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="../../../node_modules/jquery-extendext/jQuery.extendext.js"></script>
-    <script type="text/javascript" src="../../../node_modules/dot/doT.js"></script>
-    <script type="text/javascript" src="../../../node_modules/moment/moment.js"></script>
-    <script type="text/javascript" src="../../../node_modules/jQuery-QueryBuilder/dist/js/query-builder.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> -->
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ asset('querybuilder/jquery/dist/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('querybuilder/bootstrap/dist/js/bootstrap.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
-    <script src="http://querybuilder.js.org/assets/js/docs.min.js"></script>
-    <script src="http://querybuilder.js.org/assets/js/script.js"></script>
 @endsection
 @section('content')
+<div class="container"style="padding-left:800px"> <div class="dropdown">
+<button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Select Rule
+<span class="caret"></span></button>
+<ul class="dropdown-menu">
+  <li><a href="">PreApproval</a></li>
+  <li><a href="">AutoReject</a></li>
+</ul>
+</div></div>
+<br>
     <!--<section class="bs-docs-section clearfix"> -->
+
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
-    <div id="builder-plugins"></div>
-    <div class="btn-group">
-        <button class="btn btn-error parse-json" data-target="plugins">Preview Rules</button>
-        <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
-        <button class="btn btn-success set-json" data-target="plugins">Reset Rules</button>
-        <button class="btn btn-primary parse-json" data-target="plugins">Save (Show) Rules</button>
-    </div>
+        <div id="builder-plugins"></div>
+        <div class="btn-group">
+            <button class="btn btn-error parse-json" data-target="plugins">Preview Rules</button>
+            <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
+            <button class="btn btn-success set-json" data-target="plugins">Reset Rules</button>
+            <button class="btn btn-primary parse-json" data-target="plugins">Save (Show) Rules</button>
+        </div>
+        <br />
+        <!-- <div id="querybuilder"></div> -->
     </div>
     <!-- </section> -->
-    <link href="http://querybuilder.js.org/dist/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet">
-    <link href="http://querybuilder.js.org/dist/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" rel="stylesheet">
-    <link href="http://querybuilder.js.org/dist/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
-    <link href="http://querybuilder.js.org/dist/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="http://querybuilder.js.org/dist/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-    <link href="http://querybuilder.js.org/dist/jQuery-QueryBuilder/dist/css/query-builder.default.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/css/bootstrap-slider.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.bootstrap3.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.0/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('querybuilder/jquery-querybuilder/dist/css/query-builder.default.css') }}" rel="stylesheet">
 
-    <script src="http://querybuilder.js.org/dist/moment/min/moment.min.js"></script>
-    <script src="http://querybuilder.js.org/dist/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-    <script src="http://querybuilder.js.org/dist/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
-    <script src="http://querybuilder.js.org/dist/selectize/dist/js/standalone/selectize.min.js"></script>
-    <script src="http://querybuilder.js.org/dist/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="http://querybuilder.js.org/dist/jQuery-QueryBuilder/dist/js/query-builder.standalone.min.js"></script>
-    <script src="http://querybuilder.js.org/dist/sql-parser/browser/sql-parser.js"></script>
-    <script src="http://querybuilder.js.org/dist/interact/dist/interact.min.js"></script>
 
-    <!-- <script src="../../../node_modules/jQuery-QueryBuilder/dist/js/query-builder.js"></script>
-    <script>var baseurl = 'http://querybuilder.js.org';</script>
-    <script src="http://querybuilder.js.org/assets/demo-basic.js"></script>
-    <script src="http://querybuilder.js.org/assets/demo-widgets.js"></script>
-    <script src="http://querybuilder.js.org/assets/demo-plugins.js"></script>
-    <script src="http://querybuilder.js.org/assets/demo-import-export.js"></script> -->
-    <script src="http://querybuilder.js.org/assets/demo.js"></script>
+    <script src="{{ asset('querybuilder/jquery-extendext/jQuery.extendext.js') }}"></script>
+    <script src="{{ asset('querybuilder/moment/min/moment.min.js') }}"></script>
+    <script src="{{ asset('querybuilder/dot/doT.js') }}"></script>
+    <!-- <script src="{{ asset('querybuilder/jquery-querybuilder/dist/js/query-builder.js') }}"></script>
+    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/i18n/query-builder.en.js') }}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sql-parser@0.5.0/browser/sql-parser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.9/interact.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/js/query-builder.js') }}"></script>
+    <script src="{{ asset('querybuilder/jquery-querybuilder/dist/i18n/query-builder.en.js') }}"></script>
+    <!-- -->
+    <script src="{{ asset('querybuilder/rulebuilder.js') }}"></script>
     <style>
         .code-popup {
             max-height: 500px;
@@ -60,30 +66,31 @@
         }
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
+
     <script>
         var rules_plugins = {
             condition: 'AND',
             rules: [
                 {
-                id: 'amount',
-                operator: 'less',
-                value: 500.00
-            }, {
-                condition: 'OR',
-                rules: [{
-                    id: 'category',
-                    operator: 'equal',
-                    value: 2
+                    id: 'amount',
+                    operator: 'less',
+                    value: 500.00
                 }, {
-                    id: 'category',
-                    operator: 'equal',
-                    value: 6
+                    condition: 'OR',
+                    rules: [{
+                        id: 'category',
+                        operator: 'equal',
+                        value: 2
+                    }, {
+                        id: 'category',
+                        operator: 'equal',
+                        value: 6
+                    }, {
+                        id: 'category',
+                        operator: 'not_equal',
+                        value: 1
+                    }]
                 }, {
-                    id: 'category',
-                    operator: 'not_equal',
-                    value: 1
-                }]
-            }, {
                     condition: 'AND',
                     rules: [{
                         id: 'name',
@@ -98,7 +105,7 @@
                         operator: 'less_or_equal',
                         value: 50.00
                     }]
-            }]
+                }]
         };
 
         $('#builder-plugins').queryBuilder({
@@ -111,7 +118,7 @@
                 'bt-checkbox',
                 'invert',
                 'not-group'
-                ],
+            ],
 
             filters: [{
                 id: 'name',
@@ -177,6 +184,47 @@
                 alert(JSON.stringify(result, null, 2));
             }
         });
+        ////////////////////////////////////////////////////////////////////////////
+        // the default rules, what will be used on page loads...
+        /*var datatablesRequest = {};
+        var _rules = defaultRules = {"condition":"AND","rules":[
+            {"id":"active","field":"active","type":"integer","input":"radio","operator":"equal","value":"1"}
+        ]};
+
+        // a button/link that is used to update the rules.
+        function updateFilters() {
+            _rules = $('#querybuilder').queryBuilder('getRules');
+            reloadDatatables();
+        }
+
+        function filterChange() {
+            var _json = JSON.stringify( _rules );
+            datatablesRequest = { rules: _json };
+        }
+
+        filterChange();
+
+        function reloadDatatables() {
+            // Datatables first...
+            filterChange();
+
+            $('.dataTable').each(function() {
+                dt = $(this).dataTable();
+                dt.fnDraw();
+            })
+        }
+
+        jQuery(document).ready(function(){
+            // dynamic table
+            oTable = jQuery('.datatable').dataTable({
+                "fnServerParams": function(aoData) {
+                    // add the extra parameters from the jQuery QueryBuilder to the Datatable endpoint...
+                    $.each(datatablesRequest , function(k,v){
+                        aoData.push({"name": k, "value": v});
+                    })
+                }
+            })
+        });*/
     </script>
 
 @endsection

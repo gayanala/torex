@@ -4,16 +4,22 @@
 
     <body>
 
-
     <div id="image1" class="container-fluid" style='text-align:center; background-image: url("http://citadelnyc.com/wp-content/uploads/2015/04/background-outer-wrapper2.png");background-repeat:repeat;height:155px;' align="center" >
 
     </div>
-    <div class="container-fluid">
-        <div class="background-image" style="overflow: hidden ; height: 100%; min-width: 102.7% ; position: inherit ">
-            <img src="http://www.bikemaui.com/wp-content/uploads/2016/06/sunrise-maui-hawaii.jpg" />
 
+        <div class="containerimg" >
+            <img src="{{ asset('img/cover.jpg') }}" style="overflow: hidden ; height: 100%; width: 100% ; position:static;  "/>
+<script>
+    $(window).load(function(){
+        $('.containerimg').find('img').each(function(){
+            var imgClass = (this.width/this.height > 1) ? 'wide' : 'tall';
+            $(this).addClass(imgClass);
+        })
+    })
+</script>
         </div>
-    </div>
+
     <div id="image" class="container-fluid" style='text-align:center; background-image: url("http://www.seniorsfishandchips.co.uk/images/community-header.png");background-repeat:repeat;height:155px;' align="center" >
 
     </div>
@@ -61,8 +67,10 @@
             <h2>Save Time = Save Money</h2>
             <p class="text-left">  Request management can be delegated to multiple users within your organization.
                 Filters can be enabled to sort donation requests to ensure your business supports causes important to you.
-                As a business user, you will be able to approve or decline requests in bulk and respond within the application.
-                Custom or generic responses can communicate instructions to approved organizations, and gently inform other organizations when requests are declined.
+                As a business user, you will be able to approve or reject requests in bulk and respond within the
+                application.
+                Custom or generic responses can communicate instructions to approved organizations, and gently inform
+                other organizations when requests are rejectd.
                 Q Reports can enable your business to easily organize donations and figure out potential tax advantages.
 
             </p>

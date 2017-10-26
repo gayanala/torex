@@ -8,7 +8,9 @@ class Rule extends Model
 {
     //
     protected $fillable = [
-        'rule_name',
+        'rule_type_id',
+        'rule_owner_id',
         'rule',
+        'active',
     ];
 }

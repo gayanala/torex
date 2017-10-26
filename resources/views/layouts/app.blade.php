@@ -11,13 +11,20 @@
 
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-    <script src="{{ asset('js/jquery-1.11.0.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    @yield('css')
+
+
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     @yield('header')
     <style>
         body {
@@ -31,7 +38,10 @@
             position:relative;
             clear: both;
         }
-
+        @media screen and (max-width: 600px){
+            ul.topnav li.right,
+            ul.topnav li {float: none;}
+        }
         h2
         {
             font-size: 30px;
@@ -134,20 +144,24 @@
         }
         .col-sm-6
         {display: block;}
-        .background-image {
-            background: no-repeat fixed;
-            max-width: 100%;
-            display: block;
-            left: -50px;
-            top:-5px;
-            bottom:-5px;
-            right: -5px;
-            z-index: 1;
-            -ms-filter: blur(3px);
-            filter: blur(2px);
-            margin:1px -30px 1px -25px;
-            box-shadow: 0px 5px -1px rgba(34,34,34,0.6);
+
+        .containerimg {
+            width: 100%;
+            height: 40%;
+            background: purple;
+            margin: 0 auto;
+            padding-top: 0px;
         }
+        .containerimg img.wide {
+            max-width: 100%;
+            max-height: 100%;
+            height: auto;
+        }
+        .containerimg img.tall {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+        }​
 
         .footer {
             position: fixed;
@@ -158,15 +172,29 @@
             padding-top: -200px;
             text-align: center;
         }
+        .navbar-nav > li >a{
+            color:white;
+            style:bold;
+            font-size: 15px;
+        }
 
-
+        .main-navigation ul li a {
+            padding-right: 25px !important;
+            padding-left: 25px !important;
+        }
     </style>
 </head>
 
 
 <body>
+<script>
+    var MON_CHAR = {{ config('variables.monthly_charge') }};
+    var ANUAL_CHAR = {{ config('variables.annual_charge') }};
+    var EXTRA_CHAR = {{ config('variables.extra_charge') }};
+</script>
+@yield('scripts')
 <div id="app">
-    <nav class="navbar navbar-light" style="background-color: #ffffff;">
+    <nav class="navbar-toggleable-md navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
         <div class="container-fluid">
 
             <!-- Collapsed Hamburger -->
@@ -178,26 +206,63 @@
             </button>
 
             <div class="row">
-                <div class="col-sm-3">
-
-                    <img src="https://lh3.googleusercontent.com/LztMKmMMgzoLugM5QPjZbOafJJUZ8SZa-LX5CYa8qNqtwosMed3NnCF-PE1Atd5i5-AM8A=s170" alt="TAGG" id="logo"  class="img-responsive"/>
+                <div class="col-sm-3" style='padding-left: 0px;padding-top: 0.5px'>
 
 
+
+
+               <a href="{{ url('/') }}" >
+                   <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
+
+               </a>
                 </div>
-                <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:15px;' >
-                    <div class="collapse navbar-collapse" id="myNavbar">
+                <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:0px;' >
+                    <div class="collapse navbar-collapse" id="myNavbar" >
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
                             <!-- Authentication Links -->
                             @if (Auth::guest())
-                                <a href="{{ route('login') }}" class="w3-bar-item w3-button">Login</a>
-                                <a href="{{ route('register') }}" class="w3-bar-item w3-button">Register</a>
-                                <a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button">RequestDonation</a>
-                            @else
-                                <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button">Dashboard</a></li>
-                                <li><a href="{{ url('/guirules')}}" class="w3-bar-item w3-button">Rule Management</a></li>
-                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Donation Requests</a></li>
-                                <li><a href="{{ route('emailtemplates.index')}}" class="w3-bar-item w3-button">Template Editor</a></li>
+                                <li><a href="{{ url('/') }}#about">About Us</a></li>
+                                <li><a href="{{ url('/') }}#sign">Sign Up !</a></li>
+                                <li><a href="{{ url('/') }}#how">How This Works</a></li>
+                                <li>
+                                <a href="#" id="myaccount" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false"> My Account
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login</a></li>
+                               <li> <a href="{{ route('register') }}" class="w3-bar-item w3-button ">Register</a></li>
+                               <li><a href="{{ route('donationrequests.create', ['orgId' => '1'])}} " class="w3-bar-item w3-button ">RequestDonation</a></li>
+                                </ul>
+                                </li>
+                                    @else
+
+                                <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
+                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search Donations</a></li>
+                                <li>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false">
+                                        My Organization
+                                        <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('emailtemplates.index') }}">
+                                                Communication Template
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                        aria-expanded="false">
@@ -208,9 +273,6 @@
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="{{ route('users.index')}}">Profile Management</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('organizations.index')}}">Organization Management</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('reset-password') }}">
@@ -238,25 +300,24 @@
             </div>
         </div>
     </nav>
-
+<br>
     <div id="content">
+        {{--@include('layouts.partials._status')--}}
         @yield('content')
     </div>
 
 </div>
 
-<!-- Scripts
-<script src="{{ asset('js/app.js') }}"></script> -->
+
+{{--<script src="{{ asset('js/app.js') }}">--}}
 
 </body>
-   <footer class="footer bg-4">
+   <!-- <footer class="footer bg-4">
 
-    <img src="http://www.unhcr.ca/wp-content/uploads/2016/04/icon-partner.png" class="imgalign"  style="width:100px;height:50px;"  >
+    <img src="{{ asset('img/icon-partner.png') }}" class="imgalign"  style="width:100px;height:50px;"  >
 
     <h5>A tagg Intiative</h5>
-
-   </footer>
-
+ </footer> -->
 
 
 
