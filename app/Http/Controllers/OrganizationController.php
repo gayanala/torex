@@ -91,7 +91,6 @@ class OrganizationController extends Controller
         ]);*/
 
         // Add validation
-//dd(Auth::user()->organization->organizationType->id);
         $organization = new Organization;
         $organization->org_name = $request['org_name'];
         $organization->org_description = $request['org_description'];
