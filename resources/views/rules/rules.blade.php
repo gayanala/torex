@@ -37,7 +37,7 @@ $(document).ready(function(){
                 <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
                 <button id="btnSave" class="btn btn-primary parse-json" type="submit" data-target="plugins">Save Rules</button>
                 <button id="btnRun" type="button" href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule Workflow</button>
-
+                <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}" class="btn btn-default">Run Budget</button>
             </div>
             <br/>
             <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
@@ -120,7 +120,10 @@ $(document).ready(function(){
         $('#btnRun').on('click', function () {
             var iRuleType = $('#ruleType').val();
             window.location.href = '{{ action('RuleEngineController@runRule') }}?rule=' + iRuleType;
+        });
 
+        $('#btnRunBudget').on('click', function () {
+            window.location.href = '{{ action('RuleEngineController@runBudgetCheckRule') }}';
         });
 
         $('#btnSave').on('click', function () {
