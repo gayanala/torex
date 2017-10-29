@@ -37,7 +37,7 @@ $(document).ready(function(){
                 <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
                 <button id="btnSave" class="btn btn-primary parse-json" type="submit" data-target="plugins">Save Rules</button>
                 <button id="btnRun" type="button" href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule Workflow</button>
-
+                <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}" class="btn btn-default">Run Budget</button>
             </div>
             <br/>
             <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
@@ -120,7 +120,10 @@ $(document).ready(function(){
         $('#btnRun').on('click', function () {
             var iRuleType = $('#ruleType').val();
             window.location.href = '{{ action('RuleEngineController@runRule') }}?rule=' + iRuleType;
+        });
 
+        $('#btnRunBudget').on('click', function () {
+            window.location.href = '{{ action('RuleEngineController@runBudgetCheckRule') }}';
         });
 
         $('#btnSave').on('click', function () {
@@ -134,48 +137,7 @@ $(document).ready(function(){
                 });*/
             }
         });
-
-        /*
-        var rules_plugins = {
-            condition: 'AND',
-            rules: [
-                {
-                    id: 'amount',
-                    operator: 'less',
-                    value: 500.00
-                }, {
-                    condition: 'OR',
-                    rules: [{
-                        id: 'requester_type',
-                        operator: 'equal',
-                        value: 2
-                    }, {
-                        id: 'requester_type',
-                        operator: 'equal',
-                        value: 6
-                    }, {
-                        id: 'requester_type',
-                        operator: 'not_equal',
-                        value: 1
-                    }]
-                }, {
-                    condition: 'AND',
-                    rules: [{
-                        id: 'requester',
-                        operator: 'equal',
-                        value: 'Naggy Group 1'
-                    }, {
-                        id: 'requester',
-                        operator: 'equal',
-                        value: 'Naggy Group 2'
-                    }, {
-                        id: 'amount',
-                        operator: 'less_or_equal',
-                        value: 50.00
-                    }]
-                }]
-        };
-*/
+        
         $('#builder-plugins').queryBuilder({
             plugins: [
                 'sortable',
@@ -256,11 +218,7 @@ $(document).ready(function(){
 
         ////////////////////////////////////////////////////////////////////////////
         // the default rules, what will be used on page loads...
-        /*var datatablesRequest = {};
-        var _rules = defaultRules = {"condition":"AND","rules":[
-            {"id":"active","field":"active","type":"integer","input":"radio","operator":"equal","value":"1"}
-        ]};
-
+        /*
         // a button/link that is used to update the rules.
         function updateFilters() {
             _rules = $('#querybuilder').queryBuilder('getRules');
