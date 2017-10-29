@@ -32,6 +32,9 @@ class DonationRequest extends Model
         'venue',
         'marketing_opportunities',
         'approved_dollar_amount',
+        'approved_organization_id',
+        'approved_user_id',
+        'rule_process_date',
         'approval_status_id',
         'email_sent'
     ];
