@@ -104,8 +104,7 @@ Route::get('/dashboard', 'DashboardController@index');
 Route::post('/donation/change-status', 'DonationRequestController@changeDonationStatus');
 
 // Rules stuff
-Route::get('guirules', 'RuleEngineController@rulesGui');
-Route::get('runRule', 'RuleEngineController@runRule');
+Route::get('runRule', 'RuleEngineController@manualRunRule');
 Route::get('runBudgetCheckRule', 'RuleEngineController@runBudgetCheckRule');
 Route::get('saveRule', 'RuleEngineController@saveRule');
 Route::get('loadRule', 'RuleEngineController@loadRule');

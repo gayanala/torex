@@ -36,7 +36,7 @@ $(document).ready(function(){
                 <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
                 <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
                 <button id="btnSave" class="btn btn-primary parse-json" type="submit" data-target="plugins">Save Rules</button>
-                <button id="btnRun" type="button" href="{{ action('RuleEngineController@runRule') }}" class="btn btn-default">Run Rule Workflow</button>
+                <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}" class="btn btn-default">Run Rule Workflow</button>
                 <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}" class="btn btn-default">Run Budget</button>
             </div>
             <br/>
@@ -119,7 +119,7 @@ $(document).ready(function(){
 
         $('#btnRun').on('click', function () {
             var iRuleType = $('#ruleType').val();
-            window.location.href = '{{ action('RuleEngineController@runRule') }}?rule=' + iRuleType;
+            window.location.href = '{{ action('RuleEngineController@manualRunRule') }}?rule=' + iRuleType;
         });
 
         $('#btnRunBudget').on('click', function () {
@@ -137,7 +137,7 @@ $(document).ready(function(){
                 });*/
             }
         });
-        
+
         $('#builder-plugins').queryBuilder({
             plugins: [
                 'sortable',

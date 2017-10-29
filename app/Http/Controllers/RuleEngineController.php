@@ -73,17 +73,23 @@ class RuleEngineController extends Controller
         return redirect()->back();
     }
 
-    public function runRule(Request $request)
+    public function autoRunRule(DonationRequest $donationRequest)
+    {
+        // This will execute the rule workflow for a donation request using the rules of the organization it was submitted to.
+
+    }
+
+    public function manualRunRule(Request $request)
     {
         $ruleOwner = Auth::user()->organization_id;
-        $this->runAutoRejectRule($ruleOwner);
-        $this->runPendingApprovalRule($ruleOwner);
-        $this->runPendingRejectionRule($ruleOwner);
+        $this->manualRunAutoRejectRule($ruleOwner);
+        $this->manualRunPendingApprovalRule($ruleOwner);
+        $this->manualRunPendingRejectionRule($ruleOwner);
 
         return redirect()->to('/donationrequests'); //->back(); //->with('msg', Response::JSON($rows));
     }
 
-    protected function runAutoRejectRule($ruleOwner)
+    protected function manualRunAutoRejectRule($ruleOwner)
     {
         $table = DB::table('donation_requests');
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', 1], ['active', '=', 1]])->first();
@@ -102,7 +108,7 @@ class RuleEngineController extends Controller
         }
     }
 
-    protected function runPendingApprovalRule($ruleOwner)
+    protected function manualRunPendingApprovalRule($ruleOwner)
     {
         $table = DB::table('donation_requests');
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', 2], ['active', '=', 1]])->first();
@@ -122,7 +128,7 @@ class RuleEngineController extends Controller
         }
     }
 
-    protected function runPendingRejectionRule($ruleOwner)
+    protected function manualRunPendingRejectionRule($ruleOwner)
     {
         $query = DB::table('donation_requests')->where([['organization_id', '=', $ruleOwner], ['approval_status_id', '=', 1]]);
         //$rows =
@@ -142,8 +148,8 @@ class RuleEngineController extends Controller
             $amountSpent = DonationRequest::query()->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)
                 ->where([['approved_organization_id', $organization->id], ['approval_status_id', 5]])
                 ->sum('approved_dollar_amount');
-            $donationRequests = DonationRequest::query()->where([['organization_id', '=', $organization->id], ['approval_status_id', '<', 4]])->get();
-            foreach ($donationRequests as $donationRequest)
+            $pendingDonationRequests = DonationRequest::query()->where([['organization_id', '=', $organization->id], ['approval_status_id', '<', 4]])->get();
+            foreach ($pendingDonationRequests as $donationRequest)
             {
                 $requestAmount = $donationRequest->dollar_amount;
                 If (($requestAmount + $amountSpent) >= $monthlyBudget)
