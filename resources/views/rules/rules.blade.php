@@ -137,48 +137,7 @@ $(document).ready(function(){
                 });*/
             }
         });
-
-        /*
-        var rules_plugins = {
-            condition: 'AND',
-            rules: [
-                {
-                    id: 'amount',
-                    operator: 'less',
-                    value: 500.00
-                }, {
-                    condition: 'OR',
-                    rules: [{
-                        id: 'requester_type',
-                        operator: 'equal',
-                        value: 2
-                    }, {
-                        id: 'requester_type',
-                        operator: 'equal',
-                        value: 6
-                    }, {
-                        id: 'requester_type',
-                        operator: 'not_equal',
-                        value: 1
-                    }]
-                }, {
-                    condition: 'AND',
-                    rules: [{
-                        id: 'requester',
-                        operator: 'equal',
-                        value: 'Naggy Group 1'
-                    }, {
-                        id: 'requester',
-                        operator: 'equal',
-                        value: 'Naggy Group 2'
-                    }, {
-                        id: 'amount',
-                        operator: 'less_or_equal',
-                        value: 50.00
-                    }]
-                }]
-        };
-*/
+        
         $('#builder-plugins').queryBuilder({
             plugins: [
                 'sortable',
@@ -259,11 +218,7 @@ $(document).ready(function(){
 
         ////////////////////////////////////////////////////////////////////////////
         // the default rules, what will be used on page loads...
-        /*var datatablesRequest = {};
-        var _rules = defaultRules = {"condition":"AND","rules":[
-            {"id":"active","field":"active","type":"integer","input":"radio","operator":"equal","value":"1"}
-        ]};
-
+        /*
         // a button/link that is used to update the rules.
         function updateFilters() {
             _rules = $('#querybuilder').queryBuilder('getRules');
