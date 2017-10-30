@@ -75,6 +75,13 @@ class RuleEngineController extends Controller
         return redirect()->back();
     }
 
+    ////////////////////////////// T0D0 ITEMS //////////////////////////////
+    // TODO: Call runBudgetCheckRule() from cron job - talk to San for integration
+    // TODO: Simplify Rule execution: a lot of redundant code in running rules that could be condensed with some work.
+    //
+    ////////////////////////////// END T0D0 //////////////////////////////
+
+    ////////// CATEGORIZATION OF REQUESTS ON SUBMIT //////////
     public function runRuleOnSubmit(DonationRequest $donationRequest)
     {
         // This will execute the rule workflow for a donation request using the rules of the organization it was submitted to.
@@ -143,6 +150,7 @@ class RuleEngineController extends Controller
         }
     }
 
+    ////////// CATEGORIZATION OF ALL SUBMITTED REQUESTS ON REQUEST (manual process) //////////
     public function manualRunRule(Request $request)
     {
         $ruleOwner = Auth::user()->organization_id;
@@ -201,6 +209,8 @@ class RuleEngineController extends Controller
         }
     }
 
+
+    ////////// QUERYBUILDER BUSINESS RULES AUGMENTED WITH ORGANIZATION SPECIFIC FILTERING //////////
     protected function filteredQueryBuilderJsonArray(Array $jsonArray, $iD, $isOrgId = true)
     {
         $array['condition'] = 'AND';
@@ -234,6 +244,7 @@ class RuleEngineController extends Controller
         return $array;
     }
 
+    ////////// REJECTS REQUESTS THAT WOULD PUT ORGANIZATION OVER BUDGET FOR REQUESTED MONTH (called via cron job) //////////
     public function runBudgetCheckRule()
     {
         // Get Active organizations
