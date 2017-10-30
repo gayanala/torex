@@ -10,10 +10,6 @@
                         <tbody>
                         <tr class="bg-info">
                         <tr>
-                            <td>Donation Request ID</td>
-                            <td><?php echo ($donationrequest['id']); ?></td>
-                        </tr>
-                        <tr>
                             <td>Name of Organization</td>
                             <td><?php echo ($donationrequest['requester']); ?></td>
                         </tr>

@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.36.32",
+            "version": "3.36.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7ba49dbd24366647a41cd4a13eab972b2264b8db"
+                "reference": "adc4e9928730cb65b9b7914084cbf1d8c988419a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7ba49dbd24366647a41cd4a13eab972b2264b8db",
-                "reference": "7ba49dbd24366647a41cd4a13eab972b2264b8db",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/adc4e9928730cb65b9b7914084cbf1d8c988419a",
+                "reference": "adc4e9928730cb65b9b7914084cbf1d8c988419a",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2017-10-23T20:40:28+00:00"
+            "time": "2017-10-26T20:45:00+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1200,16 +1200,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.18",
+            "version": "v5.5.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "1cc21baac11551377734b8c17ead17db4c34fe21"
+                "reference": "c678100e84934ec85c9f8bc26bd0a60222682719"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/1cc21baac11551377734b8c17ead17db4c34fe21",
-                "reference": "1cc21baac11551377734b8c17ead17db4c34fe21",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c678100e84934ec85c9f8bc26bd0a60222682719",
+                "reference": "c678100e84934ec85c9f8bc26bd0a60222682719",
                 "shasum": ""
             },
             "require": {
@@ -1327,7 +1327,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-10-19T12:50:26+00:00"
+            "time": "2017-10-25T19:10:45+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2523,16 +2523,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v5.3.0",
+            "version": "v5.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "d102a355d8c2e1a00d68659e9b51fb6f63aaa957"
+                "reference": "a523748f2db82beacfac7b22e0642e326aa3be64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/d102a355d8c2e1a00d68659e9b51fb6f63aaa957",
-                "reference": "d102a355d8c2e1a00d68659e9b51fb6f63aaa957",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/a523748f2db82beacfac7b22e0642e326aa3be64",
+                "reference": "a523748f2db82beacfac7b22e0642e326aa3be64",
                 "shasum": ""
             },
             "require": {
@@ -2574,7 +2574,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2017-10-11T16:41:44+00:00"
+            "time": "2017-10-27T16:27:13+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
