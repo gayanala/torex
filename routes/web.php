@@ -107,6 +107,7 @@ Route::post('/donation/change-status', 'DonationRequestController@changeDonation
 Route::get('runRule', 'RuleEngineController@manualRunRule');
 Route::get('runBudgetCheckRule', 'RuleEngineController@runBudgetCheckRule');
 Route::get('saveRule', 'RuleEngineController@saveRule');
+Route::get('saveBudgetNotice', 'RuleEngineController@saveBudgetNotice');
 Route::get('loadRule', 'RuleEngineController@loadRule');
 //Route::get('/rules', 'RuleEngineController@rules');
 Route::resource('/rules', 'RuleEngineController');

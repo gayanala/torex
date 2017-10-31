@@ -32,6 +32,9 @@ class RuleEngineController extends Controller
         // dd($request);
         $rule_types = Rule_type::where('active', '=', 1)->pluck('type_name', 'id');
         $orgId = Auth::user()->organization_id;
+        $organization = Organization::findOrFail($orgId);
+        $monthlyBudget = $organization->monthly_budget;
+        $daysNotice = $organization->required_days_notice;
         $ruleType = $request->rule ?? 1;
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $orgId], ['rule_type_id', '=', $ruleType], ['active', '=', true]])->first();
         //dd($ruleRow);
@@ -41,7 +44,8 @@ class RuleEngineController extends Controller
             $queryBuilderJSON = ''; //'{"condition": "AND", "rules": [{}], "not": false, "valid": true }';
         }
         //dd($queryBuilderJSON);
-        return view('rules.rules')->with('rule', $queryBuilderJSON)->with('rule_types', $rule_types)->with('ruleType', $ruleType);
+        return view('rules.rules')->with('rule', $queryBuilderJSON)->with('rule_types', $rule_types)->with('ruleType', $ruleType)
+            ->with('monthlyBudget', $monthlyBudget)->with('daysNotice', $daysNotice);
     }
 
     public function loadRule($request)
@@ -75,13 +79,28 @@ class RuleEngineController extends Controller
         return redirect()->back();
     }
 
-    ////////////////////////////// T0D0 ITEMS //////////////////////////////
+    public function saveBudgetNotice(Request $request)
+    {
+        //
+        $monthlyBudget = $request->monthlyBudget;
+        $daysNotice = $request->daysNotice;
+
+        $orgId = Auth::user()->organization_id;
+        $organization = Organization::findOrFail($orgId);
+        $organization->monthly_budget = $monthlyBudget;
+        $organization->required_days_notice = $daysNotice;
+        $organization->save();
+        return redirect()->back();
+    }
+
+    //////////////////////////////  T0D0 ITEMS  //////////////////////////////
     // TODO: Call runBudgetCheckRule() from cron job - talk to San for integration
     // TODO: Simplify Rule execution: a lot of redundant code in running rules that could be condensed with some work.
+    // TODO: Create UI for updating days notice and monthly budget
     //
-    ////////////////////////////// END T0D0 //////////////////////////////
+    //////////////////////////////  END T0D0  //////////////////////////////
 
-    ////////// CATEGORIZATION OF REQUESTS ON SUBMIT //////////
+    //////////  CATEGORIZATION OF REQUESTS ON SUBMIT  //////////
     public function runRuleOnSubmit(DonationRequest $donationRequest)
     {
         // This will execute the rule workflow for a donation request using the rules of the organization it was submitted to.
@@ -150,7 +169,7 @@ class RuleEngineController extends Controller
         }
     }
 
-    ////////// CATEGORIZATION OF ALL SUBMITTED REQUESTS ON REQUEST (manual process) //////////
+    //////////  CATEGORIZATION OF ALL SUBMITTED REQUESTS ON REQUEST (manual process)  //////////
     public function manualRunRule(Request $request)
     {
         $ruleOwner = Auth::user()->organization_id;
@@ -210,41 +229,42 @@ class RuleEngineController extends Controller
     }
 
 
-    ////////// QUERYBUILDER BUSINESS RULES AUGMENTED WITH ORGANIZATION SPECIFIC FILTERING //////////
+    //////////  QUERYBUILDER BUSINESS RULES AUGMENTED WITH ORGANIZATION SPECIFIC FILTERING  //////////
     protected function filteredQueryBuilderJsonArray(Array $jsonArray, $iD, $isOrgId = true)
     {
         $array['condition'] = 'AND';
         $array['not'] = 'false';
+        $array['rules'][0]['field'] = 'approval_status_id';
+        $array['rules'][0]['id'] = 'approval_status_id';
+        $array['rules'][0]['input'] = 'text';
+        $array['rules'][0]['operator'] = 'equal';
+        $array['rules'][0]['type'] = 'integer';
+        $array['rules'][0]['value'] = 1;
         if ($isOrgId)
         {
-            $array['rules'][0]['field'] = 'organization_id';
-            $array['rules'][0]['id'] = 'organization_id';
-            $array['rules'][0]['input'] = 'text';
-            $array['rules'][0]['operator'] = 'equal';
-            $array['rules'][0]['type'] = 'integer';
-            $array['rules'][0]['value'] = $iD;
+            $array['rules'][1]['field'] = 'organization_id';
+            $array['rules'][1]['id'] = 'organization_id';
+            $array['rules'][1]['input'] = 'text';
+            $array['rules'][1]['operator'] = 'in';
+            $array['rules'][1]['type'] = 'integer';
+            $array['rules'][1]['value'] = $iD;
         }
         else
         {
-            $array['rules'][0]['field'] = 'id';
-            $array['rules'][0]['id'] = 'id';
-            $array['rules'][0]['input'] = 'text';
-            $array['rules'][0]['operator'] = 'equal';
-            $array['rules'][0]['type'] = 'integer';
-            $array['rules'][0]['value'] = $iD;
+            $array['rules'][1]['field'] = 'id';
+            $array['rules'][1]['id'] = 'id';
+            $array['rules'][1]['input'] = 'text';
+            $array['rules'][1]['operator'] = 'equal';
+            $array['rules'][1]['type'] = 'integer';
+            $array['rules'][1]['value'] = $iD;
+
         }
-        $array['rules'][1]['field'] = 'approval_status_id';
-        $array['rules'][1]['id'] = 'approval_status_id';
-        $array['rules'][1]['input'] = 'text';
-        $array['rules'][1]['operator'] = 'equal';
-        $array['rules'][1]['type'] = 'integer';
-        $array['rules'][1]['value'] = 1;
         array_push( $array['rules'], $jsonArray);
 
         return $array;
     }
 
-    ////////// REJECTS REQUESTS THAT WOULD PUT ORGANIZATION OVER BUDGET FOR REQUESTED MONTH (called via cron job) //////////
+    //////////  REJECTS REQUESTS THAT WOULD PUT ORGANIZATION OVER BUDGET FOR REQUESTED MONTH (called via cron job)  //////////
     public function runBudgetCheckRule()
     {
         // Get Active organizations
@@ -252,20 +272,25 @@ class RuleEngineController extends Controller
 
         foreach ($organizations as $organization) {
             $monthlyBudget = Organization::query()->where('id', '=', $organization->id)->get(['monthly_budget'])->first()->monthly_budget;
-            $amountSpent = DonationRequest::query()->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)
-                ->where([['approved_organization_id', $organization->id], ['approval_status_id', 5]])
-                ->sum('approved_dollar_amount');
-            $pendingDonationRequests = DonationRequest::query()->where([['organization_id', '=', $organization->id], ['approval_status_id', '<', 4]])->get();
-            foreach ($pendingDonationRequests as $donationRequest)
+            // Only run Budget rule if it is greater than zero
+            if ($monthlyBudget > 0)
             {
-                $requestAmount = $donationRequest->dollar_amount;
-                If (($requestAmount + $amountSpent) >= $monthlyBudget)
+                $amountSpent = DonationRequest::query()->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)
+                    ->where([['approved_organization_id', $organization->id], ['approval_status_id', 5]])
+                    ->sum('approved_dollar_amount');
+                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [1,3])->get();
+                //dd($pendingDonationRequests);
+                foreach ($pendingDonationRequests as $donationRequest)
                 {
-                    // auto-reject each request that would put organization over budget
-                    $donationRequest->approval_status_id = 4;
-                    $donationRequest->approved_organization_id = $organization->id;
-                    $donationRequest->rule_process_date = Carbon::now();
-                    $donationRequest->save();
+                    $requestAmount = $donationRequest->dollar_amount;
+                    If (($requestAmount + $amountSpent) >= $monthlyBudget)
+                    {
+                        // pending-reject each request that would put organization over budget
+                        $donationRequest->approval_status_id = 2;
+                        //$donationRequest->approved_organization_id = $organization->id;
+                        $donationRequest->rule_process_date = Carbon::now();
+                        $donationRequest->save();
+                    }
                 }
             }
         }
