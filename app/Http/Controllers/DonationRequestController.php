@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\DonationRequest;
 use App\Events\SendAutoRejectEmail;
 use App\Events\TriggerAcceptEmailEvent;
+use App\Events\TriggerRejectEmailEvent;
 use App\File;
 use App\Request_event_type;
 use App\Request_item_purpose;
@@ -177,30 +178,50 @@ class DonationRequestController extends Controller
         $donationrequest = DonationRequest::findOrFail($id);
         $event_purpose = Request_event_type::findOrFail($donationrequest->event_type);
         $event_purpose_name = $event_purpose->type_name;
-//dd('180 :'.$id);
-//dd('181 :'.$donationrequest->event_type);
         $donation_purpose = Request_item_purpose::findOrFail($donationrequest->item_purpose);
         $donation_purpose_name = $donation_purpose->purpose_name;
-//dd('184: '.$id);
         $item_requested = Request_item_type::findOrFail($donationrequest->item_requested);
         $item_requested_name = $item_requested->item_name;
-//dd('187: '.$donationrequest->item_requested);
         $donationRequest = Requester_type::findOrFail($donationrequest->requester_type);
         $donationRequestName = $donationRequest->type_name;
-//dd('190: '.$donationrequest->requester_type);
         return view('donationrequests.show',compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
         , 'item_requested_name', 'donationRequestName'));
     }
 
-    public function searchDonationRequest(Request $request) {
-
-        $query = $request->q;
-        $donationrequests = DonationRequest::where('requester', 'LIKE', "%$query%")->paginate(3);
-        return view('donationrequests.index', compact('donationrequests'));
-    }
-
     public function changeDonationStatus(Request $request) {
-        
+
+
+//id
+        // idsArray = [id];
+
+        if ($request->input('approve') == 'Approve') {
+            $approved_amount = $request->approved_amount;
+            $donation_id = $request->id;
+            $donation = DonationRequest::where('id', $donation_id)->get();
+            $donation[0]->update(['dollar_amount' => $approved_amount]);
+            $donation[0]->update(['approval_status_id' => 5]);
+            $donation[0]->update(['approved_dollar_amount' => $approved_amount]);
+            event(new TriggerAcceptEmailEvent($donation[0]));
+
+            $organizationId = Auth::user()->organization_id;
+            $organization = Organization::findOrFail($organizationId);
+            $organizationName = $organization->org_name;
+            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
+            return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+
+        } elseif ($request->input('reject') == 'Reject') {
+            $donation_id = $request->id;
+            $donation = DonationRequest::where('id', $donation_id)->get();
+            $donation[0]->update(['approval_status_id' => 4]);
+            event(new TriggerRejectEmailEvent($donation[0]));
+
+            $organizationId = Auth::user()->organization_id;
+            $organization = Organization::findOrFail($organizationId);
+            $organizationName = $organization->org_name;
+            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
+            return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+        }
+
         $emailids = [];
         if ($request['status'] == 0) {
             $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5]);
@@ -216,11 +237,18 @@ class DonationRequestController extends Controller
             $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($rejectedrequests as $rejectedrequest) {
-                event(new TriggerAcceptEmailEvent($rejectedrequest));
+                event(new TriggerRejectEmailEvent($rejectedrequest));
                 usleep(500000);
             }
         }
 
         return response()->json(['idsArray' => $request['ids'], 'status' => $request['status']]);
     }
+
+    public function updatestatus (Request $request)
+    {
+        dd($request);
+    }
+
+
 }

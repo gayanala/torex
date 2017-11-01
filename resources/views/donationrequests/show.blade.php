@@ -7,6 +7,7 @@
                     <div class="panel-heading">Donation Request Detail</div>
 
                     <table class="table table-striped table-bordered table-hover">
+                        <div>
                         <tbody>
                         <tr class="bg-info">
                         <tr>
@@ -98,17 +99,37 @@
                             <td><?php echo ($donationrequest['marketing_opportunities']); ?></td>
                         </tr>
                         </tbody>
+                        </div>
+
                     </table>
                     <br><br>
-                    <div style="text-align:center">
-                        <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to List</a>
-                    </div>
+                    {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
+                    @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
+                        <div>
+                            <label for="dollar_amount" class="col-md-3 control-label">Dollar Amount Approval</label>
+                            <div class="col-lg-6">
+                                {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
+                                {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['class' => 'form-control', 'required'] )!!}
+                            </div>
+                        </div>
+                    @endif
+                        <br><br>
+
+                        <div style="text-align:center">
+                            @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
+                                <input class="btn active btn-success" type="submit" name="approve" value="Approve">
+                                <input class="btn active btn-danger" type="submit" name="reject" value="Reject">
+                                <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation Request</a>
+                            @else
+                                <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation Request</a>
+                            @endif
+                        </div>
+                    {!! Form::close() !!}
                     <br>
                 </div>
-
+            </div>
                 </div>
             </div>
         </div>
     </div>
-
 @stop
