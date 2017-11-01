@@ -167,6 +167,8 @@ class DonationRequestController extends Controller
         //fire NewBusiness event to initiate sending welcome mail
 
         event(new DonationRequestReceived($donationRequest));
+
+        // Execute Business rules on newly submitted request
         app('App\Http\Controllers\RuleEngineController')->runRuleOnSubmit($donationRequest);
         return redirect('/');
     }
