@@ -107,15 +107,14 @@ class RuleEngineController extends Controller
         $parentOrg = ParentChildOrganizations::query()->where('child_org_id', $donationRequest->organization_id)->get(['parent_org_id'])->first();
         If ($parentOrg) {
             $ruleOwner = $parentOrg->parent_org_id;
-        }
-        else
-        {
+        } else {
             $ruleOwner = $donationRequest->organization_id;
         }
         $this->runAutoRejectOnSubmit($donationRequest, $ruleOwner);
         $this->runPendingApprovalOnSubmit($donationRequest, $ruleOwner);
         $this->runPendingRejectionOnSubmit($donationRequest);
     }
+
     protected function runAutoRejectOnSubmit(DonationRequest $donationRequest, $ruleOwner)
     {
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', 1], ['active', '=', 1]])->first();
@@ -130,13 +129,13 @@ class RuleEngineController extends Controller
             $query = $qbp->parse(json_encode($arr), $table);
             //dd($query->get());
             $exists = $query->get(['id']);
-            if($exists->isNotEmpty())
-            {
+            if ($exists->isNotEmpty()) {
                 // Apply Rule
                 $query->update(['approval_status_id' => 4, 'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
             }
         }
     }
+
     protected function runPendingApprovalOnSubmit(DonationRequest $donationRequest, $ruleOwner)
     {
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', 2], ['active', '=', 1]])->first();
@@ -151,20 +150,19 @@ class RuleEngineController extends Controller
             $query = $qbp->parse(json_encode($arr), $table);
             //dd($query->get());
             $exists = $query->get(['id']);
-            if($exists->isNotEmpty())
-            {
+            if ($exists->isNotEmpty()) {
                 // Apply Rule
                 $query->update(['approval_status_id' => 3, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
             }
         }
     }
+
     protected function runPendingRejectionOnSubmit(DonationRequest $donationRequest)
     {
         //Flag all requests that do not meet either of the previous two rules as ready for rejection
         $query = DB::table('donation_requests')->where([['id', '=', $donationRequest->id], ['approval_status_id', '=', 1]]);
         $exists = $query->get(['id']);
-        if($exists->isNotEmpty())
-        {
+        if ($exists->isNotEmpty()) {
             $query->update(['approval_status_id' => 2, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
         }
     }
@@ -179,6 +177,7 @@ class RuleEngineController extends Controller
 
         return redirect()->to('/donationrequests'); //->back(); //->with('msg', Response::JSON($rows));
     }
+
     protected function manualRunAutoRejectRule($ruleOwner)
     {
         $table = DB::table('donation_requests');
@@ -200,6 +199,7 @@ class RuleEngineController extends Controller
             //dd($rows);
         }
     }
+
     protected function manualRunPendingApprovalRule($ruleOwner)
     {
         $table = DB::table('donation_requests');
@@ -218,12 +218,12 @@ class RuleEngineController extends Controller
             //dd($rows);
         }
     }
+
     protected function manualRunPendingRejectionRule($ruleOwner)
     {
         $query = DB::table('donation_requests')->where([['organization_id', '=', $ruleOwner], ['approval_status_id', '=', 1]]);
         $exists = $query->get(['id']);
-        if($exists->isNotEmpty())
-        {
+        if ($exists->isNotEmpty()) {
             $query->update(['approval_status_id' => 2, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
         }
     }
@@ -240,17 +240,14 @@ class RuleEngineController extends Controller
         $array['rules'][0]['operator'] = 'equal';
         $array['rules'][0]['type'] = 'integer';
         $array['rules'][0]['value'] = 1;
-        if ($isOrgId)
-        {
+        if ($isOrgId) {
             $array['rules'][1]['field'] = 'organization_id';
             $array['rules'][1]['id'] = 'organization_id';
             $array['rules'][1]['input'] = 'text';
             $array['rules'][1]['operator'] = 'in';
             $array['rules'][1]['type'] = 'integer';
             $array['rules'][1]['value'] = $iD;
-        }
-        else
-        {
+        } else {
             $array['rules'][1]['field'] = 'id';
             $array['rules'][1]['id'] = 'id';
             $array['rules'][1]['input'] = 'text';
@@ -259,7 +256,7 @@ class RuleEngineController extends Controller
             $array['rules'][1]['value'] = $iD;
 
         }
-        array_push( $array['rules'], $jsonArray);
+        array_push($array['rules'], $jsonArray);
 
         return $array;
     }
@@ -273,18 +270,15 @@ class RuleEngineController extends Controller
         foreach ($organizations as $organization) {
             $monthlyBudget = Organization::query()->where('id', '=', $organization->id)->get(['monthly_budget'])->first()->monthly_budget;
             // Only run Budget rule if it is greater than zero
-            if ($monthlyBudget > 0)
-            {
+            if ($monthlyBudget > 0) {
                 $amountSpent = DonationRequest::query()->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)
                     ->where([['approved_organization_id', $organization->id], ['approval_status_id', 5]])
                     ->sum('approved_dollar_amount');
-                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [1,3])->get();
+                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [1, 3])->get();
                 //dd($pendingDonationRequests);
-                foreach ($pendingDonationRequests as $donationRequest)
-                {
+                foreach ($pendingDonationRequests as $donationRequest) {
                     $requestAmount = $donationRequest->dollar_amount;
-                    If (($requestAmount + $amountSpent) >= $monthlyBudget)
-                    {
+                    If (($requestAmount + $amountSpent) >= $monthlyBudget) {
                         // pending-reject each request that would put organization over budget
                         $donationRequest->approval_status_id = 2;
                         //$donationRequest->approved_organization_id = $organization->id;
@@ -306,14 +300,11 @@ class RuleEngineController extends Controller
         foreach ($organizations as $organization) {
             $requiredDaysNotice = Organization::query()->where('id', '=', $organization->id)->get(['required_days_notice'])->first()->required_days_notice;
             // Only run Budget rule if it is greater than zero
-            if ($requiredDaysNotice > 0)
-            {
+            if ($requiredDaysNotice > 0) {
                 $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->where('approval_status_id', '<', 4)->get();
-                foreach ($pendingDonationRequests as $donationRequest)
-                {
+                foreach ($pendingDonationRequests as $donationRequest) {
                     $requestNeededBy = $donationRequest->needed_by_date;
-                    If ( Carbon::today()->addDays($requiredDaysNotice) > $requestNeededBy)
-                    {
+                    If (Carbon::today()->addDays($requiredDaysNotice) > $requestNeededBy) {
                         // auto-reject each request that is needed before the organization can deliver
                         $donationRequest->approval_status_id = 4;
                         $donationRequest->approved_organization_id = $organization->id;
@@ -324,5 +315,10 @@ class RuleEngineController extends Controller
             }
         }
         return redirect()->back();
+    }
+
+    public function rulesHelp()
+    {
+        return view('rules.help');
     }
 }

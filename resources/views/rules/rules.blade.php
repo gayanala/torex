@@ -28,7 +28,8 @@
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
             <div class="col-md-8 form-group">
                 <label>Monthly Budget:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]+([\.,][0-9]+)?" min="0.00" step="0.01" required
+                <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]+([\.,][0-9]+)?" min="0.00"
+                       step="0.01" required
                        title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality."
                        value="{{ $monthlyBudget }}" size="10"/>
             </div>
@@ -45,12 +46,18 @@
         </form>
     </div>
     <div>
-        <br />
-        <br />
-        <br />
+        <br/>
+        <br/>
+        <br/>
     </div>
 
     <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
+        <!--<Rules help in new window/tab>  -->
+        <div class="col-md-12" style="padding-left:82.5%">
+            <a href="{{url('/help') }}" target="_blank">
+                <h7><b><u>How to set rules?</u></b></h7>
+            </a>
+        </div>
         <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
             <h1>Global Business Rules (Admin Only)</h1>
             <div class="col-md-8">
@@ -77,7 +84,8 @@
                 <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
                         class="btn btn-default">Run Budget
                 </button>
-                <button id="btnRunMinimumNoticeCheckRule" type="button" href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
+                <button id="btnRunMinimumNoticeCheckRule" type="button"
+                        href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
                         class="btn btn-default">Run Required Days Notice
                 </button>
             </div>
