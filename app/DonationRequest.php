@@ -56,4 +56,8 @@ class DonationRequest extends Model
     public function donationApprovalStatus() {
         return $this->belongsTo('App\Approval_Status', 'approval_status_id', 'id');
     }
+
+    public function organization() {
+        return $this->hasOne('App\Organization', 'id');
+    }
 }
