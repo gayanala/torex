@@ -296,4 +296,33 @@ class RuleEngineController extends Controller
         }
         return redirect()->back();
     }
+
+    //////////  REJECTS REQUESTS WHERE NEEDED BY IS SOONER THAN MIN NOTICE (called via cron job)  //////////
+    public function runMinimumNoticeCheckRule()
+    {
+        // Get Active organizations
+        $organizations = Organization::query()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->get(['id']);
+
+        foreach ($organizations as $organization) {
+            $requiredDaysNotice = Organization::query()->where('id', '=', $organization->id)->get(['required_days_notice'])->first()->required_days_notice;
+            // Only run Budget rule if it is greater than zero
+            if ($requiredDaysNotice > 0)
+            {
+                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->where('approval_status_id', '<', 4)->get();
+                foreach ($pendingDonationRequests as $donationRequest)
+                {
+                    $requestNeededBy = $donationRequest->needed_by_date;
+                    If ( Carbon::today()->addDays($requiredDaysNotice) > $requestNeededBy)
+                    {
+                        // auto-reject each request that is needed before the organization can deliver
+                        $donationRequest->approval_status_id = 4;
+                        $donationRequest->approved_organization_id = $organization->id;
+                        $donationRequest->rule_process_date = Carbon::now();
+                        $donationRequest->save();
+                    }
+                }
+            }
+        }
+        return redirect()->back();
+    }
 }

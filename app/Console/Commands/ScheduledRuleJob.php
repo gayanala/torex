@@ -48,7 +48,7 @@ class ScheduledRuleJob extends Command
         date_default_timezone_set("America/Belize");
 
         app('App\Http\Controllers\RuleEngineController')->runBudgetCheckRule();
-
+        app('App\Http\Controllers\RuleEngineController')->runMinimumNoticeCheckRule();
         Log::error('Donation Requests over budget has been updated To Pending Rejection!');
         $this->error('Request Status Updated Successfully!');
     }
