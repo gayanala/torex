@@ -40,17 +40,20 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $organization = Auth::user()->organization_id;
-        $count = User::where('organization_id', $organization)->count();
+//        $count = User::where('organization_id', $organization)->count();
         $subscription = DB::table('subscriptions')->where('organization_id', $organization)->value('quantity');
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
+//        dd($parentChildOrg[0]);
         $childOrgIds = $parentChildOrg->pluck('child_org_id');
+        $count = User::where('organization_id', $childOrgIds)->count();
+//        dd($count);
 
         $childOrgNames = Organization::whereIn('id', $childOrgIds)->pluck('org_name', 'id');
 
         if ($count <= $subscription) {
             return view('users.show', compact('user', 'childOrgNames'));
         } else {
-            \Session::flash('flash_message', 'Adding users crossed plan limit!');
+            Session::flash('flash_message', 'Adding users crossed plan limit!');
             return view('users.index', compact('user'));
         }
     }
