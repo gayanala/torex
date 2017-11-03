@@ -203,7 +203,6 @@ class DonationRequestController extends Controller
             $donation[0]->update(['approved_user_id' => $userId]);
             event(new TriggerAcceptEmailEvent($donation[0]));
 
-//            $organizationId = Auth::user()->organization_id;
             $organization = Organization::findOrFail($organizationId);
             $organizationName = $organization->org_name;
             $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
@@ -215,7 +214,6 @@ class DonationRequestController extends Controller
             $donation[0]->update(['approval_status_id' => 4]);
             event(new TriggerRejectEmailEvent($donation[0]));
 
-            $organizationId = Auth::user()->organization_id;
             $organization = Organization::findOrFail($organizationId);
             $organizationName = $organization->org_name;
             $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
