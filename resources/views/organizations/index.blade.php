@@ -39,7 +39,7 @@
                                         , {{ $organization->organization['city'] }}
                                         , {{ $organization->organization['state'] }} {{ $organization['zipcode'] }}</td>
                                     <td style="vertical-align: middle">{{ $organization->organization['phone_number']}}</td>
-                                    <td style="vertical-align: middle"><a href="{{route('organizations.edit',$organization->child_org_id)}}" class="btn btn-warning">Update</a></td>
+                                    <td style="vertical-align: middle"><a href="{{route('organizations.edit',$organization->child_org_id)}}" class="btn btn-warning">Edit</a></td>
                                     <td style="vertical-align: middle">
                                         {{ Form::open([
                                                         'method' => 'DELETE',
