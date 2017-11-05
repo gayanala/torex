@@ -33,7 +33,7 @@
                                 @foreach($childOrganizations as $organization)
                                 <tr class="text-center">
                                     <td style="vertical-align: middle">{{ $organization->organization['org_name'] }}</td>
-                                    <td style="vertical-align: middle">{{ $organization->organization['organization_type_id'] }}</td>
+                                    <td style="vertical-align: middle">{{ $organization->organization->organizationType->type_name }}</td>
                                     <td style="vertical-align: middle">{{ $organization->organization['street_address1'] }}
                                         {{ $organization->organization['street_address2'] }}
                                         , {{ $organization->organization['city'] }}
