@@ -13,10 +13,18 @@
                 @endif
 
                 <div class="panel panel-default">
-
-                    <div class="panel-heading"><a href="{{action('OrganizationController@createOrganization')}}" class="btn btn-primary pull-right">
+                    @if ($count < $subscription)
+                        <div class="panel-heading">
+                            <a href="{{action('OrganizationController@createOrganization')}}"
+                               class="btn btn-primary pull-right">
                             [+] Add </a><h1> Manage Business Locations </h1>
                     </div>
+                    @else
+                        <div class="alert alert-info">Plan limit crossed, upgrade to add more locations</div>
+                        <div class="panel-heading">
+                            <h1> Manage Business Locations </h1>
+                        </div>
+                    @endif
 
                     <div class="panel-body">
                         <table class="table table-striped table-bordered table-hover">

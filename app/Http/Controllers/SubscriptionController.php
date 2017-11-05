@@ -27,18 +27,34 @@ class SubscriptionController extends Controller
         $id = Auth::user()->organization_id;
         $organization = Organization::find($id);
         $pickedPlan = $request->get('plan');
+        $coupon = $request->get('coupon');
         if ($organization->subscribedToPlan($pickedPlan, 'main')) {
             return redirect('subscription')->with('status', 'Plan Already Submitted!');
         } else {
             if ($request->input('plan') == "annually") {
-                $organization->newSubscription('main', $request->input('plan'))->withCoupon("OFF20")->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
-                    'email' => $organization->org_name
+                if (isset($coupon)) {
+                    $organization->newSubscription('main', $request->input('plan'))->withCoupon("OFF20")->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+                        'email' => $organization->org_name
 
-                ]);
+                    ]);
+                } else {
+                    $organization->newSubscription('main', $request->input('plan'))->withCoupon("OFF20")->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+                        'email' => $organization->org_name
+
+                    ]);
+                }
             } else {
-                $organization->newSubscription('main', $request->input('plan'))->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
-                    'email' => $organization->org_name
-                ]);
+                if ($request->input('plan') == "monthly") {
+                    if (isset($coupon)) {
+                        $organization->newSubscription('main', $request->input('plan'))->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+                            'email' => $organization->org_name
+                        ]);
+                    } else {
+                        $organization->newSubscription('main', $request->input('plan'))->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+                            'email' => $organization->org_name
+                        ]);
+                    }
+                }
             }
 
             return redirect('home')->with('status', 'Successfully Submitted!');

@@ -188,6 +188,7 @@
 
 <body>
 <script>
+
     var MON_CHAR = {{ config('variables.monthly_charge') }};
     var ANUAL_CHAR = {{ config('variables.annual_charge') }};
     var EXTRA_CHAR = {{ config('variables.extra_charge') }};
