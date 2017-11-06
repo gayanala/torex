@@ -333,8 +333,8 @@
 <div id="navDemo" class="visible-xs-block visible-sm-block">
     @if (Auth::guest())
         <li> <a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us</a></li>
-        <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !</a></li>
         <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works</a></li>
+        <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !</a></li>
         <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login</a></li>
 
                 </div>
