@@ -1,24 +1,5 @@
 @extends('layouts.app')
 
-
-
-{{--@section('header')--}}
-
-    {{--<!-- Bootstrap Core CSS -->--}}
-    {{--<link href="css/bootstrap.min.css" rel="stylesheet">--}}
-
-    {{--<!-- Custom CSS -->--}}
-    {{--<link href="css/sb-admin-2.css" rel="stylesheet">--}}
-
-    {{--<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->--}}
-    {{--<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->--}}
-    {{--<!--[if lt IE 9]>--}}
-    {{--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>--}}
-    {{--<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>--}}
-    {{--<![endif]-->--}}
-
-{{--@endsection--}}
-
 @section('content')
 <div id="wrapper">
 
@@ -168,14 +149,14 @@
 
                                 </tbody>
                                 @else
-                                    <div>No Donation Request is stored in the system yet.</div>
+                                    <div>No pending donation requests to show.</div>
                                 @endif
                             </table>
-                        <div>
-                            <a type="button" class="btn active btn-group-sm btn-primary" onClick="func(0)">Approve Selected Donations</a>
-                            <a type="button" class="btn active btn-group-sm btn-primary" onClick="func(1)">Reject Selected Donations</a>
-
-                        </div>
+                        {!! Form::open(['action' =>  'EmailTemplateController@send', 'method' => 'GET']) !!}
+                            {{ Form::hidden('hiddenname', 'abc', array('id' => 'selected-ids-hidden')) }}
+                                {!! Form::submit( 'Approve', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'approve'])!!}
+                            {!! Form::submit( 'Reject', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'reject']) !!}
+                        {!! Form::close() !!}
                     </div>
 
 <!-- Donation request -->
@@ -192,32 +173,38 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery Version 1.11.0 -->
-    <!--script src="js/jquery-1.11.0.js"></script-->
-
-    <!-- Bootstrap Core JavaScript -->
-    <!--script src="js/bootstrap.min.js"></script-->
-
-    <!-- Custom Theme JavaScript -->
-    {{--<script src="js/sb-admin-2.js"></script>--}}
-
     <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        } );
 
         $('#selectall').change(function() {
             if(document.getElementById('selectall').checked) {
                 $('.myCheckbox').prop('checked', true);
+                //get all ids push to idsArray
             } else {
                 $('.myCheckbox').prop('checked', false);
+                // empty/splice idsArray
             }
 
         });
 
+        var idsArray = [];
+
+        // Populating array with the list of checkboxes with
+        // checked ids
+        $('.myCheckbox').change(function () {
+            var id = $(this).attr('ids');
+            if(this.checked) {
+                idsArray.push(id);
+            } else {
+                idsArray.splice(idsArray.indexOf(id), 1);
+            }
+            $('#selected-ids-hidden').val((idsArray));
+        });
+
+
         function func(actionStatus) {
 
-            var idsArray = [];
+
+            $('#selected-ids-hidden').val(JSON.stringify(idsArray));
 
             // Populating array with the list of checkboxes with
             // checked ids
@@ -265,6 +252,5 @@
 
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-
 </div>
     @endsection
