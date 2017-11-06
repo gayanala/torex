@@ -20,7 +20,9 @@
                             [+] Add </a><h1> Manage Business Locations </h1>
                     </div>
                     @else
-                        <div class="alert alert-info">Plan limit crossed, upgrade to add more locations</div>
+                        <div class="alert alert-info">Plan limit includes the parent organization and the limit is
+                            crossed, upgrade to add more locations.
+                        </div>
                         <div class="panel-heading">
                             <h1> Manage Business Locations </h1>
                         </div>
