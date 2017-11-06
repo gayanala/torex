@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Http\Controllers\WebhookController;
 
+
 class SubscriptionController extends Controller
 {
     protected $organization;
@@ -17,6 +18,7 @@ class SubscriptionController extends Controller
         if ($organization->subscribed('main')) {
             return redirect('/home');
         } else {
+
             return view('subscriptions.payment');
         }
 
@@ -31,6 +33,7 @@ class SubscriptionController extends Controller
         if ($organization->subscribedToPlan($pickedPlan, 'main')) {
             return redirect('subscription')->with('status', 'Plan Already Submitted!');
         } else {
+
             if ($request->input('plan') == "annually") {
                 if (isset($coupon)) {
                     $organization->newSubscription('main', $request->input('plan'))->withCoupon("OFF20")->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
