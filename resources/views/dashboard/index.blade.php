@@ -206,8 +206,22 @@
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
+
+            // Storing the number of all the checkboxes
+            // of donation requests
+            var totalCheckboxes = $('.myCheckbox').length;
+
+            // Toggling selectall by checking if all the checkboxes are checked
+            $('.myCheckbox').change(function() {
+                if (($('.myCheckbox:checked').size() == totalCheckboxes) && (totalCheckboxes != 0)) {
+                    $('#selectall').prop('checked', true);
+                } else {
+                    $('#selectall').prop('checked', false);
+                }
+            });
         } );
 
+        // on toggle of select all
         $('#selectall').change(function() {
             if(document.getElementById('selectall').checked) {
                 $('.myCheckbox').prop('checked', true);
