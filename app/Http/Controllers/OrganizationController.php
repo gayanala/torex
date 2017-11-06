@@ -19,9 +19,10 @@ class OrganizationController extends Controller
     {
         $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
         $count = $childOrganizations->count();
-        $subscription = DB::table('subscriptions')->where('organization_id', Auth::user()->organization_id)->value('quantity');
-        $subscription = $subscription - 1;
-        return view('organizations.index', compact('childOrganizations', 'count', 'subscription'));
+        $subscriptiondb = DB::table('subscriptions')->where('organization_id', Auth::user()->organization_id)->value('quantity');
+        $subscription = $subscriptiondb - 1;
+
+        return view('organizations.index', compact('childOrganizations', 'count', 'subscriptiondb', 'subscription'));
 
     }
 

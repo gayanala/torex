@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Organization;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Http\Controllers\WebhookController;
@@ -40,11 +41,16 @@ class SubscriptionController extends Controller
                         'email' => $organization->org_name
 
                     ]);
+                    $organization->trial_ends_at = Carbon::now()->lastOfMonth();
+                    $organization->save();
+
                 } else {
                     $organization->newSubscription('main', $request->input('plan'))->withCoupon("OFF20")->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
                         'email' => $organization->org_name
 
                     ]);
+                    $organization->trial_ends_at = Carbon::now()->lastOfMonth();
+                    $organization->save();
                 }
             } else {
                 if ($request->input('plan') == "monthly") {
@@ -52,10 +58,14 @@ class SubscriptionController extends Controller
                         $organization->newSubscription('main', $request->input('plan'))->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
                             'email' => $organization->org_name
                         ]);
+                        $organization->trial_ends_at = Carbon::now()->lastOfMonth();
+                        $organization->save();
                     } else {
                         $organization->newSubscription('main', $request->input('plan'))->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
                             'email' => $organization->org_name
                         ]);
+                        $organization->trial_ends_at = Carbon::now()->lastOfMonth();
+                        $organization->save();
                     }
                 }
             }
