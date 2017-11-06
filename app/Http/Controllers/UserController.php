@@ -96,7 +96,12 @@ class UserController extends Controller
 
         event(new NewBusiness($user));
 
-        return redirect('/securityquestions/create')-> with('userId',$userid);
+        if (env('securityquestion') == 'true')
+        {
+            return redirect('/securityquestions/create')-> with('userId',$userid);
+        } else{
+            return redirect('/home');
+        }
 
     }
 
