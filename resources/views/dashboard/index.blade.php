@@ -120,6 +120,7 @@
                                     <th class="text-center">Request Amount</th>
                                     <th class="text-center">Request For</th>
                                     {{--<th class="text-center">Event Name</th>--}}
+                                    <th class="text-center">Location</th>
                                     <th class="text-center">Handout Date</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">View Details</th>
@@ -134,6 +135,8 @@
                                         <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
                                         <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
                                         {{--<td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>--}}
+                                        <td style="vertical-align: middle">{{$donationrequest->organization->org_name }}</td>
+
                                         <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
 
                                         <td id="status{{$donationrequest->id}}" style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
@@ -149,14 +152,14 @@
 
                                 </tbody>
                                 @else
-                                    <div>No pending donation requests to show.</div>
+                                    <div>No Donation Request is stored in the system yet.</div>
                                 @endif
                             </table>
-                        {!! Form::open(['action' =>  'EmailTemplateController@send', 'method' => 'GET']) !!}
-                            {{ Form::hidden('hiddenname', 'abc', array('id' => 'selected-ids-hidden')) }}
-                                {!! Form::submit( 'Approve', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'approve'])!!}
-                            {!! Form::submit( 'Reject', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'reject']) !!}
-                        {!! Form::close() !!}
+                        <div>
+                            <a type="button" class="btn active btn-group-sm btn-primary" onClick="func(0)">Approve Selected Donations</a>
+                            <a type="button" class="btn active btn-group-sm btn-primary" onClick="func(1)">Reject Selected Donations</a>
+
+                        </div>
                     </div>
 
 <!-- Donation request -->
