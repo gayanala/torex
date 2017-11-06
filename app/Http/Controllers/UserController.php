@@ -13,6 +13,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Validation\Rule;
+use Session;
 use Validator;
 
 
@@ -82,7 +83,11 @@ class UserController extends Controller
 
         event(new NewBusiness($user));
 
-        return redirect('/securityquestions/create')-> with('userId',$userid);
+        if (env('securityquestion') == 'true') {
+            return redirect('/securityquestions/create')->with('userId', $userid);
+        } else {
+            return redirect('/home');
+        }
 
     }
 
