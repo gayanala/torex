@@ -73,7 +73,8 @@ class OrganizationController extends Controller
 
     public function createOrganization() {
         $states = State::pluck('state_name', 'state_code');
-        return view('organizations.create', compact('states'));
+        $Organization_types = Organization_type::pluck('type_name', 'id');
+        return view('organizations.create', compact('states', 'Organization_types'));
     }
 
     /**
