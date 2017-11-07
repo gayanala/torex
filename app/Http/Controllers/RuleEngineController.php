@@ -260,8 +260,9 @@ class RuleEngineController extends Controller
                 $amountSpent = DonationRequest::query()->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)
                     ->where([['approved_organization_id', $organization->id], ['approval_status_id', 5]])
                     ->sum('approved_dollar_amount');
-                dd($amountSpent);
-                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [1, 3])->get();
+                //dd($amountSpent);
+                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [1, 3])
+                    ->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)->get();
                 foreach ($pendingDonationRequests as $donationRequest) {
                     $requestAmount = $donationRequest->dollar_amount;
                     If (($requestAmount + $amountSpent) >= $monthlyBudget) {
