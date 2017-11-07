@@ -39,39 +39,49 @@ class EmailController extends Controller
 
     }*/
 
+    /**
+     * Gets email ids, edited email template and sends email by calling SendManualRequest Mailable
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function manualRequestMail(Request $request) {
 
-        $emails = str_replace(array("[","]",'"'),"", ($request-> To));
-        $array = explode(',', $emails); //split string into array seperated by ', '
-        $emails=[];
-        foreach($array as $value) //loop over values
-        {
-            array_push($emails, $value);
-        }
-        $names = str_replace(array('","')," ", ($request-> names));
-        $names = str_replace(array('"]["'),",", ($names));
-        $names =str_replace(array("[","]",'"'),"", ($names));
-        $array = explode(',', $names);
-        $names=[];
-        foreach($array as $value) //loop over values
-        {
-            array_push($names, $value);
-        }
-        //dd($names);
+        //get donation request ids by converting string to array
+        $idsArray = explode(',', $request->idsString); //split string into array separated by ', '
+
+        //get email ids
+        $emails = DonationRequest::whereIn('id', $idsArray)->pluck('email');
+        $names = str_replace(array('":"')," ", $request-> names);
+        $names =str_replace(array("{", "}", '"'),"", $names);
+        $names = explode(',', $names);
+
+        // Storing the existing template that was populated in the editor
+        $initialTemplate = $request->email_message;
+
         foreach($emails as $index => $email)
         {
-            $request->email_message = str_replace('{patron}',$names[$index], $request->email_message);
-            $request->email_message = str_replace('{organization}',Auth::user()->organization->org_name, $request->email_message);
-            if($request->status == 'Approve'){
+            $request->email_message = str_replace('{patron}', $names[$index], $request->email_message);
+            $request->email_message = str_replace('{organization}', Auth::user()->organization->org_name, $request->email_message);
 
+            $donation_id = $idsArray[$index];
+            $donation = DonationRequest::where('id', $donation_id)->get();
+
+            if($request->status == 'Approve'){
+                //update donation request status in database
+                $donation[0]->update(['approval_status_id' => 5]);
             }
             elseif($request->status == 'Reject'){
-
+                $donation[0]->update(['approval_status_id' => 4]);
             }
+            $donation[0]->update(['approved_organization_id' => Auth::user()->organization_id]);
+            $donation[0]->update(['approved_user_id' => Auth::user()->id]);
+
             Mail::to($email)->send(new SendManualRequest($request));
+            $request->email_message = $initialTemplate;
         }
 
-
-        return back();
+        $redirectto = $request->pagefrom;
+        return redirect($redirectto)->with(with('status', 'All Emails are sent'));
     }
 }

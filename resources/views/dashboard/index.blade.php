@@ -154,6 +154,7 @@
                                 </table>
                                 {!! Form::open(['action' =>  'EmailTemplateController@send', 'method' => 'GET']) !!}
                                 {{ Form::hidden('hiddenname', 'abc', array('id' => 'selected-ids-hidden')) }}
+                                {{ Form::hidden('pagefrom', '/dashboard') }}
                                 {!! Form::submit( 'Approve', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'approve'])!!}
                                 {!! Form::submit( 'Reject', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'reject']) !!}
                                 {!! Form::close() !!}
@@ -191,11 +192,18 @@
             } );
 
             $('#selectall').change(function() {
+                idsArray = [];
                 if(document.getElementById('selectall').checked) {
                     $('.myCheckbox').prop('checked', true);
+                    $('.myCheckbox').each(function(){
+                        idsArray.push($(this).attr('ids'));
+                    });
+                    $('#selected-ids-hidden').val(idsArray);
                     //get all ids push to idsArray
                 } else {
                     $('.myCheckbox').prop('checked', false);
+
+                    $('#selected-ids-hidden').val('');
                     // empty/splice idsArray
                 }
 

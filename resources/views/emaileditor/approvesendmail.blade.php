@@ -64,6 +64,9 @@
                                 {!! Form::text('To', $emails, ['class'=>'col-md-9 control-label'] ) !!}
                                 {!! Form::hidden('names', $names) !!}
                                 {!! Form::hidden('status', 'Approve') !!}
+                                {!! Form::hidden('idsString', $idsString) !!}
+                                {!! Form::hidden('pagefrom', $pagefrom) !!}
+
                                 {{--{!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}--}}
                             </div>
                         </div>
