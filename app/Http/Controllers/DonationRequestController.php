@@ -135,7 +135,6 @@ class DonationRequestController extends Controller
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
         $donationRequest->event_start_date = $request->startdate;
-        $donationRequest->event_end_date = $request->enddate;
         $donationRequest->event_type = $request->event_type;
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;

@@ -78,10 +78,7 @@
                             <td>Event Start Date</td>
                             <td><?php echo date("m/d/Y", strtotime($donationrequest['event_start_date'])); ?></td>
                         </tr>
-                        <tr>
-                            <td>Event End Date</td>
-                            <td><?php echo date("m/d/Y", strtotime($donationrequest['event_end_date'])); ?></td>
-                        </tr>
+
                         <tr>
                             <td>Event Purpose</td>
                             <td><?php echo ($event_purpose_name); ?></td>
