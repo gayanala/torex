@@ -261,7 +261,7 @@ class RuleEngineController extends Controller
 
         foreach ($organizations as $organization) {
             $monthlyBudget = Organization::query()->where('id', '=', $organization->id)->get(['monthly_budget'])->first()->monthly_budget;
-            //dd($monthlyBudget);
+            dd($monthlyBudget);
             // Only run Budget rule if it is greater than zero
             if ($monthlyBudget > 0) {
                 $amountSpent = DonationRequest::query()->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)
