@@ -117,9 +117,8 @@
                             {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['class' => 'form-control', 'required'] )!!}
                         </div>
                     </div>
+                    <br><br>
                 @endif
-                {!! Form::close() !!}
-                <br><br>
                 <div style="text-align:center">
                     @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
                         <input class="btn active btn-success" type="submit" name="approve" value="Approve">
@@ -131,6 +130,9 @@
                             Request</a>
                     @endif
                 </div>
+                {!! Form::close() !!}
+
+
                 <br><br>
             </div>
                 </div>
