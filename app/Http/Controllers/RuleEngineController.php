@@ -2,26 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Rule_type;
-use Auth;
-use App\Rule;
 use App\DonationRequest;
 use App\Organization;
 use App\ParentChildOrganizations;
-use App\User;
-use function GuzzleHttp\Psr7\str;
+use App\Rule;
+use App\Rule_type;
+use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Query\Builder;
-//use Illuminate\Database\Eloquent\Builder;
-use phpDocumentor\Reflection\Types\Integer;
-use Carbon\Carbon;
-use PhpParser\Node\Expr\Array_;
 use timgws\QueryBuilderParser;
+
+//use Illuminate\Database\Eloquent\Builder;
 
 // use timgws\JoinSupportingQueryBuilderParser;
 
@@ -258,18 +251,22 @@ class RuleEngineController extends Controller
     {
         // Get Active organizations
         $organizations = Organization::query()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->get(['id']);
-
+        //dd($organizations);
         foreach ($organizations as $organization) {
             $monthlyBudget = Organization::query()->where('id', '=', $organization->id)->get(['monthly_budget'])->first()->monthly_budget;
+            //dd($monthlyBudget);
             // Only run Budget rule if it is greater than zero
             if ($monthlyBudget > 0) {
                 $amountSpent = DonationRequest::query()->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)
                     ->where([['approved_organization_id', $organization->id], ['approval_status_id', 5]])
                     ->sum('approved_dollar_amount');
-                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [1, 3])->get();
+                //dd($amountSpent);
+                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [1, 3])
+                    ->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)->get();
                 foreach ($pendingDonationRequests as $donationRequest) {
                     $requestAmount = $donationRequest->dollar_amount;
                     If (($requestAmount + $amountSpent) >= $monthlyBudget) {
+                        Info('Donation Request ID has been Rejected: '.$donationRequest->id);
                         // pending-reject each request that would put organization over budget
                         $donationRequest->approval_status_id = 2;
                         //$donationRequest->approved_organization_id = $organization->id;
@@ -279,7 +276,7 @@ class RuleEngineController extends Controller
                 }
             }
         }
-        return redirect()->back();
+        return redirect()->to('/donationrequests'); //->back();
     }
 
     //////////  REJECTS REQUESTS WHERE NEEDED BY IS SOONER THAN MIN NOTICE (called via cron job)  //////////
@@ -291,12 +288,16 @@ class RuleEngineController extends Controller
         foreach ($organizations as $organization) {
             $requiredDaysNotice = Organization::query()->where('id', '=', $organization->id)->get(['required_days_notice'])->first()->required_days_notice;
             // Only run Budget rule if it is greater than zero
+            info('Required Days Notice: '.$requiredDaysNotice);
             if ($requiredDaysNotice > 0) {
                 $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->where('approval_status_id', '<', 4)->get();
+                info('Pending Donation Requests: \n '.$pendingDonationRequests);
                 foreach ($pendingDonationRequests as $donationRequest) {
                     $requestNeededBy = $donationRequest->needed_by_date;
+                    info('Required Days Notice: '.$requiredDaysNotice);
                     If (Carbon::today()->addDays($requiredDaysNotice) > $requestNeededBy) {
                         // auto-reject each request that is needed before the organization can deliver
+                        Info('Request Rejected ID: '.$donationRequest->id);
                         $donationRequest->approval_status_id = 4;
                         $donationRequest->approved_organization_id = $organization->id;
                         $donationRequest->rule_process_date = Carbon::now();
@@ -305,7 +306,7 @@ class RuleEngineController extends Controller
                 }
             }
         }
-        return redirect()->back();
+        return redirect()->to('/donationrequests'); //->back();
     }
 
     public function rulesHelp()

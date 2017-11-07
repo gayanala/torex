@@ -4,11 +4,10 @@ namespace App\Console\Commands;
 
 use App\DonationRequest;
 use App\Events\SendRemindersEvent;
-use App\Listeners\SendRemindersMessage;
 use App\Organization;
-use Illuminate\Console\Command;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class SendReminders extends Command
 {
@@ -45,23 +44,21 @@ class SendReminders extends Command
     {
         $organizations = Organization::all();
 
-        foreach ($organizations as $organization)
-        {
+        foreach ($organizations as $organization) {
             $countPendingDonationRequests = DonationRequest::where('organization_id', $organization->id)
                 ->wherenotin('approval_status_id', array(4, 5))
                 ->where('needed_by_date', '<', Carbon::now()->addDays(21))->count();
 
             $users = User::where('organization_id', $organization->id)->get();
 
-            foreach ($users as $user)
-            {
+            foreach ($users as $user) {
                 $email = $user->email;
                 $name = $user->first_name;
 //                $this->info($name);
 //                $this->info($email);
 //                $this->info($organization->org_name);
 //                $this->info($countPendingDonationRequests);
-                event(new SendRemindersEvent($email,$name,$organization->org_name, $countPendingDonationRequests));
+                event(new SendRemindersEvent($email, $name, $organization->org_name, $countPendingDonationRequests));
             }
         }
     }

@@ -27,24 +27,27 @@
         <h1>Basic Settings</h1>
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
             <div class="col-md-8 form-group">
-                <br />
+                <br/>
                 <table width="50%">
                     <tr>
                         <td>
                             <label style="cursor: help;"
-                                    title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
+                                   title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
                                 Monthly Budget:</label>&nbsp;
                         </td>
                         <td>
-                            <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]+([\.,][0-9]+)?" min="0.00"
+                            <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]+([\.,][0-9]+)?"
+                                   min="0.00"
                                    step="0.01" required value="{{ $monthlyBudget }}" size="10"/>
                         </td>
                     </tr>
-                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
                     <tr>
                         <td>
                             <label style="cursor: help;"
-                                    title="Enter your minimum days notice. Requests that need to be fulfilled before your business can fulfill them will be automatically declined.">
+                                   title="Enter your minimum days notice. Requests that need to be fulfilled before your business can fulfill them will be automatically declined.">
                                 Required Days Notice: &nbsp;</label>
                         </td>
                         <td>
