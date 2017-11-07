@@ -258,7 +258,7 @@ class RuleEngineController extends Controller
     {
         // Get Active organizations
         $organizations = Organization::query()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->get(['id']);
-        //dd($organizations);
+        dd($organizations);
         foreach ($organizations as $organization) {
             $monthlyBudget = Organization::query()->where('id', '=', $organization->id)->get(['monthly_budget'])->first()->monthly_budget;
             //dd($monthlyBudget);
