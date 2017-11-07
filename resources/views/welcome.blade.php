@@ -56,20 +56,23 @@
         </div>
         <div class="col-sm-6" id="sign">
             <h2 class="margin">Sign Up Today!</h2>
-            <p class="text-center">It only takes a few minutes to register your business and get started with Q.  Once you have registered, add our easy Donation Request Form to your business’ web page.  Requests for donation are entered online by the organization making the request and then filtered based on priorities set by your business.  This makes it easy to track requests made and respond accordingly.</p>
+            <p class="text-center">It only takes a few minutes to register your business and get started with Q. Once
+                you have registered, add our easy Donation Request Form to your business’ web page. Requests for
+                donation are entered online by the organization making the request and then filtered based on priorities
+                set by your business. This makes it easy to track requests made and respond accordingly.</p>
             <br>
             <br>
             <br>
             <br>
             <br>
             <br>
-             <h4><a href="{{ route('register') }}" class="w3-bar-item w3-button ">Sign Up !</a></h4>
+            <h4><a href="{{ route('register') }}" class="w3-bar-item w3-button ">Sign Up !</a></h4>
             <br>
 
         </div>
         <div class="col-sm-6">
             <h2>Save Time = Save Money</h2>
-            <p class="text-center">  Request management can be delegated to multiple users within your organization.
+            <p class="text-center"> Request management can be delegated to multiple users within your organization.
                 Filters can be enabled to sort donation requests to ensure your business supports causes important to you.
                 As a business user, you will be able to approve or reject requests in bulk and respond within the
                 application.
@@ -80,7 +83,7 @@
             </p>
 
             <br>
-<br><br><br><br><br>
+            <br><br><br><br><br>
             <br>
             <br>
 

@@ -212,7 +212,7 @@
             var totalCheckboxes = $('.myCheckbox').length;
 
             // Toggling selectall by checking if all the checkboxes are checked
-            $('.myCheckbox').change(function() {
+            $('.myCheckbox').change(function () {
                 if (($('.myCheckbox:checked').size() == totalCheckboxes) && (totalCheckboxes != 0)) {
                     $('#selectall').prop('checked', true);
                 } else {

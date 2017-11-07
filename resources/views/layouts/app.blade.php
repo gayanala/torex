@@ -19,8 +19,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-
-
     @yield('css')
 
 
@@ -154,9 +152,9 @@
         .navbar-nav  li a:hover {
             color: #1abc9c !important;
         }
-        .col-sm-6
-        {display: block;
-           padding:5px;
+        .col-sm-6 {
+            display: block;
+            padding: 5px;
 
         }
 
@@ -201,7 +199,11 @@
         .w3-bar .w3-button {
             padding: 16px;
         }
-        body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Raleway", sans-serif
+        }
+
         body, html {
             height: 100%;
             line-height: 1.8;
@@ -216,6 +218,7 @@
 
 <body>
 <script>
+
     var MON_CHAR = {{ config('variables.monthly_charge') }};
     var ANUAL_CHAR = {{ config('variables.annual_charge') }};
     var EXTRA_CHAR = {{ config('variables.extra_charge') }};
@@ -244,8 +247,8 @@
                     <div class="collapse navbar-collapse" id="myNavbar" >
 
 
-                                               <!-- Right Side Of Navbar -->
-                      <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
+                        <!-- Right Side Of Navbar -->
+                        <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
 
                             @if (Auth::guest())
                                 <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us</a></li>
@@ -254,14 +257,15 @@
                                 <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login</a></li>
 
 
-                               </ul>
-                                </div>
+                        </ul>
+                    </div>
 
-                                </li>
-                                    @else
+                    </li>
+                    @else
 
-                                <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
-                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search Donations</a></li>
+                        <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
+                        <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                                Donations</a></li>
                                 <li>
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                        aria-expanded="false">
@@ -271,88 +275,88 @@
 
                                     <ul class="dropdown-menu" role="menu">
                                         <div class="w3-dropdown-content w3-card-4 w3-bar-block">
-                                        <li>
-                                            <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('organizations.index')}}">Business Locations</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('emailtemplates.index') }}">
-                                                Communication Template
-                                            </a>
-                                        </li>
-</div>
+                                            <li>
+                                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('emailtemplates.index') }}">
+                                                    Communication Template
+                                                </a>
+                                            </li>
+                                        </div>
                                     </ul>
                                 </li>
 
-                                <li class="dropdown">
+                        <li class="dropdown">
 
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false">
-                                        {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
-                                                class="caret"></span>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">
+                                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
+                                        class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ route('users.index')}}">Profile Management</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('reset-password') }}">
+                                        Reset Password
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        Logout
                                     </a>
 
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="{{ route('users.index')}}">Profile Management</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('reset-password') }}">
-                                                Reset Password
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                                Logout
-                                            </a>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                  style="display: none;">
-                                                {{ csrf_field() }}
-                                            </form>
-                                        </li>
-                                    </ul>
-
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
                                 </li>
-                            @endif
+                            </ul>
+
+                        </li>
+                        @endif
                         </ul>
-                    </div>
                 </div>
             </div>
-    </nav>
         </div>
+    </nav>
+</div>
 
-   </div>
+</div>
 </div>
 
 
 <div id="navDemo" class="visible-xs-block visible-sm-block">
     @if (Auth::guest())
-        <li> <a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us</a></li>
+        <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us</a></li>
         <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works</a></li>
         <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !</a></li>
         <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login</a></li>
 
-                </div>
-            </ul>
-        </li>
-    @else
-<ul>
+</div>
+</ul>
+</li>
+@else
+    <ul>
         <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
         <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search Donations</a></li>
-        <li  class="dropdown">
+        <li class="dropdown">
             <div class="w3-dropdown-content w3-card-4 w3-bar-block">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-               aria-expanded="false">
-                My Organization
-                <span class="caret"></span>
-            </a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                   aria-expanded="false">
+                    My Organization
+                    <span class="caret"></span>
+                </a>
 
-            <ul class="dropdown-menu" role="menu">
+                <ul class="dropdown-menu" role="menu">
 
                     <li>
                         <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
@@ -366,7 +370,7 @@
                         </a>
                     </li>
                 </ul>
-                </div>
+            </div>
         </li>
 
         <li class="dropdown">
@@ -401,16 +405,16 @@
                 </ul>
             </div>
         </li>
-</ul>
-        @endif
+    </ul>
+    @endif
 
 
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
 <br>
     <div id="content">
         {{--@include('layouts.partials._status')--}}

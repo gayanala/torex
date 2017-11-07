@@ -21,9 +21,11 @@
 
                             <div class="col-md-6">
                                 @if (env('securityquestion') == 'true')
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ $email_address }}" readonly>
+                                    <input id="email" type="email" class="form-control" name="email"
+                                           value="{{ $email_address }}" readonly>
                                 @else
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                    <input id="email" type="email" class="form-control" name="email"
+                                           value="{{ old('email') }}" required>
                                 @endif
 
                                 @if ($errors->has('email'))
