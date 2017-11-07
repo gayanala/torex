@@ -82,6 +82,6 @@ class EmailController extends Controller
         }
 
         $redirectto = $request->pagefrom;
-        return redirect($redirectto)->with(with('status', 'All Emails are sent'));
+        return redirect($redirectto);
     }
 }

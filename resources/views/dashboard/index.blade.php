@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -153,10 +154,13 @@
                                     @endif
                                 </table>
                                 {!! Form::open(['action' =>  'EmailTemplateController@send', 'method' => 'GET']) !!}
-                                {{ Form::hidden('hiddenname', 'abc', array('id' => 'selected-ids-hidden')) }}
+                                {{ Form::hidden('hiddenname','' , array('id' => 'selected-ids-hidden')) }}
                                 {{ Form::hidden('pagefrom', '/dashboard') }}
-                                {!! Form::submit( 'Approve', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'approve'])!!}
-                                {!! Form::submit( 'Reject', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'reject']) !!}
+                                {{--add if condition to show approve and reject buttons only if there are pending requests and atleast one is selected--}}
+                                @if(sizeOf($donationrequests) != 0)
+                                    {!! Form::submit( 'Approve', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'approve'])!!}
+                                    {!! Form::submit( 'Reject', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'reject']) !!}
+                                @endif
                                 {!! Form::close() !!}
                         </div>
 
