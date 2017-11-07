@@ -29,11 +29,9 @@ class ForgotPasswordController extends Controller
 
     public function showLinkRequestForm() //override the function from SendsPasswordResetEmails
     {
-        if (env('securityquestion') == 'true')
-        {
+        if (env('securityquestion') == 'true') {
             return redirect('forgotpassword/insertemail');
-        } else
-        {
+        } else {
             return view('auth.passwords.email');
         }
     }

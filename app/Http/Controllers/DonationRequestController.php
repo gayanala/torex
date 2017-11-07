@@ -3,25 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\DonationRequest;
-use App\Events\SendAutoRejectEmail;
+use App\Events\DonationRequestReceived;
 use App\Events\TriggerAcceptEmailEvent;
 use App\Events\TriggerRejectEmailEvent;
 use App\File;
+use App\Organization;
 use App\Request_event_type;
 use App\Request_item_purpose;
 use App\Request_item_type;
 use App\Requester_type;
 use App\State;
+use Auth;
+use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use App\Events\DonationRequestReceived;
-use App\Organization_type;
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Auth;
-use Excel;
-use App\Organization;
 
 
 class DonationRequestController extends Controller

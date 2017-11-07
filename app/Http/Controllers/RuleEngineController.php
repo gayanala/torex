@@ -2,26 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Rule_type;
-use Auth;
-use App\Rule;
 use App\DonationRequest;
 use App\Organization;
 use App\ParentChildOrganizations;
-use App\User;
-use function GuzzleHttp\Psr7\str;
+use App\Rule;
+use App\Rule_type;
+use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Query\Builder;
-//use Illuminate\Database\Eloquent\Builder;
-use phpDocumentor\Reflection\Types\Integer;
-use Carbon\Carbon;
-use PhpParser\Node\Expr\Array_;
 use timgws\QueryBuilderParser;
+
+//use Illuminate\Database\Eloquent\Builder;
 
 // use timgws\JoinSupportingQueryBuilderParser;
 
