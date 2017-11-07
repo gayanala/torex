@@ -98,37 +98,40 @@
                                 <td>What are the marketing opportunities?</td>
                                 <td><?php echo ($donationrequest['marketing_opportunities']); ?></td>
                             </tr>
+                            @if($donationrequest->approved_dollar_amount <> 0.00)
+                                <tr>
+                                    <td>Approved Amount</td>
+                                    <td>$<?php echo ($donationrequest['approved_dollar_amount']); ?></td>
+                                </tr>
+                            @endif
                             </tbody>
                         </div>
-
                     </table>
-                    <br><br>
-                    {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
-                    @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
-                        <div>
-                            <label for="dollar_amount" class="col-md-3 control-label">Dollar Amount Approval</label>
-                            <div class="col-lg-6">
-                                {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
-                                {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['class' => 'form-control', 'required'] )!!}
-                            </div>
-                        </div>
-                    @endif
-                    <br><br>
-
-                    <div style="text-align:center">
-                        @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
-                            <input class="btn active btn-success" type="submit" name="approve" value="Approve">
-                            <input class="btn active btn-danger" type="submit" name="reject" value="Reject">
-                            <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
-                                Request</a>
-                        @else
-                            <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
-                                Request</a>
-                        @endif
-                    </div>
-                    {!! Form::close() !!}
-                    <br>
                 </div>
+                {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
+                @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
+                    <div>
+                        <label for="dollar_amount" class="col-md-3 control-label">Dollar Amount Approval</label>
+                        <div class="col-lg-6">
+                            {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
+                            {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['class' => 'form-control', 'required'] )!!}
+                        </div>
+                    </div>
+                @endif
+                {!! Form::close() !!}
+                <br><br>
+                <div style="text-align:center">
+                    @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
+                        <input class="btn active btn-success" type="submit" name="approve" value="Approve">
+                        <input class="btn active btn-danger" type="submit" name="reject" value="Reject">
+                        <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
+                            Request</a>
+                    @else
+                        <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
+                            Request</a>
+                    @endif
+                </div>
+                <br><br>
             </div>
                 </div>
             </div>
