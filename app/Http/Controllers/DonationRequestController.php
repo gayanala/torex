@@ -130,13 +130,13 @@ class DonationRequestController extends Controller
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
         $donationRequest->event_start_date = $request->startdate;
-        $donationRequest->event_end_date = $request->enddate;
         $donationRequest->event_type = $request->event_type;
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
         $this->validate($request, [
             'needed_by_date' => 'after:today',
+               'taxexempt' => "required",
         ]);
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
@@ -209,6 +209,8 @@ class DonationRequestController extends Controller
             $donation_id = $request->id;
             $donation = DonationRequest::where('id', $donation_id)->get();
             $donation[0]->update(['approval_status_id' => 4]);
+            $donation[0]->update(['approved_organization_id' => $organizationId]);
+            $donation[0]->update(['approved_user_id' => $userId]);
             event(new TriggerRejectEmailEvent($donation[0]));
 
             $organization = Organization::findOrFail($organizationId);
