@@ -100,7 +100,10 @@
                             <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="phonenumber" type="tel" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required title="Enter your 10 digit Phone Number as 555-555-5555" class="form-control" name="phonenumber" value="{{ old('phonenumber') }}" placeholder="Your Phone number" required autofocus>
+
+
+                                <input id="phonenumber" type="tel" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required title="Enter your 10 digit Phone Number as 555-555-5555" class="form-control" name="phonenumber" value="{{ old('phonenumber') }}" placeholder="Example ###-###-####" required autofocus>
+
 
                                 @if ($errors->has('phonenumber'))
                                     <span class="help-block">
@@ -279,6 +282,7 @@
                                 @endif
                             </div>
                         </div>
+
 
 
                         <div class="form-group{{ $errors->has('event_type') ? ' has-error' : '' }}">

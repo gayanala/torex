@@ -24,6 +24,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/about-us', function () { return view('Front-page');});
+Route::get('/help', function () {
+    return view('help');
+});
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -99,15 +103,17 @@ Route::get('/emaileditor/editsendmail','EmailTemplateController@send');
 
 //Dashboard
 
-Route::get('/dashboard', 'DashboardController@index');
+Route::get('/dashboard', 'DashboardController@index') ->name('dashboardindex');
 
 Route::post('/donation/change-status', 'DonationRequestController@changeDonationStatus');
 
 // Rules stuff
-Route::get('guirules', 'RuleEngineController@rulesGui');
-Route::get('runRule', 'RuleEngineController@runRule');
+Route::get('help', 'RuleEngineController@rulesHelp');
+Route::get('runRule', 'RuleEngineController@manualRunRule');
 Route::get('runBudgetCheckRule', 'RuleEngineController@runBudgetCheckRule');
+Route::get('runMinimumNoticeCheckRule', 'RuleEngineController@runMinimumNoticeCheckRule');
 Route::get('saveRule', 'RuleEngineController@saveRule');
+Route::get('saveBudgetNotice', 'RuleEngineController@saveBudgetNotice');
 Route::get('loadRule', 'RuleEngineController@loadRule');
 //Route::get('/rules', 'RuleEngineController@rules');
 Route::resource('/rules', 'RuleEngineController');
@@ -116,3 +122,5 @@ Route::resource('/rules', 'RuleEngineController');
 Route::get('/webhook/chargeSuccess', 'SubscriptionController@chargeSuccess');
 
 Route::get('subscription/popup', 'SubscriptionController@subscribe');
+
+Route::get('compose-email', 'EmailTemplateController@send');
