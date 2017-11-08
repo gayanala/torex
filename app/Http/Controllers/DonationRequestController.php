@@ -209,6 +209,8 @@ class DonationRequestController extends Controller
             $donation_id = $request->id;
             $donation = DonationRequest::where('id', $donation_id)->get();
             $donation[0]->update(['approval_status_id' => 4]);
+            $donation[0]->update(['approved_organization_id' => $organizationId]);
+            $donation[0]->update(['approved_user_id' => $userId]);
             event(new TriggerRejectEmailEvent($donation[0]));
 
             $organization = Organization::findOrFail($organizationId);
