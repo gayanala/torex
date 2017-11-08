@@ -12,10 +12,9 @@ use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-use Validator;
 use Session;
+use Validator;
 
 
 class UserController extends Controller
@@ -40,24 +39,12 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $organization = Auth::user()->organization_id;
-        $subscription = DB::table('subscriptions')->where('organization_id', $organization)->value('quantity');
-        $parentChildOrgs = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
-        $numParentChildOrgs = $parentChildOrgs->count();
-        $counttotal = 0;
-        for ($i = 0; $i <= sizeof($numParentChildOrgs); $i++ ) {
-            $count = DB::table('users')->where('organization_id', '=', $parentChildOrgs[$i]->child_org_id)->count();
-            $counttotal = $counttotal + $count;
-        }
-        $childOrgIds = $parentChildOrgs->pluck('child_org_id');
+        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
+        $childOrgIds = $parentChildOrg->pluck('child_org_id');
         $childOrgNames = Organization::whereIn('id', $childOrgIds)->pluck('org_name', 'id');
 
-        if ($counttotal < $subscription) {
             return view('users.show', compact('user', 'childOrgNames'));
-        } else {
-            Session::flash('flash_message', 'Adding users crossed plan limit!');
-            return view('users.index', compact('user'));
-        }
+
     }
 
     public function create(Request $request)
@@ -96,7 +83,11 @@ class UserController extends Controller
 
         event(new NewBusiness($user));
 
-        return redirect('/securityquestions/create')-> with('userId',$userid);
+        if (env('securityquestion') == 'true') {
+            return redirect('/securityquestions/create')->with('userId', $userid);
+        } else {
+            return redirect('/home');
+        }
 
     }
 
