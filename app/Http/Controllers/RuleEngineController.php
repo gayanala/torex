@@ -327,7 +327,7 @@ class RuleEngineController extends Controller
                         $donationRequest->approved_organization_id = $organization->id;
                         $donationRequest->rule_process_date = Carbon::now();
                         $donationRequest->save();
-                        event(new SendAutoRejectEmail($donationRequest));
+                        //event(new SendAutoRejectEmail($donationRequest));
                         //usleep(500000);
                     }
                 }
