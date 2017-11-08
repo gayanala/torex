@@ -19,18 +19,20 @@ use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use App\ParentChildOrganizations;
 
 
 class DonationRequestController extends Controller
 {
     public function index()
-    {
-        $organizationId = Auth::user()->organization_id;
-        $organization = Organization::findOrFail($organizationId);
-        $organizationName = $organization->org_name;
-        $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-        //dd($donationrequests);
-        return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+{
+    $organizationId = Auth::user()->organization_id;
+       $organization = Organization::findOrFail($organizationId);
+       $organizationName = $organization->org_name;
+     $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+       array_push($arr, $organizationId);
+       $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
+       return view('donationrequests.index', compact('donationrequests', 'organizationName'));
     }
 
     public function create()
