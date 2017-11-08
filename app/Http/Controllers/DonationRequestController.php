@@ -137,6 +137,7 @@ class DonationRequestController extends Controller
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
         $this->validate($request, [
             'needed_by_date' => 'after:today',
+               'taxexempt' => "required",
         ]);
         $donationRequest->save();
         if ($request->hasFile('attachment')) {

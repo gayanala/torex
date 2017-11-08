@@ -50,9 +50,17 @@
                                 <td>Zip Code</td>
                                 <td><?php echo ($donationrequest['zipcode']); ?></td>
                             </tr>
+                            <?php $taxexempt_value=" ";
+                             if($donationrequest['tax_exempt']==1){
+                             $taxexempt_value="Yes";}
+                             else {
+                               $taxexempt_value="No";
+                             } 
+                             ?>
+
                             <tr>
                                 <td>Tax Exempt</td>
-                                <td><?php echo ($donationrequest['tax_exempt']); ?></td>
+                                <td><?php echo "$taxexempt_value" ; ?></td>
                             </tr>
                             <tr>
                                 <td>Request For</td>
