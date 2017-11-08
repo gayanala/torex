@@ -70,6 +70,6 @@ class DonationRequest extends Model
 
     public function organization()
     {
-        return $this->hasOne('App\Organization', 'id');
+        return $this->hasOne('App\Organization', 'id', 'organization_id');
     }
 }
