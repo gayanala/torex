@@ -245,10 +245,9 @@ class DonationRequestController extends Controller
         dd($request);
     }
 
-    public function showAllDonationRequests()
+    public function showAllDonationRequests($id)
     {
-
-        $organization = Organization::findOrFail(1);
+        $organization = Organization::findOrFail($id);
 
         return view('donationrequests.donation-organization', compact( 'organization'));
     }
