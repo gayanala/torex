@@ -202,7 +202,7 @@
                                                 <td style="vertical-align: middle">${{ $organization->donationRequest->sum('dollar_amount') }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '5')->count() }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>
-                                                <td style="vertical-align: middle"> HI </td>
+                                                <td style="vertical-align: middle"> {{ $organization->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->year)->count() }} </td>
                                                 <td>
                                                     <a href="{{ url('/organizationdonations', $organization->id)}}" class="btn btn-warning" title="Detail">
                                                         <span class="glyphicon glyphicon-list-alt"></span></a>
