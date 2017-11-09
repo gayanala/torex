@@ -26,6 +26,7 @@ class SubscriptionController extends Controller
             $subscriptionends = Organization::findOrFail($parentorgid);
             $organization = Organization::find($parentorgid);
             if($organization->subscribed('main')) {
+
                 if ($subscriptionends->trial_ends_at->gte(Carbon::now())) {
 
                     return redirect('/dashboard');
@@ -42,7 +43,6 @@ class SubscriptionController extends Controller
                 return view('subscriptions.expiredsubscription');
 
             }
-
 
         }
         else {
