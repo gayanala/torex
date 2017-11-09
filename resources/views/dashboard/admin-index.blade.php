@@ -187,7 +187,6 @@
                                             <th class="text-center">Organization Name</th>
                                             <th class="text-center">Total Donations</th>
                                             <th class="text-center">Approved</th>
-                                            {{--<th class="text-center">Event Name</th>--}}
                                             <th class="text-center">Rejected</th>
                                             <th class="text-center">Amount Donated YTD</th>
                                             <th class="text-center">Details</th>
