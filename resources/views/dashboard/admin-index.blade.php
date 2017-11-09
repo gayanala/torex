@@ -174,7 +174,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default text-left">
                         <div class="panel-heading">
-                            <b>Pending Requests</b>
+                            <b>Organization's Donations</b>
                         </div>
 
                         <div class="panel-body">
@@ -187,7 +187,6 @@
                                             <th class="text-center">Organization Name</th>
                                             <th class="text-center">Total Donations</th>
                                             <th class="text-center">Approved</th>
-                                            {{--<th class="text-center">Event Name</th>--}}
                                             <th class="text-center">Rejected</th>
                                             <th class="text-center">Amount Donated YTD</th>
                                             <th class="text-center">Details</th>
@@ -203,9 +202,10 @@
                                                 <td style="vertical-align: middle">${{ $organization->donationRequest->sum('dollar_amount') }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '5')->count() }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>
-                                                <td style="vertical-align: middle">something</td>
+                                                <td style="vertical-align: middle"> HI </td>
                                                 <td>
-                                                    view details
+                                                    <a href="{{ url('/organizationdonations', $organization->id)}}" class="btn btn-warning" title="Detail">
+                                                        <span class="glyphicon glyphicon-list-alt"></span></a>
 
                                                 </td>
                                                 {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}

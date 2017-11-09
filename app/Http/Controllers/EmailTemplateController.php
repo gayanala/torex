@@ -65,14 +65,14 @@ class EmailTemplateController extends Controller
         //returns to different views based on button clicked by user 'Approve' or 'Reject'
         if ($changestatus == 'Approve') {
 
-            //get email template for Approve id value = 8
-            $emailtemplate = EmailTemplate::findOrFail(8);
+            //get email template for Approve id value = 3
+            $emailtemplate = EmailTemplate::findOrFail(3);
             return view('emaileditor.approvesendmail', compact('emailtemplate', 'emails', 'names', 'idsString', 'pagefrom'));
         }
         else {
 
-            //get email template for Reject id value = 9
-            $emailtemplate = EmailTemplate::findOrFail(9);
+            //get email template for Reject id value = 4
+            $emailtemplate = EmailTemplate::findOrFail(4);
             return view('emaileditor.rejectsendmail', compact('emailtemplate', 'emails', 'names', 'idsString', 'pagefrom'));
         }
     }

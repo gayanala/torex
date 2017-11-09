@@ -29,7 +29,7 @@ class DonationRequestController extends Controller
         $organization = Organization::findOrFail($organizationId);
         $organizationName = $organization->org_name;
         $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-        //dd($donationrequests);
+
         return view('donationrequests.index', compact('donationrequests', 'organizationName'));
     }
 
@@ -221,7 +221,7 @@ class DonationRequestController extends Controller
 
         $emailids = [];
         if ($request['status'] == 0) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $acceptedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($acceptedrequests as $acceptedrequest) {
@@ -230,7 +230,7 @@ class DonationRequestController extends Controller
             }
 
         } elseif ($request['status'] == 1) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($rejectedrequests as $rejectedrequest) {
@@ -247,5 +247,10 @@ class DonationRequestController extends Controller
         dd($request);
     }
 
+    public function showAllDonationRequests($id)
+    {
+        $organization = Organization::findOrFail($id);
 
+        return view('donationrequests.donation-organization', compact( 'organization'));
+    }
 }
