@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 use App\Organization;
 use Auth;
-use App\ParentChildOrganizations;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,37 +15,14 @@ class SubscriptionController extends Controller
     public function getIndex()
     {
         $id = Auth::user()->organization_id;
+        $organization = Organization::find($id);
+        if ($organization->subscribed('main')) {
+            return redirect('/home');
+        } else {
 
-        //if organization is child and it's sparent org does not have a active subscription redirect it to 'subscription expired' page
-        $ischild = (ParentChildOrganizations::where('child_org_id', '=', $id)->exists());
-
-        if ($ischild) {
-
-            $parentorgid = ParentChildOrganizations::where('child_org_id', $id)->value('parent_org_id');
-
-            $organization = Organization::find($parentorgid);
-            if ($organization->subscribed('main')) {
-
-                return redirect('/dashboard');
-
-            } else {
-
-                return view('subscriptions.expiredsubscription');
-
-            }
+            return view('subscriptions.payment');
         }
-        else {
 
-            $organization = Organization::find($id);
-            if ($organization->subscribed('main')) {
-
-                return redirect('/dashboard');
-            } else {
-
-                return view('subscriptions.payment');
-            }
-
-        }
 
     }
     public function postJoin(Request $request)
@@ -94,7 +70,7 @@ class SubscriptionController extends Controller
                 }
             }
 
-            return redirect('/dashboard')->with('status', 'Successfully Submitted!');
+            return redirect('home')->with('status', 'Successfully Submitted!');
 
         }
     }
