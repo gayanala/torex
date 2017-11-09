@@ -29,7 +29,7 @@ class DonationRequestController extends Controller
         $organization = Organization::findOrFail($organizationId);
         $organizationName = $organization->org_name;
         $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-        //dd($donationrequests);
+
         return view('donationrequests.index', compact('donationrequests', 'organizationName'));
     }
 
@@ -247,5 +247,10 @@ class DonationRequestController extends Controller
         dd($request);
     }
 
+    public function showAllDonationRequests($id)
+    {
+        $organization = Organization::findOrFail($id);
 
+        return view('donationrequests.donation-organization', compact( 'organization'));
+    }
 }

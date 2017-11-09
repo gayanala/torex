@@ -126,3 +126,4 @@ Route::get('subscription/popup', 'SubscriptionController@subscribe');
 Route::get('compose-email', 'EmailTemplateController@send');
 
 Route::get('/dashboard-taggadmin', 'DashboardController@indexTaggAdmin') ->name('dashboardindex-taggadmin');
+Route::get('/organizationdonations/{id}', 'DonationRequestController@showAllDonationRequests');

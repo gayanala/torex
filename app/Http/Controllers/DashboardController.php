@@ -37,6 +37,6 @@ class DashboardController extends Controller
         $approvedNumber = DonationRequest::where('approval_status_id', 5)->count();
         $pendingNumber = DonationRequest::whereIn('approval_status_id', [2, 3])->count();
         return view('dashboard.admin-index', compact('organizations', 'amountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber'));
-        
+
     }
 }
