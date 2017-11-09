@@ -29,7 +29,6 @@ class DonationRequest extends Model
         'event_type',
         'est_attendee_count',
         'event_start_date',
-        'event_end_date',
         'est_attendee_count',
         'venue',
         'marketing_opportunities',

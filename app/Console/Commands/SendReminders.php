@@ -8,6 +8,7 @@ use App\Organization;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class SendReminders extends Command
 {
@@ -48,17 +49,23 @@ class SendReminders extends Command
             $countPendingDonationRequests = DonationRequest::where('organization_id', $organization->id)
                 ->wherenotin('approval_status_id', array(4, 5))
                 ->where('needed_by_date', '<', Carbon::now()->addDays(21))->count();
+            $pendingAmount = DB::table('donation_requests')
+                ->where('organization_id', $organization->id)
+                ->wherenotin('approval_status_id', array(4, 5))
+                ->where('needed_by_date', '<', Carbon::now()->addDays(21))->sum('dollar_amount');
 
-            $users = User::where('organization_id', $organization->id)->get();
+            if ($countPendingDonationRequests > 0) {
+                $users = User::where('organization_id', $organization->id)->get();
 
-            foreach ($users as $user) {
-                $email = $user->email;
-                $name = $user->first_name;
+                foreach ($users as $user) {
+                    $email = $user->email;
+                    $name = $user->first_name;
 //                $this->info($name);
 //                $this->info($email);
 //                $this->info($organization->org_name);
 //                $this->info($countPendingDonationRequests);
-                event(new SendRemindersEvent($email, $name, $organization->org_name, $countPendingDonationRequests));
+                    event(new SendRemindersEvent($email, $name, $organization->org_name, $countPendingDonationRequests, $pendingAmount));
+                }
             }
         }
     }

@@ -132,7 +132,6 @@ class DonationRequestController extends Controller
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
         $donationRequest->event_start_date = $request->startdate;
-        $donationRequest->event_end_date = $request->enddate;
         $donationRequest->event_type = $request->event_type;
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
@@ -224,7 +223,7 @@ class DonationRequestController extends Controller
 
         $emailids = [];
         if ($request['status'] == 0) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $acceptedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($acceptedrequests as $acceptedrequest) {
@@ -233,7 +232,7 @@ class DonationRequestController extends Controller
             }
 
         } elseif ($request['status'] == 1) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($rejectedrequests as $rejectedrequest) {
@@ -250,5 +249,10 @@ class DonationRequestController extends Controller
         dd($request);
     }
 
+    public function showAllDonationRequests($id)
+    {
+        $organization = Organization::findOrFail($id);
 
+        return view('donationrequests.donation-organization', compact( 'organization'));
+    }
 }
