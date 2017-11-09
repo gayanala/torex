@@ -21,7 +21,7 @@ class SubscriptionController extends Controller
         $ischild = ParentChildOrganizations::where('child_org_id', '=', $id)->exists();
         $subscriptionends = Organization::findOrFail($id);
         if ($ischild) {
-
+            
             $parentorgid = ParentChildOrganizations::where('child_org_id', $id)->value('parent_org_id');
             $subscriptionends = Organization::findOrFail($parentorgid);
             $organization = Organization::find($parentorgid);
@@ -31,12 +31,18 @@ class SubscriptionController extends Controller
                     return redirect('/dashboard');
 
                 }
+                else {
+
+                    return view('subscriptions.expiredsubscription');
+
+                }
             }
             else {
 
                 return view('subscriptions.expiredsubscription');
 
             }
+
 
         }
         else {
@@ -47,12 +53,16 @@ class SubscriptionController extends Controller
 
                     return redirect('/dashboard');
                 }
+                else {
+
+                    return view('subscriptions.payment');
+                }
             }
             else {
 
                 return view('subscriptions.payment');
-            }
 
+            }
         }
 
     }
