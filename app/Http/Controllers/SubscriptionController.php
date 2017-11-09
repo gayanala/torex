@@ -18,30 +18,37 @@ class SubscriptionController extends Controller
         $id = Auth::user()->organization_id;
 
         //if organization is child and it's sparent org does not have a active subscription redirect it to 'subscription expired' page
-        $ischild = (ParentChildOrganizations::where('child_org_id', '=', $id)->exists());
-
+        $ischild = ParentChildOrganizations::where('child_org_id', '=', $id)->exists();
+        $subscriptionends = Organization::findOrFail($id);
         if ($ischild) {
 
             $parentorgid = ParentChildOrganizations::where('child_org_id', $id)->value('parent_org_id');
-
+            $subscriptionends = Organization::findOrFail($parentorgid);
             $organization = Organization::find($parentorgid);
-            if ($organization->subscribed('main')) {
+            if($organization->subscribed('main')) {
+                if ($subscriptionends->trial_ends_at->gte(Carbon::now())) {
 
-                return redirect('/dashboard');
+                    return redirect('/dashboard');
 
-            } else {
+                }
+            }
+            else {
 
                 return view('subscriptions.expiredsubscription');
 
             }
+
         }
         else {
 
             $organization = Organization::find($id);
-            if ($organization->subscribed('main')) {
+            if($organization->subscribed('main')) {
+                if ($subscriptionends->trial_ends_at->gte(Carbon::now())) {
 
-                return redirect('/dashboard');
-            } else {
+                    return redirect('/dashboard');
+                }
+            }
+            else {
 
                 return view('subscriptions.payment');
             }
