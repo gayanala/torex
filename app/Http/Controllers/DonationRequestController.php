@@ -20,6 +20,7 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\ParentChildOrganizations;
+use Carbon\Carbon;
 
 
 class DonationRequestController extends Controller
@@ -35,20 +36,24 @@ class DonationRequestController extends Controller
        return view('donationrequests.index', compact('donationrequests', 'organizationName'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-//        $user = Auth::user();
-//        $organizationId = $user->organization_id;
-//        $organization = Organization::findOrFail($organizationId);
-//        $organizationName = $organization->org_name;
+        $organization = Organization::where('id', $request->orgId)->get();
+        $expireDate = $organization[0]->trial_ends_at;
 
-        $states = State::pluck('state_name', 'state_code');
-        $requester_types = Requester_type::pluck('type_name', 'id');
-        $request_item_types = Request_item_type::pluck('item_name', 'id');
-        $request_item_purpose = Request_item_purpose::pluck('purpose_name', 'id');
-        $request_event_type = Request_event_type::pluck('type_name', 'id');
-        return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
-            ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+        if ($expireDate > Carbon::now()) {
+            $states = State::pluck('state_name', 'state_code');
+            $requester_types = Requester_type::pluck('type_name', 'id');
+            $request_item_types = Request_item_type::pluck('item_name', 'id');
+            $request_item_purpose = Request_item_purpose::pluck('purpose_name', 'id');
+            $request_event_type = Request_event_type::pluck('type_name', 'id');
+            return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
+                ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+        }
+
+        else {
+            return view('donationrequests.expired');
+        }
     }
 
     public function edit($id)
