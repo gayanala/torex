@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Organization;
 use Auth;
+use App\ParentChildOrganizations;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,14 +15,54 @@ class SubscriptionController extends Controller
     public function getIndex()
     {
         $id = Auth::user()->organization_id;
-        $organization = Organization::find($id);
-        if ($organization->subscribed('main')) {
-            return redirect('/home');
-        } else {
 
-            return view('subscriptions.payment');
+        //if organization is child and it's sparent org does not have a active subscription redirect it to 'subscription expired' page
+        $ischild = ParentChildOrganizations::where('child_org_id', '=', $id)->exists();
+        $subscriptionends = Organization::findOrFail($id);
+        if ($ischild) {
+            
+            $parentorgid = ParentChildOrganizations::where('child_org_id', $id)->value('parent_org_id');
+            $subscriptionends = Organization::findOrFail($parentorgid);
+            $organization = Organization::find($parentorgid);
+            if($organization->subscribed('main')) {
+
+                if ($subscriptionends->trial_ends_at->gte(Carbon::now())) {
+
+                    return redirect('/dashboard');
+
+                }
+                else {
+
+                    return view('subscriptions.expiredsubscription');
+
+                }
+            }
+            else {
+
+                return view('subscriptions.expiredsubscription');
+
+            }
+
         }
+        else {
 
+            $organization = Organization::find($id);
+            if($organization->subscribed('main')) {
+                if ($subscriptionends->trial_ends_at->gte(Carbon::now())) {
+
+                    return redirect('/dashboard');
+                }
+                else {
+
+                    return view('subscriptions.payment');
+                }
+            }
+            else {
+
+                return view('subscriptions.payment');
+
+            }
+        }
 
     }
 
@@ -79,7 +120,7 @@ class SubscriptionController extends Controller
                 }
             }
 
-            return redirect('home')->with('status', 'Successfully Submitted!');
+            return redirect('/dashboard')->with('status', 'Successfully Submitted!');
 
         }
     }

@@ -19,34 +19,41 @@ use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use App\ParentChildOrganizations;
+use Carbon\Carbon;
 
 
 class DonationRequestController extends Controller
 {
     public function index()
-    {
-        $organizationId = Auth::user()->organization_id;
-        $organization = Organization::findOrFail($organizationId);
-        $organizationName = $organization->org_name;
-        $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-        //dd($donationrequests);
-        return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+{
+    $organizationId = Auth::user()->organization_id;
+       $organization = Organization::findOrFail($organizationId);
+       $organizationName = $organization->org_name;
+     $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+       array_push($arr, $organizationId);
+       $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
+       return view('donationrequests.index', compact('donationrequests', 'organizationName'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-//        $user = Auth::user();
-//        $organizationId = $user->organization_id;
-//        $organization = Organization::findOrFail($organizationId);
-//        $organizationName = $organization->org_name;
+        $organization = Organization::where('id', $request->orgId)->get();
+        $expireDate = $organization[0]->trial_ends_at;
 
-        $states = State::pluck('state_name', 'state_code');
-        $requester_types = Requester_type::pluck('type_name', 'id');
-        $request_item_types = Request_item_type::pluck('item_name', 'id');
-        $request_item_purpose = Request_item_purpose::pluck('purpose_name', 'id');
-        $request_event_type = Request_event_type::pluck('type_name', 'id');
-        return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
-            ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+        if ($expireDate > Carbon::now()) {
+            $states = State::pluck('state_name', 'state_code');
+            $requester_types = Requester_type::pluck('type_name', 'id');
+            $request_item_types = Request_item_type::pluck('item_name', 'id');
+            $request_item_purpose = Request_item_purpose::pluck('purpose_name', 'id');
+            $request_event_type = Request_event_type::pluck('type_name', 'id');
+            return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
+                ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+        }
+
+        else {
+            return view('donationrequests.expired');
+        }
     }
 
     public function edit($id)
@@ -130,7 +137,6 @@ class DonationRequestController extends Controller
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
         $donationRequest->event_start_date = $request->startdate;
-        $donationRequest->event_end_date = $request->enddate;
         $donationRequest->event_type = $request->event_type;
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
@@ -222,7 +228,7 @@ class DonationRequestController extends Controller
 
         $emailids = [];
         if ($request['status'] == 0) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $acceptedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($acceptedrequests as $acceptedrequest) {
@@ -231,7 +237,7 @@ class DonationRequestController extends Controller
             }
 
         } elseif ($request['status'] == 1) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($rejectedrequests as $rejectedrequest) {
@@ -248,5 +254,10 @@ class DonationRequestController extends Controller
         dd($request);
     }
 
+    public function showAllDonationRequests($id)
+    {
+        $organization = Organization::findOrFail($id);
 
+        return view('donationrequests.donation-organization', compact( 'organization'));
+    }
 }

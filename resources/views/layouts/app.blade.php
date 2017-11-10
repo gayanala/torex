@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
 
     @yield('css')
@@ -26,6 +27,24 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     @yield('header')
     <style>
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+        .content {
+            text-align: center;
+        }
+        .title {
+            font-size: 40px;
+        }
+        .m-b-md {
+            margin-bottom: 30px;
+        }
+        .full-height {
+            height: 80vh;
+        }
+
         body {
             font: 16px Montserrat, sans-serif;
             font-size: small;

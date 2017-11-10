@@ -25,12 +25,15 @@ class SendRemindersEvent
 
     public $countPendingDonationRequests;
 
-    public function __construct($email, $name, $organizationName, $countPendingDonationRequests)
+    public $pendingAmount;
+
+    public function __construct($email, $name, $organizationName, $countPendingDonationRequests, $pendingAmount)
     {
         $this->email = $email;
         $this->name = $name;
         $this->organizationName = $organizationName;
         $this->countPendingDonationRequests = $countPendingDonationRequests;
+        $this->pendingAmount = $pendingAmount;
     }
 
     /**
