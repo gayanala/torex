@@ -160,6 +160,7 @@
             padding-bottom: 0px;
         }
         .navbar {
+            position: fixed;
             padding-top: 15px;
             padding-bottom: 15px;
             border: 0;
@@ -246,7 +247,7 @@
 <div id="app">
 
 
-    <nav class="navbar-toggleable-md navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
+    <nav class="navbar-toggleable-md navbar-fixed-top navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
         <div class="container-fluid">
 
 
@@ -435,7 +436,7 @@
     </div>
     </div>
 <br>
-    <div id="content">
+    <div id="content" style="padding-top:4%">
         {{--@include('layouts.partials._status')--}}
         @yield('content')
     </div>
