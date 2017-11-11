@@ -180,14 +180,27 @@ class DonationRequestController extends Controller
     public function show($id)
     {
         $donationrequest = DonationRequest::findOrFail($id);
-        $event_purpose = Request_event_type::findOrFail($donationrequest->event_type);
-        $event_purpose_name = $event_purpose->type_name;
-        $donation_purpose = Request_item_purpose::findOrFail($donationrequest->item_purpose);
-        $donation_purpose_name = $donation_purpose->purpose_name;
-        $item_requested = Request_item_type::findOrFail($donationrequest->item_requested);
-        $item_requested_name = $item_requested->item_name;
-        $donationRequest = Requester_type::findOrFail($donationrequest->requester_type);
-        $donationRequestName = $donationRequest->type_name;
+//        dd($donationrequest);
+        if ($donationrequest->event_type) {
+            $event_purpose = Request_event_type::findOrFail($donationrequest->event_type);
+            $event_purpose_name = $event_purpose->type_name;
+        }
+
+        if ($donationrequest->item_purpose) {
+            $donation_purpose = Request_item_purpose::findOrFail($donationrequest->item_purpose);
+            $donation_purpose_name = $donation_purpose->purpose_name;
+        }
+
+        if($donationrequest->item_requested) {
+            $item_requested = Request_item_type::findOrFail($donationrequest->item_requested);
+            $item_requested_name = $item_requested->item_name;
+        }
+
+        if($donationrequest->requester_type) {
+            $donationRequest = Requester_type::findOrFail($donationrequest->requester_type);
+            $donationRequestName = $donationRequest->type_name;
+        }
+
         return view('donationrequests.show', compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
             , 'item_requested_name', 'donationRequestName'));
     }
