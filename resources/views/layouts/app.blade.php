@@ -292,7 +292,7 @@
                                                 <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
                                             </li>
 
-                                            @if(Auth::user()->roles[0]->name == 'Business Admin')
+                                            @if(Auth::user()->roles[0]->id == 4 OR 1 OR 2)
                                                 <li>
                                                     <a href="{{ url('user/manageusers')}}">Add Users</a>
                                                 </li>
