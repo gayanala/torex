@@ -148,12 +148,12 @@ class DonationRequestController extends Controller
         ]);
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
-            $file = new File();
+//            $file = new File();
 //            $file->donation_request_id = $donationRequest->id;
 //            $file->original_filename = $request->file('attachment')->getClientOriginalName();
 //            $file->file_path = Storage::putFile('public', $request->file('attachment'));
 //            $file->file_type = 'attachment';
-            $file->save();
+//            $file->save();
             // $attachment =$request->file('attachment');
             // $imageFileName = time() . '.' . $attachment->getClientOriginalExtension();
             // $s3 = \Storage::disk('s3');
