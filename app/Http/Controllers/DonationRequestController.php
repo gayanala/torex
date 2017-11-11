@@ -20,6 +20,7 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\ParentChildOrganizations;
+use Carbon\Carbon;
 
 
 class DonationRequestController extends Controller
@@ -35,20 +36,24 @@ class DonationRequestController extends Controller
        return view('donationrequests.index', compact('donationrequests', 'organizationName'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-//        $user = Auth::user();
-//        $organizationId = $user->organization_id;
-//        $organization = Organization::findOrFail($organizationId);
-//        $organizationName = $organization->org_name;
+        $organization = Organization::where('id', $request->orgId)->get();
+        $expireDate = $organization[0]->trial_ends_at;
 
-        $states = State::pluck('state_name', 'state_code');
-        $requester_types = Requester_type::pluck('type_name', 'id');
-        $request_item_types = Request_item_type::pluck('item_name', 'id');
-        $request_item_purpose = Request_item_purpose::pluck('purpose_name', 'id');
-        $request_event_type = Request_event_type::pluck('type_name', 'id');
-        return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
-            ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+        if ($expireDate > Carbon::now()) {
+            $states = State::pluck('state_name', 'state_code');
+            $requester_types = Requester_type::pluck('type_name', 'id');
+            $request_item_types = Request_item_type::pluck('item_name', 'id');
+            $request_item_purpose = Request_item_purpose::pluck('purpose_name', 'id');
+            $request_event_type = Request_event_type::pluck('type_name', 'id');
+            return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
+                ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+        }
+
+        else {
+            return view('donationrequests.expired');
+        }
     }
 
     public function edit($id)
@@ -175,14 +180,27 @@ class DonationRequestController extends Controller
     public function show($id)
     {
         $donationrequest = DonationRequest::findOrFail($id);
-        $event_purpose = Request_event_type::findOrFail($donationrequest->event_type);
-        $event_purpose_name = $event_purpose->type_name;
-        $donation_purpose = Request_item_purpose::findOrFail($donationrequest->item_purpose);
-        $donation_purpose_name = $donation_purpose->purpose_name;
-        $item_requested = Request_item_type::findOrFail($donationrequest->item_requested);
-        $item_requested_name = $item_requested->item_name;
-        $donationRequest = Requester_type::findOrFail($donationrequest->requester_type);
-        $donationRequestName = $donationRequest->type_name;
+//        dd($donationrequest);
+        if ($donationrequest->event_type) {
+            $event_purpose = Request_event_type::findOrFail($donationrequest->event_type);
+            $event_purpose_name = $event_purpose->type_name;
+        }
+
+        if ($donationrequest->item_purpose) {
+            $donation_purpose = Request_item_purpose::findOrFail($donationrequest->item_purpose);
+            $donation_purpose_name = $donation_purpose->purpose_name;
+        }
+
+        if($donationrequest->item_requested) {
+            $item_requested = Request_item_type::findOrFail($donationrequest->item_requested);
+            $item_requested_name = $item_requested->item_name;
+        }
+
+        if($donationrequest->requester_type) {
+            $donationRequest = Requester_type::findOrFail($donationrequest->requester_type);
+            $donationRequestName = $donationRequest->type_name;
+        }
+
         return view('donationrequests.show', compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
             , 'item_requested_name', 'donationRequestName'));
     }

@@ -8,6 +8,9 @@
                     <div class="panel-heading">Login</div>
 
                     <div class="panel-body">
+                        @if (Session::has('success'))
+                            <div class="alert alert-success">{!! Session::get('success') !!}</div>
+                        @endif
                         <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
 

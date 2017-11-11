@@ -7,17 +7,6 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><h1>{{ $organizationName }}</h1></div><br>
 
-                    {{--<div class="col-md-offset-8 col-lg-offset-8 col-xs-offset-8 form-inline">--}}
-                        {{--{{ Form::open(['method'=> 'GET', 'action' => 'DonationRequestController@searchDonationRequest']) }}--}}
-                        {{--{{ Form::input('search','q', null, ['placeholder' => 'Requester Name...','class'=>'form-control', 'autocomplete'=>'off'])}}--}}
-                        {{--{!! Form::submit('Search', ['class' => 'btn btn-default']) !!}--}}
-                        {{--{{ Form::close() }}--}}
-                    {{--</div> <br>--}}
-
-                    {{--<div class="col-md-offset-8 col-lg-offset-8 col-xs-offset-8">--}}
-                        {{--<a type="button" class="btn btn-primary" href="{{ action('DonationRequestController@index') }}">View All Donation Requests</a>--}}
-                    {{--</div>--}}
-
                     <div class="panel-body">
                         @if(sizeOf($donationrequests) != 0)
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -26,7 +15,7 @@
                                 <th class="text-center">Organization Name</th>
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Request For</th>
-                                 <th class="text-center">Location</th>
+                                <th class="text-center">Location</th>
                                 {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Handout Date</th>
                                 <th class="text-center">Status</th>
