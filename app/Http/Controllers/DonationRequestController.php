@@ -6,7 +6,7 @@ use App\DonationRequest;
 use App\Events\DonationRequestReceived;
 use App\Events\TriggerAcceptEmailEvent;
 use App\Events\TriggerRejectEmailEvent;
-use App\File;
+//use App\File;
 use App\Organization;
 use App\Request_event_type;
 use App\Request_item_purpose;
@@ -149,10 +149,10 @@ class DonationRequestController extends Controller
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
             $file = new File();
-            $file->donation_request_id = $donationRequest->id;
-            $file->original_filename = $request->file('attachment')->getClientOriginalName();
-            $file->file_path = Storage::putFile('public', $request->file('attachment'));
-            $file->file_type = 'attachment';
+//            $file->donation_request_id = $donationRequest->id;
+//            $file->original_filename = $request->file('attachment')->getClientOriginalName();
+//            $file->file_path = Storage::putFile('public', $request->file('attachment'));
+//            $file->file_type = 'attachment';
             $file->save();
             // $attachment =$request->file('attachment');
             // $imageFileName = time() . '.' . $attachment->getClientOriginalExtension();
