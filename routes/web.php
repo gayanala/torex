@@ -55,11 +55,11 @@ Route::group(['prefix' => 'subscription'], function () {
     Route::get('/', [
         'as' => 'subscription',
         'uses' => 'SubscriptionController@getIndex'
-    ]);
+    ])->middleware('auth');
     Route::post('/', [
 
         'uses' => 'SubscriptionController@postJoin'
-    ]);
+    ])->middleware('auth');
 });
 
 Route::post('user/register', 'UserController@create');

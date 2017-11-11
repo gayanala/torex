@@ -12,13 +12,6 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
 
     @yield('css')
 
@@ -160,6 +153,7 @@
             padding-bottom: 0px;
         }
         .navbar {
+            position: fixed;
             padding-top: 15px;
             padding-bottom: 15px;
             border: 0;
@@ -246,7 +240,7 @@
 <div id="app">
 
 
-    <nav class="navbar-toggleable-md navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
+    <nav class="navbar-toggleable-md navbar-fixed-top navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
         <div class="container-fluid">
 
 
@@ -435,7 +429,7 @@
     </div>
     </div>
 <br>
-    <div id="content">
+    <div id="content" style="padding-top:4%">
         {{--@include('layouts.partials._status')--}}
         @yield('content')
     </div>

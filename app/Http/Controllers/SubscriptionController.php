@@ -21,7 +21,7 @@ class SubscriptionController extends Controller
         $ischild = ParentChildOrganizations::where('child_org_id', '=', $id)->exists();
         $subscriptionends = Organization::findOrFail($id);
         if ($ischild) {
-            
+
             $parentorgid = ParentChildOrganizations::where('child_org_id', $id)->value('parent_org_id');
             $subscriptionends = Organization::findOrFail($parentorgid);
             $organization = Organization::find($parentorgid);
@@ -82,7 +82,7 @@ class SubscriptionController extends Controller
                         'email' => $organization->org_name
 
                     ]);
-                    $organization->trial_ends_at = Carbon::now()->lastOfMonth();
+                    $organization->trial_ends_at = Carbon::now()->lastOfMonth();// shouldn't this be a year's period
                     $organization->save();
 
                 } else {
@@ -99,7 +99,7 @@ class SubscriptionController extends Controller
                         $organization->newSubscription('main', $request->input('plan'))->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
                             'email' => $organization->org_name
                         ]);
-                        $organization->trial_ends_at = Carbon::now()->lastOfMonth();
+                        $organization->trial_ends_at = Carbon::now()->lastOfMonth();//why not addMonths(1) instead lastOfMonth
                         $organization->save();
                     } else {
                         $organization->newSubscription('main', $request->input('plan'))->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
