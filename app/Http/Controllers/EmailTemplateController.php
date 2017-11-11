@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DonationRequest;
 use Illuminate\Http\Request;
-
-
+use Auth;
+use App\RoleUser;
 use App\EmailTemplate;
 
 
@@ -14,10 +14,28 @@ use App\Http\Controllers\Controller;
 
 class EmailTemplateController extends Controller
 {
+
     public function index()
     {
     	
     	$emailtemplates = EmailTemplate::all();
+    	$orgid = Auth::user()->organization_id;
+    	$userid = Auth::user()->id;
+    	$userrole = RoleUser::where('user_id', $userid)->value('role_id') ;
+
+    	if ($userrole == 1 || $userrole == 2) {
+
+    	    $emailtemplates = EmailTemplate::where('organization_id', $orgid)->whereIn('template_type_id', [1,2,5])->get();
+
+
+    	}
+    	elseif ($userrole == 4) {
+
+    	    $emailtemplates = EmailTemplate::where('organization_id', $orgid)->whereIn('template_type_id', [3,4])->get();
+
+    	}
+
+
     	return view('emailtemplates.index', compact('emailtemplates'));
     }
 
@@ -36,6 +54,7 @@ class EmailTemplateController extends Controller
         return view('emailtemplates.edit', compact('emailtemplate'));
     }
 
+
     /**
      * Uses Template model to send values like email template to populate in email editor,
      * email ids and donation request ids of selected requests
@@ -47,6 +66,7 @@ class EmailTemplateController extends Controller
     {
         $idsString = $request->hiddenname;
         $pagefrom = $request->pagefrom;
+        $orgid = Auth::user()->organization_id;
 
         // Storing what button is clicked
         // either accept or reject
@@ -66,13 +86,13 @@ class EmailTemplateController extends Controller
         if ($changestatus == 'Approve') {
 
             //get email template for Approve id value = 3
-            $emailtemplate = EmailTemplate::findOrFail(3);
+            $emailtemplate = EmailTemplate::where('template_type_id',3)->where('organization_id',$orgid);
             return view('emaileditor.approvesendmail', compact('emailtemplate', 'emails', 'names', 'idsString', 'pagefrom'));
         }
         else {
 
             //get email template for Reject id value = 4
-            $emailtemplate = EmailTemplate::findOrFail(4);
+            $emailtemplate = EmailTemplate::where('template_type_id',4)->where('organization_id',$orgid);
             return view('emaileditor.rejectsendmail', compact('emailtemplate', 'emails', 'names', 'idsString', 'pagefrom'));
         }
     }
