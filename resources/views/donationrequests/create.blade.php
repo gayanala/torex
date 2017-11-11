@@ -7,7 +7,9 @@
             if (document.getElementById('yesCheck').checked) {
                 document.getElementById('file_upload').style.visibility = 'visible';
             }
-            else {document.getElementById('file_upload').style.visibility = 'hidden';}
+            else {
+                document.getElementById('file_upload').style.visibility = 'hidden';
+            }
         }
     </script>
     <div class="container">

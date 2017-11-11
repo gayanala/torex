@@ -30,7 +30,7 @@ class DonationRequestController extends Controller
     $organizationId = Auth::user()->organization_id;
        $organization = Organization::findOrFail($organizationId);
        $organizationName = $organization->org_name;
-     $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+       $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
        array_push($arr, $organizationId);
        $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
        return view('donationrequests.index', compact('donationrequests', 'organizationName'));
@@ -143,7 +143,7 @@ class DonationRequestController extends Controller
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
         $this->validate($request, [
             'needed_by_date' => 'after:today',
-               'event_start_date'=> 'after:today',
+            'startdate'=> 'after:today',
         'taxexempt' => "required",
         ]);
         $donationRequest->save();
@@ -165,8 +165,10 @@ class DonationRequestController extends Controller
 
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
-            $t = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+            $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+
             $imageName = Storage::disk('s3')->url($imageName);
+            dd($imageName);
             // return $path;
         }
         //fire NewBusiness event to initiate sending welcome mail

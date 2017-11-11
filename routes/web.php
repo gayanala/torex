@@ -68,6 +68,8 @@ Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
 
+Route::get('user/manageusers', 'UserController@indexUsers');
+
 // Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
 Route::get('/donationrequests/create', 'DonationRequestController@create')->name('donation');

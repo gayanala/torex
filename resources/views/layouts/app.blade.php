@@ -153,6 +153,7 @@
             padding-bottom: 0px;
         }
         .navbar {
+            position: fixed;
             padding-top: 15px;
             padding-bottom: 15px;
             border: 0;
@@ -239,7 +240,7 @@
 <div id="app">
 
 
-    <nav class="navbar-toggleable-md navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
+    <nav class="navbar-toggleable-md navbar-fixed-top navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
         <div class="container-fluid">
 
 
@@ -290,6 +291,13 @@
                                             <li>
                                                 <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
                                             </li>
+
+                                            @if(Auth::user()->roles[0]->id == 4 OR 1 OR 2)
+                                                <li>
+                                                    <a href="{{ url('user/manageusers')}}">Add Users</a>
+                                                </li>
+                                            @endif
+
                                             <li>
                                                 <a href="{{ route('organizations.index')}}">Business Locations</a>
                                             </li>
@@ -428,7 +436,7 @@
     </div>
     </div>
 <br>
-    <div id="content">
+    <div id="content" style="padding-top:4%">
         {{--@include('layouts.partials._status')--}}
         @yield('content')
     </div>

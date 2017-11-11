@@ -91,7 +91,8 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ route('users.index')}}" class="btn btn-primary">Cancel</a>
+                                <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
+                                {{--<a href="{{ route('users.index')}}" class="btn btn-primary">Cancel</a>--}}
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
