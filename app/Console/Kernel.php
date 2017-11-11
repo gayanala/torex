@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('CronJob:cronjob')
         //->twiceDaily(self::FIRST_RUN_HOUR, self::SECOND_RUN_HOUR);
         ->everyFiveMinutes();
-        $schedule->command('CronJob:scheduledrulejob')->twiceDaily(11, 15);
+        $schedule->command('CronJob:scheduledrulejob')->cron('0 */2 * * *'); // Run every two hours
 
         $schedule->command('command:SendReminders')->mondays();
     }
