@@ -91,8 +91,20 @@ class UserController extends Controller
         if (env('securityquestion') == 'true') {
             return redirect('/securityquestions/create')->with('userId', $userid);
         } else {
-            return redirect('/home');
+            $credentials = array(
+                'email' => $request->email,
+                'password' => $request->password
+            );
+
+            if (Auth::attempt($credentials)) {
+                return redirect('subscription');
+            }
+            else
+            {
+                return redirect('subscription');
+            }
         }
+
 
     }
 
