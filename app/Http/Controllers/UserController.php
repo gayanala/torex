@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AddDefaultTemplates;
 use App\Events\NewBusiness;
 use App\Events\NewSubBusiness;
 use App\Http\Controllers\Route;
@@ -82,6 +83,10 @@ class UserController extends Controller
         //fire NewBusiness event to initiate sending welcome mail
 
         event(new NewBusiness($user));
+
+        //fire AddDefaultTemplates event to update database with default email templates
+
+        event(new AddDefaultTemplates($organization->id));
 
         if (env('securityquestion') == 'true') {
             return redirect('/securityquestions/create')->with('userId', $userid);
