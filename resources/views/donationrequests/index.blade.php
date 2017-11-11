@@ -21,7 +21,7 @@
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Actions</th>
                             </tr>
-                            </thead>                        
+                            </thead>
                             <tbody  style="text-align: center">
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
@@ -35,7 +35,7 @@
                                     <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
                                     {{--<td style="display:none;" class="don-hidden" id-val="{{$donationrequest->id}}"></td>--}}
                                     <td>
-                                        <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-warning" title="Detail">
+                                        <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
                                             <span class="glyphicon glyphicon-list-alt"></span></a>
                                         @if($donationrequest->donationApprovalStatus->id == 2 || $donationrequest->donationApprovalStatus->id == 3)
                                             <a href="" class="btn btn-success" title="Approve" don-id="{{$donationrequest->id}}" onClick="func(0, '{{$donationrequest->id}}')">
