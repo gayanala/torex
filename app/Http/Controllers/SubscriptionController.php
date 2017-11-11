@@ -17,29 +17,25 @@ class SubscriptionController extends Controller
     {
         $id = Auth::user()->organization_id;
 
-        //if organization is child and it's sparent org does not have a active subscription redirect it to 'subscription expired' page
+        //if organization is child and it's parent org does not have a active subscription redirect it to 'subscription expired' page
         $ischild = ParentChildOrganizations::where('child_org_id', '=', $id)->exists();
-        $subscriptionends = Organization::findOrFail($id);
-        if ($ischild) {
+        $organization = Organization::findOrFail($id);
+
+        if ($ischild) {  //checks if the current org is child
 
             $parentorgid = ParentChildOrganizations::where('child_org_id', $id)->value('parent_org_id');
-            $subscriptionends = Organization::findOrFail($parentorgid);
-            $organization = Organization::find($parentorgid);
-            if($organization->subscribed('main')) {
+            $organization = Organization::findOrFail($parentorgid);
 
-                if ($subscriptionends->trial_ends_at->gte(Carbon::now())) {
+            //checks if organization subscription records exists and organization's subscription end date is greater or equal to today
+            if($organization->subscribed('main') AND $organization->trial_ends_at->gte(Carbon::now())) {
 
+                    //redirected to dashboard since user is active subscription period
                     return redirect('/dashboard');
 
-                }
-                else {
-
-                    return view('subscriptions.expiredsubscription');
-
-                }
             }
             else {
 
+                //redirected to payment page since user has not subscribed
                 return view('subscriptions.expiredsubscription');
 
             }
@@ -47,19 +43,14 @@ class SubscriptionController extends Controller
         }
         else {
 
-            $organization = Organization::find($id);
-            if($organization->subscribed('main')) {
-                if ($subscriptionends->trial_ends_at->gte(Carbon::now())) {
+            if($organization->subscribed('main') AND $organization->trial_ends_at->gte(Carbon::now())) {
 
+                    //redirected to dashboard since user is active subscription perio
                     return redirect('/dashboard');
-                }
-                else {
-
-                    return view('subscriptions.payment');
-                }
             }
             else {
 
+                //redirected to payment page since user has not subscribed
                 return view('subscriptions.payment');
 
             }
