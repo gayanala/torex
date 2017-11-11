@@ -347,6 +347,7 @@
                                 <button type="submit" class="btn btn-success">
                                     Send Request
                                 </button>
+                                <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}

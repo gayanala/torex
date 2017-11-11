@@ -55,7 +55,7 @@
                             <div class=" col-md-offset-4">
                                 <button class="btn btn-primary" type="submit" class="" id="createbutton" onclick="myFunction();">Submit</button>
                                 <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
-                                <span style="color: red"> <h5> * All Fields Are Mandatory</h5></span>
+                                <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}

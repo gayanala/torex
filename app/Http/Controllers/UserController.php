@@ -189,7 +189,7 @@ class UserController extends Controller
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
 
-        return redirect('users');
+        return redirect('user/manageusers');
     }
 
     public function destroy($id)
