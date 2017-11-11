@@ -37,6 +37,7 @@ class DonationRequest extends Model
         'approved_user_id',
         'rule_process_date',
         'approval_status_id',
+        'approval_status_reason',
         'email_sent'
     ];
 
