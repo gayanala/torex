@@ -21,6 +21,12 @@
                         {{ Form::hidden('organization_id', Auth::user()->organization_id) }}
                         {!! Form::open(['url' => 'users']) !!}
 
+
+                        <div class="form-group">
+                            {!! Form::label('Role', 'Role:') !!}
+                            {!! Form::select('role_id', $roles, null, ['class' => 'form-control']) !!}
+                        </div>
+
                         <div class="form-group">
                             {!! Form::label('First Name', 'First Name:') !!}
                             {!! Form::text('first_name',null,['class'=>'form-control', 'required']) !!}
