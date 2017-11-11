@@ -146,7 +146,7 @@ class RuleEngineController extends Controller
             $exists = $query->get(['id']);
             if ($exists->isNotEmpty()) {
                 // Apply Rule
-                $query->update(['approval_status_id' => REJECTED, 'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
+                $query->update(['approval_status_id' => REJECTED, 'approval_status_reason' => $ruleRow->ruleType->type_name . ' Rule', 'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
             }
         }
     }
@@ -167,7 +167,7 @@ class RuleEngineController extends Controller
             $exists = $query->get(['id']);
             if ($exists->isNotEmpty()) {
                 // Apply Rule
-                $query->update(['approval_status_id' => PENDING_APPROVAL, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
+                $query->update(['approval_status_id' => PENDING_APPROVAL, 'approval_status_reason' => $ruleRow->ruleType->type_name . ' Rule', 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
             }
         }
     }
@@ -178,7 +178,7 @@ class RuleEngineController extends Controller
         $query = DB::table('donation_requests')->where([['id', '=', $donationRequest->id], ['approval_status_id', '=', SUBMITTED]]);
         $exists = $query->get(['id']);
         if ($exists->isNotEmpty()) {
-            $query->update(['approval_status_id' => PENDING_REJECTION, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
+            $query->update(['approval_status_id' => PENDING_REJECTION, 'approval_status_reason' => 'Failed Pre-Accept Rule', 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
         }
     }
 
@@ -208,7 +208,7 @@ class RuleEngineController extends Controller
                 ['id', 'organization_id', 'requester', 'requester_type', 'needed_by_date', 'tax_exempt', 'dollar_amount', 'approved_organization_id', 'approval_status_id']
             );
             $query = $qbp->parse(json_encode($arr, JSON_UNESCAPED_SLASHES), $table);
-            $query->update(['approval_status_id' => REJECTED, 'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::tomorrow()]);
+            $query->update(['approval_status_id' => REJECTED, 'approval_status_reason' => $ruleRow->ruleType->type_name . ' Rule', 'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::tomorrow()]);
         }
     }
 
@@ -224,7 +224,7 @@ class RuleEngineController extends Controller
                 ['id', 'organization_id', 'requester', 'requester_type', 'needed_by_date', 'tax_exempt', 'dollar_amount', 'approved_organization_id', 'approval_status_id']
             );
             $query = $qbp->parse(json_encode($arr), $table);
-            $query->update(['approval_status_id' => PENDING_APPROVAL, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
+            $query->update(['approval_status_id' => PENDING_APPROVAL, 'approval_status_reason' => $ruleRow->ruleType->type_name . ' Rule', 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
         }
     }
 
@@ -233,7 +233,7 @@ class RuleEngineController extends Controller
         $query = DB::table('donation_requests')->where('approval_status_id', '=', SUBMITTED)->whereIn('organization_id', $orgIdsFilteredArray);
         $exists = $query->get(['id']);
         if ($exists->isNotEmpty()) {
-            $query->update(['approval_status_id' => PENDING_REJECTION, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
+            $query->update(['approval_status_id' => PENDING_REJECTION, 'approval_status_reason' => 'Failed Pre-Accept Rule', 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
         }
     }
 
@@ -293,6 +293,7 @@ class RuleEngineController extends Controller
                         Info('Donation Request ID has been Rejected: ' . $donationRequest->id);
                         // pending-reject each request that would put organization over budget
                         $donationRequest->approval_status_id = PENDING_REJECTION;
+                        $donationRequest->approval_status_reason = 'Would Exceed Monthly Budget';
                         //$donationRequest->approved_organization_id = $organization->id;
                         $donationRequest->rule_process_date = Carbon::now();
                         $donationRequest->save();
@@ -324,6 +325,7 @@ class RuleEngineController extends Controller
                         // auto-reject each request that is needed before the organization can deliver
                         Info('Request Rejected ID: ' . $donationRequest->id);
                         $donationRequest->approval_status_id = REJECTED;
+                        $donationRequest->approval_status_reason = 'Needed by Date sooner than can be delivered';
                         $donationRequest->approved_organization_id = $organization->id;
                         $donationRequest->rule_process_date = Carbon::now();
                         $donationRequest->save();
