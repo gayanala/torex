@@ -36,9 +36,9 @@
                                 Monthly Budget:</label>&nbsp;
                         </td>
                         <td>
-                            <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]+([\.,][0-9]+)?"
-                                   min="0.00"
-                                   step="0.01" required value="{{ $monthlyBudget }}" size="10"/>
+                            <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]?"
+                                   min="0"
+                                   step="1" required value="{{ $monthlyBudget }}" size="10"/>
                         </td>
                     </tr>
                     <tr>
