@@ -291,6 +291,13 @@
                                             <li>
                                                 <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
                                             </li>
+
+                                            @if(Auth::user()->roles[0]->name == 'Business Admin')
+                                                <li>
+                                                    <a href="{{ url('user/manageusers')}}">Add Users</a>
+                                                </li>
+                                            @endif
+
                                             <li>
                                                 <a href="{{ route('organizations.index')}}">Business Locations</a>
                                             </li>
