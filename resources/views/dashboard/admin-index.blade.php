@@ -195,7 +195,7 @@
 
                                     <tbody  style="text-align: center">
                                         @foreach ($organizations as $organization)
-                                            @if($organization->trial_ends_at != null)
+                                            @if($organization->trial_ends_at == null)
                                                 continue;
                                             @endif
                                             <tr>
