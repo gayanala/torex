@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 use App\Organization;
-use Auth;
 use App\ParentChildOrganizations;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -128,7 +128,7 @@ class SubscriptionController extends Controller
         if ($organization->subscription('main')->cancelled()) {
             $ends_at = DB::table('subscriptions')->where('organization_id', Auth::user()->organization_id)->value('ends_at');
             $ends_at = \Carbon\Carbon::parse($ends_at)->format('m-d-Y');
-            return redirect('organizations')->with('message', "trial_ends_at: $ends_at");
+            return redirect('organizations')->with('message', "Subscription ends at: $ends_at");
         } else {
             return view('organizations')->with('message', 'contact tagg admin to end subscription');
         }

@@ -23,7 +23,7 @@
                            class="btn btn-primary pull-right" style="text-align: right;padding-right:1%;">
                             Cancel Subscription </a>
                         @if ($count < $subscription)
-                            <h1 style="text-align: center">Subscription made for {{$subscription_quantity}}
+                            <h1 style="text-align: center">Subscription made for {{$subscriptionQuantity}}
                                 locations</h1>
                         </div>
                         <div class="panel-heading">
