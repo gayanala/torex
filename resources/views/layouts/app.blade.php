@@ -101,8 +101,8 @@
             transform: translate(-55%, 30%);
             vertical-align: middle;
         }
-        h1 {font-size: 16px;
-            color: #3a87ad;
+        h1 {font-size: 20px;
+            color: #ffffff;
             position: relative;
             float: bottom;
             top: 75%;
