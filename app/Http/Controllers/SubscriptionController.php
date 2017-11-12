@@ -137,8 +137,8 @@ class SubscriptionController extends Controller
 
     public function resume()
     {
-        $id = Auth::user()->organization_id;
-        $organization = Organization::find($id);
+
+        $organization = Organization::find(Auth::user()->organization_id);
         $organization->subscription('main')->resume();
         return redirect('organizations')->with('message', "subscription is resumed");
 
