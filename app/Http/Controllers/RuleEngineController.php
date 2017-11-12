@@ -75,7 +75,7 @@ class RuleEngineController extends Controller
         $requesterTypes = Requester_type::where('active', '=', Constant::ACTIVE)->get(['id', 'type_name']);
         $formattedStrings = '';
         foreach ($requesterTypes as $requesterType) {
-            $formattedStrings = $formattedStrings . $requesterType->id .': \'' . $requesterType->type_name . '\', ';
+            $formattedStrings = $formattedStrings . $requesterType->id . ': \'' . $requesterType->type_name . '\', ';
         }
         return substr($formattedStrings, 0, strlen($formattedStrings) - 2);
     }
@@ -275,7 +275,7 @@ class RuleEngineController extends Controller
                     ->where('approved_organization_id', '=', $organization->id)->where('approval_status_id', '=', Constant::APPROVED)
                     ->sum('approved_dollar_amount');
 
-                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [ Constant::SUBMITTED, Constant::PENDING_APPROVAL])
+                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [Constant::SUBMITTED, Constant::PENDING_APPROVAL])
                     ->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)->get();
 
                 foreach ($pendingDonationRequests as $donationRequest) {
@@ -307,7 +307,7 @@ class RuleEngineController extends Controller
             info('Required Days Notice: ' . $requiredDaysNotice);
             if ($requiredDaysNotice > 0) {
                 $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)
-                    ->whereIn('approval_status_id', [ Constant::SUBMITTED, Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->get();
+                    ->whereIn('approval_status_id', [Constant::SUBMITTED, Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->get();
                 info('Pending Donation Requests: \n ' . $pendingDonationRequests);
                 foreach ($pendingDonationRequests as $donationRequest) {
                     $requestNeededBy = $donationRequest->needed_by_date;
@@ -326,7 +326,7 @@ class RuleEngineController extends Controller
                 }
             }
         }
-        return redirect()->to('/donationrequests'); 
+        return redirect()->to('/donationrequests');
     }
 
     ///////////  OPEN HELP PAGE  //////////
