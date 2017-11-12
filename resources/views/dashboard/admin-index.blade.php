@@ -196,7 +196,7 @@
                                     <tbody  style="text-align: center">
                                         @foreach ($organizations as $organization)
                                             @if(is_null($organization->trial_ends_at))
-                                                continue;
+                                                @continue
                                             @endif
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
