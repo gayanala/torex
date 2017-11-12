@@ -52,7 +52,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('street_address1') ? ' has-error' : '' }}">
-    <label for="street_address1" class="col-md-4 control-label">Street Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+    <label for="street_address1" class="col-md-4 control-label"> Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
     <div class="col-md-6">
         <input id="street_address1" type="text" class="form-control" name="street_address1" value="{{ old('street_address1') }}"  required autofocus>
@@ -66,7 +66,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('street_address2') ? ' has-error' : '' }}">
-    <label for="street_address2" class="col-md-4 control-label">Street Address 2 </label>
+    <label for="street_address2" class="col-md-4 control-label"> Address 2 </label>
 
     <div class="col-md-6">
         <input id="street_address2" type="text" class="form-control" name="street_address2" value="{{ old('street_address2') }}" autofocus>
