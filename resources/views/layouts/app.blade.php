@@ -257,15 +257,16 @@
             <div class="row">
                 <div class="col-sm-3" style='padding-left: 0px;padding-top: 0.5px'>
                     @if (Auth::guest())
-               <a href="{{ url('/') }}" >
+                    <a href="{{ url('/') }}" >
+                        <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
+
+                    </a>
+                    @else
+                                   <a href="{{ url('/dashboard') }}" >
                    <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
-
+                    @endif
                </a>
-                        @else
-                        <a href="{{ url('/dashboard') }}" >
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
 
-                        </a>
                 </div>
                 <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:0px;' >
                     <div class="collapse navbar-collapse" id="myNavbar" >
