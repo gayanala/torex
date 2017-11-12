@@ -51,7 +51,7 @@
                                 <td>Zip Code</td>
                                 <td><?php echo ($donationrequest['zipcode']); ?></td>
                             </tr>
-                           
+
                             <tr>
                                 <td>Tax Exempt</td>
                                 <td>
@@ -85,19 +85,24 @@
                                 <td>Event Name</td>
                                 <td><?php echo ($donationrequest['event_name']); ?></td>
                             </tr>
-                            <tr>
-                                <td>Event Start Date</td>
-                                <td><?php echo date("m/d/Y", strtotime($donationrequest['event_start_date'])); ?></td>
-                            </tr>
-
-                            <tr>
-                                <td>Event Purpose</td>
-                                <td><?php echo ($event_purpose_name); ?></td>
-                            </tr>
-                            <tr>
-                                <td>Estimated Number Of Attendes</td>
-                                <td><?php echo ($donationrequest['est_attendee_count']); ?></td>
-                            </tr>
+                            @if($donationrequest->event_start_date)
+                                <tr>
+                                    <td>Event Start Date</td>
+                                    <td><?php echo date("m/d/Y", strtotime($donationrequest['event_start_date'])); ?></td>
+                                </tr>
+                            @endif
+                            @if($donationrequest->event_type)
+                                <tr>
+                                    <td>Event Purpose</td>
+                                    <td><?php echo ($event_purpose_name); ?></td>
+                                </tr>
+                            @endif
+                            @if($donationrequest->est_attendee_count)
+                                <tr>
+                                    <td>Estimated Number Of Attendes</td>
+                                    <td><?php echo ($donationrequest['est_attendee_count']); ?></td>
+                                </tr>
+                            @endif
                             <tr>
                                 <td>Event Venue or Address</td>
                                 <td><?php echo ($donationrequest['venue']); ?></td>
@@ -116,34 +121,32 @@
                         </div>
                     </table>
                 </div>
-                {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
-                @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
-                    <div>
-                        <label for="dollar_amount" class="col-md-3 control-label">Dollar Amount Approval</label>
-                        <div class="col-lg-6">
-                            {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
-                            {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['class' => 'form-control', 'required'] )!!}
+                @if($donationAcceptanceFlag == 1)
+                    {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
+                        @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
+                            <div>
+                                <label for="dollar_amount" class="col-md-3 control-label">Dollar Amount Approval</label>
+                                <div class="col-lg-6">
+                                    {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
+                                    {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['class' => 'form-control', 'required'] )!!}
+                                </div>
+                            </div>
+                            <br><br>
+                        @endif
+                        <div style="text-align:center">
+                            @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
+                                <input class="btn active btn-success" type="submit" name="approve" value="Approve">
+                                <input class="btn active btn-danger" type="submit" name="reject" value="Reject">
+                                <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
+                                    Request</a>
+                            @else
+                                <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
+                                    Request</a>
+                            @endif
                         </div>
-                    </div>
-                    <br><br>
+                    {!! Form::close() !!}
                 @endif
-                <div style="text-align:center">
-                    @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
-                        <input class="btn active btn-success" type="submit" name="approve" value="Approve">
-                        <input class="btn active btn-danger" type="submit" name="reject" value="Reject">
-                        <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
-                            Request</a>
-                    @else
-                        <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
-                            Request</a>
-                    @endif
-                </div>
-                {!! Form::close() !!}
-
-
                 <br><br>
-            </div>
-                </div>
             </div>
         </div>
     </div>

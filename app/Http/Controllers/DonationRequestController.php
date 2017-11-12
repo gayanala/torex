@@ -6,7 +6,7 @@ use App\DonationRequest;
 use App\Events\DonationRequestReceived;
 use App\Events\TriggerAcceptEmailEvent;
 use App\Events\TriggerRejectEmailEvent;
-use App\File;
+//use App\File;
 use App\Organization;
 use App\Request_event_type;
 use App\Request_item_purpose;
@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\ParentChildOrganizations;
 use Carbon\Carbon;
+use URL;
 
 
 class DonationRequestController extends Controller
@@ -30,7 +31,7 @@ class DonationRequestController extends Controller
     $organizationId = Auth::user()->organization_id;
        $organization = Organization::findOrFail($organizationId);
        $organizationName = $organization->org_name;
-     $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+       $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
        array_push($arr, $organizationId);
        $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
        return view('donationrequests.index', compact('donationrequests', 'organizationName'));
@@ -143,16 +144,17 @@ class DonationRequestController extends Controller
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
         $this->validate($request, [
             'needed_by_date' => 'after:today',
-               'taxexempt' => "required",
+            'startdate'=> 'after:today',
+        'taxexempt' => "required",
         ]);
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
-            $file = new File();
-            $file->donation_request_id = $donationRequest->id;
-            $file->original_filename = $request->file('attachment')->getClientOriginalName();
-            $file->file_path = Storage::putFile('public', $request->file('attachment'));
-            $file->file_type = 'attachment';
-            $file->save();
+//            $file = new File();
+//            $file->donation_request_id = $donationRequest->id;
+//            $file->original_filename = $request->file('attachment')->getClientOriginalName();
+//            $file->$imageName = Storage::putFile('public', $request->file('attachment'));
+//            $file->file_type = 'attachment';
+//            $file->save();
             // $attachment =$request->file('attachment');
             // $imageFileName = time() . '.' . $attachment->getClientOriginalExtension();
             // $s3 = \Storage::disk('s3');
@@ -164,8 +166,11 @@ class DonationRequestController extends Controller
 
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
-            $t = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+            $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+
             $imageName = Storage::disk('s3')->url($imageName);
+
+            dd($imageName);
             // return $path;
         }
         //fire NewBusiness event to initiate sending welcome mail
@@ -179,17 +184,36 @@ class DonationRequestController extends Controller
 
     public function show($id)
     {
+        $donationAcceptanceFlag = 0;
+        if (URL::previous() === URL::route('show-donation', ['id' => 1])) {
+            $donationAcceptanceFlag = 0;
+        } else {
+            $donationAcceptanceFlag = 1;
+        }
         $donationrequest = DonationRequest::findOrFail($id);
-        $event_purpose = Request_event_type::findOrFail($donationrequest->event_type);
-        $event_purpose_name = $event_purpose->type_name;
-        $donation_purpose = Request_item_purpose::findOrFail($donationrequest->item_purpose);
-        $donation_purpose_name = $donation_purpose->purpose_name;
-        $item_requested = Request_item_type::findOrFail($donationrequest->item_requested);
-        $item_requested_name = $item_requested->item_name;
-        $donationRequest = Requester_type::findOrFail($donationrequest->requester_type);
-        $donationRequestName = $donationRequest->type_name;
+
+        if ($donationrequest->event_type) {
+            $event_purpose = Request_event_type::findOrFail($donationrequest->event_type);
+            $event_purpose_name = $event_purpose->type_name;
+        }
+
+        if ($donationrequest->item_purpose) {
+            $donation_purpose = Request_item_purpose::findOrFail($donationrequest->item_purpose);
+            $donation_purpose_name = $donation_purpose->purpose_name;
+        }
+
+        if($donationrequest->item_requested) {
+            $item_requested = Request_item_type::findOrFail($donationrequest->item_requested);
+            $item_requested_name = $item_requested->item_name;
+        }
+
+        if($donationrequest->requester_type) {
+            $donationRequest = Requester_type::findOrFail($donationrequest->requester_type);
+            $donationRequestName = $donationRequest->type_name;
+        }
+
         return view('donationrequests.show', compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
-            , 'item_requested_name', 'donationRequestName'));
+            , 'item_requested_name', 'donationRequestName', 'donationAcceptanceFlag'));
     }
 
     public function changeDonationStatus(Request $request)

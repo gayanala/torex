@@ -47,7 +47,6 @@ Route::resource('/users', 'UserController');
 
 Route::get('organizations/createOrganization', 'OrganizationController@createOrganization');
 
-
 Route::delete('organizations', 'OrganizationController@destroy');
 
 Route::resource('organizations', 'OrganizationController');
@@ -56,12 +55,11 @@ Route::group(['prefix' => 'subscription'], function () {
     Route::get('/', [
         'as' => 'subscription',
         'uses' => 'SubscriptionController@getIndex'
-    ]);
+    ])->middleware('auth');
     Route::post('/', [
 
         'uses' => 'SubscriptionController@postJoin'
-    ]);
-
+    ])->middleware('auth');
 });
 Route::get('resume', [
     'as' => 'subscription-resume',
@@ -77,6 +75,8 @@ Route::post('user/register', 'UserController@create');
 Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
+
+Route::get('user/manageusers', 'UserController@indexUsers');
 
 // Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
@@ -136,4 +136,4 @@ Route::get('subscription/popup', 'SubscriptionController@subscribe');
 Route::get('compose-email', 'EmailTemplateController@send');
 
 Route::get('/dashboard-taggadmin', 'DashboardController@indexTaggAdmin') ->name('dashboardindex-taggadmin');
-Route::get('/organizationdonations/{id}', 'DonationRequestController@showAllDonationRequests');
+Route::get('/organizationdonations/{id}', 'DonationRequestController@showAllDonationRequests')->name('show-donation');

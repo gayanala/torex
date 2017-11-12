@@ -36,6 +36,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SendRemindersEvent' => [
             'App\Listeners\SendRemindersMessage',
         ],
+        'App\Events\AddDefaultTemplates' => [
+            'App\Listeners\AddDefaultTemplatesListener',
+        ],
     ];
 
     /**

@@ -7,17 +7,6 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><h1>{{ $organizationName }}</h1></div><br>
 
-                    {{--<div class="col-md-offset-8 col-lg-offset-8 col-xs-offset-8 form-inline">--}}
-                        {{--{{ Form::open(['method'=> 'GET', 'action' => 'DonationRequestController@searchDonationRequest']) }}--}}
-                        {{--{{ Form::input('search','q', null, ['placeholder' => 'Requester Name...','class'=>'form-control', 'autocomplete'=>'off'])}}--}}
-                        {{--{!! Form::submit('Search', ['class' => 'btn btn-default']) !!}--}}
-                        {{--{{ Form::close() }}--}}
-                    {{--</div> <br>--}}
-
-                    {{--<div class="col-md-offset-8 col-lg-offset-8 col-xs-offset-8">--}}
-                        {{--<a type="button" class="btn btn-primary" href="{{ action('DonationRequestController@index') }}">View All Donation Requests</a>--}}
-                    {{--</div>--}}
-
                     <div class="panel-body">
                         @if(sizeOf($donationrequests) != 0)
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -26,13 +15,14 @@
                                 <th class="text-center">Organization Name</th>
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Request For</th>
-                                 <th class="text-center">Location</th>
+                                <th class="text-center">Location</th>
                                 {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Handout Date</th>
                                 <th class="text-center">Status</th>
+                                <th class="text-center">Status Reason</th>
                                 <th class="text-center">Actions</th>
                             </tr>
-                            </thead>                        
+                            </thead>
                             <tbody  style="text-align: center">
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
@@ -44,16 +34,20 @@
                                     <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
 
                                     <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
-                                    {{--<td style="display:none;" class="don-hidden" id-val="{{$donationrequest->id}}"></td>--}}
+                                    <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td>
-                                        <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-warning" title="Detail">
-                                            <span class="glyphicon glyphicon-list-alt"></span></a>
                                         @if($donationrequest->donationApprovalStatus->id == 2 || $donationrequest->donationApprovalStatus->id == 3)
                                             <a href="" class="btn btn-success" title="Approve" don-id="{{$donationrequest->id}}" onClick="func(0, '{{$donationrequest->id}}')">
                                                 <span class="glyphicon glyphicon-ok"></span></a>
+                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
+                                                <span class="glyphicon glyphicon-list-alt"></span></a>
                                             <a href="" class="btn btn-danger" title="Reject" onClick="func(1, '{{$donationrequest->id}}')">
                                                 <span class="glyphicon glyphicon-remove"></span></a>
+                                        @else
+                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
+                                                <span class="glyphicon glyphicon-list-alt"></span></a>
                                         @endif
+
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
 {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
