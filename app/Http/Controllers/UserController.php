@@ -43,10 +43,28 @@ class UserController extends Controller
 
         $roles = Role::whereIn('name', ['Business Admin', 'Business User'])->pluck('name');
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
+        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
         $childOrgIds = $parentChildOrg->pluck('child_org_id');
-        $childOrgNames = Organization::whereIn('id', $childOrgIds)->pluck('org_name', 'id');
+
+        $childOrgNames = Organization::wherein('id', $childOrgIds)
+            ->orWhere('id', $parentOrgIds)
+            ->pluck('org_name', 'id');
 
         return view('users.show', compact('roles', 'childOrgNames'));
+        return view('users.show', compact('user', 'childOrgNames'));
+
+    }
+
+    public function indexUsers()
+    {
+        $organizationId = Auth::user()->organization_id;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+        $users = User::whereIn('organization_id', $arr)->get();
+        $admin = $users[0];
+        $users->shift();
+
+        return view('users.indexUsers', compact('users', 'admin'));
 
     }
 
@@ -178,7 +196,7 @@ class UserController extends Controller
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
 
-        return redirect('users');
+        return redirect('user/manageusers');
     }
 
     public function destroy($id)

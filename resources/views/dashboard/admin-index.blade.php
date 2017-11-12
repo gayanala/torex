@@ -195,6 +195,9 @@
 
                                     <tbody  style="text-align: center">
                                         @foreach ($organizations as $organization)
+                                            @if(is_null($organization->trial_ends_at))
+                                                @continue
+                                            @endif
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->id }}</td>
@@ -202,7 +205,7 @@
                                                 <td style="vertical-align: middle">${{ $organization->donationRequest->sum('dollar_amount') }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '5')->count() }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>
-                                                <td style="vertical-align: middle"> {{ $organization->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->year)->count() }} </td>
+                                                <td style="vertical-align: middle"> {{ $organizations[0]->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
                                                 <td>
                                                     <a href="{{ url('/organizationdonations', $organization->id)}}" class="btn btn-warning" title="Detail">
                                                         <span class="glyphicon glyphicon-list-alt"></span></a>
