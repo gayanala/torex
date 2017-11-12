@@ -47,6 +47,7 @@ Route::resource('/users', 'UserController');
 
 Route::get('organizations/createOrganization', 'OrganizationController@createOrganization');
 
+
 Route::delete('organizations', 'OrganizationController@destroy');
 
 Route::resource('organizations', 'OrganizationController');
@@ -60,7 +61,16 @@ Route::group(['prefix' => 'subscription'], function () {
 
         'uses' => 'SubscriptionController@postJoin'
     ]);
+
 });
+Route::get('resume', [
+    'as' => 'subscription-resume',
+    'uses' => 'SubscriptionController@resume'
+]);
+Route::get('cancel', [
+    'as' => 'subscription-cancel',
+    'uses' => 'SubscriptionController@cancel'
+]);
 
 Route::post('user/register', 'UserController@create');
 

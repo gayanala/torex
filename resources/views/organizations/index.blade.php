@@ -10,27 +10,39 @@
                 <!-- will be used to show any messages -->
                 @if (Session::has('message'))
                     <div class="alert alert-info">{{ Session::get('message') }}</div>
+
                 @endif
 
+
                 <div class="panel panel-default">
-                    @if ($count < $subscription)
-                        <div class="panel-heading">
-                            <h1 style="text-align: center">Subscription made for {{$subscriptiondb}} locations</h1>
+                    <div class="panel-heading">
+                        <a href="{{URL::action('SubscriptionController@resume')}}"
+                           class="btn btn-primary pull-right" style="padding-left:1%;">
+                            Resume Subscription </a>
+                        <a href="{{URL::action('SubscriptionController@cancel')}}"
+                           class="btn btn-primary pull-right" style="text-align: right;padding-right:1%;">
+                            Cancel Subscription </a>
+                        @if ($count < $subscription)
+                            <h1 style="text-align: center">Subscription made for {{$subscription_quantity}}
+                                locations</h1>
                         </div>
                         <div class="panel-heading">
                             <a href="{{action('OrganizationController@createOrganization')}}"
                                class="btn btn-primary pull-right">
                                 [+] Add </a><h1> Manage Business Locations </h1>
                         </div>
+
                     @else
                         <div class="alert alert-info">Plan limit includes the parent organization and the limit is
                             crossed, upgrade to add more locations.
                         </div>
                         <div class="panel-heading">
                             <h1> Manage Business Locations </h1>
+
                             <h1 style="text-align: center">Subscription made for {{$subscriptiondb}} locations</h1>
                         </div>
                     @endif
+
                 </div>
 
                     <div class="panel-body">

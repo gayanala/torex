@@ -43,16 +43,14 @@ class SubscriptionController extends Controller
 
             }
 
-        }
-        else {
+        } else {
 
             $organization = Organization::find($id);
             if($organization->subscribed('main')) {
                 if ($subscriptionends->trial_ends_at->gte(Carbon::now())) {
 
                     return redirect('/dashboard');
-                }
-                else {
+                } else {
 
                     return view('subscriptions.payment');
                 }
@@ -66,15 +64,7 @@ class SubscriptionController extends Controller
 
     }
 
-    public function validateCoupon($coupon)
-    {
-        $coupon_validate = \Stripe\Coupon::retrieve($coupon);
-        if ($coupon_validate == '') {
-            return false;
-        } else {
-            return true;
-        }
-    }
+
     public function postJoin(Request $request)
     {
         $id = Auth::user()->organization_id;
@@ -138,9 +128,28 @@ class SubscriptionController extends Controller
 
     }
 
-    public function subscribe(Request $request)
+    public function cancel()
     {
-        return view('stripe.subscribe');
+        $id = Auth::user()->organization_id;
+        $organization = Organization::find($id);
+        $organization->subscription('main')->cancel();
+        if ($organization->subscription('main')->cancelled()) {
+            $ends_at = DB::table('subscriptions')->where('organization_id', Auth::user()->organization_id)->value('ends_at');
+            $ends_at = \Carbon\Carbon::parse($ends_at)->format('m-d-Y');
+            return redirect('organizations')->with('message', "trial_ends_at: $ends_at");
+        } else {
+            return view('organizations')->with('message', 'contact tagg admin to end subscription');
+        }
+
+    }
+
+    public function resume()
+    {
+        $id = Auth::user()->organization_id;
+        $organization = Organization::find($id);
+        $organization->subscription('main')->resume();
+        return redirect('organizations')->with('message', "subscription is resumed");
+
     }
 
 }

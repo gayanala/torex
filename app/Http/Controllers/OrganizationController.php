@@ -17,12 +17,12 @@ class OrganizationController extends Controller
 
     public function index()
     {
+
         $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
         $count = $childOrganizations->count();
-        $subscriptiondb = DB::table('subscriptions')->where('organization_id', Auth::user()->organization_id)->value('quantity');
-        $subscription = $subscriptiondb - 1;
-
-        return view('organizations.index', compact('childOrganizations', 'count', 'subscriptiondb', 'subscription'));
+        $subscription_quantity = DB::table('subscriptions')->where('organization_id', Auth::user()->organization_id)->value('quantity');
+        $subscription = $subscription_quantity - 1;
+        return view('organizations.index', compact('childOrganizations', 'count', 'subscription_quantity', 'subscription'));
 
     }
 
@@ -62,6 +62,10 @@ class OrganizationController extends Controller
             'street_address2' => 'string|max:255',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
+            'zipcode' => 'required',
+            'zipcode' => 'required',
+            'zipcode' => 'required',
+            'zipcode' => 'required',
             'zipcode' => 'required',
             'phone_number' => 'required',
 
