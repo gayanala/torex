@@ -270,10 +270,10 @@
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
 
                             @if (Auth::guest())
-                                <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us</a></li>
-                                <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works</a></li>
-                                <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !</a></li>
-                                <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login</a></li>
+                                <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us&nbsp;<span class="glyphicon glyphicon-info-sign"></span></a></li>
+                                <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span class="glyphicon glyphicon-question-sign"></span></a></li>
+                                <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span class="glyphicon glyphicon-user"></span></a></li>
+                                <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a></li>
 
 
                         </ul>
@@ -354,11 +354,12 @@
 
 <div id="navDemo" class="divsmall visible-xs-block visible-sm-block" >
     @if (Auth::guest())
+
         <ul>
-        <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us</a></li>
-        <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works</a></li>
-        <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !</a></li>
-        <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login</a></li>
+        <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us&nbsp;<span class="glyphicon glyphicon-info-sign"></span></a></li>
+        <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span class="glyphicon glyphicon-question-sign"></span></a></li>
+        <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span class="glyphicon glyphicon-user"></span></a></li>
+        <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a></li>
 </ul>
 </div>
 
