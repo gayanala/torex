@@ -19,6 +19,7 @@
                                 {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Handout Date</th>
                                 <th class="text-center">Status</th>
+                                <th class="text-center">Status Reason</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                             </thead>
@@ -33,7 +34,7 @@
                                     <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
 
                                     <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
-                                    {{--<td style="display:none;" class="don-hidden" id-val="{{$donationrequest->id}}"></td>--}}
+                                    <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td>
                                         <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
                                             <span class="glyphicon glyphicon-list-alt"></span></a>
