@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\ParentChildOrganizations;
 use Carbon\Carbon;
+use URL;
 
 
 class DonationRequestController extends Controller
@@ -183,8 +184,14 @@ class DonationRequestController extends Controller
 
     public function show($id)
     {
+        $donationAcceptanceFlag = 0;
+        if (URL::previous() === URL::route('show-donation', ['id' => 1])) {
+            $donationAcceptanceFlag = 0;
+        } else {
+            $donationAcceptanceFlag = 1;
+        }
         $donationrequest = DonationRequest::findOrFail($id);
-//        dd($donationrequest);
+
         if ($donationrequest->event_type) {
             $event_purpose = Request_event_type::findOrFail($donationrequest->event_type);
             $event_purpose_name = $event_purpose->type_name;
@@ -206,7 +213,7 @@ class DonationRequestController extends Controller
         }
 
         return view('donationrequests.show', compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
-            , 'item_requested_name', 'donationRequestName'));
+            , 'item_requested_name', 'donationRequestName', 'donationAcceptanceFlag'));
     }
 
     public function changeDonationStatus(Request $request)
