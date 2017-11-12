@@ -47,7 +47,7 @@
                                             <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
                                                 <span class="glyphicon glyphicon-list-alt"></span></a>
                                         @endif
-                                        
+
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
 {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
