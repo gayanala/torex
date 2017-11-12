@@ -21,6 +21,12 @@
                         {{ Form::hidden('organization_id', Auth::user()->organization_id) }}
                         {!! Form::open(['url' => 'users']) !!}
 
+
+                        <div class="form-group">
+                            {!! Form::label('Role', 'Role:') !!}
+                            {!! Form::select('role_id', $roles, null, ['class' => 'form-control']) !!}
+                        </div>
+
                         <div class="form-group">
                             {!! Form::label('First Name', 'First Name:') !!}
                             {!! Form::text('first_name',null,['class'=>'form-control', 'required']) !!}
@@ -53,9 +59,9 @@
 
                         <div class="form-group">
                             <div class=" col-md-offset-4">
-                                <button type="submit" class="" id="createbutton" onclick="myFunction();">Submit</button>
-                                <input type="button" value="Cancel" onClick="history.go(-1);">
-                                <span style="color: red"> <h5> * All Fields Are Mandatory</h5></span>
+                                <button class="btn btn-primary" type="submit" class="" id="createbutton" onclick="myFunction();">Submit</button>
+                                <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
+                                <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}

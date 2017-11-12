@@ -68,6 +68,8 @@ Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
 
+Route::get('user/manageusers', 'UserController@indexUsers');
+
 // Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
 Route::get('/donationrequests/create', 'DonationRequestController@create')->name('donation');
@@ -126,4 +128,4 @@ Route::get('subscription/popup', 'SubscriptionController@subscribe');
 Route::get('compose-email', 'EmailTemplateController@send');
 
 Route::get('/dashboard-taggadmin', 'DashboardController@indexTaggAdmin') ->name('dashboardindex-taggadmin');
-Route::get('/organizationdonations/{id}', 'DonationRequestController@showAllDonationRequests');
+Route::get('/organizationdonations/{id}', 'DonationRequestController@showAllDonationRequests')->name('show-donation');

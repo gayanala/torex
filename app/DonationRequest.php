@@ -20,6 +20,7 @@ class DonationRequest extends Model
         'state',
         'zipcode',
         'tax_exempt',
+        'file_url',
         'item_requested',
         'dollar_amount',
         'item_purpose',

@@ -15,6 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'id',
         'first_name',
         'last_name',
         'user_name',
@@ -47,6 +48,11 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany('App\Role');
+    }
+
+    public function roleuser()
+    {
+        return $this->hasOne('App\RoleUser', 'user_id');
     }
 
     //user has one to many(inverse) relationship with organizations
