@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="organization_id" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="organization_id" class="col-md-4 control-label">Business Location <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
                                 {!! Form::select('organization_id', $childOrgNames, $user->organization_id, ['class' => 'form-control']) !!}
                             </div>
