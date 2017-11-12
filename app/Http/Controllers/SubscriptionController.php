@@ -130,7 +130,7 @@ class SubscriptionController extends Controller
             $ends_at = \Carbon\Carbon::parse($ends_at)->format('m-d-Y');
             return redirect('organizations')->with('message', "Subscription ends at: $ends_at");
         } else {
-            return view('organizations')->with('message', 'contact tagg admin to end subscription');
+            return view('organizations')->with('message', 'Please contact Tagg administrator to end the subscription');
         }
 
     }
