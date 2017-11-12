@@ -32,6 +32,8 @@ class DashboardController extends Controller
     public function indexTaggAdmin() {
 
         $organizations = Organization::all();
+        //dd($organizations[0]->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount'));
+        //dd($organizations[0]->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear()));
         $amountDonated = DonationRequest::where('approval_status_id', 5)->sum('dollar_amount');
         $rejectedNumber = DonationRequest::where('approval_status_id', 4)->count();
         $approvedNumber = DonationRequest::where('approval_status_id', 5)->count();
