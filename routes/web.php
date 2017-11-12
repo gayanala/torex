@@ -70,6 +70,10 @@ Route::post('/organization', 'OrganizationController@create');
 
 Route::get('user/manageusers', 'UserController@indexUsers');
 
+Route::get('user/manageusers/edit/{id}', 'UserController@editsubuser')->name('editsubuser');
+
+Route::post('user/manageusers/update/{id}', 'UserController@updatesubuser')->name('updatesubuser');
+
 // Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
 Route::get('/donationrequests/create', 'DonationRequestController@create')->name('donation');
@@ -79,8 +83,6 @@ Route::get('donationrequests/search','DonationRequestController@searchDonationRe
 Route::get('donationrequests/export', 'DonationRequestController@export');
 
 Route::resource('/donationrequests', 'DonationRequestController');
-
-
 
 Route::get('change-password', function() {
     return view('change-password');
