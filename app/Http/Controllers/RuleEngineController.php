@@ -7,6 +7,7 @@ use App\Organization;
 use App\ParentChildOrganizations;
 use App\Rule;
 use App\Rule_type;
+use App\Requester_type;
 use Auth;
 use App\Events\SendAutoRejectEmail;
 use Carbon\Carbon;
@@ -34,23 +35,22 @@ class RuleEngineController extends Controller
     ///////////  LOAD RULES PAGE  //////////
     public function index(Request $request)
     {
-        // dd($request);
         $rule_types = Rule_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
         $orgId = Auth::user()->organization_id;
         $organization = Organization::findOrFail($orgId);
         $monthlyBudget = $organization->monthly_budget;
         $daysNotice = $organization->required_days_notice;
         $ruleType = $request->rule ?? Constant::AUTO_REJECT_RULE;
+        $requesterTypes = $this->getRequesterType();
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $orgId], ['rule_type_id', '=', $ruleType], ['active', '=', true]])->first();
-        //dd($ruleRow);
+
         if ($ruleRow) {
             $queryBuilderJSON = $ruleRow->rule;
         } else {
             $queryBuilderJSON = ''; //'{"condition": "AND", "rules": [{}], "not": false, "valid": true }';
         }
-        //dd($queryBuilderJSON);
         return view('rules.rules')->with('rule', $queryBuilderJSON)->with('rule_types', $rule_types)->with('ruleType', $ruleType)
-            ->with('monthlyBudget', $monthlyBudget)->with('daysNotice', $daysNotice);
+            ->with('monthlyBudget', $monthlyBudget)->with('daysNotice', $daysNotice)->with('requesterTypes', $requesterTypes);
     }
 
     public function loadRule($request)  // Redundant with index.. Remove or rebuild to be used by index?
@@ -68,17 +68,24 @@ class RuleEngineController extends Controller
         //dd($queryBuilderJSON);
     }
 
+    ///////////  FORMAT LIST FOR REQUESTER TYPES  //////////
+    protected function getRequesterType()
+    {
+        // creates string for types of requesters for the querybuilder api
+        $requesterTypes = Requester_type::where('active', '=', Constant::ACTIVE)->get(['id', 'type_name']);
+        $formattedStrings = '';
+        foreach ($requesterTypes as $requesterType) {
+            $formattedStrings = $formattedStrings . $requesterType->id .': \'' . $requesterType->type_name . '\', ';
+        }
+        return substr($formattedStrings, 0, strlen($formattedStrings) - 2);
+    }
+
     ///////////  SAVE SELECTED RULE TO DB  //////////
     public function saveRule(Request $request)
     {
         $strJSON = $request->ruleSet;
         $ruleType = $request->ruleType;
         $ruleOwner = Auth::user()->organization_id;
-        //dd($strJSON);
-        /*$rule = new Rule;
-        $rule->rule_type_id = 2;
-        $rule->rule_owner_id = Auth::user()->organization_id;
-        $rule->rule = $strJSON;*/
         Rule::updateOrCreate(['rule_owner_id' => $ruleOwner, 'rule_type_id' => $ruleType], ['rule' => $strJSON]);
         return redirect()->back();
     }
@@ -125,7 +132,6 @@ class RuleEngineController extends Controller
                 ['id', 'organization_id', 'requester', 'requester_type', 'needed_by_date', 'tax_exempt', 'dollar_amount', 'approved_organization_id', 'approval_status_id']
             );
             $query = $qbp->parse(json_encode($arr), $table);
-            //dd($query->get());
             $exists = $query->get(['id']);
             if ($exists->isNotEmpty()) {
                 // Apply Rule
@@ -147,7 +153,6 @@ class RuleEngineController extends Controller
                 ['id', 'organization_id', 'requester', 'requester_type', 'needed_by_date', 'tax_exempt', 'dollar_amount', 'approved_organization_id', 'approval_status_id']
             );
             $query = $qbp->parse(json_encode($arr), $table);
-            //dd($query->get());
             $exists = $query->get(['id']);
             if ($exists->isNotEmpty()) {
                 // Apply Rule
@@ -260,18 +265,19 @@ class RuleEngineController extends Controller
     {
         // Get Constant::ACTIVE organizations
         $organizations = Organization::query()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->get(['id', 'monthly_budget']);
-        //dd($organizations);
+
         foreach ($organizations as $organization) {
             $monthlyBudget = $organization->monthly_budget;
-            //dd($monthlyBudget);
+
             // Only run Budget rule if it is greater than zero
             if ($monthlyBudget > 0) {
                 $amountSpent = DonationRequest::query()->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)
                     ->where('approved_organization_id', '=', $organization->id)->where('approval_status_id', '=', Constant::APPROVED)
                     ->sum('approved_dollar_amount');
-                //dd($amountSpent);
+
                 $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [ Constant::SUBMITTED, Constant::PENDING_APPROVAL])
                     ->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)->get();
+
                 foreach ($pendingDonationRequests as $donationRequest) {
                     $requestAmount = $donationRequest->dollar_amount;
                     If (($requestAmount + $amountSpent) >= $monthlyBudget) {
@@ -286,13 +292,13 @@ class RuleEngineController extends Controller
                 }
             }
         }
-        return redirect()->to('/donationrequests'); //->back();
+        return redirect()->to('/donationrequests');
     }
 
     //////////  REJECTS REQUESTS WHERE NEEDED BY IS SOONER THAN MIN NOTICE (called via cron job)  //////////
     public function runMinimumNoticeCheckRule()
     {
-        // Get Constant::ACTIVE organizations
+        // Get ACTIVE organizations
         $organizations = Organization::query()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->get(['id']);
 
         foreach ($organizations as $organization) {
@@ -320,7 +326,7 @@ class RuleEngineController extends Controller
                 }
             }
         }
-        return redirect()->to('/donationrequests'); //->back();
+        return redirect()->to('/donationrequests'); 
     }
 
     ///////////  OPEN HELP PAGE  //////////

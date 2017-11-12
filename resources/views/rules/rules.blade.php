@@ -258,19 +258,7 @@
                 type: 'integer',
                 input: 'checkbox',
                 values: {
-                    1: 'Animal Welfare',
-                    2: 'Arts, Culture & Humanities',
-                    3: 'Civil Rights, Social Action & Advocacy',
-                    4: 'Community Improvement',
-                    5: 'Corporate Giving',
-                    6: 'Education K-12',
-                    7: 'Environment',
-                    8: 'Faith/Religious',
-                    9: 'Food, Agriculture & Nutrition',
-                    10: 'Health Care',
-                    11: 'Human Services',
-                    12: 'Youth Sports/Activities',
-                    13: 'Others'
+                    {!!  htmlspecialchars_decode($requesterTypes, ENT_NOQUOTES) !!}
                 },
                 operators: ['in', 'not_in']
                 // operators: ['equal', 'not_equal']
