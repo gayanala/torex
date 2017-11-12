@@ -11,6 +11,12 @@
 
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
 
     @yield('css')
@@ -222,7 +228,10 @@
             line-height: 1.8;
         }
 
-
+.divsmall
+{
+    padding: 25px -5px 5px 100px;
+}
 
 
     </style>
@@ -240,16 +249,13 @@
 <div id="app">
 
 
-    <nav class="navbar-toggleable-md navbar-fixed-top navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
+    <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
         <div class="container-fluid">
 
 
 
             <div class="row">
                 <div class="col-sm-3" style='padding-left: 0px;padding-top: 0.5px'>
-
-
-
 
                <a href="{{ url('/') }}" >
                    <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
@@ -343,20 +349,20 @@
     </nav>
 </div>
 
-</div>
-</div>
 
 
-<div id="navDemo" class="visible-xs-block visible-sm-block">
+
+<div id="navDemo" class="divsmall visible-xs-block visible-sm-block" >
     @if (Auth::guest())
+        <ul>
         <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us</a></li>
         <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works</a></li>
         <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !</a></li>
         <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login</a></li>
-
-</div>
 </ul>
-</li>
+</div>
+
+
 @else
     <ul>
         <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
