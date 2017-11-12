@@ -53,7 +53,7 @@
                                     <td style="vertical-align: middle">{{ $organization->organization['street_address1'] }}
                                         {{ $organization->organization['street_address2'] }}
                                         , {{ $organization->organization['city'] }}
-                                        , {{ $organization->organization['state'] }} {{ $organization['zipcode'] }}</td>
+                                        , {{ $organization->organization['state'] }} {{ $organization->organization['zipcode'] }}</td>
                                     <td style="vertical-align: middle">{{ $organization->organization['phone_number']}}</td>
                                     <td style="vertical-align: middle">{{'$'}}{{ $organization->organization['monthly_budget']}}</td>
                                     <td style="vertical-align: middle"><a

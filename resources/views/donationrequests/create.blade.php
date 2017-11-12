@@ -7,7 +7,9 @@
             if (document.getElementById('yesCheck').checked) {
                 document.getElementById('file_upload').style.visibility = 'visible';
             }
-            else {document.getElementById('file_upload').style.visibility = 'hidden';}
+            else {
+                document.getElementById('file_upload').style.visibility = 'hidden';
+            }
         }
     </script>
     <div class="container">
@@ -345,6 +347,7 @@
                                 <button type="submit" class="btn btn-success">
                                     Send Request
                                 </button>
+                                <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}

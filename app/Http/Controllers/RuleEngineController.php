@@ -15,6 +15,7 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\DB;
 use Psy\Command\ListCommand\Enumerator;
 use timgws\QueryBuilderParser;
+use App\Custom\Constant;
 
 //use Illuminate\Database\Eloquent\Builder;
 // use timgws\JoinSupportingQueryBuilderParser;
@@ -28,36 +29,18 @@ use timgws\QueryBuilderParser;
 //
 //////////////////////////////  END T0D0  //////////////////////////////
 
-
-//////////  CONSTANTS USED IN CONTROLLER  //////////
-// APPROVAL STATUSES
-const SUBMITTED = 1;
-const PENDING_REJECTION = 2;
-const PENDING_APPROVAL = 3;
-const REJECTED = 4;
-const APPROVED = 5;
-
-// RULE TYPES
-const AUTO_REJECT_RULE = 1;
-const PRE_APPROVE_RULE = 2;
-
-// ACTIVE FLAGS
-const ACTIVE = 1;
-const INACTIVE = 0;
-//////////  END OF CONSTANTS USED  //////////
-///
 class RuleEngineController extends Controller
 {
     ///////////  LOAD RULES PAGE  //////////
     public function index(Request $request)
     {
         // dd($request);
-        $rule_types = Rule_type::where('active', '=', ACTIVE)->pluck('type_name', 'id');
+        $rule_types = Rule_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
         $orgId = Auth::user()->organization_id;
         $organization = Organization::findOrFail($orgId);
         $monthlyBudget = $organization->monthly_budget;
         $daysNotice = $organization->required_days_notice;
-        $ruleType = $request->rule ?? AUTO_REJECT_RULE;
+        $ruleType = $request->rule ?? Constant::AUTO_REJECT_RULE;
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $orgId], ['rule_type_id', '=', $ruleType], ['active', '=', true]])->first();
         //dd($ruleRow);
         if ($ruleRow) {
@@ -72,9 +55,9 @@ class RuleEngineController extends Controller
 
     public function loadRule($request)  // Redundant with index.. Remove or rebuild to be used by index?
     {
-        $rule_types = Rule_type::where('active', '=', ACTIVE)->pluck('type_name', 'id');
+        $rule_types = Rule_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
         $orgId = Auth::user()->organization_id;
-        $ruleType = $request->rule ?? AUTO_REJECT_RULE;
+        $ruleType = $request->rule ?? Constant::AUTO_REJECT_RULE;
         $ruleRow = Rule::query()->where([['rule_owner_id', '=', $orgId], ['rule_type_id', '=', $ruleType], ['active', '=', true]])->first();
         //dd($ruleRow);
         if ($ruleRow) {
@@ -118,7 +101,7 @@ class RuleEngineController extends Controller
     //////////  AUTO CATEGORIZATION OF REQUESTS ON SUBMIT OF REQUEST  //////////
     public function runRuleOnSubmit(DonationRequest $donationRequest)
     {
-        // This will execute the rule workflow for a donation request using the rules of the organization it was submitted to.
+        // This will execute the rule workflow for a donation request using the rules of the organization it was Constant::SUBMITTED to.
         $parentOrg = ParentChildOrganizations::query()->where('child_org_id', $donationRequest->organization_id)->get(['parent_org_id'])->first();
         If ($parentOrg) {
             $ruleOwner = $parentOrg->parent_org_id;
@@ -132,7 +115,7 @@ class RuleEngineController extends Controller
 
     protected function runAutoRejectOnSubmit(DonationRequest $donationRequest, $ruleOwner)
     {
-        $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', AUTO_REJECT_RULE], ['active', '=', ACTIVE]])->first();
+        $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', Constant::AUTO_REJECT_RULE], ['active', '=', Constant::ACTIVE]])->first();
         if ($ruleRow) {
             $table = DB::table('donation_requests');
             $queryBuilderJSON = $ruleRow->rule;
@@ -146,14 +129,15 @@ class RuleEngineController extends Controller
             $exists = $query->get(['id']);
             if ($exists->isNotEmpty()) {
                 // Apply Rule
-                $query->update(['approval_status_id' => REJECTED, 'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
+                $query->update(['approval_status_id' => Constant::REJECTED, 'approval_status_reason' => $ruleRow->ruleType->type_name . ' Rule',
+                    'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
             }
         }
     }
 
     protected function runPendingApprovalOnSubmit(DonationRequest $donationRequest, $ruleOwner)
     {
-        $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', PRE_APPROVE_RULE], ['active', '=', ACTIVE]])->first();
+        $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', Constant::PRE_APPROVE_RULE], ['active', '=', Constant::ACTIVE]])->first();
         if ($ruleRow) {
             $table = DB::table('donation_requests');
             $queryBuilderJSON = $ruleRow->rule;
@@ -167,7 +151,7 @@ class RuleEngineController extends Controller
             $exists = $query->get(['id']);
             if ($exists->isNotEmpty()) {
                 // Apply Rule
-                $query->update(['approval_status_id' => PENDING_APPROVAL, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
+                $query->update(['approval_status_id' => Constant::PENDING_APPROVAL, 'approval_status_reason' => $ruleRow->ruleType->type_name . ' Rule', 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
             }
         }
     }
@@ -175,14 +159,14 @@ class RuleEngineController extends Controller
     protected function runPendingRejectionOnSubmit(DonationRequest $donationRequest)
     {
         //Flag all requests that do not meet either of the previous two rules as ready for rejection
-        $query = DB::table('donation_requests')->where([['id', '=', $donationRequest->id], ['approval_status_id', '=', SUBMITTED]]);
+        $query = DB::table('donation_requests')->where([['id', '=', $donationRequest->id], ['approval_status_id', '=', Constant::SUBMITTED]]);
         $exists = $query->get(['id']);
         if ($exists->isNotEmpty()) {
-            $query->update(['approval_status_id' => PENDING_REJECTION, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
+            $query->update(['approval_status_id' => Constant::PENDING_REJECTION, 'approval_status_reason' => 'Failed Pre-Accept Rule', 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
         }
     }
 
-    //////////  CATEGORIZATION OF ALL SUBMITTED REQUESTS ON REQUEST (manual process)  //////////
+    //////////  CATEGORIZATION OF ALL Constant::SUBMITTED REQUESTS ON REQUEST (manual process)  //////////
     public function manualRunRule(Request $request)
     {
         $ruleOwner = Auth::user()->organization_id;
@@ -198,7 +182,7 @@ class RuleEngineController extends Controller
     protected function manualRunAutoRejectRule($ruleOwner, $orgIdsFilteredArray)
     {
         $table = DB::table('donation_requests');
-        $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', AUTO_REJECT_RULE], ['active', '=', ACTIVE]])->first();
+        $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', Constant::AUTO_REJECT_RULE], ['active', '=', Constant::ACTIVE]])->first();
         if ($ruleRow) {
             DB::enableQueryLog();
             $queryBuilderJSON = $ruleRow->rule;
@@ -208,14 +192,15 @@ class RuleEngineController extends Controller
                 ['id', 'organization_id', 'requester', 'requester_type', 'needed_by_date', 'tax_exempt', 'dollar_amount', 'approved_organization_id', 'approval_status_id']
             );
             $query = $qbp->parse(json_encode($arr, JSON_UNESCAPED_SLASHES), $table);
-            $query->update(['approval_status_id' => REJECTED, 'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::tomorrow()]);
+            $query->update(['approval_status_id' => Constant::REJECTED, 'approval_status_reason' => $ruleRow->ruleType->type_name . ' Rule',
+                'approved_organization_id' => $ruleOwner, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::tomorrow()]);
         }
     }
 
     protected function manualRunPendingApprovalRule($ruleOwner, $orgIdsFilteredArray)
     {
         $table = DB::table('donation_requests');
-        $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', PRE_APPROVE_RULE], ['active', '=', ACTIVE]])->first();
+        $ruleRow = Rule::query()->where([['rule_owner_id', '=', $ruleOwner], ['rule_type_id', '=', Constant::PRE_APPROVE_RULE], ['active', '=', Constant::ACTIVE]])->first();
         if ($ruleRow) {
             $queryBuilderJSON = $ruleRow->rule;
             $json = json_decode($queryBuilderJSON, true);
@@ -224,16 +209,16 @@ class RuleEngineController extends Controller
                 ['id', 'organization_id', 'requester', 'requester_type', 'needed_by_date', 'tax_exempt', 'dollar_amount', 'approved_organization_id', 'approval_status_id']
             );
             $query = $qbp->parse(json_encode($arr), $table);
-            $query->update(['approval_status_id' => PENDING_APPROVAL, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
+            $query->update(['approval_status_id' => Constant::PENDING_APPROVAL, 'approval_status_reason' => $ruleRow->ruleType->type_name . ' Rule', 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
         }
     }
 
     protected function manualRunPendingRejectionRule($orgIdsFilteredArray)
     {
-        $query = DB::table('donation_requests')->where('approval_status_id', '=', SUBMITTED)->whereIn('organization_id', $orgIdsFilteredArray);
+        $query = DB::table('donation_requests')->where('approval_status_id', '=', Constant::SUBMITTED)->whereIn('organization_id', $orgIdsFilteredArray);
         $exists = $query->get(['id']);
         if ($exists->isNotEmpty()) {
-            $query->update(['approval_status_id' => PENDING_REJECTION, 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
+            $query->update(['approval_status_id' => Constant::PENDING_REJECTION, 'approval_status_reason' => 'Failed Pre-Accept Rule', 'rule_process_date' => Carbon::now(), 'updated_at' => Carbon::now()]);
         }
     }
 
@@ -248,7 +233,7 @@ class RuleEngineController extends Controller
         $array['rules'][0]['input'] = 'text';
         $array['rules'][0]['operator'] = 'equal';
         $array['rules'][0]['type'] = 'integer';
-        $array['rules'][0]['value'] = SUBMITTED;
+        $array['rules'][0]['value'] = Constant::SUBMITTED;
         if ($isOrgId) {
             $array['rules'][1]['field'] = 'organization_id';
             $array['rules'][1]['id'] = 'organization_id';
@@ -273,7 +258,7 @@ class RuleEngineController extends Controller
     //////////  REJECTS REQUESTS THAT WOULD PUT ORGANIZATION OVER BUDGET FOR REQUESTED MONTH (called via cron job)  //////////
     public function runBudgetCheckRule()
     {
-        // Get Active organizations
+        // Get Constant::ACTIVE organizations
         $organizations = Organization::query()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->get(['id', 'monthly_budget']);
         //dd($organizations);
         foreach ($organizations as $organization) {
@@ -282,17 +267,18 @@ class RuleEngineController extends Controller
             // Only run Budget rule if it is greater than zero
             if ($monthlyBudget > 0) {
                 $amountSpent = DonationRequest::query()->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)
-                    ->where('approved_organization_id', '=', $organization->id)->where('approval_status_id', '=', APPROVED)
+                    ->where('approved_organization_id', '=', $organization->id)->where('approval_status_id', '=', Constant::APPROVED)
                     ->sum('approved_dollar_amount');
                 //dd($amountSpent);
-                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [SUBMITTED, PENDING_APPROVAL])
+                $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)->whereIn('approval_status_id', [ Constant::SUBMITTED, Constant::PENDING_APPROVAL])
                     ->whereMonth('needed_by_date', '=', Carbon::today()->month)->whereYear('needed_by_date', '=', Carbon::today()->year)->get();
                 foreach ($pendingDonationRequests as $donationRequest) {
                     $requestAmount = $donationRequest->dollar_amount;
                     If (($requestAmount + $amountSpent) >= $monthlyBudget) {
-                        Info('Donation Request ID has been Rejected: ' . $donationRequest->id);
+                        Info('Donation Request ID has been Constant::REJECTED: ' . $donationRequest->id);
                         // pending-reject each request that would put organization over budget
-                        $donationRequest->approval_status_id = PENDING_REJECTION;
+                        $donationRequest->approval_status_id = Constant::PENDING_REJECTION;
+                        $donationRequest->approval_status_reason = 'Would Exceed Monthly Budget';
                         //$donationRequest->approved_organization_id = $organization->id;
                         $donationRequest->rule_process_date = Carbon::now();
                         $donationRequest->save();
@@ -306,7 +292,7 @@ class RuleEngineController extends Controller
     //////////  REJECTS REQUESTS WHERE NEEDED BY IS SOONER THAN MIN NOTICE (called via cron job)  //////////
     public function runMinimumNoticeCheckRule()
     {
-        // Get Active organizations
+        // Get Constant::ACTIVE organizations
         $organizations = Organization::query()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->get(['id']);
 
         foreach ($organizations as $organization) {
@@ -315,15 +301,16 @@ class RuleEngineController extends Controller
             info('Required Days Notice: ' . $requiredDaysNotice);
             if ($requiredDaysNotice > 0) {
                 $pendingDonationRequests = DonationRequest::query()->where('organization_id', '=', $organization->id)
-                    ->whereIn('approval_status_id', [SUBMITTED, PENDING_REJECTION, PENDING_APPROVAL])->get();
+                    ->whereIn('approval_status_id', [ Constant::SUBMITTED, Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->get();
                 info('Pending Donation Requests: \n ' . $pendingDonationRequests);
                 foreach ($pendingDonationRequests as $donationRequest) {
                     $requestNeededBy = $donationRequest->needed_by_date;
                     info('Required Days Notice: ' . $requiredDaysNotice);
                     If (Carbon::today()->addDays($requiredDaysNotice) >= $requestNeededBy) {
                         // auto-reject each request that is needed before the organization can deliver
-                        Info('Request Rejected ID: ' . $donationRequest->id);
-                        $donationRequest->approval_status_id = REJECTED;
+                        Info('Request Constant::REJECTED ID: ' . $donationRequest->id);
+                        $donationRequest->approval_status_id = Constant::REJECTED;
+                        $donationRequest->approval_status_reason = 'Needed by Date sooner than can be delivered';
                         $donationRequest->approved_organization_id = $organization->id;
                         $donationRequest->rule_process_date = Carbon::now();
                         $donationRequest->save();
