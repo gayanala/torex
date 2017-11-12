@@ -36,14 +36,18 @@
                                     <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
                                     <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td>
-                                        <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
-                                            <span class="glyphicon glyphicon-list-alt"></span></a>
                                         @if($donationrequest->donationApprovalStatus->id == 2 || $donationrequest->donationApprovalStatus->id == 3)
                                             <a href="" class="btn btn-success" title="Approve" don-id="{{$donationrequest->id}}" onClick="func(0, '{{$donationrequest->id}}')">
                                                 <span class="glyphicon glyphicon-ok"></span></a>
+                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
+                                                <span class="glyphicon glyphicon-list-alt"></span></a>
                                             <a href="" class="btn btn-danger" title="Reject" onClick="func(1, '{{$donationrequest->id}}')">
                                                 <span class="glyphicon glyphicon-remove"></span></a>
+                                        @else
+                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
+                                                <span class="glyphicon glyphicon-list-alt"></span></a>
                                         @endif
+                                        
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
 {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
