@@ -51,7 +51,7 @@ class UserController extends Controller
             ->pluck('org_name', 'id');
 
         return view('users.show', compact('roles', 'childOrgNames'));
-        return view('users.show', compact('user', 'childOrgNames'));
+//        return view('users.show', compact('user', 'childOrgNames'));
 
     }
 
@@ -202,34 +202,33 @@ class UserController extends Controller
 
     public function editsubuser($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
         $childOrgIds = $parentChildOrg->pluck('child_org_id');
-        $childOrgNames = Organization::whereIn('id', $childOrgIds)->pluck('org_name', 'id');
+        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
+        $childOrgNames = Organization::wherein('id', $childOrgIds)
+            ->orWhere('id', $parentOrgIds)
+            ->pluck('org_name', 'id');
 
         $states = State::pluck('state_name', 'state_code');
-        $user = User::find($id);
         return view('users.editsubuser', compact('user', 'childOrgNames'))->with('states', $states);
     }
 
     public function updatesubuser(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-//            'phone_number' => 'required|numeric|digits:10',
-//            'zipcode' => 'required|numeric|digits:5',
-//            'state' => 'required',
-//            'email' => [
-//                'required',
-//                'email',
-//                Rule::unique('users')->ignore($id),
-//            ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
         ]);
 
         if ($validator->fails()) {
-            return redirect() ->back()->withErrors($validator)->withInput();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
         $userUpdate = $request->all();
-        User::find($id)->update($userUpdate);
+        User::findorFail($id)->update($userUpdate);
         return redirect('user/manageusers');
     }
 
