@@ -6,6 +6,7 @@ use App\Organization;
 use App\Organization_type;
 use App\ParentChildOrganizations;
 use App\State;
+use App\Subscription;
 use Auth;
 use Illuminate\Http\Request;
 use Validator;
@@ -19,7 +20,7 @@ class OrganizationController extends Controller
         $organizationId = Auth::user()->organization_id;
         $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', $organizationId)->get();
         $count = $childOrganizations->count();
-        $subscriptionQuantity = Subscriptions::where('organization_id', $organizationId)->value('quantity');
+        $subscriptionQuantity = Subscription::where('organization_id', $organizationId)->value('quantity');
         $subscription = $subscriptionQuantity - 1;
         return view('organizations.index', compact('childOrganizations', 'count', 'subscriptionQuantity', 'subscription'));
 
