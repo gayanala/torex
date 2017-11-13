@@ -61,6 +61,14 @@ Route::group(['prefix' => 'subscription'], function () {
         'uses' => 'SubscriptionController@postJoin'
     ])->middleware('auth');
 });
+Route::get('resume', [
+    'as' => 'subscription-resume',
+    'uses' => 'SubscriptionController@resume'
+]);
+Route::get('cancel', [
+    'as' => 'subscription-cancel',
+    'uses' => 'SubscriptionController@cancel'
+]);
 
 Route::post('user/register', 'UserController@create');
 
