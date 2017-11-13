@@ -102,7 +102,6 @@
             vertical-align: middle;
         }
         h1 {font-size: 20px;
-            color: #ffffff;
             position: relative;
             float: bottom;
             top: 75%;
@@ -484,7 +483,3 @@
 
     <h5>A tagg Intiative</h5>
  </footer> -->
-
-
-
-
