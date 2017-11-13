@@ -314,7 +314,7 @@ class RuleEngineController extends Controller
                     info('Required Days Notice: ' . $requiredDaysNotice);
                     If (Carbon::today()->addDays($requiredDaysNotice) >= $requestNeededBy) {
                         // auto-reject each request that is needed before the organization can deliver
-                        Info('Request Constant::REJECTED ID: ' . $donationRequest->id);
+                        Info('Request REJECTED ID: ' . $donationRequest->id);
                         $donationRequest->approval_status_id = Constant::REJECTED;
                         $donationRequest->approval_status_reason = 'Needed by Date sooner than can be delivered';
                         $donationRequest->approved_organization_id = $organization->id;
