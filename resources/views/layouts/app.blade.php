@@ -101,8 +101,8 @@
             transform: translate(-55%, 30%);
             vertical-align: middle;
         }
-        h1 {font-size: 16px;
-            color: #3a87ad;
+        h1 {font-size: 20px;
+            color: #ffffff;
             position: relative;
             float: bottom;
             top: 75%;
@@ -252,20 +252,23 @@
     <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
         <div class="container-fluid">
 
-
-
             <div class="row">
                 <div class="col-sm-3" style='padding-left: 0px;padding-top: 0.5px'>
                     @if (Auth::guest())
-                    <a href="{{ url('/') }}" >
-                        <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
+                        <a href="{{ url('/') }}" >
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
+                        </a>
+                    @elseif (Auth::user()->organization->trial_ends_at)
+                        <a href="{{ url('/dashboard') }}" >
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
+                        </a>
 
-                    </a>
                     @else
-                                   <a href="{{ url('/dashboard') }}" >
-                   <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
+                        <a href="{{ url('/') }}" >
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
+                        </a>
                     @endif
-               </a>
+
 
                 </div>
                 <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:0px;' >
@@ -273,6 +276,7 @@
 
 
                         <!-- Right Side Of Navbar -->
+
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
 
                             @if (Auth::guest())
@@ -286,73 +290,87 @@
                     </div>
 
                     </li>
-                    @else
+                    @elseif (Auth::user()->organization->trial_ends_at)
 
-                        <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
-                        <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
-                                Donations</a></li>
-                                <li>
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false">
-                                        My Organization
-                                        <span class="caret"></span>
-                                    </a>
+                            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
+                            <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                                    Donations</a></li>
+                                    <li>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                           aria-expanded="false">
+                                            My Organization
+                                            <span class="caret"></span>
+                                        </a>
 
-                                    <ul class="dropdown-menu" role="menu">
-                                        <div class="w3-dropdown-content w3-card-4 w3-bar-block">
-                                            <li>
-                                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
-                                            </li>
-
-                                            @if(Auth::user()->roles[0]->id == 4 OR 1 OR 2)
+                                        <ul class="dropdown-menu" role="menu">
+                                            <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                                                 <li>
-                                                    <a href="{{ url('user/manageusers')}}">Add Users</a>
+                                                    <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
                                                 </li>
-                                            @endif
 
-                                            <li>
-                                                <a href="{{ route('organizations.index')}}">Business Locations</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ route('emailtemplates.index') }}">
-                                                    Communication Template
-                                                </a>
-                                            </li>
-                                        </div>
-                                    </ul>
-                                </li>
+                                                @if(Auth::user()->roles[0]->id == 4 OR 1 OR 2)
+                                                    <li>
+                                                        <a href="{{ url('user/manageusers')}}">Users</a>
+                                                    </li>
+                                                @endif
 
-                        <li class="dropdown">
+                                                <li>
+                                                    <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('emailtemplates.index') }}">
+                                                        Communication Template
+                                                    </a>
+                                                </li>
+                                            </div>
+                                        </ul>
+                                    </li>
 
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false">
-                                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
-                                        class="caret"></span>
+                            <li class="dropdown">
+
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false">
+                                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
+                                            class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ route('users.index')}}">Profile Management</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('reset-password') }}">
+                                            Reset Password
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                              style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+
+                            </li>
+                        @else
+                        <li><a href="{{ url('/subscription')}}" class="w3-bar-item w3-button current">Subscription</a></li>
+                        <li>
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                Logout
                             </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ route('users.index')}}">Profile Management</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('reset-password') }}">
-                                        Reset Password
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                          style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                  style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
                         </li>
                         @endif
                         </ul>

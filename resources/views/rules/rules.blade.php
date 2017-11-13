@@ -24,43 +24,73 @@
     <!--<section class="bs-docs-section clearfix"> -->
     {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
-        <h1>Basic Settings</h1>
+
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
-            <div class="col-md-8 form-group">
+            <div class="col-md-12 form-group">
                 <br/>
-                <table width="50%">
+                <table width="100%" style="background-color:#1565c0">
                     <tr>
-                        <td>
+                    <td align="center" bgcolor="#1565c0">
+
+                        <h1>Basic Settings</h1>
+
+                    </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                    </table>
+                <table width="100%" style="background-color:#bbdefb">
+
+
+                    <tr>
+                        <td colspan="4" align="center"><br> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="center"><br> </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center">
                             <label style="cursor: help;"
                                    title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
                                 Monthly Budget:</label>&nbsp;
-                        </td>
-                        <td>
+
                             <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]?"
                                    min="0"
                                    step="1" required value="{{ $monthlyBudget }}" size="10"/>
                         </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>
+
+                    <td>
+                        <td colspan="4">&nbsp;</td>
+                    </td>
+
+                        <td align="center">
                             <label style="cursor: help;"
                                    title="Enter your minimum days notice. Requests that need to be fulfilled before your business can fulfill them will be automatically declined.">
                                 Required Days Notice: &nbsp;</label>
-                        </td>
-                        <td>
+
                             <input id="daysNotice" type="number" min="0" step="1" name="daysNotice" required
                                    value="{{ $daysNotice }}" size="10"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="8" align="center"> <br></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" align="center">
+                            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                                <button id="btnSaveBudgetNotice" class="btn btn-primary" type="submit">Save
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" align="center"> <br></td>
+                    </tr>
                 </table>
             </div>
-            <div class="col-md-12 col-lg-10 col-lg-offset-1">
-                <button id="btnSaveBudgetNotice" class="btn btn-primary" type="submit">Save
-                </button>
-            </div>
+
         </form>
     </div>
     <div>

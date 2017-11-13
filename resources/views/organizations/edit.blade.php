@@ -57,12 +57,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="street_address1" class="col-md-4 control-label">Street Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="street_address1" class="col-md-4 control-label"> Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::text('street_address1',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="street_address2" class="col-md-4 control-label">Street Address 2 </label>
+                            <label for="street_address2" class="col-md-4 control-label"> Address 2 </label>
                             <div class="col-lg-6">   {!! Form::text('street_address2', null,['class'=>'form-control']) !!}</div>
                         </div>
 
