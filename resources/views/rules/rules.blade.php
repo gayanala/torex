@@ -32,7 +32,7 @@
                     <tr>
                     <td align="center" bgcolor="#1565c0">
 
-                        <h1>Basic Settings</h1>
+                        <h1 style="color:white">Basic Settings</h1>
 
                     </td>
                     </tr>
@@ -93,19 +93,8 @@
 
         </form>
     </div>
-    <div>
-        <br/>
-        <br/>
-        <br/>
-    </div>
-
     <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
-        <!--<Rules help in new window/tab>  -->
-        <div class="col-md-12" style="padding-left:82.5%">
-            <a href="{{url('/help') }}" target="_blank">
-                <h1><b><u>How to set rules?</u></b></h1>
-            </a>
-        </div>
+
         <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
             <h1>Global Business Rules (Admin Only)</h1>
             <div class="col-md-8">
@@ -119,11 +108,12 @@
                         </td>
                     </tr>
                 </table>
-                {{--<a href="#" data-title="Rule management help" data-toggle="popover"
-                   data-content="Select individual fields and corresponding conditions to set the rules for auto rejection and pre approval of donation requests.
-                   The auto rejection rule helps you in setting parameters to reject the donation request and the pre approval rule helps you in setting parameters
-                    for approving the donation requests for further evaluation.">Help</a>--}}
             </div>
+            <!--<Rules help in new window/tab>  -->
+                <a href="{{url('/help') }}" target="_blank">
+                    <h1 style="padding-left:82.5%"><b><u>How to set rules?</u></b></h1>
+                </a>
+
         </div>
         <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
         <div class="col-md-12 col-lg-10 col-lg-offset-1">
