@@ -165,7 +165,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
-                            <label for="zipcode" class="col-md-4 control-label">Zip code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
                                 <input id="zipcode" type="text" pattern="[0-9]{5}" required title="Enter a 5 digit zipcode" class="form-control" name="zipcode" value="{{ old('zipcode') }}" placeholder="Your Zip code" required autofocus>

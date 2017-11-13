@@ -51,7 +51,7 @@ class UserController extends Controller
             ->pluck('org_name', 'id');
 
         return view('users.show', compact('roles', 'childOrgNames'));
-        return view('users.show', compact('user', 'childOrgNames'));
+//        return view('users.show', compact('user', 'childOrgNames'));
 
     }
 
@@ -63,6 +63,7 @@ class UserController extends Controller
         $users = User::whereIn('organization_id', $arr)->get();
         $admin = $users[0];
         $users->shift();
+//        dd($users);
 
         return view('users.indexUsers', compact('users', 'admin'));
 
@@ -196,6 +197,38 @@ class UserController extends Controller
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
 
+        return redirect('user/manageusers');
+    }
+
+    public function editsubuser($id)
+    {
+        $user = User::findOrFail($id);
+        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
+        $childOrgIds = $parentChildOrg->pluck('child_org_id');
+        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
+        $childOrgNames = Organization::wherein('id', $childOrgIds)
+            ->orWhere('id', $parentOrgIds)
+            ->pluck('org_name', 'id');
+
+        $states = State::pluck('state_name', 'state_code');
+        return view('users.editsubuser', compact('user', 'childOrgNames'))->with('states', $states);
+    }
+
+    public function updatesubuser(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $userUpdate = $request->all();
+        User::findorFail($id)->update($userUpdate);
         return redirect('user/manageusers');
     }
 

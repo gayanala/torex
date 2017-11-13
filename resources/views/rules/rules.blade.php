@@ -24,58 +24,77 @@
     <!--<section class="bs-docs-section clearfix"> -->
     {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
     <div class="col-md-12 col-lg-10 col-lg-offset-1">
-        <h1>Basic Settings</h1>
+
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
-            <div class="col-md-8 form-group">
+            <div class="col-md-12 form-group">
                 <br/>
-                <table width="50%">
+                <table width="100%" style="background-color:#1565c0">
                     <tr>
-                        <td>
+                    <td align="center" bgcolor="#1565c0">
+
+                        <h1 style="color:white">Basic Settings</h1>
+
+                    </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                    </table>
+                <table width="100%" style="background-color:#bbdefb">
+
+
+                    <tr>
+                        <td colspan="4" align="center"><br> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="center"><br> </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center">
                             <label style="cursor: help;"
                                    title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
                                 Monthly Budget:</label>&nbsp;
-                        </td>
-                        <td>
+
                             <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]?"
                                    min="0"
                                    step="1" required value="{{ $monthlyBudget }}" size="10"/>
                         </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>
+
+                    <td>
+                        <td colspan="4">&nbsp;</td>
+                    </td>
+
+                        <td align="center">
                             <label style="cursor: help;"
                                    title="Enter your minimum days notice. Requests that need to be fulfilled before your business can fulfill them will be automatically declined.">
                                 Required Days Notice: &nbsp;</label>
-                        </td>
-                        <td>
+
                             <input id="daysNotice" type="number" min="0" step="1" name="daysNotice" required
                                    value="{{ $daysNotice }}" size="10"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="8" align="center"> <br></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" align="center">
+                            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                                <button id="btnSaveBudgetNotice" class="btn btn-primary" type="submit">Save
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" align="center"> <br></td>
+                    </tr>
                 </table>
             </div>
-            <div class="col-md-12 col-lg-10 col-lg-offset-1">
-                <button id="btnSaveBudgetNotice" class="btn btn-primary" type="submit">Save
-                </button>
-            </div>
+
         </form>
     </div>
-    <div>
-        <br/>
-        <br/>
-        <br/>
-    </div>
-
     <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
-        <!--<Rules help in new window/tab>  -->
-        <div class="col-md-12" style="padding-left:82.5%">
-            <a href="{{url('/help') }}" target="_blank">
-                <h1><b><u>How to set rules?</u></b></h1>
-            </a>
-        </div>
+
         <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
             <h1>Global Business Rules (Admin Only)</h1>
             <div class="col-md-8">
@@ -89,11 +108,12 @@
                         </td>
                     </tr>
                 </table>
-                {{--<a href="#" data-title="Rule management help" data-toggle="popover"
-                   data-content="Select individual fields and corresponding conditions to set the rules for auto rejection and pre approval of donation requests.
-                   The auto rejection rule helps you in setting parameters to reject the donation request and the pre approval rule helps you in setting parameters
-                    for approving the donation requests for further evaluation.">Help</a>--}}
             </div>
+            <!--<Rules help in new window/tab>  -->
+                <a href="{{url('/help') }}" target="_blank">
+                    <h1 style="padding-left:82.5%"><b><u>How to set rules?</u></b></h1>
+                </a>
+
         </div>
         <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
         <div class="col-md-12 col-lg-10 col-lg-offset-1">
