@@ -24,12 +24,12 @@
               menu: [{
                   text: 'Patron',
                   onclick: function () {
-                      editor.insertContent('&nbsp;<b>{patron}</b>&nbsp;');
+                      editor.insertContent('&nbsp;<b>{Requester Name}</b>&nbsp;');
                   }
               }, {
                   text: 'My Business Name',
                   onclick: function () {
-                      editor.insertContent('&nbsp;<b>{organization}</b>&nbsp;');
+                      editor.insertContent('&nbsp;<b>{My Business Name}</b>&nbsp;');
                   }
               }]
           });
@@ -46,7 +46,7 @@
 
                     <div class="panel-body">
 
-                        {!! Form::model($emailtemplate, ['method' => 'PUT', 'route'=>['emailtemplates.update', $emailtemplate->id], 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($email_template, ['method' => 'PUT', 'route'=>['emailtemplates.update', $email_template->id], 'class' => 'form-horizontal']) !!}
 
                         @if ($errors->any())
                             <div class="alert alert-danger">

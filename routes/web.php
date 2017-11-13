@@ -104,8 +104,6 @@ Route::post('change-password', 'Auth\UpdatePasswordController@update');
 
 Route::get('/emailtemplates/edit/{id}', 'EmailTemplateController@edit');
 
-Route::get('/emailtemplates/editsendmail', 'EmailTemplateController@send');
-
 Route::resource('emailtemplates', 'EmailTemplateController');
 
 //Emails

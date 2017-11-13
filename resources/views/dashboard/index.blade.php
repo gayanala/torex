@@ -158,8 +158,8 @@
                                     @endif
                                 </table>
                                 {!! Form::open(['action' =>  'EmailTemplateController@send', 'method' => 'GET']) !!}
-                                {{ Form::hidden('hiddenname','' , array('id' => 'selected-ids-hidden')) }}
-                                {{ Form::hidden('pagefrom', '/dashboard') }}
+                                {{ Form::hidden('ids_string','' , array('id' => 'selected-ids-hidden')) }}
+                                {{ Form::hidden('page_from', '/dashboard') }}
                                 {{--add if condition to show approve and reject buttons only if there are pending requests and atleast one is selected--}}
                                 @if(sizeOf($donationrequests) != 0)
                                     {!! Form::submit( 'Approve', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'approve'])!!}
