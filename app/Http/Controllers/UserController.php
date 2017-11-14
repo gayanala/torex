@@ -136,21 +136,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $loggedInUserDetails = User::findOrFail(Auth::user()->id);
+        $user_details = User::findOrFail(Auth::user()->id);
+        $organization = Organization::findOrFail($user_details->organization_id);
 
         $user = new User;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->user_name = $request->email;
         $user->email = $request->email;
-        $user->password = bcrypt('password');
-        $user->street_address1 = $loggedInUserDetails->street_address1;
-        $user->street_address2 = $loggedInUserDetails->street_address2;
-        $user->city = $loggedInUserDetails->city;
-        $user->state = $loggedInUserDetails->state;
-        $user->zipcode = $loggedInUserDetails->zipcode;
+        $string = str_random(10);
+        $user->password = bcrypt($string);
+        $user->street_address1 = $organization->street_address1;
+        $user->street_address2 = $organization->street_address2;
+        $user->city = $organization->city;
+        $user->state = $organization->state;
+        $user->zipcode = $organization->zipcode;
         $user->organization_id = $request->location;
-        $user->phone_number = $loggedInUserDetails->phone_number;
+        $user->phone_number = $organization->phone_number;
 
         $user->save();
 
