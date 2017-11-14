@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Custom\Constant;
 use App\Organization;
 use App\DonationRequest;
 use Carbon\Carbon;
@@ -23,11 +24,12 @@ class DashboardController extends Controller
         $organization = Organization::findOrFail($organizationId);
 
         $organizationName = $organization->org_name;
-        $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->whereIn('approval_status_id', [1, 2, 3])->get();
-        $amountDonated = DonationRequest::where('approval_status_id', 5)->where('organization_id', $organizationId)->sum('approved_dollar_amount');
-        $rejectedNumber = DonationRequest::where('approval_status_id', 4)->where('organization_id', $organizationId)->count();
-        $approvedNumber = DonationRequest::where('approval_status_id', 5)->where('organization_id', $organizationId)->count();
-        $pendingNumber = DonationRequest::whereIn('approval_status_id', [2, 3])->where('organization_id', $organizationId)->count();
+        $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)
+            ->whereIn('approval_status_id', [Constant::SUBMITTED, Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->get();
+        $amountDonated = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organizationId)->sum('approved_dollar_amount');
+        $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->where('organization_id', $organizationId)->count();
+        $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organizationId)->count();
+        $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->where('organization_id', $organizationId)->count();
 
         return view('dashboard.index', compact('donationrequests', 'organizationName', 'amountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber'));
     }
@@ -53,6 +55,5 @@ class DashboardController extends Controller
         $pendingNumber = DonationRequest::whereIn('approval_status_id', [2, 3])->count();
 
         return view('dashboard.admin-index', compact('organizations', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'userCount', 'userThisWeek', 'userThisMonth', 'userThisYear'));
-
     }
 }
