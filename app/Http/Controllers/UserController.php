@@ -6,6 +6,7 @@ use App\Events\AddDefaultTemplates;
 use App\Events\NewBusiness;
 use App\Events\NewSubBusiness;
 use App\Http\Controllers\Route;
+use App\Custom\Constant;
 use App\Organization;
 use App\ParentChildOrganizations;
 use App\State;
@@ -41,13 +42,16 @@ class UserController extends Controller
     public function show($id)
     {
 
-        $roles = Role::whereIn('name', ['Business Admin', 'Business User'])->pluck('name');
+        $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
+        $organizationId = Auth::user()->organization_id;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
         $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
         $childOrgIds = $parentChildOrg->pluck('child_org_id');
 
-        $childOrgNames = Organization::wherein('id', $childOrgIds)
-            ->orWhere('id', $parentOrgIds)
+        $childOrgNames = Organization::wherein('id', $arr)
             ->pluck('org_name', 'id');
 
         return view('users.show', compact('roles', 'childOrgNames'));
@@ -137,7 +141,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $loggedInUserDetails = User::findOrFail(Auth::user()->id);
-
+        $userOrganization = Organization::findOrFail($request->location);
         $user = new User;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -154,7 +158,7 @@ class UserController extends Controller
 
         $user->save();
 
-        $user->roles()->attach(5);
+        $user->roles()->attach($request->user_role);
 
         //fire NewBusiness event to initiate sending welcome mail
 
