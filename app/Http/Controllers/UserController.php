@@ -42,7 +42,6 @@ class UserController extends Controller
 
     public function show($id)
     {
-
         $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
         $organizationId = Auth::user()->organization_id;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
@@ -167,7 +166,7 @@ class UserController extends Controller
         event(new NewSubBusiness($user));
 
 
-        return redirect('users');
+        return redirect('user/manageusers');
     }
 
     public function edit($id)
