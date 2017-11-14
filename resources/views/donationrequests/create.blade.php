@@ -330,7 +330,7 @@
                             <label for="marketingopportunities" class="col-md-4 control-label">What are the marketing opportunities? <span style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" input id="marketingopportunities"   pattern="[a-zA-Z0-9\s]+ {500}$" required title="Please restrict your Text Length to 500 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" autofocus> </textarea>
+                                <textarea class="form-control" input id="marketingopportunities"   pattern="[a-zA-Z0-9\s]" maxlength="500"  required title="Please restrict your Text Length to 500 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" autofocus> </textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
