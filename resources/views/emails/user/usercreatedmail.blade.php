@@ -13,7 +13,7 @@ All requests for donation are streamlined and organized.
 * Automatically reject donation requests that don’t make sense for your business.
 * Add additional users to assist with approving or rejecting requests.
 * Please follow the link below to login to your account:
-{ { route('password.reset.get', $reset_token) } }
+{{'http://localhost/tagg/public/password/reset/'}}{{$reset_token}}
 
 @component('mail::button', ['url' => '' ])
     Go to CharityQ

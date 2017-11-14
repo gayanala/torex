@@ -67,7 +67,6 @@ class UserController extends Controller
         $users = User::whereIn('organization_id', $arr)->get();
         $admin = $users[0];
         $users->shift();
-//        dd($users);
 
         return view('users.indexUsers', compact('users', 'admin'));
 
@@ -140,7 +139,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         $user_details = User::findOrFail(Auth::user()->id);
         $organization = Organization::findOrFail($user_details->organization_id);
 
@@ -161,7 +159,7 @@ class UserController extends Controller
 
         $user->save();
 
-        $user->roles()->attach($request->user_role);
+        $user->roles()->attach($request->role_id);
 
         //fire NewBusiness event to initiate sending welcome mail
 

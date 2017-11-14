@@ -40,7 +40,7 @@ class SendWelcomeMailSubOrg
             'token' => $hashed_token_bcrypt,
             'created_at' => Carbon::now(),
         ]);
-        Mail::to($event->user->email)->send(new UserCreated($reset_token, $event->user));
+        Mail::to($event->user->email)->send(new UserCreated($hashed_token, $event->user));
         //dd($hashed_token);
     }
 }
