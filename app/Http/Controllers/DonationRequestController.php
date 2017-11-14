@@ -21,6 +21,7 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\ParentChildOrganizations;
+use Carbon\Carbon;  
 use URL;
 
 
@@ -34,6 +35,8 @@ class DonationRequestController extends Controller
        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
        array_push($arr, $organizationId);
        $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
+       $today = Carbon::now()->toDateString();
+       return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
 
     }
 

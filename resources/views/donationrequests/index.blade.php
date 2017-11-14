@@ -87,6 +87,49 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
 
+<script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                dom: 'Bfrtip',
+            buttons: [
+       {
+           extend: 'pdf',   
+           title: '{{ $organizationName }}',
+           filename: function(){
+                var d = new Date();
+                return '{{ $organizationName }}' + '{{$today}}';
+            },       
+           exportOptions: {
+                columns: [0,1,2,3,4,5,6]  // indexes of the columns that should be printed,
+            }                      // Exclude indexes that you don't want to print.
+       },
+       {
+           extend: 'csv',
+           title: '{{ $organizationName }}',
+           filename: function(){
+                var d = new Date();
+                return '{{ $organizationName }}' + '{{$today}}';
+            },  
+           exportOptions: {
+                columns: [0,1,2,3,4,5,6] 
+            }
+
+       },
+       {
+           extend: 'excel',
+           title: '{{ $organizationName }}',
+           filename: function(){
+                var d = new Date();
+                return '{{ $organizationName }}' + '{{$today}}';
+            },   
+           exportOptions: {
+                columns: [0,1,2,3,4,5,6] 
+            }
+       }         
+    ] 
+        });
+        } );
+
 
         function func(actionStatus, donId) {
 
