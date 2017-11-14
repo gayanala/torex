@@ -8,6 +8,7 @@
                     <div class="panel-heading"><h1>{{ $organizationName }}</h1></div><br>
 
                     <div class="panel-body">
+
                         @if(sizeOf($donationrequests) != 0)
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
@@ -35,7 +36,7 @@
 
                                     <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
                                     <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
-                                    <td>
+                                    <td style="white-space: nowrap">
                                         @if($donationrequest->donationApprovalStatus->id == 2 || $donationrequest->donationApprovalStatus->id == 3)
                                             <a href="" class="btn btn-success" title="Approve" don-id="{{$donationrequest->id}}" onClick="func(0, '{{$donationrequest->id}}')">
                                                 <span class="glyphicon glyphicon-ok"></span></a>
@@ -64,8 +65,8 @@
                             <input type="button" value="Manual Entry for Donation Request"
                         onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_self') ;"/>
                     </div>
-                </div>
-        </div>
+                    </div>
+                       </div>
     </div>
 
 
