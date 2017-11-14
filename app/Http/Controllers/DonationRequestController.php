@@ -21,22 +21,22 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\ParentChildOrganizations;
-use Carbon\Carbon;  
+use Carbon\Carbon;
 use URL;
 
 
 class DonationRequestController extends Controller
 {
     public function index()
-{
-    $organizationId = Auth::user()->organization_id;
-       $organization = Organization::findOrFail($organizationId);
-       $organizationName = $organization->org_name;
-       $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
-       array_push($arr, $organizationId);
-       $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
-       $today = Carbon::now()->toDateString();
-       return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
+    {
+        $organizationId = Auth::user()->organization_id;
+        $organization = Organization::findOrFail($organizationId);
+        $organizationName = $organization->org_name;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+        $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
+        $today = Carbon::now()->toDateString();
+        return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
 
     }
 
@@ -53,9 +53,7 @@ class DonationRequestController extends Controller
             $request_event_type = Request_event_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
             return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
                 ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
-        }
-
-        else {
+        } else {
             return view('donationrequests.expired');
         }
     }
@@ -149,8 +147,8 @@ class DonationRequestController extends Controller
         $donationRequest->approval_status_reason = 'Business Rules failed to run on request.';
         $this->validate($request, [
             'needed_by_date' => 'after:today',
-            'startdate'=> 'after:today',
-        'taxexempt' => "required",
+            'startdate' => 'after:today',
+            'taxexempt' => "required",
         ]);
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
@@ -207,12 +205,12 @@ class DonationRequestController extends Controller
             $donation_purpose_name = $donation_purpose->purpose_name;
         }
 
-        if($donationrequest->item_requested) {
+        if ($donationrequest->item_requested) {
             $item_requested = Request_item_type::findOrFail($donationrequest->item_requested);
             $item_requested_name = $item_requested->item_name;
         }
 
-        if($donationrequest->requester_type) {
+        if ($donationrequest->requester_type) {
             $donationRequest = Requester_type::findOrFail($donationrequest->requester_type);
             $donationRequestName = $donationRequest->type_name;
         }
@@ -287,6 +285,6 @@ class DonationRequestController extends Controller
     {
         $organization = Organization::findOrFail($id);
 
-        return view('donationrequests.donation-organization', compact( 'organization'));
+        return view('donationrequests.donation-organization', compact('organization'));
     }
 }
