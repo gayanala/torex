@@ -272,10 +272,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('startdate') ? ' has-error' : '' }}">
-                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
+                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="startdate" type="date" class="form-control" name="startdate" value="{{ old('startdate') }}" placeholder="Start Date" autofocus>
+                                <input id="startdate" type="date" class="form-control" name="startdate" value="{{ old('startdate') }}" placeholder="Start Date" required autofocus>
 
                                 @if ($errors->has('startdate'))
                                     <span class="help-block">
