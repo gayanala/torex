@@ -133,7 +133,7 @@ class DonationRequestController extends Controller
         $donationRequest->tax_exempt = $request->taxexempt;
         $donationRequest->item_requested = $request->item_requested;
         $donationRequest->dollar_amount = $request->dollar_amount;
-//        $donationRequest->approved_dollar_amount = $request->dollar_amount;
+        $donationRequest->approved_dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;

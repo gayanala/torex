@@ -36,11 +36,9 @@
                     <tr>
                     <td align="center" bgcolor="#f9a825">
 
-<<<<<<< HEAD
-                        <h1 style="color:white">Basic Settings</h1>
-=======
+
                         <h1 style="color:white"><label>Basic Settings</label></h1>
->>>>>>> a6bfe856b2cba5ef0d06025eac83792371d5dfd8
+
 
                     </td>
                     </tr>
@@ -92,8 +90,7 @@
 
         </form>
     </div>
-<<<<<<< HEAD
-=======
+
 
 
     <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
@@ -110,7 +107,7 @@
             </table>
             <br>
     </form>
->>>>>>> a6bfe856b2cba5ef0d06025eac83792371d5dfd8
+
     <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
 
         <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
@@ -150,15 +147,18 @@
                 </table>
             </div>
             <!--<Rules help in new window/tab>  -->
-<<<<<<< HEAD
+
                 <a href="{{url('/help') }}" target="_blank">
                     <h1 style="padding-left:82.5%"><b><u>How to set rules?</u></b></h1>
                 </a>
-=======
+    <!--  <a href="{{url('/help') }}" target="_blank">
+                    <h1 style="padding-left:82.5%"><b><u>How to set rules?</u></b></h1>
+                </a>-->
+
               <!--  <a href="{{url('/help') }}" target="_blank">
                     <h1 style="padding-left:82.5%"><b><u>How to set rules?</u></b></h1>
                 </a>-->
->>>>>>> a6bfe856b2cba5ef0d06025eac83792371d5dfd8
+
 
         </div>
         <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
