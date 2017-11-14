@@ -11,6 +11,9 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Organization;
 use App\DonationRequest;
+use Carbon\Carbon;
+use App\ParentChildOrganizations;
+use App\User;
 
 class DashboardController extends Controller
 {
@@ -32,13 +35,24 @@ class DashboardController extends Controller
     public function indexTaggAdmin() {
 
         $organizations = Organization::all();
-        //dd($organizations[0]->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount'));
-        //dd($organizations[0]->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear()));
-        $amountDonated = DonationRequest::where('approval_status_id', 5)->sum('dollar_amount');
+
+        $parentOrgs = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
+        $organizationsArray = ParentChildOrganizations::whereIn('parent_org_id', $parentOrgs)->pluck('child_org_id')->toArray();
+        array_push($organizationsArray, $parentOrgs);
+
+        $numActiveLocations = sizeOf($organizationsArray);
+        $userCount = User::whereIn('organization_id', $organizationsArray)->count();
+
+        $userThisWeek = Organization::where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
+        $userThisMonth = Organization::where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
+        $userThisYear = Organization::where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
+
+        $avgAmountDonated = DonationRequest::where('approval_status_id', 5)->avg('dollar_amount');
         $rejectedNumber = DonationRequest::where('approval_status_id', 4)->count();
         $approvedNumber = DonationRequest::where('approval_status_id', 5)->count();
         $pendingNumber = DonationRequest::whereIn('approval_status_id', [2, 3])->count();
-        return view('dashboard.admin-index', compact('organizations', 'amountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber'));
+
+        return view('dashboard.admin-index', compact('organizations', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'userCount', 'userThisWeek', 'userThisMonth', 'userThisYear'));
 
     }
 }

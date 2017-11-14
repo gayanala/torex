@@ -24,7 +24,7 @@
                                     <i class="fa fa-money fa-5x" style="color: #3e8f3e"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$amountDonated}}</div>
+                                    <div class="huge">${{ $avgAmountDonated }}$</div>
                                     <div>AVERAGE AMOUNT DONATED</div>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                                     <i class="fa fa-window-close-o fa-5x" style="color: red"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$rejectedNumber}}</div>
+                                    <div class="huge">{{ $rejectedNumber }}</div>
                                     <div>REJECTED</div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                     <i class="fa fa-check-square-o fa-5x" style="color: #00dd00"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$approvedNumber}}</div>
+                                    <div class="huge">{{ $approvedNumber }}</div>
                                     <div>APPROVED</div>
                                 </div>
                             </div>
@@ -84,8 +84,8 @@
                                     <i class="fa fa-clock-o fa-5x" style="color: darkorange"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$pendingNumber}}</div>
-                                    <div>NUMBER OF DONATIONS</div>
+                                    <div class="huge">{{ $pendingNumber }}</div>
+                                    <div>PENDING DONATIONS</div>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                     <i class="fa fa-user-circle fa-5x" style="color: greenyellow"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$pendingNumber}}</div>
+                                    <div class="huge">{{ $userCount }}</div>
                                     <div>ACTIVE CUSTOMERS</div>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                     <i class="fa fa-address-book-o fa-5x" ></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$pendingNumber}}</div>
+                                    <div class="huge">{{ $numActiveLocations }}</div>
                                     <div>ACTIVE LOCATIONS</div>
                                 </div>
                             </div>
@@ -129,8 +129,8 @@
                                     <i class="fa fa-user-circle fa-5x" style="color: darkgreen"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$pendingNumber}}</div>
-                                    <div>NEW CUSTOMERS THIS WEEK</div>
+                                    <div class="huge">{{ $userThisWeek }}</div>
+                                    <div>NEW BUSINESSES THIS WEEK</div>
                                 </div>
                             </div>
                         </div>
@@ -144,8 +144,8 @@
                                     <i class="fa fa-user-circle fa-5x" style="color: yellow"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$pendingNumber}}</div>
-                                    <div>NEW CUSTOMERS THIS MONTH</div>
+                                    <div class="huge">{{ $userThisMonth }}</div>
+                                    <div>NEW BUSINESSES THIS MONTH</div>
                                 </div>
                             </div>
                         </div>
@@ -159,8 +159,8 @@
                                     <i class="fa fa-user-circle fa-5x" style="color: blue"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$pendingNumber}}</div>
-                                    <div>NEW CUSTOMERS THIS YEAR</div>
+                                    <div class="huge">{{ $userThisYear }}</div>
+                                    <div>NEW BUSINESSES THIS YEAR</div>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                     <tbody  style="text-align: center">
                                         @foreach ($organizations as $organization)
                                             @if(is_null($organization->trial_ends_at))
-                                                @continue
+                                                @continue;
                                             @endif
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
