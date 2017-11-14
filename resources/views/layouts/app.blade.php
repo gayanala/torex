@@ -31,15 +31,19 @@
             display: flex;
             justify-content: center;
         }
+
         .content {
             text-align: center;
         }
+
         .title {
             font-size: 40px;
         }
+
         .m-b-md {
             margin-bottom: 30px;
         }
+
         .full-height {
             height: 80vh;
         }
@@ -49,18 +53,21 @@
             font-size: small;
             line-height: 2.0;
             color: #0077aa;
-            margin-bottom:100px;
-            padding:0;
+            margin-bottom: 100px;
+            padding: 0;
             min-height: 100%;
-            position:relative;
+            position: relative;
             clear: both;
         }
-        @media screen and (max-width: 600px){
+
+        @media screen and (max-width: 600px) {
             ul.topnav li.right,
-            ul.topnav li {float: none;}
+            ul.topnav li {
+                float: none;
+            }
         }
-        h2
-        {
+
+        h2 {
             font-size: 30px;
             color: #66512c;
             position: relative;
@@ -81,8 +88,7 @@
             text-decoration-line: underline;
         }
 
-        h3
-        {
+        h3 {
             font-size: 30px;
             color: #ffffff;
             position: relative;
@@ -92,7 +98,8 @@
             transform: translate(-60%, 30%);
         }
 
-        p {font-size: 16px;
+        p {
+            font-size: 16px;
             color: #3a87ad;
             position: relative;
             float: bottom;
@@ -101,7 +108,9 @@
             transform: translate(-55%, 30%);
             vertical-align: middle;
         }
-        h1 {font-size: 20px;
+
+        h1 {
+            font-size: 20px;
             position: relative;
             float: bottom;
             top: 75%;
@@ -109,7 +118,10 @@
             transform: translate(-55%, 30%);
         }
 
-        .margin {margin-bottom: 45px;}
+        .margin {
+            margin-bottom: 45px;
+        }
+
         .bg-1 {
 
             background-color: #ffab40;
@@ -123,9 +135,7 @@
 
         }
 
-
-        .imgalign
-        {
+        .imgalign {
             margin-left: auto;
             margin-right: auto;
             background-size: cover;
@@ -133,8 +143,7 @@
             vertical-align: middle;
         }
 
-        .txtalign
-        {
+        .txtalign {
             margin-left: auto;
             margin-right: auto;
             vertical-align: middle;
@@ -145,18 +154,22 @@
             background-color: #ffffff; /* Dark Blue */
             color: #ffffff;
         }
+
         .bg-3 {
             background-color: #f1f8e9; /* White */
             color: #555555;
         }
+
         .bg-4 {
             background-color: #0097a7; /* Black Gray */
             color: #fff;
         }
+
         .container-fluid {
             padding-top: 0px;
             padding-bottom: 0px;
         }
+
         .navbar {
             position: fixed;
             padding-top: 15px;
@@ -167,9 +180,11 @@
             font-size: 12px;
             letter-spacing: 5px;
         }
-        .navbar-nav  li a:hover {
+
+        .navbar-nav li a:hover {
             color: #1abc9c !important;
         }
+
         .col-sm-6 {
             display: block;
             padding: 5px;
@@ -183,17 +198,20 @@
             margin: 0 auto;
             padding-top: 0px;
         }
+
         .containerimg img.wide {
             max-width: 100%;
             max-height: 100%;
             height: auto;
         }
+
         .containerimg img.tall {
             max-height: 100%;
             max-width: 100%;
             width: auto;
-        }​
+        }
 
+        ​
         .footer {
             position: fixed;
             right: 0;
@@ -203,9 +221,10 @@
             padding-top: -200px;
             text-align: center;
         }
-        .navbar-nav > li >a{
-            color:white;
-            style:bold;
+
+        .navbar-nav > li > a {
+            color: white;
+            style: bold;
             font-size: 15px;
         }
 
@@ -227,10 +246,9 @@
             line-height: 1.8;
         }
 
-.divsmall
-{
-    padding: 25px -5px 5px 100px;
-}
+        .divsmall {
+            padding: 25px -5px 5px 100px;
+        }
 
 
     </style>
@@ -248,30 +266,34 @@
 <div id="app">
 
 
-    <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light primarybg-" style="background-color: #8e24aa;padding-bottom: .5px">
+    <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light primarybg-"
+         style="background-color: #8e24aa;padding-bottom: .5px">
         <div class="container-fluid">
 
             <div class="row">
                 <div class="col-sm-3" style='padding-left: 0px;padding-top: 0.5px'>
                     @if (Auth::guest())
-                        <a href="{{ url('/') }}" >
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
+                        <a href="{{ url('/') }}">
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
+                                 width="60%" style='background-size: inherit'/>
                         </a>
                     @elseif (Auth::user()->organization->trial_ends_at)
-                        <a href="{{ url('/dashboard') }}" >
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
+                        <a href="{{ url('/dashboard') }}">
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
+                                 width="60%" style='background-size: inherit'/>
                         </a>
 
                     @else
-                        <a href="{{ url('/') }}" >
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo"  class="img-responsive" width="60%" style='background-size: inherit'/>
+                        <a href="{{ url('/') }}">
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
+                                 width="60%" style='background-size: inherit'/>
                         </a>
                     @endif
 
 
                 </div>
-                <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:0px;' >
-                    <div class="collapse navbar-collapse" id="myNavbar" >
+                <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:0px;'>
+                    <div class="collapse navbar-collapse" id="myNavbar">
 
 
                         <!-- Right Side Of Navbar -->
@@ -279,86 +301,92 @@
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
 
                             @if (Auth::guest())
-                                <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us&nbsp;<span class="glyphicon glyphicon-info-sign"></span></a></li>
-                                <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span class="glyphicon glyphicon-question-sign"></span></a></li>
-                                <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span class="glyphicon glyphicon-user"></span></a></li>
-                                <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a></li>
+                                <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us&nbsp;<span
+                                                class="glyphicon glyphicon-info-sign"></span></a></li>
+                                <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span
+                                                class="glyphicon glyphicon-question-sign"></span></a></li>
+                                <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
+                                                class="glyphicon glyphicon-user"></span></a></li>
+                                <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span
+                                                class="glyphicon glyphicon-log-in"></span></a></li>
 
 
                         </ul>
                     </div>
 
                     </li>
-                    @elseif (Auth::user()->organization->trial_ends_at)
+                    @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
+                    OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
 
-                            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
-                            <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
-                                    Donations</a></li>
+                        <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
+                        <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                                Donations</a></li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">
+                                My Organization
+                                <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                                     <li>
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                           aria-expanded="false">
-                                            My Organization
-                                            <span class="caret"></span>
-                                        </a>
-
-                                        <ul class="dropdown-menu" role="menu">
-                                            <div class="w3-dropdown-content w3-card-4 w3-bar-block">
-                                                <li>
-                                                    <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
-                                                </li>
-
-                                                @if(Auth::user()->roles[0]->id == 4 OR 1 OR 2)
-                                                    <li>
-                                                        <a href="{{ url('user/manageusers')}}">Users</a>
-                                                    </li>
-                                                @endif
-
-                                                <li>
-                                                    <a href="{{ route('organizations.index')}}">Business Locations</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ route('emailtemplates.index') }}">
-                                                        Communication Template
-                                                    </a>
-                                                </li>
-                                            </div>
-                                        </ul>
+                                        <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
                                     </li>
 
-                            <li class="dropdown">
+                                    @if(Auth::user()->roles[0]->id == 4 OR 1 OR 2)
+                                        <li>
+                                            <a href="{{ url('user/manageusers')}}">Users</a>
+                                        </li>
+                                    @endif
 
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-expanded="false">
-                                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
-                                            class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ route('users.index')}}">Profile Management</a>
+                                        <a href="{{ route('organizations.index')}}">Business Locations</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('reset-password') }}">
-                                            Reset Password
+                                        <a href="{{ route('emailtemplates.index') }}">
+                                            Communication Template
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
+                                </div>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">
+                                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
+                                        class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ route('users.index')}}">Profile Management</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('reset-password') }}">
+                                        Reset Password
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
+                                        Logout
+                                    </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                              style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
 
-                            </li>
-                        @else
-                        <li><a href="{{ url('/subscription')}}" class="w3-bar-item w3-button current">Subscription</a></li>
+                        </li>
+                    @else
+                        <li><a href="{{ url('/subscription')}}" class="w3-bar-item w3-button current">Subscription</a>
+                        </li>
                         <li>
                             <a href="{{ route('logout') }}"
                                onclick="event.preventDefault();
@@ -380,17 +408,19 @@
 </div>
 
 
-
-
-<div id="navDemo" class="divsmall visible-xs-block visible-sm-block" >
+<div id="navDemo" class="divsmall visible-xs-block visible-sm-block">
     @if (Auth::guest())
 
         <ul>
-        <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us&nbsp;<span class="glyphicon glyphicon-info-sign"></span></a></li>
-        <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span class="glyphicon glyphicon-question-sign"></span></a></li>
-        <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span class="glyphicon glyphicon-user"></span></a></li>
-        <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a></li>
-</ul>
+            <li><a href="{{ url('/') }}#about" class="w3-bar-item w3-button">About Us&nbsp;<span
+                            class="glyphicon glyphicon-info-sign"></span></a></li>
+            <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span
+                            class="glyphicon glyphicon-question-sign"></span></a></li>
+            <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
+                            class="glyphicon glyphicon-user"></span></a></li>
+            <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span
+                            class="glyphicon glyphicon-log-in"></span></a></li>
+        </ul>
 </div>
 
 
@@ -465,19 +495,19 @@
     </div>
     </div>
     </div>
-<br>
+    <br>
     <div id="content" style="padding-top:4%">
         {{--@include('layouts.partials._status')--}}
         @yield('content')
     </div>
 
-</div>
+    </div>
 
 
-{{--<script src="{{ asset('js/app.js') }}">--}}
+    {{--<script src="{{ asset('js/app.js') }}">--}}
 
 </body>
-   <!-- <footer class="footer bg-4">
+<!-- <footer class="footer bg-4">
 
     <img src="{{ asset('img/icon-partner.png') }}" class="imgalign"  style="width:100px;height:50px;"  >
 
