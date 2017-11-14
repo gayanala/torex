@@ -9,6 +9,7 @@ use App\Http\Controllers\Route;
 use App\Custom\Constant;
 use App\Organization;
 use App\ParentChildOrganizations;
+use App\RoleUser;
 use App\State;
 use App\User;
 use App\Role;
@@ -207,6 +208,7 @@ class UserController extends Controller
 
     public function editsubuser($id)
     {
+        $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
         $user = User::findOrFail($id);
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
         $childOrgIds = $parentChildOrg->pluck('child_org_id');
@@ -216,7 +218,7 @@ class UserController extends Controller
             ->pluck('org_name', 'id');
 
         $states = State::pluck('state_name', 'state_code');
-        return view('users.editsubuser', compact('user', 'childOrgNames'))->with('states', $states);
+        return view('users.editsubuser', compact('user', 'childOrgNames', 'roles'))->with('states', $states);
     }
 
     public function updatesubuser(Request $request, $id)
@@ -234,6 +236,9 @@ class UserController extends Controller
         }
         $userUpdate = $request->all();
         User::findorFail($id)->update($userUpdate);
+
+        RoleUser::findorFail($id)->update($request->all());
+
         return redirect('user/manageusers');
     }
 

@@ -21,6 +21,13 @@
                         @endif
 
                         <div class="form-group">
+                            <label for="role" class="col-md-4 control-label"> Role <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">
+                                {!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="first_name" class="col-md-4 control-label"> First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
                                 {!! Form::text('first_name',null,['class' => 'form-control', 'required']) !!}
