@@ -7,7 +7,9 @@
             if (document.getElementById('yesCheck').checked) {
                 document.getElementById('file_upload').style.visibility = 'visible';
             }
-            else {document.getElementById('file_upload').style.visibility = 'hidden';}
+            else {
+                document.getElementById('file_upload').style.visibility = 'hidden';
+            }
         }
     </script>
     <div class="container">
@@ -163,7 +165,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
-                            <label for="zipcode" class="col-md-4 control-label">Zip code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
                                 <input id="zipcode" type="text" pattern="[0-9]{5}" required title="Enter a 5 digit zipcode" class="form-control" name="zipcode" value="{{ old('zipcode') }}" placeholder="Your Zip code" required autofocus>
@@ -270,10 +272,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('startdate') ? ' has-error' : '' }}">
-                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
+                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="startdate" type="date" class="form-control" name="startdate" value="{{ old('startdate') }}" placeholder="Start Date" autofocus>
+                                <input id="startdate" type="date" class="form-control" name="startdate" value="{{ old('startdate') }}" placeholder="Start Date" required autofocus>
 
                                 @if ($errors->has('startdate'))
                                     <span class="help-block">
@@ -328,7 +330,7 @@
                             <label for="marketingopportunities" class="col-md-4 control-label">What are the marketing opportunities? <span style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" input id="marketingopportunities"   pattern="[a-zA-Z0-9\s]+ {500}$" required title="Please restrict your Text Length to 500 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" autofocus> </textarea>
+                                <textarea class="form-control" input id="marketingopportunities"   pattern="[a-zA-Z0-9\s]" maxlength="500"  required title="Please restrict your Text Length to 500 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" autofocus> </textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
@@ -345,6 +347,7 @@
                                 <button type="submit" class="btn btn-success">
                                     Send Request
                                 </button>
+                                <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}

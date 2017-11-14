@@ -6,7 +6,8 @@ use App\DonationRequest;
 use App\Events\DonationRequestReceived;
 use App\Events\TriggerAcceptEmailEvent;
 use App\Events\TriggerRejectEmailEvent;
-use App\File;
+//use App\File;
+use App\Custom\Constant;
 use App\Organization;
 use App\Request_event_type;
 use App\Request_item_purpose;
@@ -20,7 +21,7 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\ParentChildOrganizations;
-use Carbon\Carbon;
+use URL;
 
 
 class DonationRequestController extends Controller
@@ -30,10 +31,10 @@ class DonationRequestController extends Controller
     $organizationId = Auth::user()->organization_id;
        $organization = Organization::findOrFail($organizationId);
        $organizationName = $organization->org_name;
-     $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+       $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
        array_push($arr, $organizationId);
        $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
-       return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+
     }
 
     public function create(Request $request)
@@ -43,10 +44,10 @@ class DonationRequestController extends Controller
 
         if ($expireDate > Carbon::now()) {
             $states = State::pluck('state_name', 'state_code');
-            $requester_types = Requester_type::pluck('type_name', 'id');
-            $request_item_types = Request_item_type::pluck('item_name', 'id');
-            $request_item_purpose = Request_item_purpose::pluck('purpose_name', 'id');
-            $request_event_type = Request_event_type::pluck('type_name', 'id');
+            $requester_types = Requester_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
+            $request_item_types = Request_item_type::where('active', '=', Constant::ACTIVE)->pluck('item_name', 'id');
+            $request_item_purpose = Request_item_purpose::where('active', '=', Constant::ACTIVE)->pluck('purpose_name', 'id');
+            $request_event_type = Request_event_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
             return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
                 ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
         }
@@ -59,10 +60,10 @@ class DonationRequestController extends Controller
     public function edit($id)
     {
         $states = State::pluck('state_name', 'state_code');
-        $requester_types = Requester_type::pluck('type_name', 'id');
-        $request_item_types = Request_item_type::pluck('item_name', 'id');
-        $request_item_purpose = Request_item_purpose::pluck('purpose_name', 'id');
-        $request_event_type = Request_event_type::pluck('type_name', 'id');
+        $requester_types = Requester_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
+        $request_item_types = Request_item_type::where('active', '=', Constant::ACTIVE)->pluck('item_name', 'id');
+        $request_item_purpose = Request_item_purpose::where('active', '=', Constant::ACTIVE)->pluck('purpose_name', 'id');
+        $request_event_type = Request_event_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
         $donationrequest = DonationRequest::find($id);
         return view('donationrequests.edit', compact('donationrequest'))->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
             ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
@@ -141,18 +142,21 @@ class DonationRequestController extends Controller
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
+        $donationRequest->approval_status_id = Constant::SUBMITTED;
+        $donationRequest->approval_status_reason = 'Business Rules failed to run on request.';
         $this->validate($request, [
             'needed_by_date' => 'after:today',
-               'taxexempt' => "required",
+            'startdate'=> 'after:today',
+        'taxexempt' => "required",
         ]);
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
-            $file = new File();
-            $file->donation_request_id = $donationRequest->id;
-            $file->original_filename = $request->file('attachment')->getClientOriginalName();
-            $file->file_path = Storage::putFile('public', $request->file('attachment'));
-            $file->file_type = 'attachment';
-            $file->save();
+//            $file = new File();
+//            $file->donation_request_id = $donationRequest->id;
+//            $file->original_filename = $request->file('attachment')->getClientOriginalName();
+//            $file->$imageName = Storage::putFile('public', $request->file('attachment'));
+//            $file->file_type = 'attachment';
+//            $file->save();
             // $attachment =$request->file('attachment');
             // $imageFileName = time() . '.' . $attachment->getClientOriginalExtension();
             // $s3 = \Storage::disk('s3');
@@ -164,8 +168,11 @@ class DonationRequestController extends Controller
 
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
-            $t = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+            $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+
             $imageName = Storage::disk('s3')->url($imageName);
+
+            dd($imageName);
             // return $path;
         }
         //fire NewBusiness event to initiate sending welcome mail
@@ -179,8 +186,14 @@ class DonationRequestController extends Controller
 
     public function show($id)
     {
+        $donationAcceptanceFlag = 0;
+        if (URL::previous() === URL::route('show-donation', ['id' => 1])) {
+            $donationAcceptanceFlag = 0;
+        } else {
+            $donationAcceptanceFlag = 1;
+        }
         $donationrequest = DonationRequest::findOrFail($id);
-//        dd($donationrequest);
+
         if ($donationrequest->event_type) {
             $event_purpose = Request_event_type::findOrFail($donationrequest->event_type);
             $event_purpose_name = $event_purpose->type_name;
@@ -202,7 +215,7 @@ class DonationRequestController extends Controller
         }
 
         return view('donationrequests.show', compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
-            , 'item_requested_name', 'donationRequestName'));
+            , 'item_requested_name', 'donationRequestName', 'donationAcceptanceFlag'));
     }
 
     public function changeDonationStatus(Request $request)
@@ -214,7 +227,7 @@ class DonationRequestController extends Controller
             $approved_amount = $request->approved_amount;
             $donation_id = $request->id;
             $donation = DonationRequest::where('id', $donation_id)->get();
-            $donation[0]->update(['approval_status_id' => 5]);
+            $donation[0]->update(['approval_status_id' => Constant::APPROVED]);
             $donation[0]->update(['approved_dollar_amount' => $approved_amount]);
             $donation[0]->update(['approved_organization_id' => $organizationId]);
             $donation[0]->update(['approved_user_id' => $userId]);
@@ -228,7 +241,7 @@ class DonationRequestController extends Controller
         } elseif ($request->input('reject') == 'Reject') {
             $donation_id = $request->id;
             $donation = DonationRequest::where('id', $donation_id)->get();
-            $donation[0]->update(['approval_status_id' => 4]);
+            $donation[0]->update(['approval_status_id' => Constant::REJECTED]);
             $donation[0]->update(['approved_organization_id' => $organizationId]);
             $donation[0]->update(['approved_user_id' => $userId]);
             event(new TriggerRejectEmailEvent($donation[0]));

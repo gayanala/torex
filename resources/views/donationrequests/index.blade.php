@@ -19,9 +19,10 @@
                                 {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Handout Date</th>
                                 <th class="text-center">Status</th>
+                                <th class="text-center">Status Reason</th>
                                 <th class="text-center">Actions</th>
                             </tr>
-                            </thead>                        
+                            </thead>
                             <tbody  style="text-align: center">
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
@@ -33,16 +34,20 @@
                                     <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
 
                                     <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
-                                    {{--<td style="display:none;" class="don-hidden" id-val="{{$donationrequest->id}}"></td>--}}
+                                    <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td>
-                                        <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-warning" title="Detail">
-                                            <span class="glyphicon glyphicon-list-alt"></span></a>
                                         @if($donationrequest->donationApprovalStatus->id == 2 || $donationrequest->donationApprovalStatus->id == 3)
                                             <a href="" class="btn btn-success" title="Approve" don-id="{{$donationrequest->id}}" onClick="func(0, '{{$donationrequest->id}}')">
                                                 <span class="glyphicon glyphicon-ok"></span></a>
+                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
+                                                <span class="glyphicon glyphicon-list-alt"></span></a>
                                             <a href="" class="btn btn-danger" title="Reject" onClick="func(1, '{{$donationrequest->id}}')">
                                                 <span class="glyphicon glyphicon-remove"></span></a>
+                                        @else
+                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
+                                                <span class="glyphicon glyphicon-list-alt"></span></a>
                                         @endif
+
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
 {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
@@ -57,7 +62,7 @@
 
                             <div class="panel-heading"><h1>Add a Donation Request</h1></div>
                             <input type="button" value="Manual Entry for Donation Request"
-                        onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank');"/>
+                        onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_self') ;"/>
                     </div>
                 </div>
         </div>
@@ -82,15 +87,6 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
 
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf', 'print'
-            ]
-        });
-        } );
 
         function func(actionStatus, donId) {
 

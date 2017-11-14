@@ -33,12 +33,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="col-10">
-                            <div class="panel panel-default">
-                        <div class="panel-heading"><h1>Add a User</h1></div>
-                            </div>
-                        </div>
-                        <td><a href="{{route('users.show',$user->id)}}" class="btn btn-warning"> Add User </a>
 
                             <div class="col-10">
                                 <div class="panel panel-default">

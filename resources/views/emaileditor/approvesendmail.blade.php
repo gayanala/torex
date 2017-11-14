@@ -24,12 +24,12 @@
                     menu: [{
                         text: 'Patron',
                         onclick: function () {
-                            editor.insertContent('&nbsp;<b>{patron}</b>&nbsp;');
+                            editor.insertContent('&nbsp;<b>{Requester Name}</b>&nbsp;');
                         }
                     }, {
                         text: 'My Business Name',
                         onclick: function () {
-                            editor.insertContent('&nbsp;<b>{organization}</b>&nbsp;');
+                            editor.insertContent('&nbsp;<b>{My Business Name}</b>&nbsp;');
                         }
                     }]
                 });
@@ -46,7 +46,7 @@
 
                     <div class="panel-body">
 
-                        {!! Form::model($emailtemplate, ['method' => 'GET', 'route'=>['approveandsendmail'], 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($email_template, ['method' => 'GET', 'route'=>['approveandsendmail'], 'class' => 'form-horizontal']) !!}
 
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -64,8 +64,8 @@
                                 {!! Form::text('To', $emails, ['class'=>'col-md-9 control-label'] ) !!}
                                 {!! Form::hidden('names', $names) !!}
                                 {!! Form::hidden('status', 'Approve') !!}
-                                {!! Form::hidden('idsString', $idsString) !!}
-                                {!! Form::hidden('pagefrom', $pagefrom) !!}
+                                {!! Form::hidden('ids_string', $ids_string) !!}
+                                {!! Form::hidden('page_from', $page_from) !!}
 
                                 {{--{!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}--}}
                             </div>
@@ -89,7 +89,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Approve and Send', ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ route('dashboardindex')}}" class="btn btn-primary">Cancel</a>
+                                <a href="{{ url()->previous() }}" class="btn btn-primary">Cancel</a>
 
                             </div>
                         </div>

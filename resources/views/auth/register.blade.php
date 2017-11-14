@@ -9,6 +9,10 @@
 
                     <div class="panel-body">
                         <form class="form-horizontal" method="post" action="{{ action('UserController@create') }}">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
+ 
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
@@ -48,8 +52,8 @@
                                 <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email"
-                                           value="{{ old('email') }}" placeholder="Enter Your Email Address" required>
+                                    <input id="email" type="email"  class="form-control" name="email"
+                                           value="{{ old('email') }}" placeholder="Enter Your Email Address" pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}" required>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -197,9 +201,9 @@
                             <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
                                 <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                                 <div class="col-md-6">
-                                    <input id="phone_number" type="text" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required title="Enter your 10 digit Phone Number as 555-555-5555" class="form-control" name="phone_number"
-                                           value="{{ old('phone_number') }}" placeholder="Example ###-###-####" required
-                                           autofocus>
+                                   
+
+ 
                                     @if ($errors->has('phone_number'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('phone_number') }}</strong>

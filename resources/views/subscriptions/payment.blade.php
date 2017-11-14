@@ -201,6 +201,11 @@
     </style>
 </head>
 <body>
+
+@extends('layouts.app')
+
+@section('content')
+
 <script>
     var MON_CHAR = {{ config('variables.monthly_charge') }};
     var ANUAL_CHAR = {{ config('variables.annual_charge') }};
@@ -242,7 +247,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
 
-                                    <div class="panel-heading"><h1> Number of Locations & Type of Plan </h1></div>
+                                    <div class="panel-heading"><h1> Number of Locations & Type of Plan</h1></div>
                                 </div>
                             </div>
                         <label class="control-label" for="user_locations">Number Of Locations</label>
@@ -276,7 +281,7 @@
                         <label for="coupon" class="control-label">Coupon</label>
                         <div class="col-md-6" style="padding-left: 0px;">
                             <input id="coupon" type="text" class="form-control" name="coupon"
-                                   value="{{ old('coupon') }}" placeholder="coupon" required
+                                   value="{{ old('coupon') }}" placeholder="Coupon" required
                                    autofocus>
 
                             @if ($errors->has('coupon'))
@@ -364,3 +369,5 @@
     </div>
 </div>
 </body>
+
+@endsection

@@ -6,10 +6,12 @@ use App\Events\AddDefaultTemplates;
 use App\Events\NewBusiness;
 use App\Events\NewSubBusiness;
 use App\Http\Controllers\Route;
+use App\Custom\Constant;
 use App\Organization;
 use App\ParentChildOrganizations;
 use App\State;
 use App\User;
+use App\Role;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
@@ -39,12 +41,35 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
-        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
-        $childOrgIds = $parentChildOrg->pluck('child_org_id');
-        $childOrgNames = Organization::whereIn('id', $childOrgIds)->pluck('org_name', 'id');
 
-            return view('users.show', compact('user', 'childOrgNames'));
+        $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
+        $organizationId = Auth::user()->organization_id;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+
+        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
+        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
+        $childOrgIds = $parentChildOrg->pluck('child_org_id');
+
+        $childOrgNames = Organization::wherein('id', $arr)
+            ->pluck('org_name', 'id');
+
+        return view('users.show', compact('roles', 'childOrgNames'));
+//        return view('users.show', compact('user', 'childOrgNames'));
+
+    }
+
+    public function indexUsers()
+    {
+        $organizationId = Auth::user()->organization_id;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+        $users = User::whereIn('organization_id', $arr)->get();
+        $admin = $users[0];
+        $users->shift();
+//        dd($users);
+
+        return view('users.indexUsers', compact('users', 'admin'));
 
     }
 
@@ -115,25 +140,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $loggedInUserDetails = User::findOrFail(Auth::user()->id);
+
+        $user_details = User::findOrFail(Auth::user()->id);
+        $organization = Organization::findOrFail($user_details->organization_id);
 
         $user = new User;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->user_name = $request->email;
         $user->email = $request->email;
-        $user->password = bcrypt('password');
-        $user->street_address1 = $loggedInUserDetails->street_address1;
-        $user->street_address2 = $loggedInUserDetails->street_address2;
-        $user->city = $loggedInUserDetails->city;
-        $user->state = $loggedInUserDetails->state;
-        $user->zipcode = $loggedInUserDetails->zipcode;
+        $string = str_random(10);
+        $user->password = bcrypt($string);
+        $user->street_address1 = $organization->street_address1;
+        $user->street_address2 = $organization->street_address2;
+        $user->city = $organization->city;
+        $user->state = $organization->state;
+        $user->zipcode = $organization->zipcode;
         $user->organization_id = $request->location;
-        $user->phone_number = $loggedInUserDetails->phone_number;
+        $user->phone_number = $organization->phone_number;
 
         $user->save();
 
-        $user->roles()->attach(5);
+        $user->roles()->attach($request->user_role);
 
         //fire NewBusiness event to initiate sending welcome mail
 
@@ -176,7 +204,39 @@ class UserController extends Controller
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
 
-        return redirect('users');
+        return redirect('user/manageusers');
+    }
+
+    public function editsubuser($id)
+    {
+        $user = User::findOrFail($id);
+        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
+        $childOrgIds = $parentChildOrg->pluck('child_org_id');
+        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
+        $childOrgNames = Organization::wherein('id', $childOrgIds)
+            ->orWhere('id', $parentOrgIds)
+            ->pluck('org_name', 'id');
+
+        $states = State::pluck('state_name', 'state_code');
+        return view('users.editsubuser', compact('user', 'childOrgNames'))->with('states', $states);
+    }
+
+    public function updatesubuser(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $userUpdate = $request->all();
+        User::findorFail($id)->update($userUpdate);
+        return redirect('user/manageusers');
     }
 
     public function destroy($id)

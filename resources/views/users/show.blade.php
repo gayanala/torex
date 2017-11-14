@@ -21,18 +21,28 @@
                         {{ Form::hidden('organization_id', Auth::user()->organization_id) }}
                         {!! Form::open(['url' => 'users']) !!}
 
+
+                        <div class="form-group">
+                            {!! Form::label('Role', 'Role:') !!}
+                            <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                            {!! Form::select('role_id', $roles, null, ['class' => 'form-control']) !!}
+                        </div>
+
                         <div class="form-group">
                             {!! Form::label('First Name', 'First Name:') !!}
+                            <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                             {!! Form::text('first_name',null,['class'=>'form-control', 'required']) !!}
                         </div>
 
                         <div class="form-group">
                             {!! Form::label('Last Name', 'Last Name:') !!}
+                            <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                             {!! Form::text('last_name',null,['class'=>'form-control', 'required']) !!}
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email">E-Mail Address:</label>
+                            <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                                 <input id="email" type="email" class="form-control" name="email"
                                        value="{{ old('email') }}" required>
 
@@ -45,6 +55,7 @@
 
                         <div class="form-group">
                             {!! Form::label('Business Location', 'Business Location:') !!}
+                            <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                             {!! Form::select('location', $childOrgNames, null, ['class' => 'form-control']) !!}
                         </div>
 
@@ -53,9 +64,9 @@
 
                         <div class="form-group">
                             <div class=" col-md-offset-4">
-                                <button type="submit" class="" id="createbutton" onclick="myFunction();">Submit</button>
-                                <input type="button" value="Cancel" onClick="history.go(-1);">
-                                <span style="color: red"> <h5> * All Fields Are Mandatory</h5></span>
+                                <button class="btn btn-primary" type="submit" class="" id="createbutton" onclick="myFunction();">Submit</button>
+                                <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
+                                <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}

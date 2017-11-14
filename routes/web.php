@@ -61,12 +61,26 @@ Route::group(['prefix' => 'subscription'], function () {
         'uses' => 'SubscriptionController@postJoin'
     ])->middleware('auth');
 });
+Route::get('resume', [
+    'as' => 'subscription-resume',
+    'uses' => 'SubscriptionController@resume'
+]);
+Route::get('cancel', [
+    'as' => 'subscription-cancel',
+    'uses' => 'SubscriptionController@cancel'
+]);
 
 Route::post('user/register', 'UserController@create');
 
 Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
+
+Route::get('user/manageusers', 'UserController@indexUsers');
+
+Route::get('user/manageusers/edit/{id}', 'UserController@editsubuser')->name('editsubuser');
+
+Route::post('user/manageusers/update/{id}', 'UserController@updatesubuser')->name('updatesubuser');
 
 // Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
@@ -77,8 +91,6 @@ Route::get('donationrequests/search','DonationRequestController@searchDonationRe
 Route::get('donationrequests/export', 'DonationRequestController@export');
 
 Route::resource('/donationrequests', 'DonationRequestController');
-
-
 
 Route::get('change-password', function() {
     return view('change-password');
@@ -91,8 +103,6 @@ Route::post('change-password', 'Auth\UpdatePasswordController@update');
 //Route::post('/emailtemplate', 'EmailTemplateController@edit');
 
 Route::get('/emailtemplates/edit/{id}', 'EmailTemplateController@edit');
-
-Route::get('/emailtemplates/editsendmail', 'EmailTemplateController@send');
 
 Route::resource('emailtemplates', 'EmailTemplateController');
 
@@ -126,4 +136,4 @@ Route::get('subscription/popup', 'SubscriptionController@subscribe');
 Route::get('compose-email', 'EmailTemplateController@send');
 
 Route::get('/dashboard-taggadmin', 'DashboardController@indexTaggAdmin') ->name('dashboardindex-taggadmin');
-Route::get('/organizationdonations/{id}', 'DonationRequestController@showAllDonationRequests');
+Route::get('/organizationdonations/{id}', 'DonationRequestController@showAllDonationRequests')->name('show-donation');
