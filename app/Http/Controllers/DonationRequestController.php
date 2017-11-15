@@ -13,6 +13,7 @@ use App\Request_event_type;
 use App\Request_item_purpose;
 use App\Request_item_type;
 use App\Requester_type;
+use App\Rule_type;
 use App\State;
 use Auth;
 use Excel;
