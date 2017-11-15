@@ -8,16 +8,15 @@
                 <div class="panel-heading"><h1>{{ $organizationName }}</h1></div>
                 <br>
 
-                <div class="panel-body">
+                <div class="panel-body" style="position: relative;"><br><br><br>
 
                     @if(sizeOf($donationrequests) != 0)
-                        <div id="baseDateControl">
-                            <div class="dateControlBlock">
-                                Between <input type="date" name="dateStart" id="dateStart" class="datepicker" size="8"/>
-                                and
-                                <input type="date" name="dateEnd" id="dateEnd" class="datepicker" size="8"/>
-                            </div>
+
+                        <div class="dateControlBlock" style="color: #000;">
+                            <div style="position: absolute; top: 5px; right: 16px; ">From:&nbsp;&nbsp;&nbsp;<input type="date" name="dateStart" id="dateStart" size="8" style="width: 142px;"/></div>
+                            <div style="position: absolute; top: 45px; right: 16px; ">To:&nbsp;&nbsp;&nbsp;<input type="date" name="dateEnd" id="dateEnd" size="8" style="width: 142px;"/></div>
                         </div>
+
 
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
