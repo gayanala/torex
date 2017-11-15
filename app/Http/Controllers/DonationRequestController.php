@@ -132,6 +132,14 @@ class DonationRequestController extends Controller
         $donationRequest->state = $request->state;
         $donationRequest->zipcode = $request->zipcode;
         $donationRequest->tax_exempt = $request->taxexempt;
+        if ($request->hasFile('attachment')) {
+              $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
+            // $image = $request->file('attachment');
+            $imageName = Storage::disk('s3')->url($imageName);
+            // $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+
+          }
+          $donationRequest->file_url = $imageName;
         $donationRequest->item_requested = $request->item_requested;
         $donationRequest->dollar_amount = $request->dollar_amount;
         $donationRequest->approved_dollar_amount = $request->dollar_amount;
@@ -152,12 +160,12 @@ class DonationRequestController extends Controller
         ]);
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
-//            $file = new File();
-//            $file->donation_request_id = $donationRequest->id;
-//            $file->original_filename = $request->file('attachment')->getClientOriginalName();
-//            $file->$imageName = Storage::putFile('public', $request->file('attachment'));
-//            $file->file_type = 'attachment';
-//            $file->save();
+// //            $file = new File();
+// //            $file->donation_request_id = $donationRequest->id;
+// //            $file->original_filename = $request->file('attachment')->getClientOriginalName();
+// //            $file->$imageName = Storage::putFile('public', $request->file('attachment'));
+// //            $file->file_type = 'attachment';
+// //            $file->save();
             // $attachment =$request->file('attachment');
             // $imageFileName = time() . '.' . $attachment->getClientOriginalExtension();
             // $s3 = \Storage::disk('s3');
@@ -165,16 +173,16 @@ class DonationRequestController extends Controller
             // $s3->put($filePath, file_get_contents($attachment), 'public');
             // $this->validate($request, [
             //     'attachment' => 'image|mimes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
-            // ]);
-
+            // // ]);
+            //
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
             $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
 
             $imageName = Storage::disk('s3')->url($imageName);
 
-            dd($imageName);
-            // return $path;
+            // dd($imageName);
+//             // return $path;
         }
         //fire NewBusiness event to initiate sending welcome mail
 
@@ -204,6 +212,7 @@ class DonationRequestController extends Controller
             $donation_purpose = Request_item_purpose::findOrFail($donationrequest->item_purpose);
             $donation_purpose_name = $donation_purpose->purpose_name;
         }
+
 
         if ($donationrequest->item_requested) {
             $item_requested = Request_item_type::findOrFail($donationrequest->item_requested);
