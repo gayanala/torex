@@ -67,7 +67,7 @@
                             <tr>
                                 <td>File URL</td>
                                 <!-- <td> echo ($file_url)</td> -->
-                                <td> <?php echo $donationrequest['file_url'] ?>;</td>
+                                <td> <?php echo $donationrequest['file_url'] ?></td>
                             </tr>
                             <tr>
                                 <td>Request For</td>

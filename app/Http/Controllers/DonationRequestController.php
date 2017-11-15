@@ -135,11 +135,10 @@ class DonationRequestController extends Controller
         if ($request->hasFile('attachment')) {
               $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             // $image = $request->file('attachment');
-            $imageName = Storage::disk('s3')->url($imageName);
             // $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
-
+            $imageName = Storage::disk('s3')->url($imageName);
           }
-          $donationRequest->file_url = $imageName;
+        $donationRequest->file_url = $imageName;
         $donationRequest->item_requested = $request->item_requested;
         $donationRequest->dollar_amount = $request->dollar_amount;
         $donationRequest->approved_dollar_amount = $request->dollar_amount;
@@ -162,7 +161,7 @@ class DonationRequestController extends Controller
         if ($request->hasFile('attachment')) {
 // //            $file = new File();
 // //            $file->donation_request_id = $donationRequest->id;
-// //            $file->original_filename = $request->file('attachment')->getClientOriginalName();
+//            $file->original_filename = $request->file('attachment')->getClientOriginalName();
 // //            $file->$imageName = Storage::putFile('public', $request->file('attachment'));
 // //            $file->file_type = 'attachment';
 // //            $file->save();
@@ -175,14 +174,14 @@ class DonationRequestController extends Controller
             //     'attachment' => 'image|mimes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
             // // ]);
             //
-            $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
+//             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
             $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
-
-            $imageName = Storage::disk('s3')->url($imageName);
-
-            // dd($imageName);
-//             // return $path;
+//
+//             $imageName = Storage::disk('s3')->url($imageName);
+//
+//             // dd($imageName);
+// //             // return $path;
         }
         //fire NewBusiness event to initiate sending welcome mail
 
