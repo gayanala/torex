@@ -198,11 +198,12 @@ class UserController extends Controller
         if ($validator->fails()) {
             return redirect() ->back()->withErrors($validator)->withInput();
         }
+        $user = Auth::user();
 
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
 
-        return redirect('user/manageusers');
+        return view('users.index', compact('user'));
     }
 
     public function editsubuser($id)
@@ -238,7 +239,14 @@ class UserController extends Controller
 
         RoleUser::findorFail($id)->update($request->all());
 
-        return redirect('user/manageusers');
+        $organizationId = Auth::user()->organization_id;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+        $users = User::whereIn('organization_id', $arr)->get();
+        $admin = $users[0];
+        $users->shift();
+
+        return view('users.indexUsers', compact('users', 'admin'));
     }
 
     public function destroy($id)
