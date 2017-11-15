@@ -43,19 +43,12 @@ class UserController extends Controller
     public function show($id)
     {
         $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
-        $organizationId = Auth::user()->organization_id;
-        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
-        array_push($arr, $organizationId);
+        $authUserOrgId = Auth::user()->organization_id;
+        $OrgIds = ParentChildOrganizations::where('parent_org_id', $authUserOrgId)->pluck('child_org_id')->toArray();
+        array_push($OrgIds, $authUserOrgId);
+        $organizations = Organization::wherein('id', $OrgIds)->pluck('org_name', 'id')->toArray();
 
-        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
-        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
-        $childOrgIds = $parentChildOrg->pluck('child_org_id');
-
-        $childOrgNames = Organization::wherein('id', $arr)
-            ->pluck('org_name', 'id');
-
-        return view('users.show', compact('roles', 'childOrgNames'));
-//        return view('users.show', compact('user', 'childOrgNames'));
+        return view('users.show', compact('roles', 'organizations'));
 
     }
 
