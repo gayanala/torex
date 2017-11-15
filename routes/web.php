@@ -76,11 +76,11 @@ Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
 
-Route::get('user/manageusers', 'UserController@indexUsers');
+Route::get('user/manageusers', 'UserController@indexUsers')->name('indexsubuser');
 
 Route::get('user/manageusers/edit/{id}', 'UserController@editsubuser')->name('editsubuser');
 
-Route::post('user/manageusers', 'UserController@updatesubuser')->name('updatesubuser');
+Route::post('indexsubuser', 'UserController@updatesubuser')->name('updatesubuser');
 
 // Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
