@@ -221,13 +221,13 @@ class UserController extends Controller
         return view('users.editsubuser', compact('user', 'childOrgNames', 'roles'))->with('states', $states);
     }
 
-    public function updatesubuser(Request $request, $id)
+    public function updatesubuser(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')->ignore($id),
+                Rule::unique('users')->ignore($request->id),
             ],
         ]);
 
@@ -235,9 +235,9 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $userUpdate = $request->all();
-        User::findorFail($id)->update($userUpdate);
+        User::findorFail($request->id)->update($userUpdate);
 
-        RoleUser::findorFail($id)->update($request->all());
+        RoleUser::findorFail($request->id)->update($request->all());
 
         $organizationId = Auth::user()->organization_id;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
