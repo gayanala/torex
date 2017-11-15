@@ -175,8 +175,8 @@ class DonationRequestController extends Controller
             // // ]);
             //
 //             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
-            $image = $request->file('attachment');
-            $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+            // $image = $request->file('attachment');
+            $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($donationRequest->file_url), 'public');
 //
 //             $imageName = Storage::disk('s3')->url($imageName);
 //
