@@ -80,7 +80,7 @@ Route::get('user/manageusers', 'UserController@indexUsers')->name('indexsubuser'
 
 Route::get('user/manageusers/edit/{id}', 'UserController@editsubuser')->name('editsubuser');
 
-Route::post('indexsubuser', 'UserController@updatesubuser')->name('updatesubuser');
+Route::post('user/manageusers', 'UserController@updatesubuser')->name('updatesubuser');
 
 // Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
