@@ -230,6 +230,7 @@ class DonationRequestController extends Controller
     public function changeDonationStatus(Request $request)
     {
         $userId = Auth::user()->id;
+        $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
         $organizationId = Auth::user()->organization_id;
 
         if ($request->input('approve') == 'Approve') {
@@ -240,6 +241,7 @@ class DonationRequestController extends Controller
             $donation[0]->update(['approved_dollar_amount' => $approved_amount]);
             $donation[0]->update(['approved_organization_id' => $organizationId]);
             $donation[0]->update(['approved_user_id' => $userId]);
+            $donation[0]->update(['approval_status_reason' => 'Approved by ' . $userName]);
             event(new TriggerAcceptEmailEvent($donation[0]));
 
             $organization = Organization::findOrFail($organizationId);
@@ -253,6 +255,7 @@ class DonationRequestController extends Controller
             $donation[0]->update(['approval_status_id' => Constant::REJECTED]);
             $donation[0]->update(['approved_organization_id' => $organizationId]);
             $donation[0]->update(['approved_user_id' => $userId]);
+            $donation[0]->update(['approval_status_reason' => 'Rejected by ' . $userName]);
             event(new TriggerRejectEmailEvent($donation[0]));
 
             $organization = Organization::findOrFail($organizationId);
@@ -263,7 +266,7 @@ class DonationRequestController extends Controller
 
         $emailids = [];
         if ($request['status'] == 0) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => Constant::APPROVED, 'approval_status_reason' => 'Approved by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $acceptedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($acceptedrequests as $acceptedrequest) {
@@ -272,7 +275,7 @@ class DonationRequestController extends Controller
             }
 
         } elseif ($request['status'] == 1) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => Constant::REJECTED, 'approval_status_reason' => 'Rejected by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($rejectedrequests as $rejectedrequest) {
