@@ -68,7 +68,7 @@ class UserController extends Controller
         $admin = $users[0];
         $users->shift();
 
-        return view('users.indexusers', compact('users', 'admin'));
+        return view('users.indexUsers', compact('users', 'admin'));
 
     }
 
@@ -235,9 +235,9 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $userUpdate = $request->all();
-        User::findorFail($request->id)->update($userUpdate);
 
-        RoleUser::findorFail($request->id)->update($userUpdate);
+        User::findorFail($request->id)->update($userUpdate);
+//        RoleUser::findorFail($request->id)->update($userUpdate);
 
         $organizationId = Auth::user()->organization_id;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
@@ -246,7 +246,7 @@ class UserController extends Controller
         $admin = $users[0];
         $users->shift();
 
-        return view('users.indexusers', compact('users', 'admin'));
+        return view('users.indexUsers', compact('users', 'admin'));
     }
 
     public function destroy($id)
