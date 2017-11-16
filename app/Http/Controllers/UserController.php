@@ -68,7 +68,7 @@ class UserController extends Controller
         $admin = $users[0];
         $users->shift();
 
-        return view('users.indexusers', compact('users', 'admin'));
+        return view('users.indexUsers', compact('users', 'admin'));
 
     }
 
@@ -246,7 +246,7 @@ class UserController extends Controller
         $admin = $users[0];
         $users->shift();
 
-        return view('users.indexusers', compact('users', 'admin'));
+        return view('users.indexUsers', compact('users', 'admin'));
     }
 
     public function destroy($id)
