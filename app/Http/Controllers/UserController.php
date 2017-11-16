@@ -236,7 +236,8 @@ class UserController extends Controller
         }
         $userUpdate = $request->all();
 
-        User::findorFail($request->id)->update($userUpdate) AND RoleUser::findorFail($request->id)->update($userUpdate);
+        User::findorFail($request->id)->update($userUpdate);
+//        RoleUser::findorFail($request->id)->update($userUpdate);
 
         $organizationId = Auth::user()->organization_id;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
