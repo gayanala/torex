@@ -68,7 +68,6 @@ class UserController extends Controller
         array_push($arr, $organizationId);
 
         $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
-
         return view('users.indexUsers', compact('users', 'admin'));
     }
 
@@ -206,7 +205,15 @@ class UserController extends Controller
 
     public function editsubuser($id)
     {
-        $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
+        if (Auth::user()->hasRole(Constant::TAGG_ADMIN) OR Auth::user()->hasRole(Constant::ROOT_USER) )
+        {
+            $roles = Role::where('id', '<>', Constant::ROOT_USER)->pluck('name', 'id');
+        }
+        else
+        {
+            $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
+        }
+
         $user = User::findOrFail($id);
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
         $childOrgIds = $parentChildOrg->pluck('child_org_id');
@@ -234,8 +241,8 @@ class UserController extends Controller
         }
 
         $userUpdate = $request->all();
-
-        if(User::findorFail($request->id)->update($userUpdate)){
+        // Find user and only update role if they are not a root user
+        if(User::findorFail($request->id)->update($userUpdate) AND ($userUpdate['role_id'] <> Constant::ROOT_USER)){
             RoleUser::where('user_id', $request->id)->first()->update($userUpdate);
         }
 
