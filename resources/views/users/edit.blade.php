@@ -6,6 +6,21 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Update Profile</div>
 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
+<script>
+$(window).load(function()
+{
+   var phones = [{ "mask": "(###) ###-####"}, { "mask": "(###) ###-##############"}];
+    $('#phone_number').inputmask({ 
+        mask: phones, 
+        greedy: false, 
+        definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
+}); 
+
+
+
+</script> 
                     <div class="panel-body">
 
                         {!! Form::model($user,['method' => 'PATCH','route'=>['users.update', $user->id], 'class' => 'form-horizontal']) !!}
@@ -76,17 +91,24 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
-                            <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">
-                                {!! Form::text('phone_number',null,['class' => 'form-control', 'required']) !!}
-                                @if ($errors->has('phone_number'))
-                                    <span class="help-block">
-                                      <strong>{{ $errors->first('phone_number') }}</strong>
+                         
+                            <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
+                                <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                                <div class="col-md-6">
+                                <input id="phone_number" type="text" class="form-control"
+                                           name="phone_number" value="{{ old('phone_number') }}" required
+                                           autofocus>
+                                   
+
+ 
+                                    @if ($errors->has('phone_number'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('phone_number') }}</strong>
                                     </span>
-                                @endif
+                                    @endif
+                                </div>
                             </div>
-                        </div>
+
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

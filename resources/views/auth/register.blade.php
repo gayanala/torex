@@ -67,8 +67,8 @@ $(window).load(function()
                                 <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email"  class="form-control" name="email"
-                                           value="{{ old('email') }}" placeholder="Enter Your Email Address" pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}" required>
+                                    <input id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  class="form-control" name="email"
+                                           value="{{ old('email') }}" placeholder="Enter Your Email Address" required>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">

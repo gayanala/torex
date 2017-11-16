@@ -13,6 +13,7 @@ use App\Request_event_type;
 use App\Request_item_purpose;
 use App\Request_item_type;
 use App\Requester_type;
+use App\Rule_type;
 use App\State;
 use Auth;
 use Excel;
@@ -132,6 +133,13 @@ class DonationRequestController extends Controller
         $donationRequest->state = $request->state;
         $donationRequest->zipcode = $request->zipcode;
         $donationRequest->tax_exempt = $request->taxexempt;
+        if ($request->hasFile('attachment')) {
+              $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
+            // $image = $request->file('attachment');
+            // $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+            $imageName = Storage::disk('s3')->url($imageName);
+            $donationRequest->file_url = $imageName;
+          }
         $donationRequest->item_requested = $request->item_requested;
         $donationRequest->dollar_amount = $request->dollar_amount;
         $donationRequest->approved_dollar_amount = $request->dollar_amount;
@@ -152,12 +160,12 @@ class DonationRequestController extends Controller
         ]);
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
-//            $file = new File();
-//            $file->donation_request_id = $donationRequest->id;
+// //            $file = new File();
+// //            $file->donation_request_id = $donationRequest->id;
 //            $file->original_filename = $request->file('attachment')->getClientOriginalName();
-//            $file->$imageName = Storage::putFile('public', $request->file('attachment'));
-//            $file->file_type = 'attachment';
-//            $file->save();
+// //            $file->$imageName = Storage::putFile('public', $request->file('attachment'));
+// //            $file->file_type = 'attachment';
+// //            $file->save();
             // $attachment =$request->file('attachment');
             // $imageFileName = time() . '.' . $attachment->getClientOriginalExtension();
             // $s3 = \Storage::disk('s3');
@@ -165,16 +173,16 @@ class DonationRequestController extends Controller
             // $s3->put($filePath, file_get_contents($attachment), 'public');
             // $this->validate($request, [
             //     'attachment' => 'image|mimes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
-            // ]);
-
-            $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
+            // // ]);
+            //
+//             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
             $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
-
-            $imageName = Storage::disk('s3')->url($imageName);
-
-            dd($imageName);
-            // return $path;
+//
+//             $imageName = Storage::disk('s3')->url($imageName);
+//
+//             // dd($imageName);
+// //             // return $path;
         }
         //fire NewBusiness event to initiate sending welcome mail
 
@@ -205,6 +213,7 @@ class DonationRequestController extends Controller
             $donation_purpose_name = $donation_purpose->purpose_name;
         }
 
+
         if ($donationrequest->item_requested) {
             $item_requested = Request_item_type::findOrFail($donationrequest->item_requested);
             $item_requested_name = $item_requested->item_name;
@@ -222,6 +231,7 @@ class DonationRequestController extends Controller
     public function changeDonationStatus(Request $request)
     {
         $userId = Auth::user()->id;
+        $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
         $organizationId = Auth::user()->organization_id;
 
         if ($request->input('approve') == 'Approve') {
@@ -232,6 +242,7 @@ class DonationRequestController extends Controller
             $donation[0]->update(['approved_dollar_amount' => $approved_amount]);
             $donation[0]->update(['approved_organization_id' => $organizationId]);
             $donation[0]->update(['approved_user_id' => $userId]);
+            $donation[0]->update(['approval_status_reason' => 'Approved by ' . $userName]);
             event(new TriggerAcceptEmailEvent($donation[0]));
 
             $organization = Organization::findOrFail($organizationId);
@@ -245,6 +256,7 @@ class DonationRequestController extends Controller
             $donation[0]->update(['approval_status_id' => Constant::REJECTED]);
             $donation[0]->update(['approved_organization_id' => $organizationId]);
             $donation[0]->update(['approved_user_id' => $userId]);
+            $donation[0]->update(['approval_status_reason' => 'Rejected by ' . $userName]);
             event(new TriggerRejectEmailEvent($donation[0]));
 
             $organization = Organization::findOrFail($organizationId);
@@ -255,7 +267,7 @@ class DonationRequestController extends Controller
 
         $emailids = [];
         if ($request['status'] == 0) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 5, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => Constant::APPROVED, 'approval_status_reason' => 'Approved by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $acceptedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($acceptedrequests as $acceptedrequest) {
@@ -264,7 +276,7 @@ class DonationRequestController extends Controller
             }
 
         } elseif ($request['status'] == 1) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => 4, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => Constant::REJECTED, 'approval_status_reason' => 'Rejected by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($rejectedrequests as $rejectedrequest) {
