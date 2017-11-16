@@ -43,7 +43,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
+        $roles = $this->getRoles();
         $organizationId = Auth::user()->organization_id;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
@@ -99,7 +99,7 @@ class UserController extends Controller
         $user->phone_number = $request->phone_number;
         $user->organization_id = $orgId;
         $user->save();
-        $user->roles()->attach(4);
+        $user->roles()->attach(Constant::BUSINESS_ADMIN);
 
         $userid = $user->id;
 
@@ -205,14 +205,7 @@ class UserController extends Controller
 
     public function editsubuser($id)
     {
-        if (Auth::user()->hasRole(Constant::TAGG_ADMIN) OR Auth::user()->hasRole(Constant::ROOT_USER) )
-        {
-            $roles = Role::where('id', '<>', Constant::ROOT_USER)->pluck('name', 'id');
-        }
-        else
-        {
-            $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
-        }
+        $roles = $this->getRoles();
 
         $user = User::findOrFail($id);
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
@@ -259,5 +252,18 @@ class UserController extends Controller
     {
         User::find($id)->delete();
         return redirect('users');
+    }
+
+    protected function getRoles()
+    {
+        $authUser = Auth::user();
+        if ($authUser->hasRole(Constant::TAGG_ADMIN) OR $authUser->hasRole(Constant::ROOT_USER) )
+        {
+            return Role::where('id', '<>', Constant::ROOT_USER)->pluck('name', 'id');
+        }
+        else
+        {
+            return Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
+        }
     }
 }
