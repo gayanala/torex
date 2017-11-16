@@ -31,7 +31,7 @@ $(window).load(function()
     <label for="org_name" class="col-md-4 control-label">Business Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
     <div class="col-md-6">
-        <input id="org_name" type="text" class="form-control" name="org_name" value="{{ old('org_name') }}"  required autofocus>
+        <input id="org_name" type="text" class="form-control" name="org_name" value="{{ old('org_name') }}" placeholder="Your Business Name"  required autofocus>
 
         @if ($errors->has('org_name'))
             <span class="help-block">
@@ -45,7 +45,7 @@ $(window).load(function()
     <label for="org_description" class="col-md-4 control-label">Business Description</label>
 
     <div class="col-md-6">
-        <input id="org_description" type="text" class="form-control" name="org_description" value="{{ old('org_description') }}" autofocus>
+        <input id="org_description" type="text" class="form-control" name="org_description" value="{{ old('org_description') }}" placeholder="Describe Your Business" autofocus>
 
         @if ($errors->has('org_description'))
             <span class="help-block">
@@ -61,7 +61,7 @@ $(window).load(function()
     </label>
 
     <div class="col-md-6">
-        {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control']) !!}
+        {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control', 'required']) !!}
         @if ($errors->has('organization_type_id'))
             <span class="help-block">
                                         <strong>{{ $errors->first('organization_type_id') }}</strong>
@@ -74,7 +74,7 @@ $(window).load(function()
     <label for="street_address1" class="col-md-4 control-label"> Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
     <div class="col-md-6">
-        <input id="street_address1" type="text" class="form-control" name="street_address1" value="{{ old('street_address1') }}"  required autofocus>
+        <input id="street_address1" type="text" class="form-control" name="street_address1" value="{{ old('street_address1') }}" placeholder="Street Address, Company Name,C/O"  required autofocus>
 
         @if ($errors->has('street_address1'))
             <span class="help-block">
@@ -88,7 +88,7 @@ $(window).load(function()
     <label for="street_address2" class="col-md-4 control-label"> Address 2 </label>
 
     <div class="col-md-6">
-        <input id="street_address2" type="text" class="form-control" name="street_address2" value="{{ old('street_address2') }}" autofocus>
+        <input id="street_address2" type="text" class="form-control" name="street_address2" value="{{ old('street_address2') }}" placeholder="Building, Apartment, Floor" autofocus>
 
         @if ($errors->has('street_address2'))
             <span class="help-block">
@@ -102,7 +102,7 @@ $(window).load(function()
     <label for="city" class="col-md-4 control-label">City <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
     <div class="col-md-6">
-        <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}"  required autofocus>
+        <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" placeholder="Enter Your City" required autofocus>
 
         @if ($errors->has('city'))
             <span class="help-block">
@@ -131,7 +131,7 @@ $(window).load(function()
     <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
     <div class="col-md-6">
-        <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{ old('zipcode') }}"  required autofocus>
+        <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{ old('zipcode') }}"placeholder="Zip Code"  required autofocus>
 
         @if ($errors->has('zipcode'))
             <span class="help-block">
