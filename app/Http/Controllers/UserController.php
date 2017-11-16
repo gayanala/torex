@@ -62,10 +62,12 @@ class UserController extends Controller
 
     public function indexUsers()
     {
+        $user_id = Auth::user()->id;
         $organizationId = Auth::user()->organization_id;
         $admin = Auth::user();
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
+
         $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
 
         return view('users.indexUsers', compact('users', 'admin'));
@@ -127,8 +129,6 @@ class UserController extends Controller
                 return redirect('subscription');
             }
         }
-
-
     }
 
     /**
@@ -235,14 +235,10 @@ class UserController extends Controller
         }
 
         $userUpdate = $request->all();
-        //dd($request);
+
         if(User::findorFail($request->id)->update($userUpdate)){
             RoleUser::where('user_id', $request->id)->first()->update($userUpdate);
         }
-        
-//        User::findorFail($request->id)->update($userUpdate);
-//
-//        RoleUser::findorFail($request->id)->update($userUpdate);
 
         $organizationId = Auth::user()->organization_id;
         $admin = Auth::user();
