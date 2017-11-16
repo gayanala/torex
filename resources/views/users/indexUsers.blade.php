@@ -27,13 +27,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $user)
+                            @foreach($subusers as $subuser)
                             <tr class="text-center">
-                                <td style="vertical-align: middle">{{ $user->first_name }} {{ $user->last_name }}</td>
-                                <td style="vertical-align: middle">{{ $user->roles[0]->name }}</td>
-                                <td style="vertical-align: middle">{{ $user->organization->org_name }}</td>
-                                <td style="vertical-align: middle">{{ $user->organization->city }}, {{ $user->organization->zipcode }}</td>
-                                <td style="vertical-align: middle"><a href="{{route('editsubuser',$user->id)}}" class="btn btn-warning"> Edit </a>
+                                <td style="vertical-align: middle">{{ $subuser->first_name }} {{ $subuser->last_name }}</td>
+                                <td style="vertical-align: middle">{{ $subuser->roles[0]->name }}</td>
+                                <td style="vertical-align: middle">{{ $subuser->organization->org_name }}</td>
+                                <td style="vertical-align: middle">{{ $subuser->organization->city }}, {{ $subuser->organization->zipcode }}</td>
+                                <td style="vertical-align: middle"><a href="{{route('editsubuser',$subuser->id)}}" class="btn btn-warning"> Edit </a>
                                 </td>
                             </tr>
                             @endforeach

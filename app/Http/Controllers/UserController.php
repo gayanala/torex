@@ -62,14 +62,15 @@ class UserController extends Controller
 
     public function indexUsers()
     {
+        $user_id = Auth::user()->id;
         $organizationId = Auth::user()->organization_id;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
         $users = User::whereIn('organization_id', $arr)->get();
-        $admin = $users[0];
-        $users->shift();
+        $subusers = $users->whereNotIn('id', $user_id);
+        $admin = Auth::user();
 
-        return view('users.indexUsers', compact('users', 'admin'));
+        return view('users.indexUsers', compact('subusers', 'admin'));
 
     }
 
@@ -129,8 +130,6 @@ class UserController extends Controller
                 return redirect('subscription');
             }
         }
-
-
     }
 
     /**
@@ -240,16 +239,17 @@ class UserController extends Controller
         
         User::findorFail($request->id)->update($userUpdate);
 
-        RoleUser::findorFail($request->id)->update($userUpdate);
+//        RoleUser::findorFail($request->id)->update($userUpdate);
 
+        $user_id = Auth::user()->id;
         $organizationId = Auth::user()->organization_id;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
         $users = User::whereIn('organization_id', $arr)->get();
-        $admin = $users[0];
-        $users->shift();
+        $subusers = $users->whereNotIn('id', $user_id);
+        $admin = Auth::user();
 
-        return view('users.indexUsers', compact('users', 'admin'));
+        return view('users.indexUsers', compact('subusers', 'admin'));
     }
 
     public function destroy($id)
