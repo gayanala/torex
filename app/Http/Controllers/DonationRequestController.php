@@ -137,7 +137,7 @@ class DonationRequestController extends Controller
               $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             // $image = $request->file('attachment');
             // $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
-            $imageName = Storage::disk('s3')->url($imageName);
+          $imageName = Storage::disk('s3')->url($imageName);
             $donationRequest->file_url = $imageName;
           }
         $donationRequest->item_requested = $request->item_requested;
@@ -175,12 +175,13 @@ class DonationRequestController extends Controller
             //     'attachment' => 'image|mimes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
             // // ]);
             //
-//             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
+            $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
             $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
+
+
 //
-//            $imageName = Storage::disk('s3')->url($imageName);
-//
+
 //             // dd($imageName);
 // //             // return $path;
         }
