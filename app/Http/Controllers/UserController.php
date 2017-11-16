@@ -246,7 +246,8 @@ class UserController extends Controller
         $admin = $users[0];
         $users->shift();
 
-        return view('users.indexUsers', compact('users', 'admin'));
+        return redirect('user/manageusers');
+//        return view('users.indexUsers', compact('users', 'admin'));
     }
 
     public function destroy($id)
