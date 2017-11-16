@@ -62,7 +62,6 @@ class UserController extends Controller
 
     public function indexUsers()
     {
-        $user_id = Auth::user()->id;
         $organizationId = Auth::user()->organization_id;
         $admin = Auth::user();
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
