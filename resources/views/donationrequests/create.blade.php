@@ -22,15 +22,15 @@
 $(window).load(function()
 {
    var phones = [{ "mask": "(###) ###-####"}, { "mask": "(###) ###-##############"}];
-    $('#phonenumber').inputmask({ 
-        mask: phones, 
-        greedy: false, 
+    $('#phonenumber').inputmask({
+        mask: phones,
+        greedy: false,
         definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
-}); 
+});
 
 
 
-</script> 
+</script>
 
 
     <div class="container">
@@ -126,7 +126,7 @@ $(window).load(function()
                              <input id="phonenumber" type="text" class="form-control"
                                            name="phonenumber" value="{{ old('phonenumber') }}" required
                                            autofocus>
-                                   
+
 
 
                                 @if ($errors->has('phonenumber'))

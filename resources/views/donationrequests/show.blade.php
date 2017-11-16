@@ -64,11 +64,19 @@
                                     ?><?php echo ($taxexempt_value); ?>
                                 </td>
                             </tr>
+                              <?php  if($donationrequest['tax_exempt']==1) { ?>
                             <tr>
                                 <td>File URL</td>
                                 <!-- <td> echo ($file_url)</td> -->
-                                <td> <?php echo $donationrequest['file_url'] ?></td>
+                                <td> <a href="<?php echo($donationrequest['file_url']) ?>" target="_blank"><b>Link to File</b> </a> </td>
+
                             </tr>
+                          <?php } else { ?>
+
+
+
+                        <?php } ?>
+
                             <tr>
                                 <td>Request For</td>
                                 <td><?php echo ($item_requested_name); ?></td>
