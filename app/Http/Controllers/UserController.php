@@ -63,14 +63,12 @@ class UserController extends Controller
     public function indexUsers()
     {
         $organizationId = Auth::user()->organization_id;
+        $admin = Auth::user();
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
-        $users = User::whereIn('organization_id', $arr)->get();
-        $admin = $users[0];
-        $users->shift();
+        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
 
         return view('users.indexUsers', compact('users', 'admin'));
-
     }
 
     public function create(Request $request)
@@ -237,9 +235,9 @@ class UserController extends Controller
         }
 
         $userUpdate = $request->all();
-
+        //dd($request);
         if(User::findorFail($request->id)->update($userUpdate)){
-            RoleUser::findorFail($request->id)->update($userUpdate);
+            RoleUser::where('user_id', $request->id)->first()->update($userUpdate);
         }
         
 //        User::findorFail($request->id)->update($userUpdate);
@@ -247,11 +245,10 @@ class UserController extends Controller
 //        RoleUser::findorFail($request->id)->update($userUpdate);
 
         $organizationId = Auth::user()->organization_id;
+        $admin = Auth::user();
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
-        $users = User::whereIn('organization_id', $arr)->get();
-        $admin = $users[0];
-        $users->shift();
+        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
 
         return view('users.indexUsers', compact('users', 'admin'));
     }
