@@ -9,6 +9,7 @@ use App\Http\Controllers\Route;
 use App\Custom\Constant;
 use App\Organization;
 use App\ParentChildOrganizations;
+use App\RoleUser;
 use App\State;
 use App\User;
 use App\Role;
@@ -41,7 +42,6 @@ class UserController extends Controller
 
     public function show($id)
     {
-
         $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
         $organizationId = Auth::user()->organization_id;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
@@ -67,7 +67,6 @@ class UserController extends Controller
         $users = User::whereIn('organization_id', $arr)->get();
         $admin = $users[0];
         $users->shift();
-//        dd($users);
 
         return view('users.indexUsers', compact('users', 'admin'));
 
@@ -140,7 +139,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         $user_details = User::findOrFail(Auth::user()->id);
         $organization = Organization::findOrFail($user_details->organization_id);
 
@@ -161,14 +159,14 @@ class UserController extends Controller
 
         $user->save();
 
-        $user->roles()->attach($request->user_role);
+        $user->roles()->attach($request->role_id);
 
         //fire NewBusiness event to initiate sending welcome mail
 
         event(new NewSubBusiness($user));
 
 
-        return redirect('users');
+        return redirect('user/manageusers');
     }
 
     public function edit($id)
@@ -200,15 +198,17 @@ class UserController extends Controller
         if ($validator->fails()) {
             return redirect() ->back()->withErrors($validator)->withInput();
         }
+        $user = Auth::user();
 
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
 
-        return redirect('user/manageusers');
+        return view('users.index', compact('user'));
     }
 
     public function editsubuser($id)
     {
+        $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
         $user = User::findOrFail($id);
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
         $childOrgIds = $parentChildOrg->pluck('child_org_id');
@@ -218,16 +218,16 @@ class UserController extends Controller
             ->pluck('org_name', 'id');
 
         $states = State::pluck('state_name', 'state_code');
-        return view('users.editsubuser', compact('user', 'childOrgNames'))->with('states', $states);
+        return view('users.editsubuser', compact('user', 'childOrgNames', 'roles'))->with('states', $states);
     }
 
-    public function updatesubuser(Request $request, $id)
+    public function updatesubuser(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')->ignore($id),
+                Rule::unique('users')->ignore($request->id),
             ],
         ]);
 
@@ -235,8 +235,18 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $userUpdate = $request->all();
-        User::findorFail($id)->update($userUpdate);
-        return redirect('user/manageusers');
+        User::findorFail($request->id)->update($userUpdate);
+
+        RoleUser::findorFail($request->id)->update($request->all());
+
+        $organizationId = Auth::user()->organization_id;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+        $users = User::whereIn('organization_id', $arr)->get();
+        $admin = $users[0];
+        $users->shift();
+
+        return view('users.indexUsers', compact('users', 'admin'));
     }
 
     public function destroy($id)
