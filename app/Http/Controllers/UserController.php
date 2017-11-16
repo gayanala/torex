@@ -16,6 +16,7 @@ use App\Role;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Session;
 use Validator;
@@ -234,9 +235,15 @@ class UserController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
         $userUpdate = $request->all();
 
-        User::findorFail($request->id)->update($userUpdate);
+        if(User::findorFail($request->id)->update($userUpdate)){
+            RoleUser::findorFail($request->id)->update($userUpdate);
+        }
+        
+//        User::findorFail($request->id)->update($userUpdate);
+//
 //        RoleUser::findorFail($request->id)->update($userUpdate);
 
         $organizationId = Auth::user()->organization_id;
