@@ -2,6 +2,11 @@
 
 
 @section('content')
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
+
+
     <script type="text/javascript">
         function yesnoCheck() {
             if (document.getElementById('yesCheck').checked) {
@@ -12,6 +17,22 @@
             }
         }
     </script>
+
+<script>
+$(window).load(function()
+{
+   var phones = [{ "mask": "(###) ###-####"}, { "mask": "(###) ###-##############"}];
+    $('#phonenumber').inputmask({ 
+        mask: phones, 
+        greedy: false, 
+        definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
+}); 
+
+
+
+</script> 
+
+
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -102,9 +123,10 @@
                             <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-
-
-                                <input id="phonenumber" type="tel" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required title="Enter your 10 digit Phone Number as 555-555-5555" class="form-control" name="phonenumber" value="{{ old('phonenumber') }}" placeholder="Example ###-###-####" required autofocus>
+                             <input id="phonenumber" type="text" class="form-control"
+                                           name="phonenumber" value="{{ old('phonenumber') }}" required
+                                           autofocus>
+                                   
 
 
                                 @if ($errors->has('phonenumber'))
@@ -330,7 +352,7 @@
                             <label for="marketingopportunities" class="col-md-4 control-label">What are the marketing opportunities? <span style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" input id="marketingopportunities"   pattern="[a-zA-Z0-9\s]" maxlength="500"  required title="Please restrict your Text Length to 500 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="Please provide a brief description" autofocus> </textarea>
+                                <textarea class="form-control" input id="marketingopportunities"   pattern="[a-zA-Z0-9\s]" maxlength="1000"  required title="Please restrict your Text Length to 1000 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="MAX 1000 characters" autofocus> </textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
