@@ -91,34 +91,6 @@ class DonationRequestController extends Controller
 
     public function store(Request $request)
     {
-        /*$validator = Validator::make($request->all(), [
-            'requester' => 'required',
-            'requester_type' => 'required',
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required',
-            'phonenumber' => 'required',
-            'address1' => 'required',
-            // 'address2' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zipcode' => 'required',
-            'taxexempt' => 'required',
-            'item_requested' => 'required',
-            'item_purpose' => 'required',
-            'eventname' => 'required',
-            'startdate' => 'required',
-            'enddate' => 'required',
-            'event_type' => 'required',
-            'formAttendees' => 'required',
-            'venue' => 'required',
-            'marketingopportunities' => 'required'
-        ]);
-        //dd($request);
-        if ($validator->fails())
-        {
-            return redirect('donationrequests') ->withErrors($validator)->withInput();
-        }*/
         $donationRequest = new DonationRequest;
         $donationRequest->organization_id = $request->orgId;
         $donationRequest->requester = $request->requester;
@@ -142,7 +114,6 @@ class DonationRequestController extends Controller
           }
         $donationRequest->item_requested = $request->item_requested;
         $donationRequest->dollar_amount = $request->dollar_amount;
-        $donationRequest->approved_dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
