@@ -9,18 +9,17 @@
                 @if (Session::has('message'))
                     <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <div class="panel panel-default">
+                <div class="panel panel-default" style="">
                     <div class="panel-heading" style="height: 50px;">
                         <a href="{{URL::action('SubscriptionController@cancel')}}"
-                           class="btn btn-primary pull-right" style="text-align: right;padding-right:1%;" id="cancel">
+                           class="btn btn-primary pull-right" style="" id="cancel">
                             Cancel Subscription
                         </a>
+                        <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
                         <a href="{{URL::action('SubscriptionController@resume')}}"
-                           class="btn btn-primary pull-right" style="padding-left:1%;" id="resume">
+                           class="btn btn-primary pull-right" style="" id="resume">
                             Resume Subscription
                         </a>
-
-
                     </div>
 
                     @if ($count < $subscription)
