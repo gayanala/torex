@@ -5,19 +5,24 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <!-- will be used to show any messages -->
+
                 @if (Session::has('message'))
                     <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
                 <div class="panel panel-default">
                     <div class="panel-heading" style="height: 50px;">
+
                         <a href="{{URL::action('SubscriptionController@cancel')}}"
-                           class="btn btn-primary pull-right" style="text-align: right;padding-right:1%;" id="cancel">
+                           class="btn btn-primary pull-right" style="padding-left:1%;" id="cancel">
                             Cancel Subscription
                         </a>
+
                         <a href="{{URL::action('SubscriptionController@resume')}}"
                            class="btn btn-primary pull-right" style="padding-left:1%;" id="resume">
                             Resume Subscription
                         </a>
+
+
                     </div>
                     @if ($count < $subscription)
                         <div class="panel-heading">
@@ -90,9 +95,13 @@
         $(document).on('click', '#cancel', function () {
             $(this).addClass('disabled');
 
+
         });
+
         $(document).on('click', '#resume', function () {
             $(this).addClass('disabled');
+
+
         });
 
     </script>

@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Http\Controllers\WebhookController;
-
+use Session;
 
 class SubscriptionController extends Controller
 {
@@ -38,21 +38,26 @@ class SubscriptionController extends Controller
     public function postJoin(Request $request)
     {
         $id = Auth::user()->organization_id;
+
         $organization = Organization::find($id);
+        $locations = $request->input('user_locations');
+
         $pickedPlan = $request->get('plan');
+        $plan = $pickedPlan . $locations;
+
         $coupon = $request->get('coupon');
-        if ($organization->subscribedToPlan($pickedPlan, 'main')) {
+        if ($organization->subscribedToPlan($plan, 'main')) {
             return redirect('subscription')->with('status', 'Plan Already Submitted!');
         } else {
-            if ($request->input('plan') == "annually") {
+            if ($request->input('plan') == "Annually") {
                 if (isset($coupon)) {
-                    $organization->newSubscription('main', $request->input('plan'))->withCoupon("OFF20")->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+                    $organization->newSubscription('main', $plan)->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
                         'email' => $organization->org_name
 
                     ]);
 
                 } else {
-                    $organization->newSubscription('main', $request->input('plan'))->withCoupon("OFF20")->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+                    $organization->newSubscription('main', $plan)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
                         'email' => $organization->org_name
 
                     ]);
@@ -61,14 +66,16 @@ class SubscriptionController extends Controller
                 $organization->trial_ends_at = Carbon::now()->addYear(1);
                 $organization->save();
             } else {
-                if ($request->input('plan') == "monthly") {
+                if ($request->input('plan') == "Monthly") {
+
                     if (isset($coupon)) {
-                        $organization->newSubscription('main', $request->input('plan'))->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+
+                        $organization->newSubscription('main', $plan)->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
                             'email' => $organization->org_name
                         ]);
 
                     } else {
-                        $organization->newSubscription('main', $request->input('plan'))->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+                        $organization->newSubscription('main', $plan)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
                             'email' => $organization->org_name
                         ]);
 
@@ -105,9 +112,10 @@ class SubscriptionController extends Controller
         if ($organization->subscription('main')->cancelled()) {
             $endsAt = DB::table('subscriptions')->where('organization_id', Auth::user()->organization_id)->value('ends_at');
             $endsAt = \Carbon\Carbon::parse($endsAt)->format('m-d-Y');
+
             return redirect('organizations')->with('message', "Subscription ends at: $endsAt");
         } else {
-            return view('organizations')->with('message', 'Please contact Tagg administrator to end the subscription');
+            return redirect('organizations')->with('message', 'Please contact Tagg administrator to end the subscription');
         }
 
     }
@@ -118,9 +126,20 @@ class SubscriptionController extends Controller
         $organization = Organization::find(Auth::user()->organization_id);
         if ($organization->subscription('main')->onGracePeriod()) {
             $organization->subscription('main')->resume();
-            return redirect('organizations')->with('message', "Your subscription is resumed");
+
+            return redirect('organizations')->with('message', 'resumed');
         }
 
     }
+
+    public function applycoupon(Request $request)
+    {
+        $coupon = $request->get('coupon');
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $retrievedCoupon = \Stripe\Coupon::retrieve($coupon);
+        return $retrievedCoupon->percent_off;
+
+    }
+
 
 }

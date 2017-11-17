@@ -8,6 +8,7 @@ use App\ParentChildOrganizations;
 use App\State;
 use App\Subscription;
 use Auth;
+use Billable;
 use Illuminate\Http\Request;
 use Validator;
 
