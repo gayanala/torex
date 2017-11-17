@@ -4,6 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
+
                 <!-- will be used to show any messages -->
                 @if (Session::has('message'))
                     <div class="alert alert-info">{{ Session::get('message') }}</div>
@@ -18,12 +19,16 @@
                            class="btn btn-primary pull-right" style="padding-left:1%;" id="resume">
                             Resume Subscription
                         </a>
+
+
                     </div>
+
                     @if ($count < $subscription)
                         <div class="panel-heading">
                             <h1> Manage Business Locations </h1>
                             <a href="{{action('OrganizationController@createOrganization')}}"
                                class="btn btn-primary pull-right"> [+] Add </a>
+
                             <h1 style="text-align: center">Subscription made for {{$subscriptionQuantity}}
                                 locations</h1>
                         </div>
@@ -31,6 +36,7 @@
                         <div class="alert alert-info">Plan limit includes the parent organization and the limit is
                             crossed, upgrade to add more locations.
                         </div>
+
                         <div class="panel-heading">
                             <h1> Manage Business Locations </h1>
                             <h1 style="text-align: center">Subscription made for {{$subscriptionQuantity}}
@@ -39,20 +45,58 @@
                     @endif
 
                 </div>
-                <div class="panel-body">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                        <tr class="bg-info">
-                            <th class="text-center">Business Name</th>
-                            <th class="text-center">Business Description</th>
-                            <th class="text-center">Address</th>
-                            <th class="text-center">Phone Number</th>
-                            <th class="text-center">Monthly Budget</th>
-                            <th class="text-center" colspan="2">Operations</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($childOrganizations as $organization)
+                <div class="panel-heading"> <h1>My Business</h1>
+
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr class="bg-info">
+                                <th class="text-center">Parent Business</th>
+                                <th class="text-center">Business Description</th>
+                                <th class="text-center">Address</th>
+                                <th class="text-center">Phone Number</th>
+                                <th class="text-center">Monthly Budget</th>
+                                <th class="text-center" colspan="2">Operations</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-center">
+                                <td style="vertical-align: middle">{{ $loggedOnUserOrganization[0]->org_name }}</td>
+
+                                <td style="vertical-align: middle">{{ $loggedOnUserOrganization[0]->org_description }}</td>
+                                <td style="vertical-align: middle">{{ $loggedOnUserOrganization[0]->street_address1 }}
+                                    {{ $loggedOnUserOrganization[0]->street_address2 }}
+                                    , {{ $loggedOnUserOrganization[0]->city }}
+                                    , {{ $loggedOnUserOrganization[0]->state }} {{ $loggedOnUserOrganization[0]->zipcode }}</td>
+                                <td style="vertical-align: middle">{{ $loggedOnUserOrganization[0]->phone_number}}</td>
+                                <td style="vertical-align: middle">{{'$'}}{{ $loggedOnUserOrganization[0]->monthly_budget}}</td>
+                                <td style="vertical-align: middle"><a
+                                            href="{{route('organizations.edit',$loggedOnUserOrganization[0]->id)}}"
+                                            class="btn btn-warning">Edit</a></td> </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-heading"> <h1>Business Locations</h1>
+
+                    </div>
+
+                    <div class="panel-body">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr class="bg-info">
+                                <th class="text-center">Business Name</th>
+                                <th class="text-center">Business Description</th>
+                                <th class="text-center">Address</th>
+                                <th class="text-center">Phone Number</th>
+                                <th class="text-center">Monthly Budget</th>
+                                <th class="text-center" colspan="2">Operations</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($childOrganizations as $organization)
+
+
+
                                 <tr class="text-center">
                                     <td style="vertical-align: middle">{{ $organization->organization['org_name'] }}</td>
                                     <td style="vertical-align: middle">{{ $organization->organization['org_description'] }}</td>
@@ -64,7 +108,8 @@
                                     <td style="vertical-align: middle">{{'$'}}{{ $organization->organization['monthly_budget']}}</td>
                                     <td style="vertical-align: middle"><a
                                                 href="{{route('organizations.edit',$organization->child_org_id)}}"
-                                                class="btn btn-warning">Edit</a></td>
+                                                class="btn btn-warning">Edit</a>
+                                    </td>
                                     <td style="vertical-align: middle">
                                         {{ Form::open([
                                                         'method' => 'DELETE',
@@ -75,25 +120,26 @@
                                         {{ Form::close() }}
                                     </td>
                                 </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
                 </div>
             </div>
+
         </div>
-    </div>
-    </div>
-@endsection
-@section('scripts')
-    <script>
+        @endsection
+        @section('scripts')
+            <script>
 
-        $(document).on('click', '#cancel', function () {
-            $(this).addClass('disabled');
+                $(document).on('click', '#cancel', function () {
+                    $(this).addClass('disabled');
 
-        });
-        $(document).on('click', '#resume', function () {
-            $(this).addClass('disabled');
-        });
+                });
+                $(document).on('click', '#resume', function () {
+                    $(this).addClass('disabled');
+                });
 
-    </script>
+            </script>
 @endsection

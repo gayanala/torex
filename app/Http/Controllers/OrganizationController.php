@@ -18,11 +18,12 @@ class OrganizationController extends Controller
     public function index()
     {
         $organizationId = Auth::user()->organization_id;
+        $loggedOnUserOrganization = Organization::where('id', '=', $organizationId)->get();
         $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', $organizationId)->get();
         $count = $childOrganizations->count();
         $subscriptionQuantity = Subscription::where('organization_id', $organizationId)->value('quantity');
         $subscription = $subscriptionQuantity - 1;
-        return view('organizations.index', compact('childOrganizations', 'count', 'subscriptionQuantity', 'subscription'));
+        return view('organizations.index', compact('loggedOnUserOrganization','childOrganizations', 'count', 'subscriptionQuantity', 'subscription'));
 
     }
 
