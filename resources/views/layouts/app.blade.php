@@ -250,7 +250,16 @@
         .divsmall {
             padding: 25px -5px 5px 100px;
         }
-
+        .dropdown-menu a {
+            background-color: #e1bee7;
+            padding: 2px 3px;
+            text-decoration: none;
+            display: block;
+            border: 1px solid blue;
+            box-shadow: 1px 5px 20px 5px blue;
+        }
+        .dropdown-menu a:hover
+        {background-color: #f1f1f1}
 
     </style>
 </head>
