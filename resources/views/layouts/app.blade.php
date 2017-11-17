@@ -256,7 +256,7 @@
             text-decoration: none;
             display: block;
             border: 1px solid blue;
-            box-shadow: 1px 5px 20px 5px blue;
+            box-shadow: 1px 1px 20px 1px blue;
         }
         .dropdown-menu a:hover
         {background-color: #f1f1f1}
