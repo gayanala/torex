@@ -49,7 +49,7 @@ class DashboardController extends Controller
         $userThisMonth = Organization::where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
         $userThisYear = Organization::where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
 
-        $avgAmountDonated = DonationRequest::where('approval_status_id', 5)->avg('dollar_amount');
+        $avgAmountDonated = floatval(DonationRequest::where('approval_status_id', 5)->avg('dollar_amount'));
         $rejectedNumber = DonationRequest::where('approval_status_id', 4)->count();
         $approvedNumber = DonationRequest::where('approval_status_id', 5)->count();
         $pendingNumber = DonationRequest::whereIn('approval_status_id', [2, 3])->count();
