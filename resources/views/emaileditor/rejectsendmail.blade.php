@@ -24,12 +24,12 @@
                     menu: [{
                         text: 'Patron',
                         onclick: function () {
-                            editor.insertContent('&nbsp;<b>{patron}</b>&nbsp;');
+                            editor.insertContent('&nbsp;<b>{Requester Name}</b>&nbsp;');
                         }
                     }, {
                         text: 'My Business Name',
                         onclick: function () {
-                            editor.insertContent('&nbsp;<b>{organization}</b>&nbsp;');
+                            editor.insertContent('&nbsp;<b>{My Business Name}</b>&nbsp;');
                         }
                     }]
                 });
@@ -64,8 +64,8 @@
                                 {!! Form::text('To', $emails, ['class'=>'col-md-9 control-label'] ) !!}
                                 {!! Form::hidden('names', $names) !!}
                                 {!! Form::hidden('status', 'Reject') !!}
-                                {!! Form::hidden('idsString', $idsString) !!}
-                                {!! Form::hidden('pagefrom', $pagefrom) !!}
+                                {!! Form::hidden('ids_string', $ids_string) !!}
+                                {!! Form::hidden('page_from', $page_from) !!}
                                 {{--{!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}--}}
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Reject and Send', ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ route('dashboardindex')}}" class="btn btn-primary">Cancel</a>
+                                <a href="{{ url()->previous() }}" class="btn btn-primary">Cancel</a>
 
                             </div>
                         </div>

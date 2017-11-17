@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Constant;
 use App\Events\AddDefaultTemplates;
 use App\Events\NewBusiness;
 use App\Events\NewSubBusiness;
 use App\Http\Controllers\Route;
 use App\Organization;
 use App\ParentChildOrganizations;
+use App\Role;
+use App\RoleUser;
 use App\State;
 use App\User;
-use App\Role;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
@@ -40,14 +42,16 @@ class UserController extends Controller
 
     public function show($id)
     {
+        $roles = $this->getRoles();
+        $organizationId = Auth::user()->organization_id;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
 
-        $roles = Role::whereIn('name', ['Business Admin', 'Business User'])->pluck('name');
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
         $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
         $childOrgIds = $parentChildOrg->pluck('child_org_id');
 
-        $childOrgNames = Organization::wherein('id', $childOrgIds)
-            ->orWhere('id', $parentOrgIds)
+        $childOrgNames = Organization::wherein('id', $arr)
             ->pluck('org_name', 'id');
 
         return view('users.show', compact('roles', 'childOrgNames'));
@@ -58,15 +62,12 @@ class UserController extends Controller
     public function indexUsers()
     {
         $organizationId = Auth::user()->organization_id;
+        $admin = Auth::user();
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
-        $users = User::whereIn('organization_id', $arr)->get();
-        $admin = $users[0];
-        $users->shift();
-//        dd($users);
 
+        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
         return view('users.indexUsers', compact('users', 'admin'));
-
     }
 
     public function create(Request $request)
@@ -97,7 +98,7 @@ class UserController extends Controller
         $user->phone_number = $request->phone_number;
         $user->organization_id = $orgId;
         $user->save();
-        $user->roles()->attach(4);
+        $user->roles()->attach(Constant::BUSINESS_ADMIN);
 
         $userid = $user->id;
 
@@ -119,14 +120,10 @@ class UserController extends Controller
 
             if (Auth::attempt($credentials)) {
                 return redirect('subscription');
-            }
-            else
-            {
+            } else {
                 return redirect('subscription');
             }
         }
-
-
     }
 
     /**
@@ -136,32 +133,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $loggedInUserDetails = User::findOrFail(Auth::user()->id);
+        $user_details = User::findOrFail(Auth::user()->id);
+        $organization = Organization::findOrFail($user_details->organization_id);
 
         $user = new User;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->user_name = $request->email;
         $user->email = $request->email;
-        $user->password = bcrypt('password');
-        $user->street_address1 = $loggedInUserDetails->street_address1;
-        $user->street_address2 = $loggedInUserDetails->street_address2;
-        $user->city = $loggedInUserDetails->city;
-        $user->state = $loggedInUserDetails->state;
-        $user->zipcode = $loggedInUserDetails->zipcode;
+        $string = str_random(10);
+        $user->password = bcrypt($string);
+        $user->street_address1 = $organization->street_address1;
+        $user->street_address2 = $organization->street_address2;
+        $user->city = $organization->city;
+        $user->state = $organization->state;
+        $user->zipcode = $organization->zipcode;
         $user->organization_id = $request->location;
-        $user->phone_number = $loggedInUserDetails->phone_number;
+        $user->phone_number = $organization->phone_number;
 
         $user->save();
 
-        $user->roles()->attach(5);
+        $user->roles()->attach($request->role_id);
 
         //fire NewBusiness event to initiate sending welcome mail
 
         event(new NewSubBusiness($user));
 
 
-        return redirect('users');
+        return redirect('user/manageusers');
     }
 
     public function edit($id)
@@ -180,7 +179,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'phone_number' => 'required|numeric|digits:10',
+            'phone_number' => 'required',
             'zipcode' => 'required|numeric|digits:5',
             'state' => 'required',
             'email' => [
@@ -193,15 +192,18 @@ class UserController extends Controller
         if ($validator->fails()) {
             return redirect() ->back()->withErrors($validator)->withInput();
         }
+        $user = Auth::user();
 
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
 
-        return redirect('user/manageusers');
+        return view('users.index', compact('user'));
     }
 
     public function editsubuser($id)
     {
+        $roles = $this->getRoles();
+
         $user = User::findOrFail($id);
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
         $childOrgIds = $parentChildOrg->pluck('child_org_id');
@@ -211,30 +213,51 @@ class UserController extends Controller
             ->pluck('org_name', 'id');
 
         $states = State::pluck('state_name', 'state_code');
-        return view('users.editsubuser', compact('user', 'childOrgNames'))->with('states', $states);
+        return view('users.editsubuser', compact('user', 'childOrgNames', 'roles'))->with('states', $states);
     }
 
-    public function updatesubuser(Request $request, $id)
+    public function updatesubuser(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')->ignore($id),
+                Rule::unique('users')->ignore($request->id),
             ],
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
         $userUpdate = $request->all();
-        User::findorFail($id)->update($userUpdate);
-        return redirect('user/manageusers');
+        // Find user and only update role if they are not a root user
+        if (User::findorFail($request->id)->update($userUpdate) AND ($userUpdate['role_id'] <> Constant::ROOT_USER)) {
+            RoleUser::where('user_id', $request->id)->first()->update($userUpdate);
+        }
+
+        $organizationId = Auth::user()->organization_id;
+        $admin = Auth::user();
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
+
+        return view('users.indexUsers', compact('users', 'admin'));
     }
 
     public function destroy($id)
     {
         User::find($id)->delete();
         return redirect('users');
+    }
+
+    protected function getRoles()
+    {
+        $authUser = Auth::user();
+        if ($authUser->hasRole(Constant::TAGG_ADMIN) OR $authUser->hasRole(Constant::ROOT_USER)) {
+            return Role::where('id', '<>', Constant::ROOT_USER)->pluck('name', 'id');
+        } else {
+            return Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
+        }
     }
 }

@@ -61,7 +61,7 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Subscription to this account failed . Contact your Site Administrator
+            Subscription to this account is expired. Please contact your Site Administrator
         </div>
 
     </div>

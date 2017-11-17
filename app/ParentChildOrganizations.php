@@ -15,4 +15,8 @@ class ParentChildOrganizations extends Model
         return $this->belongsTo('App\Organization', 'child_org_id');
     }
 
+    public function parentOrganization()
+    {
+        return $this->belongsTo('App\Organization', 'parent_org_id', 'id');
+    }
 }

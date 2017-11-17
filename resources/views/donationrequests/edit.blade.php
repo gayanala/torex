@@ -109,8 +109,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
-                            <div class="col-lg-6">{!! Form::date('event_start_date',null,['class' => 'form-control']) !!}</div>
+                            <label for="startdate" class="col-md-4 control-label">Event Date <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">{!! Form::date('event_start_date',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
 

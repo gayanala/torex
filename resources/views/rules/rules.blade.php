@@ -23,33 +23,32 @@
 
     <!--<section class="bs-docs-section clearfix"> -->
     {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
-    <div class="col-md-12 col-lg-10 col-lg-offset-1">
+
 
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
-            <div class="col-md-12 form-group">
-                <br/>
-                <table width="100%" style="background-color:#1565c0">
-                    <tr>
-                    <td align="center" bgcolor="#1565c0">
+            <br/>
+            <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
-                        <h1 style="color:white">Basic Settings</h1>
 
-                    </td>
-                    </tr>
+                <table width="100%" style="background-color:#f9a825">
+
                     <tr>
-                        <td colspan="4">&nbsp;</td>
+                        <td align="center" bgcolor="#f9a825">
+
+
+                            <h1 style="color:white"><label>Basic Settings</label></h1>
+
+
+                        </td>
                     </tr>
+
                     </table>
-                <table width="100%" style="background-color:#bbdefb">
 
 
+                <table width="100%" style="background-color:#fffde7" frame="border" bordercolor="#ffcc80">
                     <tr>
-                        <td colspan="4" align="center"><br> </td>
+                        <td>&nbsp;</td>
                     </tr>
-                    <tr>
-                        <td colspan="4" align="center"><br> </td>
-                    </tr>
-
                     <tr>
                         <td align="center">
                             <label style="cursor: help;"
@@ -58,12 +57,9 @@
 
                             <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]?"
                                    min="0"
-                                   step="1" required value="{{ $monthlyBudget }}" size="10"/>
+                                   step="1" required value="{{ number_format($monthlyBudget, 0 ) }}" size="10"/>
                         </td>
 
-                    <td>
-                        <td colspan="4">&nbsp;</td>
-                    </td>
 
                         <td align="center">
                             <label style="cursor: help;"
@@ -93,26 +89,60 @@
 
         </form>
     </div>
+
+    <br/>
+    <table width="100%" style="background-color:#ffffff">
+        <tr>
+            <td align="center">
+                <a href="{{url('/help') }}" target="_blank">
+                    <h1><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h1>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <br>
+
+
     <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
 
         <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
-            <h1>Global Business Rules (Admin Only)</h1>
-            <div class="col-md-8">
-                <table width="60%">
-                    <tr>
-                        <td>
-                            <label for="ddlRuleType">Rule Selected:</label>
-                        </td>
-                        <td width="70%">
+            <br>
+            <table width="100%" style="background-color:#f9a825">
+                <tr>
+                    <td align="center" bgcolor="#f9a825">
+
+                        <h1 style="color:white"><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
+
+                    </td>
+                </tr>
+            </table>
+
+            <table width="100%" style="background-color:#fffde7" frame="vsides" bordercolor="#ffcc80">
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+
+                    <td align="right">
+                        <label for="ddlRuleType">Select Rule To Edit:</label>
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td width="50%">
                             {!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType', 'name'=>'ddlRuleType']) !!}
                         </td>
                     </tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
                 </table>
             </div>
             <!--<Rules help in new window/tab>  -->
-                <a href="{{url('/help') }}" target="_blank">
-                    <h1 style="padding-left:82.5%"><b><u>How to set rules?</u></b></h1>
-                </a>
+
 
         </div>
         <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>

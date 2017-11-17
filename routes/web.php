@@ -78,11 +78,11 @@ Route::get('/organization', 'OrganizationController@index');
 
 Route::post('/organization', 'OrganizationController@create');
 
-Route::get('user/manageusers', 'UserController@indexUsers');
+Route::get('user/manageusers', 'UserController@indexUsers')->name('indexsubuser');
 
-Route::get('user/manageusers/edit/{id}', 'UserController@editsubuser')->name('editsubuser');
+Route::get('user/manageusers/edit/{id}', 'UserController@editsubuser')->name('edituser');
 
-Route::post('user/manageusers/update/{id}', 'UserController@updatesubuser')->name('updatesubuser');
+Route::post('user/manageusers', 'UserController@updatesubuser')->name('updatesubuser');
 
 // Route::post('/donate', 'DonationRequestController@store')->name('donation');
 
@@ -105,8 +105,6 @@ Route::post('change-password', 'Auth\UpdatePasswordController@update');
 //Route::post('/emailtemplate', 'EmailTemplateController@edit');
 
 Route::get('/emailtemplates/edit/{id}', 'EmailTemplateController@edit');
-
-Route::get('/emailtemplates/editsendmail', 'EmailTemplateController@send');
 
 Route::resource('emailtemplates', 'EmailTemplateController');
 

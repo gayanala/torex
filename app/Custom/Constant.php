@@ -28,6 +28,21 @@ class Constant
     const ACTIVE = 1;
     const INACTIVE = 0;
 
+    //EMAIL TEMPLATE TYPES
+    const NEW_BUSINESS = 1;
+    const NEW_USER = 2;
+    const REQUEST_APPROVED = 3;
+    const REQUEST_REJECTED = 4;
+    const RESET_PASSWORD = 5;
+
+    //USER_ROLES
+    const ROOT_USER = 1;
+    const TAGG_ADMIN = 2;
+    const TAGG_USER = 3;
+    const BUSINESS_ADMIN = 4;
+    const BUSINESS_USER = 5;
+
+
 //////////  END OF CONSTANTS USED  //////////
 
 }

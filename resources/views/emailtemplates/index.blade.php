@@ -18,12 +18,12 @@
                             </tr>
                             </thead>
                             <tr>
-                            @foreach($emailtemplates as $emailtemplate)
-                                      <td style="vertical-align: middle">{{ $emailtemplate->emailTemplateTypes->template_type }}</td>
-                                    <td style="vertical-align: middle">{{ $emailtemplate->email_subject }}</td>
+                                @foreach($email_templates as $email_template)
+                                    <td style="vertical-align: middle">{{ $email_template->emailTemplateTypes->template_type }}</td>
+                                    <td style="vertical-align: middle">{{ $email_template->email_subject }}</td>
                                    
                                     <td style="vertical-align: middle"><a href="
-                                    {{action('EmailTemplateController@edit', ['id' => $emailtemplate->id])}}
+                                    {{action('EmailTemplateController@edit', ['id' => $email_template->id])}}
                                     " class="btn btn-info btn-lg"><span class="glyphicon glyphicon-pencil"></span></a>
                                 </tr>
                                 @endforeach
