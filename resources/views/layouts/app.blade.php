@@ -496,11 +496,10 @@
     </div>
     </div>
     <br>
-    <div id="content" style="padding-top:4%">
+    <div id="content">
         {{--@include('layouts.partials._status')--}}
         @yield('content')
     </div>
-
     </div>
 
 
