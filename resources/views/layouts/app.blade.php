@@ -110,7 +110,8 @@
         }
 
         h1 {
-            font-size: 20px;
+            font-size: 16px;
+            color: #3a87ad;
             position: relative;
             float: bottom;
             top: 75%;
