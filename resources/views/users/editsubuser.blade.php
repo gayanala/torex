@@ -8,7 +8,7 @@
 
                     <div class="panel-body">
 
-                        {!! Form::model($user, ['method' => 'POST', 'route'=>['updatesubuser', $user->id], 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($user, ['method' => 'POST', 'route'=>['updatesubuser'], 'class' => 'form-horizontal']) !!}
 
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -19,6 +19,17 @@
                                 </ul>
                             </div>
                         @endif
+
+                        <div class="">
+                            {!! Form::hidden('id',$user->id,['class' => 'form-control', 'required']) !!}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="role" class="col-md-4 control-label"> Role <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">
+                                {!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="first_name" class="col-md-4 control-label"> First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>

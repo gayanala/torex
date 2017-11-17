@@ -58,7 +58,7 @@
 
                             <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]?"
                                    min="0"
-                                   step="1" required value="{{ $monthlyBudget }}" size="10"/>
+                                   step="1" required value="{{ number_format($monthlyBudget, 0 ) }}" size="10"/>
                         </td>
 
 
@@ -91,11 +91,7 @@
         </form>
     </div>
 
-
-
-    <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
         <br/>
-
             <table width="100%" style="background-color:#ffffff" >
                 <tr>
                     <td align="center">
@@ -106,7 +102,7 @@
                 </tr>
             </table>
             <br>
-    </form>
+
 
     <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
 
@@ -147,17 +143,6 @@
                 </table>
             </div>
             <!--<Rules help in new window/tab>  -->
-
-                <a href="{{url('/help') }}" target="_blank">
-                    <h1 style="padding-left:82.5%"><b><u>How to set rules?</u></b></h1>
-                </a>
-    <!--  <a href="{{url('/help') }}" target="_blank">
-                    <h1 style="padding-left:82.5%"><b><u>How to set rules?</u></b></h1>
-                </a>-->
-
-              <!--  <a href="{{url('/help') }}" target="_blank">
-                    <h1 style="padding-left:82.5%"><b><u>How to set rules?</u></b></h1>
-                </a>-->
 
 
         </div>

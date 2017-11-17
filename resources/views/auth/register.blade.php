@@ -35,7 +35,7 @@ $(window).load(function()
 
                                 <div class="col-md-6">
                                     <input id="first_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your First Name should be 2-20 characters long." class="form-control" name="first_name"
-                                           value="{{ old('first_name') }}" placeholder="Your First Name" required
+                                               value="{{ old('first_name') }}" placeholder="Enter Your First Name" required
                                            autofocus>
 
                                     @if ($errors->has('first_name'))
@@ -51,7 +51,7 @@ $(window).load(function()
 
                                 <div class="col-md-6">
                                     <input id="last_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your Last Name should be 2-20 characters long." class="form-control" name="last_name"
-                                           value="{{ old('last_name') }}" placeholder="Your Last Name" required
+                                           value="{{ old('last_name') }}" placeholder="Enter Your Last Name" required
                                            autofocus>
 
                                     @if ($errors->has('last_name'))
@@ -67,8 +67,8 @@ $(window).load(function()
                                 <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email"  class="form-control" name="email"
-                                           value="{{ old('email') }}" placeholder="Enter Your Email Address" pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}" required>
+                                    <input id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  class="form-control" name="email"
+                                           value="{{ old('email') }}" placeholder="Enter Your Email Address" required>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -113,7 +113,7 @@ $(window).load(function()
 
                                 <div class="col-md-6">
                                     <input id="org_name" type="text" class="form-control" name="org_name"
-                                           value="{{ old('org_name') }}" placeholder="Name of The Organization" required
+                                           value="{{ old('org_name') }}" placeholder="Name of Your Business" required
                                            autofocus>
 
                                     @if ($errors->has('org_name'))
@@ -171,7 +171,7 @@ $(window).load(function()
 
                                 <div class="col-md-6">
                                     <input id="city" type="text" class="form-control" name="city"
-                                           value="{{ old('city') }}" placeholder="Name of the City" required autofocus>
+                                           value="{{ old('city') }}" placeholder="Enter Your City" required autofocus>
 
                                     @if ($errors->has('city'))
                                         <span class="help-block">
@@ -201,7 +201,7 @@ $(window).load(function()
 
                                 <div class="col-md-6">
                                     <input id="zipcode" type="text" pattern="[0-9]{5}" required title="Enter a 5 digit zipcode" class="form-control"
-                                           name="zipcode" value="{{ old('zipcode') }}" placeholder="ZipCode" required
+                                           name="zipcode" value="{{ old('zipcode') }}" placeholder="Zip Code" required
                                            autofocus>
 
                                     @if ($errors->has('zipcode'))
