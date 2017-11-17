@@ -255,8 +255,8 @@
             padding: 2px 3px;
             text-decoration: none;
             display: block;
-            border: 1px solid blue;
-            box-shadow: 1px 1px 20px 1px blue;
+            border: 1px solid #9c27b0;
+            box-shadow: 1px 1px 20px 1px #9c27b0;
         }
         .dropdown-menu a:hover
         {background-color: #f1f1f1}
