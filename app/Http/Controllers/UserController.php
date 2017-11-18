@@ -162,7 +162,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $states = State::pluck('state_name', 'state_code');
-        $user = User::find($id);
+        // $user = User::find($id);
+        $user = Auth::user();
+        // dd($user);
         return view('users.edit', compact('user'))->with('states', $states);
     }
 
@@ -172,8 +174,10 @@ class UserController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $user = Auth::user();
+        $id = $user->id;
         $validator = Validator::make($request->all(), [
             'phone_number' => 'required',
             'zipcode' => 'required|numeric|digits:5',
@@ -188,12 +192,13 @@ class UserController extends Controller
         if ($validator->fails()) {
             return redirect() ->back()->withErrors($validator)->withInput();
         }
-        $user = Auth::user();
+        dd($request);
 
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
 
-        return view('users.index', compact('user'));
+        // return view('users.index', compact('user'));
+        redirect()->to('/dashboard');
     }
 
     public function editsubuser($id)
