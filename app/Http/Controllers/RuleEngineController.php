@@ -94,7 +94,7 @@ class RuleEngineController extends Controller
     public function saveBudgetNotice(Request $request)
     {
         //
-        $monthlyBudget = $request->monthlyBudget;
+        $monthlyBudget = preg_replace('/[,]/', '', $request->monthlyBudget);
         $daysNotice = $request->daysNotice;
 
         $orgId = Auth::user()->organization_id;
