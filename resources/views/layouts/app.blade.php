@@ -328,7 +328,7 @@
                                                 class="glyphicon glyphicon-info-sign"></span></a></li>
                                 <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span
                                                 class="glyphicon glyphicon-question-sign"></span></a></li>
-                                <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
+                                <li><a href="{{ route('register') }}" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
                                                 class="glyphicon glyphicon-user"></span></a></li>
                                 <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span
                                                 class="glyphicon glyphicon-log-in"></span></a></li>
@@ -439,7 +439,7 @@
                             class="glyphicon glyphicon-info-sign"></span></a></li>
             <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span
                             class="glyphicon glyphicon-question-sign"></span></a></li>
-            <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
+            <li><a href="{{ route('register') }}" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
                             class="glyphicon glyphicon-user"></span></a></li>
             <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span
                             class="glyphicon glyphicon-log-in"></span></a></li>
@@ -510,8 +510,6 @@
         </li>
     </ul>
     @endif
-
-
     </div>
     </div>
     </div>

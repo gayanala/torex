@@ -17,7 +17,7 @@ class OrganizationsTableSeeder extends Seeder
             'id' => 1,
             'org_name' => 'Together A Greater Good',
             'organization_type_id' => 3,
-            'org_description' => 'Administrator and Owner of CommunityQ',
+            'org_description' => 'Administrator and Owner of CharityQ',
             'street_address1' => '123 Main St',
             'city' => 'Omaha',
             'state' => 'NE',
