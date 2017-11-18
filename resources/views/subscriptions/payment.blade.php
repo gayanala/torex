@@ -2,11 +2,6 @@
 
 @section('content')
 
-    <script>
-        var MON_CHAR = {{ config('variables.monthly_charge') }};
-        var ANUAL_CHAR = {{ config('variables.annual_charge') }};
-        var EXTRA_CHAR = {{ config('variables.extra_charge') }};
-    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{{asset('js/stripe.js')}}"></script>
     <script src="{{asset('js/custom.js')}}"></script>
@@ -67,7 +62,7 @@
                                         <option value="5">Up to 5</option>
                                         <option value="25">Up to 25</option>
                                         <option value="100">Up to 100</option>
-                                        <option value="101+">Unlimiteds</option>
+                                        <option value="101+">Unlimited</option>
                                     </select>
 
                                     @if ($errors->has('user_locations'))

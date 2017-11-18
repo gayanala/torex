@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="password" class="col-md-4 control-label">New Password <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required>

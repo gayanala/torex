@@ -14,10 +14,10 @@
 
                         <div class="dateControlBlock" style="color: #000;">
                             <div style="position: absolute; top: 5px; right: 16px; ">From:&nbsp;&nbsp;&nbsp;<input
-                                        type="date" name="dateStart" id="dateStart" size="8" style="width: 142px;"/>
+                                        type="date" name="dateStart" id="dateStart" size="8" style="box-shadow: inset 0 0 0.5px #111"/>
                             </div>
                             <div style="position: absolute; top: 45px; right: 16px; ">To:&nbsp;&nbsp;&nbsp;<input
-                                        type="date" name="dateEnd" id="dateEnd" size="8" style="width: 142px;"/></div>
+                                        type="date" name="dateEnd" id="dateEnd" size="8" style="box-shadow: inset 0 0 0.5px #111"/></div>
                         </div>
 
 
