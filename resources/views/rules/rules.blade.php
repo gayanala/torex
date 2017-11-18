@@ -19,7 +19,8 @@
             $('[data-toggle="popover"]').popover();
         });
     </script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="row">
 
     <!--<section class="bs-docs-section clearfix"> -->
     {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
@@ -88,18 +89,16 @@
             </div>
 
         </form>
-    </div>
 
-    <br/>
-    <table width="100%" style="background-color:#ffffff">
-        <tr>
-            <td align="center">
-                <a href="{{url('/help') }}" target="_blank">
-                    <h1><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h1>
+</div>
+
+    <div class="row" style="background-color:#ffffff">
+      <div class="col-sm-7" style="padding-left:45%">
+                <a href="{{url('/help') }}" target="pdf-frame">
+                    <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
                 </a>
-            </td>
-        </tr>
-    </table>
+</div>
+    </div>
     <br>
 
 

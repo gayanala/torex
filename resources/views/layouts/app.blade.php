@@ -227,11 +227,14 @@
             color: white;
             style: bold;
             font-size: 15px;
+            box-shadow: 1px 1px 20px 1px #4a148c;
+            padding-bottom: 10px;
         }
 
         .main-navigation ul li a {
             padding-right: 25px !important;
             padding-left: 25px !important;
+            color: white;
         }
 
         .w3-bar .w3-button {
@@ -252,16 +255,23 @@
         }
 
         .dropdown-menu a {
-            background-color: #e1bee7;
+            background-color: #9c27b0;
             padding: 2px 3px;
+            color: white;
             text-decoration: none;
             display: block;
-            border: 1px solid #9c27b0;
-            box-shadow: 1px 1px 20px 1px #9c27b0;
+            border: 1px solid #e1bee7;
+            box-shadow: 1px 1px 5px 1px grey;
+            padding-bottom: 10px;
+            padding-top: 10px;
         }
-
-        .dropdown-menu a:hover {
-            background-color: #f1f1f1
+        .dropdown-menu li>a {
+            color: white;
+        }
+        .dropdown-menu
+        {
+            padding-bottom: 0px;
+            padding-top: 0px;
         }
 
     </style>
@@ -284,11 +294,11 @@
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-sm-3" style='padding-left: 0px;padding-top: 0.5px'>
+                <div class="col-sm-3" style='padding-left: 0px;padding-top: .5px;padding-bottom: -5px;padding-right:10px;margin-top: -2px;margin-bottom: -0.5px'>
                     @if (Auth::guest())
                         <a href="{{ url('/') }}">
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
-                                 width="60%" style='background-size: inherit'/>
+                                 width="100%" style='background-size: inherit'/>
                         </a>
                     @elseif (Auth::user()->organization->trial_ends_at)
                         <a href="{{ url('/dashboard') }}">
@@ -318,7 +328,7 @@
                                                 class="glyphicon glyphicon-info-sign"></span></a></li>
                                 <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span
                                                 class="glyphicon glyphicon-question-sign"></span></a></li>
-                                <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
+                                <li><a href="{{ route('register') }}" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
                                                 class="glyphicon glyphicon-user"></span></a></li>
                                 <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span
                                                 class="glyphicon glyphicon-log-in"></span></a></li>
@@ -337,7 +347,7 @@
                         <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false">
-                                My Organization
+                                My Business
                                 <span class="caret"></span>
                             </a>
 
@@ -429,7 +439,7 @@
                             class="glyphicon glyphicon-info-sign"></span></a></li>
             <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span
                             class="glyphicon glyphicon-question-sign"></span></a></li>
-            <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
+            <li><a href="{{ route('register') }}" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
                             class="glyphicon glyphicon-user"></span></a></li>
             <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span
                             class="glyphicon glyphicon-log-in"></span></a></li>
@@ -445,7 +455,7 @@
             <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                    aria-expanded="false">
-                    My Organization
+                    My Business
                     <span class="caret"></span>
                 </a>
 
@@ -500,8 +510,6 @@
         </li>
     </ul>
     @endif
-
-
     </div>
     </div>
     </div>
