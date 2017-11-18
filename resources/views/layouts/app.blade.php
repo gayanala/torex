@@ -337,7 +337,7 @@
                         <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false">
-                                My Organization
+                                My Business
                                 <span class="caret"></span>
                             </a>
 
@@ -445,7 +445,7 @@
             <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                    aria-expanded="false">
-                    My Organization
+                    My Business
                     <span class="caret"></span>
                 </a>
 
