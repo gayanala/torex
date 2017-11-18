@@ -19,6 +19,7 @@
             $('[data-toggle="popover"]').popover();
         });
     </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="row">
 
     <!--<section class="bs-docs-section clearfix"> -->
@@ -93,7 +94,7 @@
 
     <div class="row" style="background-color:#ffffff">
       <div class="col-sm-7" style="padding-left:45%">
-                <a href="{{url('/help') }}" target="_blank">
+                <a href="{{url('/help') }}" target="pdf-frame">
                     <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
                 </a>
 </div>
