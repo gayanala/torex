@@ -6,7 +6,6 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Laravel\Cashier\Http\Controllers\WebhookController;
 use Session;
 
 class SubscriptionController extends Controller
@@ -39,7 +38,7 @@ class SubscriptionController extends Controller
     {
         $id = Auth::user()->organization_id;
 
-        $organization = Organization::find($id);
+        $organization = Organization::findOrFail($id);
         $locations = $request->input('user_locations');
 
         $pickedPlan = $request->get('plan');
@@ -90,24 +89,10 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function chargeSuccess(Request $request)
-    {
-        $date = \Carbon\Carbon::now();
-        $organization = organization::find(1);
-        $webhook = new WebhookController;
-        $arrData = $webhook->handleWebhook($request);
-        $objHookObject = $arrData->object;
-        $objMetaData = $objHookObject->metadata;
-        $table = config('variables.tbl_subscription');
-        $arrInsert = array('name' => 'main', 'stripe_id' => $arrData->object->id, 'stripe_plan' => $arrData->plan->id, 'quantity' => $arrData->quantity, 'organization_id' => $objMetaData->organization_id, 'created_at' => date('Y-m-d h:i:s', strtotime($date)), 'updated_at' => date('Y-m-d h:i:s', strtotime($date)));
-        $data = DB::table($table)->insertGetId($arrInsert);
-
-    }
-
     public function cancel()
     {
         $id = Auth::user()->organization_id;
-        $organization = Organization::find($id);
+        $organization = Organization::findOrFail($id);
         $organization->subscription('main')->cancel();
         if ($organization->subscription('main')->cancelled()) {
             $endsAt = DB::table('subscriptions')->where('organization_id', Auth::user()->organization_id)->value('ends_at');
@@ -123,7 +108,7 @@ class SubscriptionController extends Controller
     public function resume()
     {
 
-        $organization = Organization::find(Auth::user()->organization_id);
+        $organization = Organization::findOrFail(Auth::user()->organization_id);
         if ($organization->subscription('main')->onGracePeriod()) {
             $organization->subscription('main')->resume();
 
