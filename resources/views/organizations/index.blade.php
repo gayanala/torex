@@ -4,12 +4,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-
                 <!-- will be used to show any messages -->
                 @if (Session::has('message'))
                     <div class="alert alert-info">{{ Session::get('message') }}</div>
                 @endif
-                <div class="panel panel-default" style="">
+                <div class="panel panel-default">
                     <div class="panel-heading" style="height: 50px;">
                         <a href="{{URL::action('SubscriptionController@cancel')}}"
                            class="btn btn-primary pull-right" style="" id="cancel">
@@ -21,13 +20,11 @@
                             Resume Subscription
                         </a>
                     </div>
-
                     @if ($count < $subscription)
                         <div class="panel-heading">
                             <h1> Manage Business Locations </h1>
                             <a href="{{action('OrganizationController@createOrganization')}}"
                                class="btn btn-primary pull-right"> [+] Add </a>
-
                             <h1 style="text-align: center">Subscription made for {{$subscriptionQuantity}}
                                 locations</h1>
                         </div>
@@ -44,7 +41,7 @@
                     @endif
 
                 </div>
-                <div class="panel-heading"> <h1>My Business</h1>
+                <div class="panel-heading"><h1>My Business</h1>
 
                     <div class="panel-body">
                         <table class="table table-striped table-bordered table-hover">
@@ -71,11 +68,12 @@
                                 <td style="vertical-align: middle">{{'$'}}{{ $loggedOnUserOrganization[0]->monthly_budget}}</td>
                                 <td style="vertical-align: middle"><a
                                             href="{{route('organizations.edit',$loggedOnUserOrganization[0]->id)}}"
-                                            class="btn btn-warning">Edit</a></td> </tr>
+                                            class="btn btn-warning">Edit</a></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="panel-heading"> <h1>Business Locations</h1>
+                    <div class="panel-heading"><h1>Business Locations</h1>
 
                     </div>
 
@@ -123,22 +121,22 @@
                             </tbody>
                         </table>
                     </div>
-                    </div>
                 </div>
             </div>
-
         </div>
-        @endsection
-        @section('scripts')
-            <script>
 
-                $(document).on('click', '#cancel', function () {
-                    $(this).addClass('disabled');
+    </div>
+@endsection
+@section('scripts')
+    <script>
 
-                });
-                $(document).on('click', '#resume', function () {
-                    $(this).addClass('disabled');
-                });
+        $(document).on('click', '#cancel', function () {
+            $(this).addClass('disabled');
 
-            </script>
+        });
+        $(document).on('click', '#resume', function () {
+            $(this).addClass('disabled');
+        });
+
+    </script>
 @endsection

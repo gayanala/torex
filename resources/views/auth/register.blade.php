@@ -10,24 +10,23 @@
                     <div class="panel-body">
                         <form class="form-horizontal" method="post" action="{{ action('UserController@create') }}">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
 
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
-<script>
-$(window).load(function()
-{
-   var phones = [{ "mask": "(###) ###-####"}, { "mask": "(###) ###-##############"}];
-    $('#phone_number').inputmask({ 
-        mask: phones, 
-        greedy: false, 
-        definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
-}); 
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
+                            <script>
+                                $(window).load(function () {
+                                    var phones = [{"mask": "(###) ###-####"}, {"mask": "(###) ###-##############"}];
+                                    $('#phone_number').inputmask({
+                                        mask: phones,
+                                        greedy: false,
+                                        definitions: {'#': {validator: "[0-9]", cardinality: 1}}
+                                    });
+                                });
 
 
-
-</script>  
+                            </script>
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
@@ -35,7 +34,7 @@ $(window).load(function()
 
                                 <div class="col-md-6">
                                     <input id="first_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your First Name should be 2-20 characters long." class="form-control" name="first_name"
-                                               value="{{ old('first_name') }}" placeholder="Enter Your First Name" required
+                                           value="{{ old('first_name') }}" placeholder="Enter Your First Name" required
                                            autofocus>
 
                                     @if ($errors->has('first_name'))
@@ -67,7 +66,8 @@ $(window).load(function()
                                 <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  class="form-control" name="email"
+                                    <input id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                           class="form-control" name="email"
                                            value="{{ old('email') }}" placeholder="Enter Your Email Address" required>
 
                                     @if ($errors->has('email'))
@@ -216,12 +216,11 @@ $(window).load(function()
                             <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
                                 <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                                 <div class="col-md-6">
-                                <input id="phone_number" type="text" class="form-control"
+                                    <input id="phone_number" type="text" class="form-control"
                                            name="phone_number" value="{{ old('phone_number') }}" required
                                            autofocus>
-                                   
 
- 
+
                                     @if ($errors->has('phone_number'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('phone_number') }}</strong>

@@ -64,14 +64,15 @@
                                     ?><?php echo ($taxexempt_value); ?>
                                 </td>
                             </tr>
-                              <?php  if($donationrequest['tax_exempt']==1) { ?>
+                            <?php  if($donationrequest['tax_exempt'] == 1) { ?>
                             <tr>
                                 <td>File URL</td>
                                 <!-- <td> echo ($file_url)</td> -->
-                                <td> <a href="<?php echo($donationrequest['file_url']) ?>" target="_blank"><b>Link to File</b> </a> </td>
+                                <td><a href="<?php echo($donationrequest['file_url']) ?>" target="_blank"><b>Link to
+                                            File</b> </a></td>
 
                             </tr>
-                          <?php } else { ?>
+                            <?php } else { ?>
 
 
 
@@ -151,7 +152,7 @@
                                 <input class="btn active btn-danger" type="submit" name="reject" value="Reject">
                                 <input class="btn btn-primary" type="button" value="Go Back" onClick="history.go(-1);">
                                 {{--<a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation--}}
-                                    {{--Request</a>--}}
+                                {{--Request</a>--}}
                             @else
                                 <input class="btn btn-primary" type="button" value="Go Back" onClick="history.go(-1);">
                             @endif

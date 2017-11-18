@@ -3,12 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\NewSubBusiness;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Mail;
 use App\Mail\UserCreated;
 use App\PasswordReset;
 use Carbon\Carbon;
+use Mail;
 
 class SendWelcomeMailSubOrg
 {
@@ -32,7 +30,7 @@ class SendWelcomeMailSubOrg
     {
         //generate a token similar to the one laravel generates
         $reset_token = strtolower(str_random(40));
-        $hashed_token = hash_hmac ( 'sha256' , $reset_token , env('APP_KEY'));
+        $hashed_token = hash_hmac('sha256', $reset_token, env('APP_KEY'));
         $hashed_token_bcrypt = bcrypt($hashed_token);
 
         //insert created bcrypted token to the database along with email id and timestamp.
@@ -47,7 +45,7 @@ class SendWelcomeMailSubOrg
         //send out an email to just created user with hashed token appended to reset link,
         // which will redirect user to reset password page.
 
-        $resetLink = route('password.reset',[$hashed_token]);
+        $resetLink = route('password.reset', [$hashed_token]);
         Mail::to($event->user->email)->send(new UserCreated($resetLink, $event->user));
 
     }

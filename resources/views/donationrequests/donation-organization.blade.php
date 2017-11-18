@@ -24,7 +24,7 @@
                                     <td style="vertical-align: middle"><?php echo ($donationRequest['street_address1'] . ' ' . $donationRequest['street_address2'] . ' ' . $donationRequest['city'] . ' ' . $donationRequest['state'] . ' ' . $donationRequest['zipcode']); ?></td>
                                     <td style="vertical-align: middle"><?php echo ($donationRequest->created_at); ?></td>
                                     <td style="vertical-align: middle">
-                                        <a href="{{route('donationrequests.show',$donationRequest->id)}}" class="btn btn-warning" title="Detail">
+                                        <a href="{{route('donationrequests.show',$donationRequest->id)}}" class="btn btn-info" title="Detail">
                                             <span class="glyphicon glyphicon-list-alt"></span></a>
 
                                     </td>

@@ -69,7 +69,9 @@ Route::get('cancel', [
     'as' => 'subscription-cancel',
     'uses' => 'SubscriptionController@cancel'
 ]);
-
+Route::get('applycoupon', [
+    'uses' => 'SubscriptionController@applycoupon'
+]);
 Route::post('user/register', 'UserController@create');
 
 Route::get('/organization', 'OrganizationController@index');

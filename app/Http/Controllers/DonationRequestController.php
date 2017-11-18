@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Constant;
 use App\DonationRequest;
 use App\Events\DonationRequestReceived;
 use App\Events\TriggerAcceptEmailEvent;
 use App\Events\TriggerRejectEmailEvent;
-//use App\File;
-use App\Custom\Constant;
 use App\Organization;
+use App\ParentChildOrganizations;
 use App\Request_event_type;
 use App\Request_item_purpose;
 use App\Request_item_type;
 use App\Requester_type;
-use App\Rule_type;
 use App\State;
 use Auth;
+use Carbon\Carbon;
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use App\ParentChildOrganizations;
-use Carbon\Carbon;
 use URL;
+
+//use App\File;
 
 
 class DonationRequestController extends Controller
@@ -106,12 +106,12 @@ class DonationRequestController extends Controller
         $donationRequest->zipcode = $request->zipcode;
         $donationRequest->tax_exempt = $request->taxexempt;
         if ($request->hasFile('attachment')) {
-              $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
+            $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             // $image = $request->file('attachment');
             // $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
-          $imageName = Storage::disk('s3')->url($imageName);
+            $imageName = Storage::disk('s3')->url($imageName);
             $donationRequest->file_url = $imageName;
-          }
+        }
         $donationRequest->item_requested = $request->item_requested;
         $donationRequest->dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
@@ -131,9 +131,9 @@ class DonationRequestController extends Controller
         ]);
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
-        // $this->validate($request, [
-        //         'attachment' => 'image|file|mimetypes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
-        //     ]);
+            // $this->validate($request, [
+            //         'attachment' => 'image|file|mimetypes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
+            //     ]);
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
             $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');

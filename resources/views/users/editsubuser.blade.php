@@ -25,7 +25,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="role" class="col-md-4 control-label"> Role <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="role" class="col-md-4 control-label"> Role <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
                                 {!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control']) !!}
                             </div>

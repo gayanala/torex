@@ -2,12 +2,10 @@
 
 namespace App\Mail;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use App\User;
-use App\PasswordReset;
 
 class UserCreated extends Mailable
 {
@@ -15,6 +13,7 @@ class UserCreated extends Mailable
 
     public $user;
     public $resetLink;
+
     /**
      * Create a new message instance.
      *

@@ -3,11 +3,8 @@
 namespace App\Listeners;
 
 use App\Custom\Constant;
-use App\Events\AddDefaultTemplates;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Organization;
 use App\EmailTemplate;
+use App\Events\AddDefaultTemplates;
 
 class AddDefaultTemplatesListener
 {
@@ -31,7 +28,7 @@ class AddDefaultTemplatesListener
     {
 
         //get default templates for Accept and Reject donations email templates from TAGG.
-        $emailtemplates = EmailTemplate::where('organization_id', 1)->whereIn ('template_type_id', [Constant::REQUEST_APPROVED, Constant::REQUEST_REJECTED])->get();
+        $emailtemplates = EmailTemplate::where('organization_id', 1)->whereIn('template_type_id', [Constant::REQUEST_APPROVED, Constant::REQUEST_REJECTED])->get();
 
         foreach ($emailtemplates as $emailtemplate) {
 

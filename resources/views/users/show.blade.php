@@ -21,7 +21,6 @@
                         {{ Form::hidden('organization_id', Auth::user()->organization_id) }}
                         {!! Form::open(['url' => 'users']) !!}
 
-
                         <div class="form-group">
                             {!! Form::label('Role', 'Role') !!}
                             <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
@@ -43,7 +42,8 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email">E-Mail Address</label>
                             <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
-                            <input id="email" type="email" class="form-control" name="email" placeholder="Enter Your Email Address"
+                            <input id="email" type="email" class="form-control" name="email"
+                                   placeholder="Enter Your Email Address"
                                    value="{{ old('email') }}" required>
 
                             @if ($errors->has('email'))
@@ -57,29 +57,43 @@
                         <div class="form-group">
                             {!! Form::label('Business Location', 'Business Location') !!}
                             <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
-                            {!! Form::select('location', $childOrgNames, null, ['class' => 'form-control']) !!}
+                            {!! Form::select('location', array_merge(['' => '-- Please Select --'], $organizations), null, ['class' => 'form-control', 'id' => 'loc-drop-down']) !!}
                         </div>
-
-                        </div>
-
 
                         <div class="form-group">
-                            <div class=" col-md-offset-4">
-                                <button class="btn btn-primary" type="submit" class="" id="createbutton" onclick="myFunction();">Submit</button>
-                                <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
-                                <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
-                            </div>
+                            {!! Form::label('Role', 'Role:') !!}
+                            <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                            {!! Form::select('role_id', $roles, null, ['class' => 'form-control', 'id' => 'locations-drop-down']) !!}
                         </div>
-                        {!! Form::close() !!}
+
                     </div>
+
+
+                    <div class="form-group">
+                        <div class=" col-md-offset-4">
+                            <button class="btn btn-primary" type="submit" class="" id="createbutton">Submit</button>
+                            <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
+                            <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
+                        </div>
+                    </div>
+                        {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
 
-   {{--<script>
-        function myFunction() {
-            alert("You have Successfully Register a User");
-        }
-    </script>--}}
+   <script>
+       $("#loc-drop-down").change(function () {
+//           var end = this.value;
+           //console.log(this.index);
+           if ( $("select[name='location'] option:selected").index() == '0' ) {
+// don't display anything
+               $('#locations-drop-down').detach();
+           } else {
+               $('#locations-drop-down').appendTo("body");
+           }
+
+
+       });
+    </script>
 @stop

@@ -2,42 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\DonationRequest;
-use Illuminate\Http\Request;
-use Auth;
-use App\RoleUser;
-use App\EmailTemplate;
 use App\Custom\Constant;
+use App\DonationRequest;
+use App\EmailTemplate;
+use App\RoleUser;
+use Auth;
+use Illuminate\Http\Request;
 
-
-use App\Http\Controllers\Controller;
 
 class EmailTemplateController extends Controller
 {
 
     public function index()
     {
-    	
-    	$email_templates = [];
-    	$org_id = Auth::user()->organization_id;
-    	$user_id = Auth::id();
-    	$user_role = RoleUser::where('user_id', $user_id)->value('role_id') ; //get user role of current user
 
-    	if ($user_role == Constant::TAGG_ADMIN OR $user_role == Constant::BUSINESS_ADMIN) {
+        $email_templates = [];
+        $org_id = Auth::user()->organization_id;
+        $user_id = Auth::id();
+        $user_role = RoleUser::where('user_id', $user_id)->value('role_id'); //get user role of current user
 
-    	    $email_templates = EmailTemplate::where('organization_id', $org_id)->get();
+        if ($user_role == Constant::TAGG_ADMIN OR $user_role == Constant::BUSINESS_ADMIN) {
+
+            $email_templates = EmailTemplate::where('organization_id', $org_id)->get();
 
 
-    	}
+        }
 
-    	return view('emailtemplates.index', compact('email_templates'));
+        return view('emailtemplates.index', compact('email_templates'));
     }
 
     public function update(Request $request, $id)
     {
 
         $email_template = EmailTemplate::find($id);
-        $email_template -> update($request->all());
+        $email_template->update($request->all());
         $email_template->save();
         return redirect('emailtemplates');
     }
@@ -91,9 +89,7 @@ class EmailTemplateController extends Controller
                 $email_template = $email_template[0]; //convert collection into an array
                 return view('emaileditor.rejectsendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
             }
-        }
-        else
-        {
+        } else {
             //do not redirect to email editor if no request is selected
             return redirect('/dashboard')->with('message', 'select something');
         }

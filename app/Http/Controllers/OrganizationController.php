@@ -8,6 +8,7 @@ use App\ParentChildOrganizations;
 use App\State;
 use App\Subscription;
 use Auth;
+use Billable;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -23,7 +24,7 @@ class OrganizationController extends Controller
         $count = $childOrganizations->count();
         $subscriptionQuantity = Subscription::where('organization_id', $organizationId)->value('quantity');
         $subscription = $subscriptionQuantity - 1;
-        return view('organizations.index', compact('loggedOnUserOrganization','childOrganizations', 'count', 'subscriptionQuantity', 'subscription'));
+        return view('organizations.index', compact('loggedOnUserOrganization', 'childOrganizations', 'count', 'subscriptionQuantity', 'subscription'));
 
     }
 

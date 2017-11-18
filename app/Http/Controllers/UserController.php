@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Constant;
 use App\Events\AddDefaultTemplates;
 use App\Events\NewBusiness;
 use App\Events\NewSubBusiness;
 use App\Http\Controllers\Route;
-use App\Custom\Constant;
 use App\Organization;
 use App\ParentChildOrganizations;
+use App\Role;
 use App\RoleUser;
 use App\State;
 use App\User;
-use App\Role;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Session;
 use Validator;
@@ -43,6 +42,7 @@ class UserController extends Controller
 
     public function show($id)
     {
+
         $roles = $this->getRoles();
         $organizationId = Auth::user()->organization_id;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
@@ -55,8 +55,7 @@ class UserController extends Controller
         $childOrgNames = Organization::wherein('id', $arr)
             ->pluck('org_name', 'id');
 
-        return view('users.show', compact('roles', 'childOrgNames'));
-//        return view('users.show', compact('user', 'childOrgNames'));
+        return view('users.show', compact('roles', 'organizations'));
 
     }
 
@@ -121,9 +120,7 @@ class UserController extends Controller
 
             if (Auth::attempt($credentials)) {
                 return redirect('subscription');
-            }
-            else
-            {
+            } else {
                 return redirect('subscription');
             }
         }
@@ -235,7 +232,7 @@ class UserController extends Controller
 
         $userUpdate = $request->all();
         // Find user and only update role if they are not a root user
-        if(User::findorFail($request->id)->update($userUpdate) AND ($userUpdate['role_id'] <> Constant::ROOT_USER)){
+        if (User::findorFail($request->id)->update($userUpdate) AND ($userUpdate['role_id'] <> Constant::ROOT_USER)) {
             RoleUser::where('user_id', $request->id)->first()->update($userUpdate);
         }
 
@@ -257,12 +254,9 @@ class UserController extends Controller
     protected function getRoles()
     {
         $authUser = Auth::user();
-        if ($authUser->hasRole(Constant::TAGG_ADMIN) OR $authUser->hasRole(Constant::ROOT_USER) )
-        {
+        if ($authUser->hasRole(Constant::TAGG_ADMIN) OR $authUser->hasRole(Constant::ROOT_USER)) {
             return Role::where('id', '<>', Constant::ROOT_USER)->pluck('name', 'id');
-        }
-        else
-        {
+        } else {
             return Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
         }
     }

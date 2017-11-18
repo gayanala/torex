@@ -46,10 +46,8 @@ class User extends Authenticatable
     // check if user is in a given role
     public function hasRole($roleId)
     {
-        foreach ($this->roles()->get() as $role)
-        {
-            if ($role->id == $roleId)
-            {
+        foreach ($this->roles()->get() as $role) {
+            if ($role->id == $roleId) {
                 return true;
             }
         }

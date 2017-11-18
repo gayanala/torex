@@ -24,7 +24,8 @@
                                     <i class="fa fa-money fa-5x" style="color: #3e8f3e"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge" style="font-weight: bold; font-size: 20px;">${{$amountDonated}}</div>
+                                    <div class="huge" style="font-weight: bold; font-size: 20px;">
+                                        ${{$amountDonated}}</div>
                                     <div>TOTAL AMOUNT DONATED</div>
                                 </div>
                             </div>
@@ -40,7 +41,8 @@
                                     <i class="fa fa-window-close-o fa-5x" style="color: red"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge" style="font-weight: bold; font-size: 20px;">{{$rejectedNumber}}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{$rejectedNumber}}</div>
                                     <div>REJECTED</div>
                                 </div>
                             </div>
@@ -62,7 +64,8 @@
                                     <i class="fa fa-check-square-o fa-5x" style="color: #00dd00"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge" style="font-weight: bold; font-size: 20px;">{{$approvedNumber}}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{$approvedNumber}}</div>
                                     <div>APPROVED</div>
                                 </div>
                             </div>
@@ -84,7 +87,8 @@
                                     <i class="fa fa-clock-o fa-5x" style="color: darkorange"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge" style="font-weight: bold; font-size: 20px;">{{$pendingNumber}}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{$pendingNumber}}</div>
                                     <div>PENDING</div>
                                 </div>
                             </div>
