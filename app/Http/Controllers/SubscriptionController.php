@@ -100,7 +100,7 @@ class SubscriptionController extends Controller
 
             return redirect('organizations')->with('message', "Subscription ends at: $endsAt");
         } else {
-            return redirect('organizations')->with('message', 'Please contact Tagg administrator to end the subscription');
+            return redirect('organizations')->with('message', 'Please contact CharityQ administrator to end the subscription');
         }
 
     }
