@@ -353,6 +353,10 @@
                                         </li>
                                     @endif
 
+                                        <li>
+                                            <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business Profile</a>
+                                        </li>
+
                                     <li>
                                         <a href="{{ route('organizations.index')}}">Business Locations</a>
                                     </li>
