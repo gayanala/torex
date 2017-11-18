@@ -12,7 +12,10 @@
 
                     @if(sizeOf($donationrequests) != 0)
 
+                        <div class="dateControlBlock" style="position: absolute; top: 10px; right:16px; color: #111;">
                             <div style="">
+                                From:&nbsp;&nbsp;&nbsp;<input type="date" name="dateStart" id="dateStart" size="8" style="box-shadow: 0 0 0.5px #333; width:200px"/>
+                                To:&nbsp;&nbsp;&nbsp;<input type="date" name="dateEnd" id="dateEnd" size="8" style="box-shadow:0 0 0.5px #333; width:200px"/>
                             </div>
                         </div>
 
