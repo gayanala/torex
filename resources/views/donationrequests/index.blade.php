@@ -8,18 +8,13 @@
                 <div class="panel-heading"><h1>{{ $organizationName }}</h1></div>
                 <br>
 
-                <div class="panel-body" style="position: relative;"><br><br><br>
+                <div class="panel-body" style="position: relative;"><br><br>
 
                     @if(sizeOf($donationrequests) != 0)
 
-                        <div class="dateControlBlock" style="color: #000;">
-                            <div style="position: absolute; top: 5px; right: 16px; ">From:&nbsp;&nbsp;&nbsp;<input
-                                        type="date" name="dateStart" id="dateStart" size="8" style="box-shadow: inset 0 0 0.5px #111"/>
+                            <div style="">
                             </div>
-                            <div style="position: absolute; top: 45px; right: 16px; ">To:&nbsp;&nbsp;&nbsp;<input
-                                        type="date" name="dateEnd" id="dateEnd" size="8" style="box-shadow: inset 0 0 0.5px #111"/></div>
                         </div>
-
 
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
@@ -28,7 +23,6 @@
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Request For</th>
                                 <th class="text-center">Location</th>
-                                {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Date Needed</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Status Reason</th>
@@ -42,7 +36,6 @@
                                     <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
                                     <td style="vertical-align: middle">{{$donationrequest->organization->org_name }}</td>
-                                    {{--<td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>--}}
                                     <td id="neededByDate"
                                         style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
 
