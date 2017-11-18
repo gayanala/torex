@@ -21,11 +21,11 @@
                         {{ Form::hidden('organization_id', Auth::user()->organization_id) }}
                         {!! Form::open(['url' => 'users']) !!}
 
-                        <div class="form-group">
-                            {!! Form::label('Role', 'Role') !!}
-                            <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
-                            {!! Form::select('role_id', $roles, null, ['class' => 'form-control']) !!}
-                        </div>
+                        {{--<div class="form-group">--}}
+                            {{--{!! Form::label('Role', 'Role') !!}--}}
+                            {{--<span style="color: red; font-size: 20px; vertical-align:middle;">*</span>--}}
+                            {{--{!! Form::select('role_id', $roles, null, ['class' => 'form-control']) !!}--}}
+                        {{--</div>--}}
 
                         <div class="form-group">
                             {!! Form::label('First Name', 'First Name')!!}
@@ -57,7 +57,7 @@
                         <div class="form-group">
                             {!! Form::label('Business Location', 'Business Location') !!}
                             <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
-                            {!! Form::select('location', array_merge(['' => '-- Please Select --'], $organizations), null, ['class' => 'form-control', 'id' => 'loc-drop-down']) !!}
+                            {!! Form::select('location', array(null => '-- Please Select --') + $organizations->all(), null, ['class' => 'form-control', 'id' => 'loc-drop-down']) !!}
                         </div>
 
                         <div class="form-group">

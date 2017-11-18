@@ -46,7 +46,7 @@
 
                     <div class="panel-body">
 
-                        {!! Form::model($emailtemplate, ['method' => 'GET', 'route'=>['approveandsendmail'], 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($email_template, ['method' => 'GET', 'route'=>['approveandsendmail'], 'class' => 'form-horizontal']) !!}
 
                         @if ($errors->any())
                             <div class="alert alert-danger">

@@ -46,7 +46,7 @@ class DonationRequestController extends Controller
         $organization = Organization::where('id', $request->orgId)->get();
         $expireDate = $organization[0]->trial_ends_at;
 
-        if ($expireDate > Carbon::now()) {
+        if ($expireDate > Carbon::now() OR ($organization[0]->parentOrganization->isNotEmpty() AND $organization[0]->parentOrganization[0]->parentOrganization->trial_ends_at >= Carbon::now())) {
             $states = State::pluck('state_name', 'state_code');
             $requester_types = Requester_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
             $request_item_types = Request_item_type::where('active', '=', Constant::ACTIVE)->pluck('item_name', 'id');
@@ -203,7 +203,8 @@ class DonationRequestController extends Controller
             $organization = Organization::findOrFail($organizationId);
             $organizationName = $organization->org_name;
             $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-            return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+            $today = Carbon::now()->toDateString();
+            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
 
         } elseif ($request->input('reject') == 'Reject') {
             $donation_id = $request->id;
@@ -217,7 +218,8 @@ class DonationRequestController extends Controller
             $organization = Organization::findOrFail($organizationId);
             $organizationName = $organization->org_name;
             $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-            return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+            $today = Carbon::now()->toDateString();
+            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
         }
 
         $emailids = [];

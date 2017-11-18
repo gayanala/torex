@@ -20,10 +20,10 @@
         });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<div class="row">
+    <div class="row">
 
-    <!--<section class="bs-docs-section clearfix"> -->
-    {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
+        <!--<section class="bs-docs-section clearfix"> -->
+        {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
 
 
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
@@ -43,7 +43,7 @@
                         </td>
                     </tr>
 
-                    </table>
+                </table>
 
 
                 <table width="100%" style="background-color:#fffde7" frame="border" bordercolor="#ffcc80">
@@ -56,9 +56,10 @@
                                    title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
                                 Monthly Budget:</label>&nbsp;
 
-                            <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]?"
+                            <input id="monthlyBudget" type="text" name="monthlyBudget"
+                                   pattern="(?=.{1,10}$)\d{1,3}(?:,\d{3})+|(?=.{1,8}$)\d+"
                                    min="0"
-                                   step="1" required value="{{ number_format($monthlyBudget, 0 ) }}" size="10"/>
+                                   step="1" required value="{{ number_format($monthlyBudget, 0, '.', ',' ) }}"/>
                         </td>
 
 
@@ -72,7 +73,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="8" align="center"> <br></td>
+                        <td colspan="8" align="center"><br></td>
                     </tr>
                     <tr>
                         <td colspan="8" align="center">
@@ -83,21 +84,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="8" align="center"> <br></td>
+                        <td colspan="8" align="center"><br></td>
                     </tr>
                 </table>
             </div>
 
         </form>
 
-</div>
+    </div>
 
     <div class="row" style="background-color:#ffffff">
-      <div class="col-sm-7" style="padding-left:45%">
-                <a href="{{url('/help') }}" target="pdf-frame">
-                    <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
-                </a>
-</div>
+        <div class="col-sm-7" style="padding-left:45%">
+            <a href="{{url('/help') }}" target="pdf-frame">
+                <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
+            </a>
+        </div>
     </div>
     <br>
 
@@ -132,15 +133,15 @@
                         &nbsp;
                     </td>
                     <td width="50%">
-                            {!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType', 'name'=>'ddlRuleType']) !!}
-                        </td>
-                    </tr>
+                        {!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType', 'name'=>'ddlRuleType']) !!}
+                    </td>
+                </tr>
                 <tr>
                     <td colspan="4">&nbsp;</td>
                 </tr>
-                </table>
-            </div>
-            <!--<Rules help in new window/tab>  -->
+            </table>
+        </div>
+        <!--<Rules help in new window/tab>  -->
 
 
         </div>
@@ -214,6 +215,15 @@
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
+
+        var el = document.getElementById('monthlyBudget');
+        el.addEventListener('keyup', function (event) {
+            if (event.which >= 37 && event.which <= 40) return;
+
+            this.value = this.value.replace(/\D/g, '')
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        });
+
         $('#ddlRuleType').val({{ $_GET['rule'] }});
 
                 @if ($rule)
