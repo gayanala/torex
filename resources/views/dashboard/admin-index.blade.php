@@ -3,14 +3,11 @@
 @section('content')
 
     <div id="wrapper">
-
         <!-- Navigation -->
-
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header text-center">Request Management Dashboard</h1>
-
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -24,7 +21,8 @@
                                     <i class="fa fa-money fa-5x" style="color: #3e8f3e"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">${{ $avgAmountDonated }}$</div>
+                                    <div class="huge" style="font-weight: bold; font-size: 20px;">
+                                        ${{ $avgAmountDonated }}</div>
                                     <div>AVERAGE AMOUNT DONATED</div>
                                 </div>
                             </div>
@@ -40,7 +38,8 @@
                                     <i class="fa fa-window-close-o fa-5x" style="color: red"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{ $rejectedNumber }}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</div>
                                     <div>REJECTED</div>
                                 </div>
                             </div>
@@ -62,7 +61,8 @@
                                     <i class="fa fa-check-square-o fa-5x" style="color: #00dd00"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{ $approvedNumber }}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</div>
                                     <div>APPROVED</div>
                                 </div>
                             </div>
@@ -84,7 +84,8 @@
                                     <i class="fa fa-clock-o fa-5x" style="color: darkorange"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{ $pendingNumber }}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</div>
                                     <div>PENDING DONATIONS</div>
                                 </div>
                             </div>
@@ -99,7 +100,7 @@
                                     <i class="fa fa-user-circle fa-5x" style="color: greenyellow"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{ $userCount }}</div>
+                                    <div class="huge" style="font-weight: bold; font-size: 20px;">{{ $userCount }}</div>
                                     <div>ACTIVE CUSTOMERS</div>
                                 </div>
                             </div>
@@ -114,7 +115,8 @@
                                     <i class="fa fa-address-book-o fa-5x" ></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{ $numActiveLocations }}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{ $numActiveLocations }}</div>
                                     <div>ACTIVE LOCATIONS</div>
                                 </div>
                             </div>
@@ -129,7 +131,8 @@
                                     <i class="fa fa-user-circle fa-5x" style="color: darkgreen"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{ $userThisWeek }}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{ $userThisWeek }}</div>
                                     <div>NEW BUSINESSES THIS WEEK</div>
                                 </div>
                             </div>
@@ -144,7 +147,8 @@
                                     <i class="fa fa-user-circle fa-5x" style="color: yellow"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{ $userThisMonth }}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{ $userThisMonth }}</div>
                                     <div>NEW BUSINESSES THIS MONTH</div>
                                 </div>
                             </div>
@@ -159,7 +163,8 @@
                                     <i class="fa fa-user-circle fa-5x" style="color: blue"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{ $userThisYear }}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{ $userThisYear }}</div>
                                     <div>NEW BUSINESSES THIS YEAR</div>
                                 </div>
                             </div>
@@ -207,7 +212,8 @@
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>
                                                 <td style="vertical-align: middle"> {{ $organizations[0]->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
                                                 <td>
-                                                    <a href="{{ url('/organizationdonations', $organization->id)}}" class="btn btn-warning" title="Detail">
+                                                    <a href="{{ url('/organizationdonations', $organization->id)}}"
+                                                       class="btn btn-info" title="Detail">
                                                         <span class="glyphicon glyphicon-list-alt"></span></a>
 
                                                 </td>

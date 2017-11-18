@@ -33,7 +33,7 @@ class Constant
     const NEW_USER = 2;
     const REQUEST_APPROVED = 3;
     const REQUEST_REJECTED = 4;
-    const RESET_PASSWORD =5;
+    const RESET_PASSWORD = 5;
 
     //USER_ROLES
     const ROOT_USER = 1;

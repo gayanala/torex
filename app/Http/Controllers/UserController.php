@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Constant;
 use App\Events\AddDefaultTemplates;
 use App\Events\NewBusiness;
 use App\Events\NewSubBusiness;
 use App\Http\Controllers\Route;
-use App\Custom\Constant;
 use App\Organization;
 use App\ParentChildOrganizations;
+use App\Role;
 use App\RoleUser;
 use App\State;
 use App\User;
-use App\Role;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
@@ -42,11 +42,18 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
-        $authUserOrgId = Auth::user()->organization_id;
-        $OrgIds = ParentChildOrganizations::where('parent_org_id', $authUserOrgId)->pluck('child_org_id')->toArray();
-        array_push($OrgIds, $authUserOrgId);
-        $organizations = Organization::wherein('id', $OrgIds)->pluck('org_name', 'id')->toArray();
+
+        $roles = $this->getRoles();
+        $organizationId = Auth::user()->organization_id;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+
+        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
+        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
+        $childOrgIds = $parentChildOrg->pluck('child_org_id');
+
+        $childOrgNames = Organization::wherein('id', $arr)
+            ->pluck('org_name', 'id');
 
         return view('users.show', compact('roles', 'organizations'));
 
@@ -55,14 +62,12 @@ class UserController extends Controller
     public function indexUsers()
     {
         $organizationId = Auth::user()->organization_id;
+        $admin = Auth::user();
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
-        $users = User::whereIn('organization_id', $arr)->get();
-        $admin = $users[0];
-        $users->shift();
 
+        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
         return view('users.indexUsers', compact('users', 'admin'));
-
     }
 
     public function create(Request $request)
@@ -93,7 +98,7 @@ class UserController extends Controller
         $user->phone_number = $request->phone_number;
         $user->organization_id = $orgId;
         $user->save();
-        $user->roles()->attach(4);
+        $user->roles()->attach(Constant::BUSINESS_ADMIN);
 
         $userid = $user->id;
 
@@ -115,14 +120,10 @@ class UserController extends Controller
 
             if (Auth::attempt($credentials)) {
                 return redirect('subscription');
-            }
-            else
-            {
+            } else {
                 return redirect('subscription');
             }
         }
-
-
     }
 
     /**
@@ -201,7 +202,8 @@ class UserController extends Controller
 
     public function editsubuser($id)
     {
-        $roles = Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
+        $roles = $this->getRoles();
+
         $user = User::findOrFail($id);
         $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
         $childOrgIds = $parentChildOrg->pluck('child_org_id');
@@ -227,17 +229,18 @@ class UserController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $userUpdate = $request->all();
 
-        User::findorFail($request->id)->update($userUpdate);
-//        RoleUser::findorFail($request->id)->update($userUpdate);
+        $userUpdate = $request->all();
+        // Find user and only update role if they are not a root user
+        if (User::findorFail($request->id)->update($userUpdate) AND ($userUpdate['role_id'] <> Constant::ROOT_USER)) {
+            RoleUser::where('user_id', $request->id)->first()->update($userUpdate);
+        }
 
         $organizationId = Auth::user()->organization_id;
+        $admin = Auth::user();
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
-        $users = User::whereIn('organization_id', $arr)->get();
-        $admin = $users[0];
-        $users->shift();
+        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
 
         return view('users.indexUsers', compact('users', 'admin'));
     }
@@ -246,5 +249,15 @@ class UserController extends Controller
     {
         User::find($id)->delete();
         return redirect('users');
+    }
+
+    protected function getRoles()
+    {
+        $authUser = Auth::user();
+        if ($authUser->hasRole(Constant::TAGG_ADMIN) OR $authUser->hasRole(Constant::ROOT_USER)) {
+            return Role::where('id', '<>', Constant::ROOT_USER)->pluck('name', 'id');
+        } else {
+            return Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
+        }
     }
 }

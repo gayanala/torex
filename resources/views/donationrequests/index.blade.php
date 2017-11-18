@@ -13,8 +13,11 @@
                     @if(sizeOf($donationrequests) != 0)
 
                         <div class="dateControlBlock" style="color: #000;">
-                            <div style="position: absolute; top: 5px; right: 16px; ">From:&nbsp;&nbsp;&nbsp;<input type="date" name="dateStart" id="dateStart" size="8" style="width: 142px;"/></div>
-                            <div style="position: absolute; top: 45px; right: 16px; ">To:&nbsp;&nbsp;&nbsp;<input type="date" name="dateEnd" id="dateEnd" size="8" style="width: 142px;"/></div>
+                            <div style="position: absolute; top: 5px; right: 16px; ">From:&nbsp;&nbsp;&nbsp;<input
+                                        type="date" name="dateStart" id="dateStart" size="8" style="width: 142px;"/>
+                            </div>
+                            <div style="position: absolute; top: 45px; right: 16px; ">To:&nbsp;&nbsp;&nbsp;<input
+                                        type="date" name="dateEnd" id="dateEnd" size="8" style="width: 142px;"/></div>
                         </div>
 
 
@@ -92,7 +95,8 @@
     <!--script src="https://code.jquery.com/jquery-1.12.4.js"></script-->
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>

@@ -64,11 +64,20 @@
                                     ?><?php echo ($taxexempt_value); ?>
                                 </td>
                             </tr>
+                            <?php  if($donationrequest['tax_exempt'] == 1) { ?>
                             <tr>
                                 <td>File URL</td>
                                 <!-- <td> echo ($file_url)</td> -->
-                                <td> <?php echo $donationrequest['file_url'] ?></td>
+                                <td><a href="<?php echo($donationrequest['file_url']) ?>" target="_blank"><b>Link to
+                                            File</b> </a></td>
+
                             </tr>
+                            <?php } else { ?>
+
+
+
+                        <?php } ?>
+
                             <tr>
                                 <td>Request For</td>
                                 <td><?php echo ($item_requested_name); ?></td>
@@ -141,11 +150,11 @@
                             @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
                                 <input class="btn active btn-success" type="submit" name="approve" value="Approve">
                                 <input class="btn active btn-danger" type="submit" name="reject" value="Reject">
-                                <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
-                                    Request</a>
+                                <input class="btn btn-primary" type="button" value="Go Back" onClick="history.go(-1);">
+                                {{--<a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation--}}
+                                {{--Request</a>--}}
                             @else
-                                <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
-                                    Request</a>
+                                <input class="btn btn-primary" type="button" value="Go Back" onClick="history.go(-1);">
                             @endif
                         </div>
                     {!! Form::close() !!}

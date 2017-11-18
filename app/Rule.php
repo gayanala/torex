@@ -14,6 +14,6 @@ class Rule extends Model
         'active',
     ];
     public function ruleType() {
-        return $this->belongsTo('App\rule_type', 'rule_type_id', 'id');
+        return $this->belongsTo('App\Rule_type', 'rule_type_id', 'id');
     }
 }

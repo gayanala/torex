@@ -2,28 +2,27 @@
 
 namespace App\Mail;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use App\User;
-use App\PasswordReset;
 
 class UserCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $user;
-    public $reset_token;
+    public $resetLink;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($reset_token, User $user)
+    public function __construct($resetLink, User $user)
     {
         $this->user = $user;
-        $this->reset_token = $reset_token;
+        $this->resetLink = $resetLink;
     }
 
     /**

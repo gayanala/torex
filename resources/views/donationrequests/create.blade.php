@@ -3,8 +3,8 @@
 
 @section('content')
 
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
 
 
     <script type="text/javascript">
@@ -18,19 +18,18 @@
         }
     </script>
 
-<script>
-$(window).load(function()
-{
-   var phones = [{ "mask": "(###) ###-####"}, { "mask": "(###) ###-##############"}];
-    $('#phonenumber').inputmask({ 
-        mask: phones, 
-        greedy: false, 
-        definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
-}); 
+    <script>
+        $(window).load(function () {
+            var phones = [{"mask": "(###) ###-####"}, {"mask": "(###) ###-##############"}];
+            $('#phonenumber').inputmask({
+                mask: phones,
+                greedy: false,
+                definitions: {'#': {validator: "[0-9]", cardinality: 1}}
+            });
+        });
 
 
-
-</script> 
+    </script>
 
 
     <div class="container">
@@ -52,7 +51,9 @@ $(window).load(function()
                             <label for="requester" class="col-md-4 control-label">Name of the Organization <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-md-6">
 
-                                <input id="requester" type="text" class="form-control" name="requester" value="{{ old('requester')}}" placeholder="Name of your organization" required autofocus>
+                                <input id="requester" type="text" class="form-control" name="requester"
+                                       value="{{ old('requester')}}" placeholder="Name of Your Organization" required
+                                       autofocus>
 
 
 
@@ -81,7 +82,10 @@ $(window).load(function()
                             <label for="firstname" class="col-md-4 control-label">First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your First Name should be 2-20 characters long." class="form-control" name="firstname" value="{{ old('firstname') }}" placeholder="Your First Name" required autofocus>
+                                <input id="firstname" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required
+                                       title="Your First Name should be 2-20 characters long." class="form-control"
+                                       name="firstname" value="{{ old('firstname') }}"
+                                       placeholder="Enter Your First Name" required autofocus>
 
                                 @if ($errors->has('firstname'))
                                     <span class="help-block">
@@ -95,7 +99,10 @@ $(window).load(function()
                             <label for="lastname" class="col-md-4 control-label">Last Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your Last Name should be 2-20 characters long." class="form-control" name="lastname" value="{{ old('lastname') }}" placeholder="Your Last Name" required autofocus>
+                                <input id="lastname" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required
+                                       title="Your Last Name should be 2-20 characters long." class="form-control"
+                                       name="lastname" value="{{ old('lastname') }}" placeholder="Enter Your Last Name"
+                                       required autofocus>
 
                                 @if ($errors->has('lastname'))
                                     <span class="help-block">
@@ -109,7 +116,9 @@ $(window).load(function()
                             <label for="email" class="col-md-4 control-label">Email Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Your Email Address" autofocus required>
+                                <input id="email" type="email" class="form-control" name="email"
+                                       value="{{ old('email') }}" placeholder="Enter Your Email Address" autofocus
+                                       required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -123,10 +132,10 @@ $(window).load(function()
                             <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                             <input id="phonenumber" type="text" class="form-control"
-                                           name="phonenumber" value="{{ old('phonenumber') }}" required
-                                           autofocus>
-                                   
+                                <input id="phonenumber" type="text" class="form-control"
+                                       name="phonenumber" value="{{ old('phonenumber') }}" required
+                                       autofocus>
+
 
 
                                 @if ($errors->has('phonenumber'))
@@ -162,7 +171,8 @@ $(window).load(function()
                             <label for="city" class="col-md-4 control-label">City <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" placeholder="Your City" required autofocus>
+                                <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}"
+                                       placeholder="Enter Your City" required autofocus>
 
                                 @if ($errors->has('city'))
                                     <span class="help-block">
@@ -190,7 +200,9 @@ $(window).load(function()
                             <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="zipcode" type="text" pattern="[0-9]{5}" required title="Enter a 5 digit zipcode" class="form-control" name="zipcode" value="{{ old('zipcode') }}" placeholder="Your Zip code" required autofocus>
+                                <input id="zipcode" type="text" pattern="[0-9]{5}" required
+                                       title="Enter a 5 digit zipcode" class="form-control" name="zipcode"
+                                       value="{{ old('zipcode') }}" placeholder="Zip Code" required autofocus>
 
                                 @if ($errors->has('zipcode'))
                                     <span class="help-block">
@@ -206,10 +218,11 @@ $(window).load(function()
                             <div class="col-md-6">
 
                                 <label for="chkYes">
-                                    <input type="radio" onclick="javascript:yesnoCheck();" name="taxexempt" id="yesCheck" value="1" >Yes
+                                    <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="yesCheck"
+                                           value="1">Yes
                                 </label>
                                 <label for="chkNo">
-                                    <input type="radio" onclick="javascript:yesnoCheck();" name="taxexempt" id="noCheck" value="0" >No
+                                    <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="noCheck" value="0">No
                                 </label>
                                 @if ($errors->has('taxexempt'))
                                     <span class="help-block">
@@ -283,7 +296,9 @@ $(window).load(function()
                             <label for="eventname" class="col-md-4 control-label">Name of the Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="eventname" type="text" class="form-control" name="eventname" value="{{ old('eventname') }}" placeholder="Your Event Name" required autofocus>
+                                <input id="eventname" type="text" class="form-control" name="eventname"
+                                       value="{{ old('eventname') }}" placeholder="Enter Name of Your Event" required
+                                       autofocus>
 
                                 @if ($errors->has('eventname'))
                                     <span class="help-block">
@@ -294,10 +309,12 @@ $(window).load(function()
                         </div>
 
                         <div class="form-group{{ $errors->has('startdate') ? ' has-error' : '' }}">
-                            <label for="startdate" class="col-md-4 control-label">Event Date <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="startdate" class="col-md-4 control-label">Event Date <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="startdate" type="date" class="form-control" name="startdate" value="{{ old('startdate') }}" placeholder="Start Date" required autofocus>
+                                <input id="startdate" type="date" class="form-control" name="startdate"
+                                       value="{{ old('startdate') }}" placeholder="Start Date" required autofocus>
 
                                 @if ($errors->has('startdate'))
                                     <span class="help-block">
@@ -352,7 +369,12 @@ $(window).load(function()
                             <label for="marketingopportunities" class="col-md-4 control-label">What are the marketing opportunities? <span style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" input id="marketingopportunities"   pattern="[a-zA-Z0-9\s]" maxlength="1000"  required title="Please restrict your Text Length to 1000 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" placeholder="MAX 1000 characters" autofocus> </textarea>
+                                <textarea class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]"
+                                          maxlength="1000" required
+                                          title="Please restrict your Text Length to 1000 characters"
+                                          name="marketingopportunities" rows="5"
+                                          value="{{ old('marketingopportunities') }}" placeholder="MAX 1000 characters"
+                                          autofocus> </textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">

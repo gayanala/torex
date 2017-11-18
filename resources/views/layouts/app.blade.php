@@ -110,7 +110,8 @@
         }
 
         h1 {
-            font-size: 20px;
+            font-size: 16px;
+            color: #3a87ad;
             position: relative;
             float: bottom;
             top: 75%;
@@ -250,6 +251,18 @@
             padding: 25px -5px 5px 100px;
         }
 
+        .dropdown-menu a {
+            background-color: #e1bee7;
+            padding: 2px 3px;
+            text-decoration: none;
+            display: block;
+            border: 1px solid #9c27b0;
+            box-shadow: 1px 1px 20px 1px #9c27b0;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f1f1f1
+        }
 
     </style>
 </head>
@@ -324,7 +337,7 @@
                         <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false">
-                                My Organization
+                                My Business
                                 <span class="caret"></span>
                             </a>
 
@@ -432,7 +445,7 @@
             <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                    aria-expanded="false">
-                    My Organization
+                    My Business
                     <span class="caret"></span>
                 </a>
 
@@ -496,11 +509,10 @@
     </div>
     </div>
     <br>
-    <div id="content" style="padding-top:4%">
+    <div id="content">
         {{--@include('layouts.partials._status')--}}
         @yield('content')
     </div>
-
     </div>
 
 

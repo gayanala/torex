@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Custom\Constant;
 use App\DonationRequest;
-use Illuminate\Http\Request;
 use App\Mail\SendManualRequest;
-use Mail;
 use Auth;
+use Illuminate\Http\Request;
+use Mail;
 
 
 class EmailController extends Controller
@@ -26,19 +27,19 @@ class EmailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
- /*   public function email(){
+    /*   public function email(){
 
-        Mail::send(
+           Mail::send(
 
-            ['text'=>'emails.startmail'],[],function($message){
-            $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CommUnityQ');
-            $message->from('tagg@gmail.com','tagg');
-        });
-        Mail::to(Auth::user()->email)->send(new RegistrationSuccessful(Auth::user()));
+               ['text'=>'emails.startmail'],[],function($message){
+               $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CommUnityQ');
+               $message->from('tagg@gmail.com','tagg');
+           });
+           Mail::to(Auth::user()->email)->send(new RegistrationSuccessful(Auth::user()));
 
-        return redirect('\home');
+           return redirect('\home');
 
-    }*/
+       }*/
 
     /**
      * Gets email ids, edited email template and sends email by calling SendManualRequest Mailable
@@ -60,8 +61,7 @@ class EmailController extends Controller
         // Storing the existing template that was populated in the editor
         $default_template = $request->email_message;
 
-        foreach($emails as $index => $email)
-        {
+        foreach($emails as $index => $email) {
             $request->email_message = str_replace('{Requester Name}', $names[$index], $request->email_message);
             $request->email_message = str_replace('{My Business Name', Auth::user()->organization->org_name, $request->email_message);
 
@@ -72,8 +72,7 @@ class EmailController extends Controller
                 //update donation request status in database
                 $donation[0]->update(['approval_status_id' => Constant::APPROVED]);
                 $donation[0]->update(['approval_status_reason' => 'Approved Manually']);
-            }
-            elseif($request->status == 'Reject'){
+            } elseif($request->status == 'Reject'){
                 $donation[0]->update(['approval_status_id' => Constant::REJECTED]);
                 $donation[0]->update(['approval_status_reason' => 'Rejected Manually']);
             }
