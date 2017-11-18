@@ -31,7 +31,7 @@ class SendWelcomeMail
     {
 
 /*       Mail::send(['text'=>'emails.startmail'],[],function($message){
-            $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CommUnityQ');
+            $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CharityQ');
             $message->from('tagg@gmail.com','tagg');
         });*/
         Mail::to($event->user->email)->send(new RegistrationSuccessful($event->user));

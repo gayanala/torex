@@ -48,7 +48,11 @@ class UserController extends Controller
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
 
-        $organizations = Organization::wherein('id', $arr)
+        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
+        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
+        $childOrgIds = $parentChildOrg->pluck('child_org_id');
+
+        $childOrgNames = Organization::wherein('id', $arr)
             ->pluck('org_name', 'id');
 
         return view('users.show', compact('roles', 'organizations'));
