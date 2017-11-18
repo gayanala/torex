@@ -32,7 +32,7 @@ class EmailController extends Controller
            Mail::send(
 
                ['text'=>'emails.startmail'],[],function($message){
-               $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CommUnityQ');
+               $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CharityQ');
                $message->from('tagg@gmail.com','tagg');
            });
            Mail::to(Auth::user()->email)->send(new RegistrationSuccessful(Auth::user()));

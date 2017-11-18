@@ -30,16 +30,21 @@ class OrganizationController extends Controller
 
     public function edit($id)
     {
+        
         $organization=Organization::find($id);
         $states = State::pluck('state_name', 'state_code');
         $Organization_types = Organization_type::pluck('type_name', 'id');
+        //dd($organization);
         return view('organizations.edit', compact('organization', 'states', 'Organization_types'));
     }
 
+
+
     public function update(Request $request, $id)
     {
+        //dd($request);
         $validator = Validator::make($request->all(), [
-            'phone_number' => 'required|regex:/[0-9]{9}/',
+            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
             'zipcode' => 'required|regex:/[0-9]{5}/',
             'state' => 'required',
         ]);
@@ -48,9 +53,10 @@ class OrganizationController extends Controller
         {
             return redirect() ->back()->withErrors($validator)->withInput();
         }
-
         $organizationUpdate = $request->all();
         Organization::find($id)->update($organizationUpdate);
+        //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
+        //Organization::find($id)->update($);
         return redirect('organizations');
     }
 
