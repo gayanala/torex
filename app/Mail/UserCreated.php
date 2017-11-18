@@ -34,7 +34,7 @@ class UserCreated extends Mailable
     {
         //return $this->markdown('emails.user.usercreatedmail');
         return $this ->from('noreply@charityq.com')
-            ->subject('Welcome to CommunityQ!')
+            ->subject('Welcome to CharityQ!')
             ->markdown('emails.user.usercreatedmail');
     }
 }
