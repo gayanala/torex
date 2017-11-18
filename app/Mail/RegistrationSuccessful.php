@@ -33,7 +33,7 @@ class RegistrationSuccessful extends Mailable
     {
 
         return $this ->from('noreply@charityq.com')
-                     ->subject('Welcome to CommunityQ!')
+                     ->subject('Welcome to CharityQ!')
                      ->markdown('emails.user.welcomemail');
     }
 }
