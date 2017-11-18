@@ -125,10 +125,15 @@ class DonationRequestController extends Controller
         $donationRequest->approval_status_id = Constant::SUBMITTED;
         $donationRequest->approval_status_reason = 'Business Rules failed to run on request.';
         $this->validate($request, [
+            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
             'needed_by_date' => 'after:today',
             'startdate' => 'after:today',
             'taxexempt' => "required",
         ]);
+        
+        
+        
+
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
             // $this->validate($request, [
@@ -139,6 +144,7 @@ class DonationRequestController extends Controller
             $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
 
         }
+
 
         //fire NewBusiness event to initiate sending welcome mail
         event(new DonationRequestReceived($donationRequest));

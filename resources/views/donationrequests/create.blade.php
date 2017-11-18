@@ -20,7 +20,7 @@
 
     <script>
         $(window).load(function () {
-            var phones = [{"mask": "(###) ###-####"}, {"mask": "(###) ###-##############"}];
+            var phones = [{"mask": "(###) ###-####"}];
             $('#phonenumber').inputmask({
                 mask: phones,
                 greedy: false,
