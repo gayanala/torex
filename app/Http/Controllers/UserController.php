@@ -192,7 +192,7 @@ class UserController extends Controller
         if ($validator->fails()) {
             return redirect() ->back()->withErrors($validator)->withInput();
         }
-        dd($request);
+        //dd($request);
 
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
