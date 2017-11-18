@@ -55,9 +55,9 @@
                                    title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
                                 Monthly Budget:</label>&nbsp;
 
-                            <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]?"
-                                   min="0"
-                                   step="1" required value="{{ number_format($monthlyBudget, 0 ) }}" size="10"/>
+                            <input id="monthlyBudget" type="text" name="monthlyBudget" pattern="(?=.{1,10}$)\d{1,3}(?:,\d{3})+|(?=.{1,8}$)\d+"
+                                   min="0" title="Please use "
+                                   step="1" required value="{{ number_format($monthlyBudget, 0, '.', ',' ) }}" />
                         </td>
 
 
@@ -213,6 +213,14 @@
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
+        var el = document.getElementById('monthlyBudget');
+        el.addEventListener('keyup', function (event) {
+            if (event.which >= 37 && event.which <= 40) return;
+
+            this.value = this.value.replace(/\D/g, '')
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        });
+
         $('#ddlRuleType').val({{ $_GET['rule'] }});
 
                 @if ($rule)
