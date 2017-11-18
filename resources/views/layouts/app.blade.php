@@ -298,7 +298,7 @@
                     @if (Auth::guest())
                         <a href="{{ url('/') }}">
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
-                                 width="100%" style='background-size: inherit'/>
+                                 width="60%" style='background-size: inherit'/>
                         </a>
                     @elseif (Auth::user()->organization->trial_ends_at)
                         <a href="{{ url('/dashboard') }}">
