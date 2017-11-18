@@ -41,7 +41,7 @@
                                     <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
                                     <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
-                                    <td style="vertical-align: middle">{{$donationrequest->organization->org_name }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->organization->org_name }}</td>
                                     {{--<td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>--}}
                                     <td id="neededByDate"
                                         style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>

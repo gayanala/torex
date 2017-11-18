@@ -203,7 +203,8 @@ class DonationRequestController extends Controller
             $organization = Organization::findOrFail($organizationId);
             $organizationName = $organization->org_name;
             $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-            return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+            $today = Carbon::now()->toDateString();
+            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
 
         } elseif ($request->input('reject') == 'Reject') {
             $donation_id = $request->id;
@@ -217,7 +218,8 @@ class DonationRequestController extends Controller
             $organization = Organization::findOrFail($organizationId);
             $organizationName = $organization->org_name;
             $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-            return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+            $today = Carbon::now()->toDateString();
+            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
         }
 
         $emailids = [];
