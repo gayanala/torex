@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
 
 
+
     <script type="text/javascript">
         function yesnoCheck() {
             if (document.getElementById('yesCheck').checked) {
@@ -16,9 +17,18 @@
                 document.getElementById('file_upload').style.visibility = 'hidden';
             }
         }
-    </script>
 
-    <script>
+
+//        function explain() {
+//            console.log('asdf');
+//            var e = document.getElementById("item_requested");
+//            var strUser = e.options[e.selectedIndex].text;
+//            if ($strUser == 'Other (please explain)')
+//                this.form['item_requested_explain'].style.visibility = 'visible'
+//            else
+//                this.form['item_requested_explain'].style.visibility = 'hidden'
+//        }
+
         $(window).load(function () {
             var phones = [{"mask": "(###) ###-####"}, {"mask": "(###) ###-##############"}];
             $('#phonenumber').inputmask({
@@ -239,30 +249,24 @@
                             </div>
                         </div>
 
-
                         <div class="form-group{{ $errors->has('item_requested') ? ' has-error' : '' }}">
                             <label for="item_requested" class="col-md-4 control-label">Request For <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                {!! Form::select('item_requested', array(null => 'Select...') + $request_item_types->all(), null, ['class'=>'form-control', 'required']) !!}
+                                {!! Form::select('item_requested', array_merge(['' => '-- Please Select --'], $request_item_types->all()), null, ['id' => 'item_requested', 'class'=>'form-control', 'required']) !!}
                                 @if ($errors->has('item_requested'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('item_requested') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('dollar_amount') ? ' has-error' : '' }}">
-                            <label for="dollar_amount" class="col-md-4 control-label">Dollar Amount<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
-                            <div class="col-md-6">
-                                <input id="dollar_amount" type="text" pattern="\d+(\.\d{2})?" required title="Please use the format $.$$ for this field. " class="form-control" name="dollar_amount" value="{{ old('formAttendees') }}" placeholder="Estimated Request Dollar Amount" required autofocus>
-
-                                @if ($errors->has('dollar_amount'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('dollar_amount') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="form-group" id="explain"  style="visibility:hidden">
+                            {!! Form::label('explain', 'Explain',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                            <div class="col-md-4">
+                                <input id="item_requested_explain" type="textbox" name="other" style="visibility:hidden;" required autofocus/>
                             </div>
                         </div>
 
@@ -400,4 +404,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $('#item_requested').change(function () {
+            var e = document.getElementById("item_requested");
+            var strUser = e.options[e.selectedIndex].text;
+            if (strUser == 'Other (please explain)') {
+                document.getElementById('item_requested_explain').style.visibility = 'visible';
+            } else {
+                document.getElementById('item_requested_explain').style.visibility = 'hidden';
+            }
+        });
+    </script>
 @endsection

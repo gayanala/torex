@@ -56,8 +56,9 @@
             margin-bottom: 100px;
             padding: 0;
             min-height: 100%;
-            position: relative;
             clear: both;
+            margin-top: 20px;
+            padding-top:30px;
         }
 
         @media screen and (max-width: 600px) {
@@ -184,6 +185,10 @@
 
         .navbar-nav li a:hover {
             color: #1abc9c !important;
+                    }
+
+        .navbar-nav li a:active {
+            background-color: #e1bee7 !important;
         }
 
         .col-sm-6 {
@@ -289,8 +294,7 @@
 <div id="app">
 
 
-    <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light primarybg-"
-         style="background-color: #8e24aa;padding-bottom: .5px">
+    <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light navbar-fixed-top" style="background-color: #8e24aa;padding-bottom: .5px;margin-bottom: 10px">
         <div class="container-fluid">
 
             <div class="row">
