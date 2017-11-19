@@ -304,7 +304,8 @@
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
                         </a>
-                    @elseif (Auth::user()->organization->trial_ends_at)
+                    @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
+                    OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
                         <a href="{{ url('/dashboard') }}">
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
@@ -332,7 +333,7 @@
                                                 class="glyphicon glyphicon-info-sign"></span></a></li>
                                 <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span
                                                 class="glyphicon glyphicon-question-sign"></span></a></li>
-                                <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
+                                <li><a href="{{ route('register') }}" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
                                                 class="glyphicon glyphicon-user"></span></a></li>
                                 <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span
                                                 class="glyphicon glyphicon-log-in"></span></a></li>
@@ -366,6 +367,10 @@
                                             <a href="{{ url('user/manageusers')}}">Users</a>
                                         </li>
                                     @endif
+
+                                        <li>
+                                            <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business Profile</a>
+                                        </li>
 
                                     <li>
                                         <a href="{{ route('organizations.index')}}">Business Locations</a>
@@ -443,7 +448,7 @@
                             class="glyphicon glyphicon-info-sign"></span></a></li>
             <li><a href="{{ url('/') }}#how" class="w3-bar-item w3-button">How This Works&nbsp;<span
                             class="glyphicon glyphicon-question-sign"></span></a></li>
-            <li><a href="{{ url('/') }}#sign" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
+            <li><a href="{{ route('register') }}" class="w3-bar-item w3-button">Sign Up !&nbsp;<span
                             class="glyphicon glyphicon-user"></span></a></li>
             <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span
                             class="glyphicon glyphicon-log-in"></span></a></li>
@@ -514,8 +519,6 @@
         </li>
     </ul>
     @endif
-
-
     </div>
     </div>
     </div>

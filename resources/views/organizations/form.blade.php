@@ -4,15 +4,23 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
 <script>
+
+
+  
+
     $(window).load(function () {
-        var phones = [{"mask": "(###) ###-####"}, {"mask": "(###) ###-##############"}];
+        var phones = [{"mask": "(###) ###-####"}];
         $('#phone_number').inputmask({
             mask: phones,
             greedy: false,
-            definitions: {'#': {validator: "[0-9]", cardinality: 1}}
+            definitions: {'#': {validator: "[0-9]", cardinality: 1}},
+            
         });
-    });
 
+    });
+    // $(window).submit(function) () {
+    //     $("#phone_number").inputmask({});
+    // });
 
 </script>
 
