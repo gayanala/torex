@@ -30,34 +30,50 @@ class OrganizationController extends Controller
 
     public function edit($id)
     {
-        
-        $organization=Organization::find($id);
-        $states = State::pluck('state_name', 'state_code');
-        $Organization_types = Organization_type::pluck('type_name', 'id');
+        if (in_array($id, $this->getAllMyOrganizationIds()))
+        {
+            $organization = Organization::find($id);
+            $states = State::pluck('state_name', 'state_code');
+            $Organization_types = Organization_type::pluck('type_name', 'id');
+            return view('organizations.edit', compact('organization', 'states', 'Organization_types'));
+        }
+        else
+        {
+            return redirect('/organizations')->withErrors(array('0' => 'You do not have access to view this Business!!'));
+        }
         //dd($organization);
-        return view('organizations.edit', compact('organization', 'states', 'Organization_types'));
     }
-
 
 
     public function update(Request $request, $id)
     {
         //dd($request);
-        $validator = Validator::make($request->all(), [
-            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
-            'zipcode' => 'required|regex:/[0-9]{5}/',
-            'state' => 'required',
-        ]);
-
-        if ($validator->fails())
+        if (in_array($id, $this->getAllMyOrganizationIds()))
         {
-            return redirect() ->back()->withErrors($validator)->withInput();
+            $validator = Validator::make($request->all(), [
+                'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+                'zipcode' => 'required|regex:/[0-9]{5}/',
+                'state' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+            $organizationUpdate = $request->all();
+            Organization::find($id)->update($organizationUpdate);
+            //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
+            //Organization::find($id)->update($);
+            if($id == Auth::user()->organization_id)
+            {
+                return redirect('dashboard');
+            }
+            return redirect('organizations');
         }
-        $organizationUpdate = $request->all();
-        Organization::find($id)->update($organizationUpdate);
-        //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
-        //Organization::find($id)->update($);
-        return redirect('organizations');
+        else
+        {
+            return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
+        }
+
     }
 
 
@@ -79,7 +95,8 @@ class OrganizationController extends Controller
         ]);
     }
 
-    public function createOrganization() {
+    public function createOrganization()
+    {
         $states = State::pluck('state_name', 'state_code');
         $Organization_types = Organization_type::pluck('type_name', 'id');
         return view('organizations.create', compact('states', 'Organization_types'));
@@ -121,15 +138,22 @@ class OrganizationController extends Controller
         ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);
 
         //$childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
-        return redirect()->route("organizations.index")->with('message','Successfully added the Business Location');
+        return redirect()->route("organizations.index")->with('message', 'Successfully added the Business Location');
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $organization = ParentChildOrganizations::where('child_org_id', '=', $id);
         $organization->delete();
         return redirect()->back()->with('message', 'Successfully deleted the Business Location');
     }
+
 // include organization id in the donation request URL//
-
-
+    protected function getAllMyOrganizationIds()
+    {
+        $organization = Auth::user()->organization;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
+        array_push($arr, $organization->id);
+        return $arr;
+    }
 }

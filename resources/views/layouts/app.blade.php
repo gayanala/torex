@@ -390,7 +390,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ route('users.index')}}">Profile Management</a>
+                                    <a href="{{ action('UserController@editProfile')}}">Profile Management</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('reset-password') }}">

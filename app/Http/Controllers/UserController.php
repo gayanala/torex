@@ -23,7 +23,10 @@ use Validator;
 
 class UserController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Create a new controller instance.
      *
@@ -164,13 +167,19 @@ class UserController extends Controller
         return redirect('user/manageusers');
     }
 
-    public function edit($id)
+    public function edit()
+    {
+        redirect('user/editprofile');
+    }
+
+    public function editProfile($messages = '')
     {
         $states = State::pluck('state_name', 'state_code');
         // $user = User::find($id);
         $user = Auth::user();
         // dd($user);
-        return view('users.edit', compact('user'))->with('states', $states);
+        //dd($messages);
+        return view('users.edit', compact('user', 'states'))->with('messages', $messages);
     }
 
     /**
@@ -179,33 +188,36 @@ class UserController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update(Request $request)
+    public function updateProfile(Request $request)
     {
         $user = Auth::user();
         $id = $user->id;
-        $validator = Validator::make($request->all(), [
-          
-
-            'zipcode' => 'required|numeric|digits:5',
-            'state' => 'required',
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('users')->ignore($id),
-            ],
-              
-        ]);
-
-        if ($validator->fails()) {
-            return redirect() ->back()->withErrors($validator)->withInput();
-        }
         //dd($request);
+        if ($request->userId == $id)
+        {
+            $validator = Validator::make($request->all(), [
+                'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+                'zipcode' => 'required|numeric|digits:5',
+                'state' => 'required',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('users')->ignore($id),
+                ],
 
-        $userUpdate = $request->all();
-        User::find($id)->update($userUpdate);
+            ]);
 
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+            //dd($request);
+
+            $userUpdate = $request->all();
+            User::find($id)->update($userUpdate);
+        }
+        $messages = 'Profile updated successfully';
         // return view('users.index', compact('user'));
-        redirect()->to('/dashboard');
+        Return redirect('user/editprofile')->with('messages', $messages);
     }
 
     public function editsubuser($id)
