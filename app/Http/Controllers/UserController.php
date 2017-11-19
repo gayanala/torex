@@ -98,6 +98,11 @@ class UserController extends Controller
 
         $userid = $user->id;
 
+
+          
+
+              
+
         //fire NewBusiness event to initiate sending welcome mail
 
         event(new NewBusiness($user));
@@ -179,7 +184,8 @@ class UserController extends Controller
         $user = Auth::user();
         $id = $user->id;
         $validator = Validator::make($request->all(), [
-            'phone_number' => 'required',
+          
+
             'zipcode' => 'required|numeric|digits:5',
             'state' => 'required',
             'email' => [
@@ -187,6 +193,7 @@ class UserController extends Controller
                 'email',
                 Rule::unique('users')->ignore($id),
             ],
+              
         ]);
 
         if ($validator->fails()) {

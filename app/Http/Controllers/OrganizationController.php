@@ -71,7 +71,7 @@ class OrganizationController extends Controller
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
             'zipcode' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
 
             /*'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
