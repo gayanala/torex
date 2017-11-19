@@ -46,7 +46,7 @@ class DonationRequestController extends Controller
         $organization = Organization::where('id', $request->orgId)->get();
         $expireDate = $organization[0]->trial_ends_at;
 
-        if ($expireDate > Carbon::now()) {
+        if ($expireDate > Carbon::now() OR ($organization[0]->parentOrganization->isNotEmpty() AND $organization[0]->parentOrganization[0]->parentOrganization->trial_ends_at >= Carbon::now())) {
             $states = State::pluck('state_name', 'state_code');
             $requester_types = Requester_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
             $request_item_types = Request_item_type::where('active', '=', Constant::ACTIVE)->pluck('item_name', 'id');
@@ -125,10 +125,15 @@ class DonationRequestController extends Controller
         $donationRequest->approval_status_id = Constant::SUBMITTED;
         $donationRequest->approval_status_reason = 'Business Rules failed to run on request.';
         $this->validate($request, [
+            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
             'needed_by_date' => 'after:today',
             'startdate' => 'after:today',
             'taxexempt' => "required",
         ]);
+        
+        
+        
+
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
             // $this->validate($request, [
@@ -139,6 +144,7 @@ class DonationRequestController extends Controller
             $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
 
         }
+
 
         //fire NewBusiness event to initiate sending welcome mail
         event(new DonationRequestReceived($donationRequest));
@@ -203,7 +209,8 @@ class DonationRequestController extends Controller
             $organization = Organization::findOrFail($organizationId);
             $organizationName = $organization->org_name;
             $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-            return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+            $today = Carbon::now()->toDateString();
+            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
 
         } elseif ($request->input('reject') == 'Reject') {
             $donation_id = $request->id;
@@ -217,7 +224,8 @@ class DonationRequestController extends Controller
             $organization = Organization::findOrFail($organizationId);
             $organizationName = $organization->org_name;
             $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-            return view('donationrequests.index', compact('donationrequests', 'organizationName'));
+            $today = Carbon::now()->toDateString();
+            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
         }
 
         $emailids = [];

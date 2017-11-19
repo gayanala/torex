@@ -300,7 +300,8 @@
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
                                  width="100%" style='background-size: inherit'/>
                         </a>
-                    @elseif (Auth::user()->organization->trial_ends_at)
+                    @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
+                    OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
                         <a href="{{ url('/dashboard') }}">
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
@@ -362,6 +363,10 @@
                                             <a href="{{ url('user/manageusers')}}">Users</a>
                                         </li>
                                     @endif
+
+                                        <li>
+                                            <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business Profile</a>
+                                        </li>
 
                                     <li>
                                         <a href="{{ route('organizations.index')}}">Business Locations</a>

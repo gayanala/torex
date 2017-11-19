@@ -17,7 +17,7 @@
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
                             <script>
                                 $(window).load(function () {
-                                    var phones = [{"mask": "(###) ###-####"}, {"mask": "(###) ###-##############"}];
+                                    var phones = [{"mask": "(###) ###-####"}];
                                     $('#phone_number').inputmask({
                                         mask: phones,
                                         greedy: false,
@@ -51,7 +51,7 @@
                                 <div class="col-md-6">
                                     <input id="last_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your Last Name should be 2-20 characters long." class="form-control" name="last_name"
                                            value="{{ old('last_name') }}" placeholder="Enter Your Last Name" required
-                                           autofocus>
+                                           >
 
                                     @if ($errors->has('last_name'))
                                         <span class="help-block">
@@ -69,7 +69,8 @@
                                     <input id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                            class="form-control" name="email"
                                            value="{{ old('email') }}" placeholder="Enter Your Email Address" required>
-
+                                          
+                                           
                                     @if ($errors->has('email'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -114,7 +115,7 @@
                                 <div class="col-md-6">
                                     <input id="org_name" type="text" class="form-control" name="org_name"
                                            value="{{ old('org_name') }}" placeholder="Name of Your Business" required
-                                           autofocus>
+                                           >
 
                                     @if ($errors->has('org_name'))
                                         <span class="help-block">
@@ -146,7 +147,7 @@
                                 <div class="col-md-6">
                                     <input id="street_address1" type="text" class="form-control" name="street_address1"
                                            value="{{ old('street_address1') }}"
-                                           placeholder="Street Address, Company Name, C/O" required autofocus>
+                                           placeholder="Street Address, Company Name, C/O" required >
 
                                     @if ($errors->has('street_address1'))
                                         <span class="help-block">
@@ -171,7 +172,7 @@
 
                                 <div class="col-md-6">
                                     <input id="city" type="text" class="form-control" name="city"
-                                           value="{{ old('city') }}" placeholder="Enter Your City" required autofocus>
+                                           value="{{ old('city') }}" placeholder="Enter Your City" required >
 
                                     @if ($errors->has('city'))
                                         <span class="help-block">
@@ -202,7 +203,7 @@
                                 <div class="col-md-6">
                                     <input id="zipcode" type="text" pattern="[0-9]{5}" required title="Enter a 5 digit zipcode" class="form-control"
                                            name="zipcode" value="{{ old('zipcode') }}" placeholder="Zip Code" required
-                                           autofocus>
+                                           >
 
                                     @if ($errors->has('zipcode'))
                                         <span class="help-block">
@@ -217,8 +218,8 @@
                                 <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                                 <div class="col-md-6">
                                     <input id="phone_number" type="text" class="form-control"
-                                           name="phone_number" value="{{ old('phone_number') }}" required
-                                           autofocus>
+                                           name="phone_number"  value="{{ old('phone_number') }}" required
+                                           >
 
 
                                     @if ($errors->has('phone_number'))

@@ -48,11 +48,7 @@ class UserController extends Controller
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
 
-        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
-        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
-        $childOrgIds = $parentChildOrg->pluck('child_org_id');
-
-        $childOrgNames = Organization::wherein('id', $arr)
+        $organizations = Organization::wherein('id', $arr)
             ->pluck('org_name', 'id');
 
         return view('users.show', compact('roles', 'organizations'));
@@ -101,6 +97,11 @@ class UserController extends Controller
         $user->roles()->attach(Constant::BUSINESS_ADMIN);
 
         $userid = $user->id;
+
+
+          
+
+              
 
         //fire NewBusiness event to initiate sending welcome mail
 
@@ -166,7 +167,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $states = State::pluck('state_name', 'state_code');
-        $user = User::find($id);
+        // $user = User::find($id);
+        $user = Auth::user();
+        // dd($user);
         return view('users.edit', compact('user'))->with('states', $states);
     }
 
@@ -176,10 +179,13 @@ class UserController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $user = Auth::user();
+        $id = $user->id;
         $validator = Validator::make($request->all(), [
-            'phone_number' => 'required',
+          
+
             'zipcode' => 'required|numeric|digits:5',
             'state' => 'required',
             'email' => [
@@ -187,17 +193,19 @@ class UserController extends Controller
                 'email',
                 Rule::unique('users')->ignore($id),
             ],
+              
         ]);
 
         if ($validator->fails()) {
             return redirect() ->back()->withErrors($validator)->withInput();
         }
-        $user = Auth::user();
+        //dd($request);
 
         $userUpdate = $request->all();
         User::find($id)->update($userUpdate);
 
-        return view('users.index', compact('user'));
+        // return view('users.index', compact('user'));
+        redirect()->to('/dashboard');
     }
 
     public function editsubuser($id)
