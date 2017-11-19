@@ -1,6 +1,12 @@
 $("body").on('change', '#plan,#user_locations', function () {
+    $("#cart").removeClass("hide");
     var plan = $('#plan').val();
     var user = $('#user_locations').val();
+    var location_selected = document.getElementById("user_locations").options[document.getElementById("user_locations").selectedIndex].text;
+    var plan_selected = document.getElementById("plan").options[document.getElementById("plan").selectedIndex].text;
+    $('#plan_selected').html(plan_selected);
+    $('#location_selected').html(location_selected);
+
     var yearly_charge = '';
     var totalamount = '';
     if ((plan != '') && (user != '')) {
@@ -31,9 +37,9 @@ $("body").on('change', '#plan,#user_locations', function () {
 
         }
         if (totalamount != '') {
-            $('#result_final').html(totalamount);
-        } else {
-            $('#result_final').html(0);
+            $('#total_price').html(totalamount);
+            $('#balance_price').html(totalamount);
+
         }
     }
 });
