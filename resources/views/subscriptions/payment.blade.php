@@ -106,7 +106,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-12" style="max-height: 15px;color:red;" id="coupon-message"></div>
+                            <div class="col-sm-12" style="max-height: 15px;font-size: 14px;" id="coupon-message"></div>
                         </div>
                         <div class="col-xs-12 col-md-4 hide" id="cart">
                             <div class="panel panel-default">
