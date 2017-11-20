@@ -1,9 +1,9 @@
 
 <div>
-    {!! $email->email_message !!}
+    {!! $emailTemplate->email_message !!}
 </div>
 <div>
-    {{$resetLink}}
+    <a href="{{$resetLink}}" class="btn">Start!</a>
 </div>
 
 

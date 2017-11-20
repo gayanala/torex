@@ -162,6 +162,7 @@
                                     @endif
                                 </table>
                                 {!! Form::open(['action' =>  'EmailTemplateController@send', 'method' => 'GET']) !!}
+                                {{ csrf_field() }}
                                 {{ Form::hidden('ids_string','' , array('id' => 'selected-ids-hidden')) }}
                                 {{ Form::hidden('page_from', '/dashboard') }}
                                 {{--add if condition to show approve and reject buttons only if there are pending requests and atleast one is selected--}}

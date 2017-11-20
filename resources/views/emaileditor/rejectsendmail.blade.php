@@ -57,7 +57,7 @@
                                 </ul>
                             </div>
                         @endif
-
+                        {{ csrf_field() }}
                         <div class="form-group">
                             {!! Form::label('To', 'To:', ['class'=>'col-md-3 control-label', ]) !!}
                             <div class="col-lg-9" align="center">

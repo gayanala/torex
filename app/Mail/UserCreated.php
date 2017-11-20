@@ -24,7 +24,7 @@ class UserCreated extends Mailable
     {
         $this->user = $user;
         $this->resetLink = $resetLink;
-        $this->emailTemplate = $emailTemplate;
+        $this->emailTemplate = $emailTemplate[0];
     }
 
     /**
@@ -34,6 +34,7 @@ class UserCreated extends Mailable
      */
     public function build()
     {
+        //dd($this->emailTemplate->email_subject);
         //return $this->markdown('emails.user.usercreatedmail');
         return $this ->from('noreply@charityq.com')
             ->subject($this->emailTemplate->email_subject)

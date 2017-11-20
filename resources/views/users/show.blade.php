@@ -20,7 +20,7 @@
 
                         {{ Form::hidden('organization_id', Auth::user()->organization_id) }}
                         {!! Form::open(['url' => 'users']) !!}
-
+                        {{ csrf_field() }}
                         <div class="form-group">
                             {!! Form::label('First Name', 'First Name')!!}
                             <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
