@@ -148,12 +148,7 @@
                                     <div class="panel-heading"><h1 style="text-align: center;"> Payment Details </h1>
                                     </div>
 
-                                    <div class="checkbox pull-right">
-                                        <label>
-                                            <input type="checkbox"/>
-                                            Remember
-                                        </label>
-                                    </div>
+
                                 </div>
                                 <div class="panel-body">
                                     <div class="stripe-errors panel"></div>

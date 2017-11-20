@@ -226,15 +226,13 @@ class UserController extends Controller
         $roles = $this->getRoles();
 
         $user = User::findOrFail($id);
-        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
-        $childOrgIds = $parentChildOrg->pluck('child_org_id');
-        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
-        $childOrgNames = Organization::wherein('id', $childOrgIds)
-            ->orWhere('id', $parentOrgIds)
-            ->pluck('org_name', 'id');
+        $organizationId = Auth::user()->organization_id;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+        $orgNames = Organization::whereIn('id', $arr)->pluck('org_name', 'id');
 
         $states = State::pluck('state_name', 'state_code');
-        return view('users.editsubuser', compact('user', 'childOrgNames', 'roles'))->with('states', $states);
+        return view('users.editsubuser', compact('user', 'orgNames', 'roles'))->with('states', $states);
     }
 
     public function updatesubuser(Request $request)
