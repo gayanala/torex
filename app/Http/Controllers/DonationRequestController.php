@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use URL;
 
-//use App\File;
 
 
 class DonationRequestController extends Controller
@@ -105,10 +104,9 @@ class DonationRequestController extends Controller
         $donationRequest->state = $request->state;
         $donationRequest->zipcode = $request->zipcode;
         $donationRequest->tax_exempt = $request->taxexempt;
+
         if ($request->hasFile('attachment')) {
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
-            // $image = $request->file('attachment');
-            // $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
             $imageName = Storage::disk('s3')->url($imageName);
             $donationRequest->file_url = $imageName;
         }
@@ -125,14 +123,14 @@ class DonationRequestController extends Controller
         $donationRequest->approval_status_id = Constant::SUBMITTED;
         $donationRequest->approval_status_reason = 'Business Rules failed to run on request.';
         $this->validate($request, [
-            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+            // 'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
             'needed_by_date' => 'after:today',
             'startdate' => 'after:today',
             'taxexempt' => "required",
         ]);
-        
-        
-        
+
+
+
 
         $donationRequest->save();
         if ($request->hasFile('attachment')) {
