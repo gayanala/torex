@@ -37,8 +37,8 @@
                             <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
                             <a href="{{action('OrganizationController@createOrganization')}}"
                                class="btn btn-primary pull-right"> [+] Add </a>
-                            <h1 style="text-align: center">Subscription made for {{$subscriptionQuantity}}
-                                locations</h1>
+                            <h1 style="text-align: center">{{$count + 1}} out of {{$subscriptionQuantity}}
+                                locations added</h1>
                         </div>
                     @else
                         <div class="alert alert-info">Plan limit includes the parent organization and the limit is
@@ -65,7 +65,7 @@
                             <th class="text-center">Address</th>
                             <th class="text-center">Phone Number</th>
                             <th class="text-center">Monthly Budget</th>
-                            <th class="text-center" colspan="2">Operations</th>
+                            <th class="text-center" colspan="2"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -100,7 +100,7 @@
                             <th class="text-center">Address</th>
                             <th class="text-center">Phone Number</th>
                             <th class="text-center">Monthly Budget</th>
-                            <th class="text-center" colspan="2">Operations</th>
+                            <th class="text-center" colspan="2"></th>
                         </tr>
                         </thead>
                         <tbody>
