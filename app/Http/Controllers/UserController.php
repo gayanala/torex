@@ -29,10 +29,10 @@ class UserController extends Controller
      *
      * @return void
      */
-    /*public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
-    }*/
+    }
 
     public function index()
     {
@@ -42,20 +42,27 @@ class UserController extends Controller
 
     public function show($id)
     {
-
         $roles = $this->getRoles();
-        $organizationId = Auth::user()->organization_id;
-        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
-        array_push($arr, $organizationId);
+        $authOrganizationId = Auth::user()->organization_id;
 
-        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
-        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
-        $childOrgIds = $parentChildOrg->pluck('child_org_id');
+        $organizationsIds = ParentChildOrganizations::where('parent_org_id', $authOrganizationId)->pluck('child_org_id')->toArray();
 
-        $childOrgNames = Organization::wherein('id', $arr)
-            ->pluck('org_name', 'id');
+        array_push($organizationsIds, $authOrganizationId);
 
-        return view('users.show', compact('roles', 'organizations'));
+        $organizationStatusArray = [];
+
+        foreach ($organizationsIds as $key => $value) {
+//dd(Organization::findOrFail(5)->org_name);
+            $organizationName = Organization::findOrFail($value)->org_name;
+            if ( $value == $authOrganizationId ) {
+                $organizationStatusArray['parent_' . $key] = $organizationName;
+            } else {
+                $organizationStatusArray['child_' . $key] = $organizationName;
+            }
+
+    }
+//dd($organizationStatusArray);
+        return view('users.show', compact('roles', 'organizationStatusArray'));
 
     }
 
