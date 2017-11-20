@@ -19,12 +19,43 @@
             });
 
         });
-
-
     </script>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+
+
+
+
+                <div class="col-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
+                        <div class="panel-body">
+                            <script type="text/javascript">
+                                function Copy() {
+                                    var urlCopied = document.getElementById('urlCopied');
+                                    urlCopied.value = "{{url('donationrequests/create')}}?orgId={{$organization->id}}" ;
+                                    urlCopied.select();
+                                    //Copied = Url.createTextRange();
+                                    document.execCommand("copy");
+                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website\n" +
+                                        "The URL has been copied to your clipboard.");
+                                }
+                            </script>
+                            <body>
+                            <div>
+                                <input type="button" style="cursor: help;" value="Generate Url" title="For use for promotions or on social media." onclick="Copy();" />
+                                <input type="text" id="urlCopied" size="80"/>
+
+                            </div>
+                            </body>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
                 <div class="panel panel-default">
                     <div class="panel-heading">Update Location</div>
 
@@ -68,7 +99,7 @@
 
                             <div class="col-md-6">
 
-                                {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control']) !!}
+                                {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control','required']) !!}
 
                                 @if ($errors->has('organization_type_id'))
                                     <span class="help-block">
@@ -124,8 +155,9 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ route('organizations.index')}}" class="btn btn-primary">Cancel</a>
+                                {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
+                                <button id="btnEdit" class="btn btn-primary hidden" type="button">Edit</button>
+                                <a id="btnCancel" href="{{ route('organizations.index')}}" class="btn btn-primary">Cancel</a>
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
@@ -135,5 +167,22 @@
                 </div>
             </div>
         </div>
+        @if (Auth::user()->organization_id == $organization->id)
+<script>
+    $(window).load(function() {
+        $("input").attr("readonly", true);
+        $("select").attr("disabled", true);
+        $("#btnSave").addClass("hidden");
+        $("#btnCancel").addClass("hidden");
+        $('#btnEdit').removeClass('hidden');
+    });
+    $('#btnEdit').on('click', function () {
+        $('input').removeAttr('readonly');
+        $('select').removeAttr('disabled');
+        $('#btnSave').removeClass('hidden');
+        $('#btnEdit').addClass('hidden');
+    });
+</script>
+        @endif
     </div>
 @endsection

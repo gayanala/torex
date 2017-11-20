@@ -3,10 +3,10 @@
 
 Your Organization ***{{$user->organization->org_name}}*** has been successfully registered.
 
-Thank you for registering your business on CharityQ.
+Thank you for registering your business on ***{{getenv('APP_NAME')}}***.
 We look forward to helping your business save time and make it easy to support the charities you truly care about.
 
-A few things you can do with CharityQ:
+A few things you can do with ***{{getenv('APP_NAME')}}***:
 
 All requests for donation are streamlined and organized.
 * Filters can be used to ensure the organizations your business wants to support are front and center
