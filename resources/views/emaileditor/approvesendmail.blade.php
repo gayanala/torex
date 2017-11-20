@@ -22,9 +22,9 @@
                     text: 'Place Holders',
                     icon: false,
                     menu: [{
-                        text: 'Patron',
+                        text: 'Addresee',
                         onclick: function () {
-                            editor.insertContent('&nbsp;<b>{Requester Name}</b>&nbsp;');
+                            editor.insertContent('&nbsp;<b>{Addressee}</b>&nbsp;');
                         }
                     }, {
                         text: 'My Business Name',

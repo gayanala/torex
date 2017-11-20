@@ -7,6 +7,8 @@ use App\Mail\UserCreated;
 use App\PasswordReset;
 use Carbon\Carbon;
 use Mail;
+use App\EmailTemplate;
+use App\Custom\Constant;
 
 class SendWelcomeMailSubOrg
 {
@@ -46,7 +48,11 @@ class SendWelcomeMailSubOrg
         // which will redirect user to reset password page.
 
         $resetLink = route('password.reset', [$hashed_token]);
-        Mail::to($event->user->email)->send(new UserCreated($resetLink, $event->user));
+
+        //get email template for add new user
+        $emailTemplate = EmailTemplate::where('template_type_id', Constant::NEW_USER)->get();
+
+        Mail::to($event->user->email)->send(new UserCreated($emailTemplate, $resetLink, $event->user));
 
     }
 }

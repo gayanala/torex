@@ -13,16 +13,18 @@ class UserCreated extends Mailable
 
     public $user;
     public $resetLink;
+    public $emailTemplate;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($resetLink, User $user)
+    public function __construct($emailTemplate, $resetLink, User $user)
     {
         $this->user = $user;
         $this->resetLink = $resetLink;
+        $this->emailTemplate = $emailTemplate;
     }
 
     /**
@@ -34,7 +36,7 @@ class UserCreated extends Mailable
     {
         //return $this->markdown('emails.user.usercreatedmail');
         return $this ->from('noreply@charityq.com')
-            ->subject('Welcome to CharityQ!')
-            ->markdown('emails.user.usercreatedmail');
+            ->subject($this->emailTemplate->email_subject)
+            ->view('emails.user.usercreatedmail');
     }
 }

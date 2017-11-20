@@ -22,9 +22,9 @@
               text: 'Place Holders',
               icon: false,
               menu: [{
-                  text: 'Patron',
+                  text: 'Addressee',
                   onclick: function () {
-                      editor.insertContent('&nbsp;<b>{Requester Name}</b>&nbsp;');
+                      editor.insertContent('&nbsp;<b>{Addressee}</b>&nbsp;');
                   }
               }, {
                   text: 'My Business Name',
@@ -57,6 +57,8 @@
                                 </ul>
                             </div>
                         @endif
+
+                        {{ csrf_field() }}
 
                         <div class="form-group">
                             <label for="Email Subject" class="col-md-3 control-label">Email Subject <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
