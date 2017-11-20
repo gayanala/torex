@@ -32,7 +32,7 @@ class PasswordIsUpdated extends Mailable
     public function build()
     {
         return $this->from('noreply@charityq.com')
-            ->subject('Your CharityQ password has been updated')
+            ->subject('Your '.getenv('APP_NAME').' password has been updated')
             ->markdown('emails.user.passwordupdatedmail');
     }
 }
