@@ -47,8 +47,8 @@ class DashboardController extends Controller
             $organization = Organization::findOrFail($organizationId);
 
             $organizationName = $organization->org_name;
-            $donationrequests = DonationRequest::where('organization_id', '=', $this->getAllMyOrganizationIds())
-                ->whereIn('approval_status_id', [Constant::SUBMITTED, Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->get();
+            $donationrequests = DonationRequest::whereIn('organization_id', $this->getAllMyOrganizationIds())
+                ->whereIn('approval_status_id', [Constant::SUBMITTED, Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->get();//dd($donationrequests);
             $amountDonated = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organizationId)->sum('approved_dollar_amount');
             $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->where('organization_id', $organizationId)->count();
             $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organizationId)->count();
@@ -86,10 +86,10 @@ class DashboardController extends Controller
 
     protected function getAllMyOrganizationIds()
     {
-        $organization = Auth::user()->organization;
-        $arr = ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
-        array_push($arr, $organization->id);
-        return $arr;
+        $organizationId = Auth::user()->organization->id;
+        $orgIds = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($orgIds, $organizationId);
+        return $orgIds;
     }
 
 }
