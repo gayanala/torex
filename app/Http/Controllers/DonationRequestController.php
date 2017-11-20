@@ -111,15 +111,10 @@ class DonationRequestController extends Controller
             $donationRequest->file_url = $imageName;
         }
         $donationRequest->item_requested = $request->item_requested;
-        if ($request->item_requested('attachment')) {
-            $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
-            // $image = $request->file('attachment');
-            // $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
-            $imageName = Storage::disk('s3')->url($imageName);
-            $donationRequest->file_url = $imageName;
-        }
+        $donationRequest->other_item_requested = $request->item_requested_explain;
         $donationRequest->dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
+        $donationRequest->other_item_purpose = $request->item_purpose_explain;
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
         $donationRequest->event_start_date = $request->startdate;
