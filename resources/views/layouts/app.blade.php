@@ -300,7 +300,8 @@
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
                                  width="100%" style='background-size: inherit'/>
                         </a>
-                    @elseif (Auth::user()->organization->trial_ends_at)
+                    @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
+                    OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
                         <a href="{{ url('/dashboard') }}">
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
@@ -356,25 +357,22 @@
                                     <li>
                                         <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
                                     </li>
-
-                                    @if(Auth::user()->roles[0]->id == 4 OR 1 OR 2)
+                                    <li>
+                                        <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business Profile</a>
+                                    </li>
+                                    @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)
                                         <li>
                                             <a href="{{ url('user/manageusers')}}">Users</a>
                                         </li>
-                                    @endif
-
                                         <li>
-                                            <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business Profile</a>
+                                            <a href="{{ route('organizations.index')}}">Business Locations</a>
                                         </li>
-
-                                    <li>
-                                        <a href="{{ route('organizations.index')}}">Business Locations</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('emailtemplates.index') }}">
-                                            Communication Template
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <a href="{{ route('emailtemplates.index') }}">
+                                                Communication Template
+                                            </a>
+                                        </li>
+                                    @endif
                                 </div>
                             </ul>
                         </li>
@@ -389,7 +387,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ route('users.index')}}">Profile Management</a>
+                                    <a href="{{ action('UserController@editProfile')}}">User Profile</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('reset-password') }}">

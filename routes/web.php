@@ -27,6 +27,7 @@ Route::get('/about-us', function () { return view('Front-page');});
 Route::get('/help', function () {
     return view('help');
 });
+//Route::post('resetuserpassword', function () {event(new NewSubBusiness($user));})
 
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -84,7 +85,8 @@ Route::get('user/manageusers/edit/{id}', 'UserController@editsubuser')->name('ed
 
 Route::post('user/manageusers', 'UserController@updatesubuser')->name('updatesubuser');
 
-// Route::post('/donate', 'DonationRequestController@store')->name('donation');
+Route::get('/user/editprofile', 'UserController@editProfile')->name('editprofile');
+Route::patch('/user/updateprofile', 'UserController@updateProfile')->name('updateprofile');
 
 Route::get('/donationrequests/create', 'DonationRequestController@create')->name('donation');
 

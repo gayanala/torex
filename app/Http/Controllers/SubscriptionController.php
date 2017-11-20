@@ -37,16 +37,13 @@ class SubscriptionController extends Controller
     public function postJoin(Request $request)
     {
         $id = Auth::user()->organization_id;
-
         $organization = Organization::findOrFail($id);
         $locations = $request->input('user_locations');
-
         $pickedPlan = $request->get('plan');
         $plan = $pickedPlan . $locations;
-
         $coupon = $request->get('coupon');
-        if ($organization->subscribedToPlan($plan, 'main')) {
-            return redirect('subscription')->with('status', 'Plan Already Submitted!');
+        if ($organization->subscribed('main')) {
+            return redirect('subscription')->with('message', 'Plan Already Submitted!');
         } else {
             if ($request->input('plan') == "Annually") {
                 if (isset($coupon)) {
@@ -100,7 +97,7 @@ class SubscriptionController extends Controller
 
             return redirect('organizations')->with('message', "Subscription ends at: $endsAt");
         } else {
-            return redirect('organizations')->with('message', 'Please contact Tagg administrator to end the subscription');
+            return redirect('organizations')->with('message', 'Please contact CharityQ administrator to end the subscription');
         }
 
     }

@@ -30,28 +30,50 @@ class OrganizationController extends Controller
 
     public function edit($id)
     {
-        $organization=Organization::find($id);
-        $states = State::pluck('state_name', 'state_code');
-        $Organization_types = Organization_type::pluck('type_name', 'id');
-        return view('organizations.edit', compact('organization', 'states', 'Organization_types'));
+        if (in_array($id, $this->getAllMyOrganizationIds()))
+        {
+            $organization = Organization::find($id);
+            $states = State::pluck('state_name', 'state_code');
+            $Organization_types = Organization_type::pluck('type_name', 'id');
+            return view('organizations.edit', compact('organization', 'states', 'Organization_types'));
+        }
+        else
+        {
+            return redirect('/organizations')->withErrors(array('0' => 'You do not have access to view this Business!!'));
+        }
+        //dd($organization);
     }
+
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'phone_number' => 'required|regex:/[0-9]{9}/',
-            'zipcode' => 'required|regex:/[0-9]{5}/',
-            'state' => 'required',
-        ]);
-
-        if ($validator->fails())
+        //dd($request);
+        if (in_array($id, $this->getAllMyOrganizationIds()))
         {
-            return redirect() ->back()->withErrors($validator)->withInput();
+            $validator = Validator::make($request->all(), [
+                'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+                'zipcode' => 'required|regex:/[0-9]{5}/',
+                'state' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+            $organizationUpdate = $request->all();
+            Organization::find($id)->update($organizationUpdate);
+            //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
+            //Organization::find($id)->update($);
+            if($id == Auth::user()->organization_id)
+            {
+                return redirect('organizations/'.$id.'/edit');
+            }
+            return redirect('organizations');
+        }
+        else
+        {
+            return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
         }
 
-        $organizationUpdate = $request->all();
-        Organization::find($id)->update($organizationUpdate);
-        return redirect('organizations');
     }
 
 
@@ -65,7 +87,7 @@ class OrganizationController extends Controller
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
             'zipcode' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
 
             /*'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -73,7 +95,8 @@ class OrganizationController extends Controller
         ]);
     }
 
-    public function createOrganization() {
+    public function createOrganization()
+    {
         $states = State::pluck('state_name', 'state_code');
         $Organization_types = Organization_type::pluck('type_name', 'id');
         return view('organizations.create', compact('states', 'Organization_types'));
@@ -115,15 +138,29 @@ class OrganizationController extends Controller
         ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);
 
         //$childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->get();
-        return redirect()->route("organizations.index")->with('message','Successfully added the Business Location');
+        return redirect()->route("organizations.index")->with('message', 'Successfully added the Business Location');
     }
 
-    public function destroy($id) {
-        $organization = ParentChildOrganizations::where('child_org_id', '=', $id);
-        $organization->delete();
-        return redirect()->back()->with('message', 'Successfully deleted the Business Location');
+    public function destroy($id)
+    {
+        if (in_array($id, $this->getAllMyOrganizationIds()))
+        {
+            $organization = ParentChildOrganizations::where('child_org_id', '=', $id);
+            $organization->delete();
+            return redirect()->back()->with('message', 'Successfully deleted the Business Location');
+        }
+        else
+        {
+            return redirect('organizations')->withErrors(array('0' => 'You do not have access to remove this Business!!'));
+        }
     }
+
 // include organization id in the donation request URL//
-
-
+    protected function getAllMyOrganizationIds()
+    {
+        $organization = Auth::user()->organization;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
+        array_push($arr, $organization->id);
+        return $arr;
+    }
 }

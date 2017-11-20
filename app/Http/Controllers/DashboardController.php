@@ -21,6 +21,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+
         if ($request->user()->hasAnyRole(['Root User', 'Tagg Owner', 'Tagg User'])) {
             $organizations = Organization::all();
 
@@ -46,7 +47,7 @@ class DashboardController extends Controller
             $organization = Organization::findOrFail($organizationId);
 
             $organizationName = $organization->org_name;
-            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)
+            $donationrequests = DonationRequest::where('organization_id', '=', $this->getAllMyOrganizationIds())
                 ->whereIn('approval_status_id', [Constant::SUBMITTED, Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->get();
             $amountDonated = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organizationId)->sum('approved_dollar_amount');
             $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->where('organization_id', $organizationId)->count();
@@ -55,6 +56,7 @@ class DashboardController extends Controller
 
             return view('dashboard.index', compact('donationrequests', 'organizationName', 'amountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber'));
         }
+
 
     }
 
@@ -79,5 +81,15 @@ class DashboardController extends Controller
         $pendingNumber = DonationRequest::whereIn('approval_status_id', [2, 3])->count();
 
         return view('dashboard.admin-index', compact('organizations', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'userCount', 'userThisWeek', 'userThisMonth', 'userThisYear'));
+
     }*/
+
+    protected function getAllMyOrganizationIds()
+    {
+        $organization = Auth::user()->organization;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
+        array_push($arr, $organization->id);
+        return $arr;
+    }
+
 }

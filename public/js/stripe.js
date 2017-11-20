@@ -1,7 +1,7 @@
 $(document).ready(function () {
     Stripe.setPublishableKey('pk_test_VI93Q5aXznENjA73W8S5xY8Y');
-    $("#buttonPay").click(function () {
 
+    $("#buttonPay").click(function () {
         var form = $('#subscription-form');
         var submit = form.find('button[type=submit]');
         // var submit = form.find(':submit');
@@ -39,12 +39,21 @@ $(document).ready(function () {
             data: {coupon: coupon_code}
         });
         request.done(function (msg) {
-            //alert(msg);
-            document.getElementById("coupon-message").innerHTML = "coupon applied with" + msg + "%off";
+            document.getElementById("coupon-message").style.color = "green";
+            document.getElementById("coupon-message").innerHTML = "Your coupon has been applied successfully, you save " + msg + " %off your plan!";
+            var total = document.getElementById("cart_table").rows[1].cells.namedItem("total_price").innerHTML;
+            document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = (total * msg) / 100;
+            document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = Math.round((total - (total * msg) / 100), 2);
 
         });
         request.fail(function (jqXHR, textStatus) {
-            document.getElementById("coupon-message").innerHTML = "coupon is invalid";
+            document.getElementById("coupon-message").style.color = "red";
+            document.getElementById("coupon-message").innerHTML = "The coupon entered is invalid";
+            var total = document.getElementById("cart_table").rows[1].cells.namedItem("total_price").innerHTML;
+            var msg = 0;
+            document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = (total * msg) / 100;
+            document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = Math.round((total - (total * msg) / 100), 2);
+
         });
 
 

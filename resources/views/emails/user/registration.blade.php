@@ -1,5 +1,5 @@
 @component('mail::message')
-# Welcome to CommunityQ!
+# Welcome to CharityQ!
 
 The body of your message.
 
