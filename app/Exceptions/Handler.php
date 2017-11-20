@@ -55,6 +55,19 @@ class Handler extends ExceptionHandler
 
         }
 
+        if ($exception instanceof ModelNotFoundException or $exception instanceof NotFoundHttpException or $exception instanceof HttpResponseException or $exception instanceof AuthorizationException or $exception instanceof ValidationException)
+
+
+        {
+            // ajax 404 json feedback
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Not Found'], 404);
+            }
+
+            // normal 404 view page feedback
+            return response()->view('errors.missing', [], 404);
+        }
+
         if ($exception instanceof ErrorException ) {
 
             // flash your message
