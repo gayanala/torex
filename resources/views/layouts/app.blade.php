@@ -360,7 +360,7 @@
                                     <li>
                                         <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business Profile</a>
                                     </li>
-                                    @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR \App\Custom\Constant::ROOT_USER OR \App\Custom\Constant::TAGG_ADMIN)
+                                    @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)
                                         <li>
                                             <a href="{{ url('user/manageusers')}}">Users</a>
                                         </li>
