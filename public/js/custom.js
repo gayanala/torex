@@ -1,5 +1,8 @@
 $("body").on('change', '#plan,#user_locations', function () {
     $("#cart").removeClass("hide");
+    document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = 0;
+    document.getElementById("coupon-message").innerHTML = '';
+    document.getElementById("coupon").value = '';
     var plan = $('#plan').val();
     var user = $('#user_locations').val();
     var location_selected = document.getElementById("user_locations").options[document.getElementById("user_locations").selectedIndex].text;
@@ -94,7 +97,7 @@ $("body").on('keyup', '#cvCode', function () {
     }
 
 });
-$("body").on('keyup', '#coupon', function () {
+$("body").on('change', '#coupon', function () {
     var coupon = $('#coupon').val();
     if (coupon == '') {
         document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = 0;
