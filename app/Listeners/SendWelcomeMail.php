@@ -33,6 +33,7 @@ class SendWelcomeMail
         $emailTemplate = EmailTemplate::where('template_type_id', Constant::NEW_BUSINESS)->get();
         $emailTemplate = $emailTemplate[0];
 
+        Mail::to($event->user->email)->send(new RegistrationSuccessful($emailTemplate, $event->user));
     }
 
 }
