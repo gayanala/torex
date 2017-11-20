@@ -56,9 +56,9 @@ class UserController extends Controller
 
             $organizationName = Organization::findOrFail($value)->org_name;
             if ( $value == $authOrganizationId ) {
-                $organizationStatusArray['parent_' . $key] = $organizationName;
+                $organizationStatusArray['parent_' . $value] = $organizationName;
             } else {
-                $organizationStatusArray['child_' . $key] = $organizationName;
+                $organizationStatusArray['child_' . $value] = $organizationName;
             }
 
     }
@@ -74,13 +74,13 @@ class UserController extends Controller
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
 
-        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
+        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();//dd($users[0]->id);//dd($users[0]->roles[0]->name);
         return view('users.indexUsers', compact('users', 'admin'));
     }
 
     public function create(Request $request)
     {
-        //dd($request);
+
         $organization = new Organization;
         $organization->org_name = $request->org_name;
         $organization->organization_type_id = $request->organization_type_id;
@@ -157,7 +157,7 @@ class UserController extends Controller
         $user->city = $organization->city;
         $user->state = $organization->state;
         $user->zipcode = $organization->zipcode;
-        $user->organization_id = $request->location;
+        $user->organization_id = explode("_", $request->location)[1];
         $user->phone_number = $organization->phone_number;
 
         $user->save();
@@ -180,10 +180,8 @@ class UserController extends Controller
     public function editProfile($messages = '')
     {
         $states = State::pluck('state_name', 'state_code');
-        // $user = User::find($id);
         $user = Auth::user();
-        // dd($user);
-        //dd($messages);
+
         return view('users.edit', compact('user', 'states'))->with('messages', $messages);
     }
 
@@ -197,7 +195,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $id = $user->id;
-        //dd($request);
+
         if ($request->userId == $id)
         {
             $validator = Validator::make($request->all(), [
@@ -215,7 +213,6 @@ class UserController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-            //dd($request);
 
             $userUpdate = $request->all();
             User::find($id)->update($userUpdate);
