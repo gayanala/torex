@@ -350,11 +350,9 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <div class="w3-dropdown-content w3-card-4 w3-bar-block">
-                                        @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                                            <li>
-                                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
-                                            </li>
-                                        @endif
+                                        <li>
+                                            <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                                        </li>
                                         <li>
                                             <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business
                                                 Profile</a>
@@ -363,11 +361,9 @@
                                             <li>
                                                 <a href="{{ url('user/manageusers')}}">Users</a>
                                             </li>
-                                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                                                <li>
-                                                    <a href="{{ route('organizations.index')}}">Business Locations</a>
-                                                </li>
-                                             @endif
+                                            <li>
+                                                <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                            </li>
                                             <li>
                                                 <a href="{{ route('emailtemplates.index') }}">
                                                     Communication Template
