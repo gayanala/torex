@@ -23,10 +23,10 @@ use Validator;
 
 class UserController extends Controller
 {
-    public function __construct()
+/*    public function __construct()
     {
         $this->middleware('auth');
-    }
+    }*/
     /**
      * Create a new controller instance.
      *
@@ -71,6 +71,7 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
+        //dd($request);
         $organization = new Organization;
         $organization->org_name = $request->org_name;
         $organization->organization_type_id = $request->organization_type_id;
