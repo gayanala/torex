@@ -22,7 +22,7 @@
                                 <th class="text-center">Business User</th>
                                 <th class="text-center">Role</th>
                                 <th class="text-center">Business Location</th>
-                                <th class="text-center">City & Zip code</th>
+                                <th class="text-center">City & Zip Code</th>
                                 <th colspan="3" class="text-center">Actions</th>
                             </tr>
                             </thead>

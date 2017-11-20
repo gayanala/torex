@@ -1,29 +1,34 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        <input name="_token" type="hidden" id="_token" value="{{ csrf_token() }}" />
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Update Profile</div>
+                    <div class="panel-heading">Profile</div>
+
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
 
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
                     <script>
                         $(window).load(function () {
-                            var phones = [{"mask": "(###) ###-####"}, {"mask": "(###) ###-##############"}];
+                            var phones = [{"mask": "(###) ###-####"}];
                             $('#phone_number').inputmask({
                                 mask: phones,
                                 greedy: false,
-                                definitions: {'#': {validator: "[0-9]", cardinality: 1}}
+                                definitions: {'#': {validator: "[0-9]", cardinality: 1}},
+
                             });
+
                         });
-
-
                     </script>
+
                     <div class="panel-body">
-
-                        {!! Form::model($user,['method' => 'PATCH','route'=>['users.update', $user->id], 'class' => 'form-horizontal']) !!}
-
+                        {{{ $messages ?? 'not set' }}}
+                        {!! Form::model($user,['method' => 'PATCH','action'=>'UserController@updateProfile', 'class' => 'form-horizontal']) !!}
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -33,27 +38,45 @@
                                 </ul>
                             </div>
                         @endif
-
+                        @if (strlen($messages) > 0)
+                            <div class="alert alert-success">
+                                <ul>
+                                        <li>{{ $messages }}</li>
+                                </ul>
+                            </div>
+                        @endif
+                        {{ csrf_field() }}
+                        <input name="userId" type="hidden" id="userId" value="{{ $user->id }}" />
                         <div class="form-group">
-                            <label for="first_name" class="col-md-4 control-label"> First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="first_name" class="col-md-4 control-label"> First Name <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
                                 {!! Form::text('first_name',null,['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="last_name" class="col-md-4 control-label"> Last Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="last_name" class="col-md-4 control-label"> Last Name <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
                                 {!! Form::text('last_name', null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="email" class="col-md-4 control-label">E-Mail Address <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::text('email',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="street_address1" class="col-md-4 control-label">Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="email" class="col-md-4 control-label">Role <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6"><p>&nbsp;&nbsp;{!! $user->roles[0]->name !!}</p></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="street_address1" class="col-md-4 control-label">Address 1 <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::text('street_address1',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
@@ -63,12 +86,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="city" class="col-md-4 control-label">City <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="city" class="col-md-4 control-label">City <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::text('city',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="state" class="col-md-4 control-label">State <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="state" class="col-md-4 control-label">State <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
 
@@ -85,7 +110,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="zipcode" class="col-md-4 control-label">Zip Code <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
@@ -95,24 +121,15 @@
                             <label for="phone_number" class="col-md-4 control-label">Phone Number <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-md-6">
-                                <input id="phone_number" type="text" class="form-control"
-                                       name="phone_number" value="{{ old('phone_number') }}" required
-                                       autofocus>
-
-
-                                @if ($errors->has('phone_number'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('phone_number') }}</strong>
-                                    </span>
-                                @endif
+                                {!! Form::text('phone_number',null,['class' => 'form-control',  'id' => 'phone_number' ,'required']) !!}
                             </div>
                         </div>
 
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                                <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
+                                {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
+                                <button id="btnEdit" class="btn btn-primary" type="button">Edit</button>
                                 {{--<a href="{{ route('users.index')}}" class="btn btn-primary">Cancel</a>--}}
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
@@ -124,4 +141,17 @@
             </div>
         </div>
     </div>
+    <script>
+        $(window).load(function() {
+            $("input").attr("readonly", true);
+            $("select").attr("disabled", true);
+            $("#btnSave").addClass("hidden");
+        });
+        $('#btnEdit').on('click', function () {
+            $('input').removeAttr('readonly');
+            $('select').removeAttr('disabled');
+            $('#btnSave').removeClass('hidden');
+            $('#btnEdit').addClass('hidden');
+        });
+    </script>
 @endsection

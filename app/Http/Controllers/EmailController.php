@@ -32,7 +32,7 @@ class EmailController extends Controller
            Mail::send(
 
                ['text'=>'emails.startmail'],[],function($message){
-               $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CommUnityQ');
+               $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CharityQ');
                $message->from('tagg@gmail.com','tagg');
            });
            Mail::to(Auth::user()->email)->send(new RegistrationSuccessful(Auth::user()));
@@ -62,8 +62,8 @@ class EmailController extends Controller
         $default_template = $request->email_message;
 
         foreach($emails as $index => $email) {
-            $request->email_message = str_replace('{Requester Name}', $names[$index], $request->email_message);
-            $request->email_message = str_replace('{My Business Name', Auth::user()->organization->org_name, $request->email_message);
+            $request->email_message = str_replace('{Addressee}', $names[$index], $request->email_message);
+            $request->email_message = str_replace('{My Business Name}', Auth::user()->organization->org_name, $request->email_message);
 
             $donation_id = $ids_array[$index];
             $donation = DonationRequest::where('id', $donation_id)->get();

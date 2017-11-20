@@ -20,36 +20,30 @@
 
                         {{ Form::hidden('organization_id', Auth::user()->organization_id) }}
                         {!! Form::open(['url' => 'users']) !!}
-
-                        <div class="form-group">
-                            {!! Form::label('Role', 'Role') !!}
-                            <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
-                            {!! Form::select('role_id', $roles, null, ['class' => 'form-control']) !!}
-                        </div>
-
+                        {{ csrf_field() }}
                         <div class="form-group">
                             {!! Form::label('First Name', 'First Name')!!}
                             <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
-                            {!! Form::text('first_name',null,['class'=>'form-control', 'placeholder'=>'Enter Your First Name', 'required'])!!}
+                            {!! Form::text('first_name',null,['class'=>'form-control', 'placeholder'=>'Enter First Name', 'required'])!!}
                         </div>
 
                         <div class="form-group">
                             {!! Form::label('Last Name', 'Last Name') !!}
                             <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
-                            {!! Form::text('last_name',null,['class'=>'form-control', 'placeholder'=>'Enter Your Last Name','required']) !!}
+                            {!! Form::text('last_name',null,['class'=>'form-control', 'placeholder'=>'Enter Last Name','required']) !!}
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email">E-Mail Address</label>
                             <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                             <input id="email" type="email" class="form-control" name="email"
-                                   placeholder="Enter Your Email Address"
+                                   placeholder="Enter Email Address"
                                    value="{{ old('email') }}" required>
 
                             @if ($errors->has('email'))
                                 <span class="help-block">
-                <strong>{{ $errors->first('email') }}</strong>
-            </span>
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
                             @endif
                         </div>
 
@@ -57,13 +51,17 @@
                         <div class="form-group">
                             {!! Form::label('Business Location', 'Business Location') !!}
                             <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
-                            {!! Form::select('location', array_merge(['' => '-- Please Select --'], $organizations), null, ['class' => 'form-control', 'id' => 'loc-drop-down']) !!}
+                            {!! Form::select('location', array_merge(['' => '-- Please Select --'], $organizationStatusArray), null, ['class' => 'form-control', 'id' => 'loc-drop-down', 'required']) !!}
                         </div>
 
-                        <div class="form-group">
-                            {!! Form::label('Role', 'Role:') !!}
-                            <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
-                            {!! Form::select('role_id', $roles, null, ['class' => 'form-control', 'id' => 'locations-drop-down']) !!}
+                        <div id="role-toggle">
+                            <div class="form-group" id="role-group" style="display:none">
+                                {!! Form::label('Role', 'Role:') !!}
+                                <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
+                                {!! Form::select('role_id', $roles, null, ['class' => 'form-control', 'id' => 'locations-drop-down-parent']) !!}
+
+                                {!! Form::select('role_id', array('5' => $roles[5]), null, ['class' => 'form-control', 'id' => 'locations-drop-down-child']) !!}
+                            </div>
                         </div>
 
                     </div>
@@ -76,24 +74,37 @@
                             <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                         </div>
                     </div>
-                        {!! Form::close() !!}
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
 
-   <script>
-       $("#loc-drop-down").change(function () {
-//           var end = this.value;
-           //console.log(this.index);
-           if ( $("select[name='location'] option:selected").index() == '0' ) {
-// don't display anything
-               $('#locations-drop-down').detach();
-           } else {
-               $('#locations-drop-down').appendTo("body");
-           }
+    <script>
+        $("#loc-drop-down").change(function () {
+            
+            if (this.value == '') {
+                // Not showing Roles dropdown and its label when nothing is
+                // selected in locations dropdown
+                document.getElementById("role-group").style.display = "none";
+            } else {
+                // Showing Roles dropdown and its label when a value is
+                // selected in locations dropdown
+                document.getElementById("role-group").style.display = "block";
+                if (this.value.startsWith('parent')) {
+                    document.getElementById("locations-drop-down-parent").style.display = "block";
+                    document.getElementById("locations-drop-down-child").style.display = "none";
+                    document.getElementById("locations-drop-down-child").setAttribute('name', 'dummy-name');
+                    document.getElementById("locations-drop-down-parent").setAttribute('name', 'role_id');
+                } else if (this.value.startsWith('child')) {
+                    document.getElementById("locations-drop-down-child").style.display = "block";
+                    document.getElementById("locations-drop-down-parent").style.display = "none";
+                    document.getElementById("locations-drop-down-parent").setAttribute('name', 'dummy-name');
+                    document.getElementById("locations-drop-down-child").setAttribute('name', 'role_id');
 
+                }
+            }
 
-       });
+        });
     </script>
 @stop

@@ -30,7 +30,7 @@
 //        }
 
         $(window).load(function () {
-            var phones = [{"mask": "(###) ###-####"}, {"mask": "(###) ###-##############"}];
+            var phones = [{"mask": "(###) ###-####"}];
             $('#phonenumber').inputmask({
                 mask: phones,
                 greedy: false,
@@ -79,7 +79,7 @@
                             <label for="requester_type" class="col-md-4 control-label">Organization Type <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                {!! Form::select('requester_type', array(null => 'Select...') + $requester_types->all(), null, ['class'=>'form-control']) !!}
+                                {!! Form::select('requester_type', array(null => 'Select...') + $requester_types->all(), null, ['class'=>'form-control', 'required']) !!}
                                 @if ($errors->has('requester_type'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('requester_type') }}</strong>

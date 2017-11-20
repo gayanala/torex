@@ -29,10 +29,6 @@ class UserController extends Controller
      *
      * @return void
      */
-    /*public function __construct()
-    {
-        $this->middleware('auth');
-    }*/
 
     public function index()
     {
@@ -42,20 +38,28 @@ class UserController extends Controller
 
     public function show($id)
     {
-
         $roles = $this->getRoles();
-        $organizationId = Auth::user()->organization_id;
-        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
-        array_push($arr, $organizationId);
+        $authOrganizationId = Auth::user()->organization_id;
 
-        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
-        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
-        $childOrgIds = $parentChildOrg->pluck('child_org_id');
+        $organizationsIds = ParentChildOrganizations::where('parent_org_id', $authOrganizationId)->pluck('child_org_id')->toArray();
 
-        $childOrgNames = Organization::wherein('id', $arr)
-            ->pluck('org_name', 'id');
+        array_push($organizationsIds, $authOrganizationId);
 
-        return view('users.show', compact('roles', 'organizations'));
+
+        $organizationStatusArray = [];
+
+        foreach ($organizationsIds as $key => $value) {
+
+            $organizationName = Organization::findOrFail($value)->org_name;
+            if ( $value == $authOrganizationId ) {
+                $organizationStatusArray['parent_' . $value] = $organizationName;
+            } else {
+                $organizationStatusArray['child_' . $value] = $organizationName;
+            }
+
+    }
+
+        return view('users.show', compact('roles', 'organizationStatusArray'));
 
     }
 
@@ -66,12 +70,13 @@ class UserController extends Controller
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
 
-        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
+        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();//dd($users[0]->id);//dd($users[0]->roles[0]->name);
         return view('users.indexUsers', compact('users', 'admin'));
     }
 
     public function create(Request $request)
     {
+
         $organization = new Organization;
         $organization->org_name = $request->org_name;
         $organization->organization_type_id = $request->organization_type_id;
@@ -148,7 +153,7 @@ class UserController extends Controller
         $user->city = $organization->city;
         $user->state = $organization->state;
         $user->zipcode = $organization->zipcode;
-        $user->organization_id = $request->location;
+        $user->organization_id = explode("_", $request->location)[1];
         $user->phone_number = $organization->phone_number;
 
         $user->save();
@@ -163,11 +168,17 @@ class UserController extends Controller
         return redirect('user/manageusers');
     }
 
-    public function edit($id)
+    public function edit()
+    {
+        redirect('user/editprofile');
+    }
+
+    public function editProfile($messages = '')
     {
         $states = State::pluck('state_name', 'state_code');
-        $user = User::find($id);
-        return view('users.edit', compact('user'))->with('states', $states);
+        $user = Auth::user();
+
+        return view('users.edit', compact('user', 'states'))->with('messages', $messages);
     }
 
     /**
@@ -176,28 +187,35 @@ class UserController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function updateProfile(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'phone_number' => 'required',
-            'zipcode' => 'required|numeric|digits:5',
-            'state' => 'required',
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('users')->ignore($id),
-            ],
-        ]);
-
-        if ($validator->fails()) {
-            return redirect() ->back()->withErrors($validator)->withInput();
-        }
         $user = Auth::user();
+        $id = $user->id;
 
-        $userUpdate = $request->all();
-        User::find($id)->update($userUpdate);
+        if ($request->userId == $id)
+        {
+            $validator = Validator::make($request->all(), [
+                'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+                'zipcode' => 'required|numeric|digits:5',
+                'state' => 'required',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('users')->ignore($id),
+                ],
 
-        return view('users.index', compact('user'));
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $userUpdate = $request->all();
+            User::find($id)->update($userUpdate);
+        }
+        $messages = 'Profile updated successfully';
+        // return view('users.index', compact('user'));
+        Return redirect('user/editprofile')->with('messages', $messages);
     }
 
     public function editsubuser($id)
@@ -205,15 +223,13 @@ class UserController extends Controller
         $roles = $this->getRoles();
 
         $user = User::findOrFail($id);
-        $parentChildOrg = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization->id)->get();
-        $childOrgIds = $parentChildOrg->pluck('child_org_id');
-        $parentOrgIds = $parentChildOrg->pluck('parent_org_id');
-        $childOrgNames = Organization::wherein('id', $childOrgIds)
-            ->orWhere('id', $parentOrgIds)
-            ->pluck('org_name', 'id');
+        $organizationId = Auth::user()->organization_id;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+        $orgNames = Organization::whereIn('id', $arr)->pluck('org_name', 'id');
 
         $states = State::pluck('state_name', 'state_code');
-        return view('users.editsubuser', compact('user', 'childOrgNames', 'roles'))->with('states', $states);
+        return view('users.editsubuser', compact('user', 'orgNames', 'roles'))->with('states', $states);
     }
 
     public function updatesubuser(Request $request)

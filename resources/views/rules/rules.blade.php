@@ -19,14 +19,16 @@
             $('[data-toggle="popover"]').popover();
         });
     </script>
-<div class="row">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div class="row">
 
-    <!--<section class="bs-docs-section clearfix"> -->
-    {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
+        <!--<section class="bs-docs-section clearfix"> -->
+        {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
 
 
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
             <br/>
+            {{ csrf_field() }}
             <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
 
@@ -42,7 +44,7 @@
                         </td>
                     </tr>
 
-                    </table>
+                </table>
 
 
                 <table width="100%" style="background-color:#fffde7" frame="border" bordercolor="#ffcc80">
@@ -55,9 +57,10 @@
                                    title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
                                 Monthly Budget:</label>&nbsp;
 
-                            <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]?"
+                            <input id="monthlyBudget" type="text" name="monthlyBudget"
+                                   pattern="(?=.{1,10}$)\d{1,3}(?:,\d{3})+|(?=.{1,8}$)\d+"
                                    min="0"
-                                   step="1" required value="{{ number_format($monthlyBudget, 0 ) }}" size="10"/>
+                                   step="1" required value="{{ number_format($monthlyBudget, 0, '.', ',' ) }}"/>
                         </td>
 
 
@@ -71,7 +74,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="8" align="center"> <br></td>
+                        <td colspan="8" align="center"><br></td>
                     </tr>
                     <tr>
                         <td colspan="8" align="center">
@@ -82,97 +85,98 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="8" align="center"> <br></td>
+                        <td colspan="8" align="center"><br></td>
                     </tr>
                 </table>
             </div>
 
         </form>
 
-</div>
-
-    <div class="row" style="background-color:#ffffff">
-      <div class="col-sm-7" style="padding-left:45%">
-                <a href="{{url('/help') }}" target="_blank">
+    </div>
+    @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
+        <div class="row" style="background-color:#ffffff">
+            <div class="col-sm-7" style="padding-left:45%">
+                <a href="{{url('/help') }}" target="pdf-frame">
                     <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
                 </a>
-</div>
-    </div>
-    <br>
+            </div>
+        </div>
+        <br>
 
 
-    <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
+        <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
+            {{ csrf_field() }}
+            <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
+                <br>
+                <table width="100%" style="background-color:#f9a825">
+                    <tr>
+                        <td align="center" bgcolor="#f9a825">
 
-        <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
-            <br>
-            <table width="100%" style="background-color:#f9a825">
-                <tr>
-                    <td align="center" bgcolor="#f9a825">
+                            <h1 style="color:white"><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
 
-                        <h1 style="color:white"><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
+                        </td>
+                    </tr>
+                </table>
 
-                    </td>
-                </tr>
-            </table>
+                <table width="100%" style="background-color:#fffde7" frame="vsides" bordercolor="#ffcc80">
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                    <tr>
 
-            <table width="100%" style="background-color:#fffde7" frame="vsides" bordercolor="#ffcc80">
-                <tr>
-                    <td colspan="4">&nbsp;</td>
-                </tr>
-                <tr>
-
-                    <td align="right">
-                        <label for="ddlRuleType">Select Rule To Edit:</label>
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td width="50%">
+                        <td align="right">
+                            <label for="ddlRuleType">Select Rule To Edit:</label>
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td width="50%">
                             {!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType', 'name'=>'ddlRuleType']) !!}
                         </td>
                     </tr>
-                <tr>
-                    <td colspan="4">&nbsp;</td>
-                </tr>
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
                 </table>
             </div>
             <!--<Rules help in new window/tab>  -->
 
 
-        </div>
-        <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
-        <div class="col-md-12 col-lg-10 col-lg-offset-1">
-            <div id="builder-plugins"></div>
-            <div class="btn-group">
-                <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
-                <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
-                <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
-                <button id="btnSave" class="btn btn-primary parse-json" type="button" data-target="plugins">Save Rules
-                </button>
-                <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
-                        class="btn btn-default">Run Rule Workflow
-                </button>
-                <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
-                        class="btn btn-default">Run Budget
-                </button>
-                <button id="btnRunMinimumNoticeCheckRule" type="button"
-                        href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
-                        class="btn btn-default">Run Required Days Notice
-                </button>
             </div>
-            <br/>
-            <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
-            <br/>
-            <br/>
-            <br/>
-            <!-- <div id="querybuilder"></div> -->
-        </div>
+            <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
+            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                <div id="builder-plugins"></div>
+                <div class="btn-group">
+                    <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
+                    <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
+                    <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
+                    <button id="btnSave" class="btn btn-primary parse-json" type="button" data-target="plugins">Save Rules
+                    </button>
+                    <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
+                            class="btn btn-default">Run Rule Workflow
+                    </button>
+                    <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
+                            class="btn btn-default">Run Budget
+                    </button>
+                    <button id="btnRunMinimumNoticeCheckRule" type="button"
+                            href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
+                            class="btn btn-default">Run Required Days Notice
+                    </button>
+                </div>
+                <br/>
+                <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
+                <br/>
+                <br/>
+                <br/>
+                <!-- <div id="querybuilder"></div> -->
+            </div>
 
 
-    </form>
+        </form>
+    @endif
     {{--    {{ Form::close() }}--}}
 
     <!-- </section> -->
@@ -213,6 +217,15 @@
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
+
+        var el = document.getElementById('monthlyBudget');
+        el.addEventListener('keyup', function (event) {
+            if (event.which >= 37 && event.which <= 40) return;
+
+            this.value = this.value.replace(/\D/g, '')
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        });
+
         $('#ddlRuleType').val({{ $_GET['rule'] }});
 
                 @if ($rule)

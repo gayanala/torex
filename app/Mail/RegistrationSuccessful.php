@@ -13,15 +13,17 @@ class RegistrationSuccessful extends Mailable
     use Queueable, SerializesModels;
 
     public $user;
+    public $emailTemplate;
     /**
      * Create a new message instance.
      *
      * @return void
      */
     //public function __construct()
-    public function __construct(User $user)
+    public function __construct($emailTemplate, User $user)
     {
         $this->user = $user;
+        $this->emailTemplate = $emailTemplate;
     }
 
     /**
@@ -33,7 +35,7 @@ class RegistrationSuccessful extends Mailable
     {
 
         return $this ->from('noreply@charityq.com')
-                     ->subject('Welcome to CommunityQ!')
+                     ->subject($this->emailTemplate->email_subject)
                      ->markdown('emails.user.welcomemail');
     }
 }

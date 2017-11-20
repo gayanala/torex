@@ -19,7 +19,7 @@
                                 </ul>
                             </div>
                         @endif
-
+                        {{ csrf_field() }}
                         <div class="">
                             {!! Form::hidden('id',$user->id,['class' => 'form-control', 'required']) !!}
                         </div>
@@ -53,7 +53,7 @@
                         <div class="form-group">
                             <label for="organization_id" class="col-md-4 control-label">Business Location <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                                {!! Form::select('organization_id', $childOrgNames, $user->organization_id, ['class' => 'form-control']) !!}
+                                {!! Form::select('organization_id', $orgNames, $user->organization_id, ['class' => 'form-control']) !!}
                             </div>
                         </div>
 
@@ -109,6 +109,7 @@
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
                                 <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
+                                <input class="btn btn-primary" type="button" value="Reset Password" onClick="resetPassword();">
                                 <span style="color: red"> <h5>Fields Marked With (<span style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
                         </div>
@@ -118,4 +119,35 @@
             </div>
         </div>
     </div>
+
+    <script>
+    function (resetPassword) {
+
+        $.ajax({
+        type: "POST",
+        url: 'yourdomain.com/fireEvent/testEvent',
+        dataType: 'json',
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function( resp ) {
+        //window.location.href = 'emaileditor/editsendmail/' + $.param(idsArray);
+        setStatusText = '';
+        if(resp.status == 0) {
+        setStatusText = 'Approved';
+        } else if (resp.status == 1) {
+        setStatusText = 'Rejected';
+        }
+        // Handle your response..
+        for (var i = 0; i < resp.idsArray.length; i++) {
+        // 0 - approved
+        //1- rejected
+        $('#status' + resp.idsArray[i]).text(setStatusText);
+        }
+        alert('Selected Request(s) are ' + setStatusText);
+        },
+        data: {ids:idsArray, status:actionStatus}
+        });
+    }
+    </script>
 @endsection

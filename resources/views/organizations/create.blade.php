@@ -9,7 +9,7 @@
 
                     <div class="panel-body">
                         {!! Form::open(['action' => 'OrganizationController@create', 'class' => 'form-horizontal']) !!}
-
+                        {{ csrf_field() }}
                         @include('organizations.form', ['submitButtonText' => 'Add Business Location'])
 
                         {!! Form::close() !!}

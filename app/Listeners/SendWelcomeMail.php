@@ -7,7 +7,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Mail;
 use App\Mail\RegistrationSuccessful;
-
+use App\EmailTemplate;
+use App\Custom\Constant;
 
 class SendWelcomeMail
 {
@@ -29,14 +30,10 @@ class SendWelcomeMail
      */
     public function handle(NewBusiness $event)
     {
+        $emailTemplate = EmailTemplate::where('template_type_id', Constant::NEW_BUSINESS)->get();
+        $emailTemplate = $emailTemplate[0];
 
-/*       Mail::send(['text'=>'emails.startmail'],[],function($message){
-            $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CommUnityQ');
-            $message->from('tagg@gmail.com','tagg');
-        });*/
-        Mail::to($event->user->email)->send(new RegistrationSuccessful($event->user));
-        //return redirect('\home');
-
+        Mail::to($event->user->email)->send(new RegistrationSuccessful($emailTemplate, $event->user));
     }
 
 }
