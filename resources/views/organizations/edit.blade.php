@@ -33,15 +33,18 @@
                         <div class="panel-body">
                             <script type="text/javascript">
                                 function Copy() {
+                                    var urlCopied = document.getElementById('urlCopied');
                                     urlCopied.value = "{{url('donationrequests/create')}}?orgId={{$organization->id}}" ;
+                                    urlCopied.select();
                                     //Copied = Url.createTextRange();
-                                    //Copied.execCommand("Copy");
-                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website");
+                                    document.execCommand("copy");
+                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website\n" +
+                                        "The URL has been copied to your clipboard.");
                                 }
                             </script>
                             <body>
                             <div>
-                                <input type="button" value="Generate Url" onclick="Copy();" />
+                                <input type="button" style="cursor: help;" value="Generate Url" title="For use for promotions or on social media." onclick="Copy();" />
                                 <input type="text" id="urlCopied" size="80"/>
 
                             </div>

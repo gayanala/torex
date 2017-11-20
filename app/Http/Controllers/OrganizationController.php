@@ -65,7 +65,7 @@ class OrganizationController extends Controller
             //Organization::find($id)->update($);
             if($id == Auth::user()->organization_id)
             {
-                return redirect('dashboard');
+                return redirect('organizations/'.$id.'/edit');
             }
             return redirect('organizations');
         }
@@ -143,9 +143,16 @@ class OrganizationController extends Controller
 
     public function destroy($id)
     {
-        $organization = ParentChildOrganizations::where('child_org_id', '=', $id);
-        $organization->delete();
-        return redirect()->back()->with('message', 'Successfully deleted the Business Location');
+        if (in_array($id, $this->getAllMyOrganizationIds()))
+        {
+            $organization = ParentChildOrganizations::where('child_org_id', '=', $id);
+            $organization->delete();
+            return redirect()->back()->with('message', 'Successfully deleted the Business Location');
+        }
+        else
+        {
+            return redirect('organizations')->withErrors(array('0' => 'You do not have access to remove this Business!!'));
+        }
     }
 
 // include organization id in the donation request URL//
