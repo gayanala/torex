@@ -63,7 +63,6 @@
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         Forgot Your Password?
                                     </a>
-                                    <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                                 </div>
                             </div>
                         </form>
