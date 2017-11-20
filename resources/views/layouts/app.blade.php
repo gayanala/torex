@@ -367,6 +367,7 @@
                                                 <li>
                                                     <a href="{{ route('organizations.index')}}">Business Locations</a>
                                                 </li>
+                                             @endif
                                             <li>
                                                 <a href="{{ route('emailtemplates.index') }}">
                                                     Communication Template
