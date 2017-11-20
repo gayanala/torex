@@ -30,7 +30,7 @@ Route::get('/help', function () {
 //Route::post('resetuserpassword', function () {event(new NewSubBusiness($user));})
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::get('forgotpassword/insertemail','UserSecurityQuestionController@showemailpage');
 
@@ -44,11 +44,11 @@ Route::resource('securityquestions', 'UserSecurityQuestionController');
 
 Route::resource('attachment', 'DonationRequestController');
 
-Route::resource('/users', 'UserController');
+Route::resource('/users', 'UserController')->middleware('auth');
 
-Route::get('organizations/createOrganization', 'OrganizationController@createOrganization');
+Route::get('organizations/createOrganization', 'OrganizationController@createOrganization')->middleware('auth');
 
-Route::delete('organizations', 'OrganizationController@destroy');
+Route::delete('organizations', 'OrganizationController@destroy')->middleware('auth');
 
 Route::resource('organizations', 'OrganizationController');
 
@@ -90,7 +90,7 @@ Route::patch('/user/updateprofile', 'UserController@updateProfile')->name('updat
 
 Route::get('/donationrequests/create', 'DonationRequestController@create')->name('donation');
 
-Route::get('donationrequests/search','DonationRequestController@searchDonationRequest');
+Route::get('donationrequests/search','DonationRequestController@searchDonationRequest')->middleware('auth');
 
 Route::get('donationrequests/export', 'DonationRequestController@export');
 
@@ -106,18 +106,18 @@ Route::post('change-password', 'Auth\UpdatePasswordController@update');
 
 //Route::post('/emailtemplate', 'EmailTemplateController@edit');
 
-Route::get('/emailtemplates/edit/{id}', 'EmailTemplateController@edit');
+Route::get('/emailtemplates/edit/{id}', 'EmailTemplateController@edit')->middleware('auth');
 
-Route::resource('emailtemplates', 'EmailTemplateController');
+Route::resource('emailtemplates', 'EmailTemplateController')->middleware('auth');
 
 //Emails
 
-Route::get('/sendingemail', 'EmailController@manualRequestMail') ->name('approveandsendmail');
+Route::get('/sendingemail', 'EmailController@manualRequestMail') ->name('approveandsendmail')->middleware('auth');
 Route::get('/emaileditor/editsendmail','EmailTemplateController@send');
 
 //Dashboard
 
-Route::get('/dashboard', 'DashboardController@index') ->name('dashboardindex');
+Route::get('/dashboard', 'DashboardController@index') ->name('dashboardindex')->middleware('auth');
 
 Route::post('/donation/change-status', 'DonationRequestController@changeDonationStatus');
 

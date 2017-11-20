@@ -59,14 +59,14 @@
                         @endif
 
                         <div class="form-group">
-                            {!! Form::label('Email Subject', '* Email Subject:', ['class'=>'col-md-3 control-label', ]) !!}
+                            <label for="Email Subject" class="col-md-3 control-label">Email Subject <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-9">
                                 {!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Email Message', '* Email Message:', ['class'=>'col-md-3 control-label' ]) !!}
+                            <label for="Email Message" class="col-md-3 control-label">Email Message <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                         </div>
 
                         <div class="form-group">
