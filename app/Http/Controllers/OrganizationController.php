@@ -82,16 +82,15 @@ class OrganizationController extends Controller
     }
 
 
-    protected function validator(array $data)
+    protected function validatorLocation($data)
     {
-        return Validator::make($data, [
+        return Validator::make($data->toArray(), [
             'org_name' => 'required|string|max:255',
             'organization_type_id' => 'required',
             'street_address1' => 'required|string|max:255',
-            'street_address2' => 'string|max:255',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
-            'zipcode' => 'required',
+            'zipcode' => 'required|regex:/[0-9]{5}/',
             'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
 
             /*'name' => 'required|string|max:255',
@@ -138,6 +137,12 @@ class OrganizationController extends Controller
         $organization->zipcode = $request['zipcode'];
         $organization->phone_number = $request['phone_number'];
         $organization->save();
+
+        $validator = $this->validatorLocation($organization);//dd($validator);
+        if ($validator -> fails())
+        {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         // Inserting the relation between parent organization and child organization
         ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);

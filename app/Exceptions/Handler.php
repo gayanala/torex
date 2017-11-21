@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Stripe\Error as Stripe;
 
@@ -68,6 +69,10 @@ class Handler extends ExceptionHandler
             \Session::flash('flash_message_important', 'Sorry, your session seems to have expired. Please try again.');
 
             return redirect('login');
+        }
+        elseif ($exception instanceof QueryException) {
+            //\Session::flash('flash_message_important', 'Bad Data. Use different email address');
+            return back()->withErrors('Email ID already taken');
         }
 
         return parent::render($request, $exception);
