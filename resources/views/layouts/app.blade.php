@@ -236,11 +236,11 @@
             padding-bottom: 10px;
         }
 
-        .divsmall ul > li > a {
+        .main-navigation ul li a {
             padding-right: 25px !important;
-            padding-left: -10px !important;
+            padding-left: 25px !important;
             padding-top: 25px;!important;
-            color: #04519b;
+            color: white;
         }
 
         .w3-bar .w3-button {
@@ -260,10 +260,6 @@
         .divsmall {
             padding: 25px -5px 5px 100px;
         }
-        .divsmall ul > li
-        {
-            list-style-type: none;
-            }
 
         .dropdown-menu a {
             background-color: #9c27b0;
