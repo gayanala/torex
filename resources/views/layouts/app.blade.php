@@ -58,7 +58,7 @@
             min-height: 100%;
             clear: both;
             margin-top: 20px;
-            padding-top:30px;
+            padding-top:100px;
         }
 
         @media screen and (max-width: 600px) {
