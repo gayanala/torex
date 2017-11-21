@@ -236,7 +236,12 @@
             padding-bottom: 10px;
         }
 
-
+        .divsmall ul > li > a {
+            padding-right: 25px !important;
+            padding-left: -10px !important;
+            padding-top: 25px;!important;
+            color: #04519b;
+        }
 
         .w3-bar .w3-button {
             padding: 16px;
@@ -253,14 +258,11 @@
         }
 
         .divsmall {
-            padding: 25px -50px 5px 100px;
+            padding: 25px -5px 5px 100px;
         }
-
         .divsmall ul > li
         {
             list-style-type: none;
-            padding-top: 1px;!important;
-            font-style: inherit;
             }
 
         .dropdown-menu a {
