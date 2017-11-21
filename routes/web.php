@@ -30,7 +30,7 @@ Route::get('/help', function () {
 //Route::post('resetuserpassword', function () {event(new NewSubBusiness($user));})
 
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('forgotpassword/insertemail','UserSecurityQuestionController@showemailpage');
 
@@ -94,7 +94,7 @@ Route::get('donationrequests/search','DonationRequestController@searchDonationRe
 
 Route::get('donationrequests/export', 'DonationRequestController@export')->middleware('auth');
 
-Route::resource('/donationrequests', 'DonationRequestController')->middleware('auth');
+Route::resource('/donationrequests', 'DonationRequestController');
 
 Route::get('change-password', function() {
     return view('change-password');
