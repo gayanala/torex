@@ -329,7 +329,7 @@
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
                                           placeholder="Explain your donation Purpose within 200 characters"
-                                          autofocus></textarea>
+                                          autofocus ></textarea>
 
                             </div>
                         </div>
@@ -468,6 +468,7 @@
     </div>
 
     <script>
+        $('#explain').hide();
         $('#item_requested').change(function () {
             if ($(this).val() == 5) {
                 $('#explain').show();
@@ -476,6 +477,7 @@
                 $('#item_requested_explain').val('');
             }
         });
+        $('#explain_purpose').hide();
         $('#item_purpose').change(function () {
             if ($(this).val() == 9) {
                 $('#explain_purpose').show();
