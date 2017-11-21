@@ -90,6 +90,8 @@ Route::patch('/user/updateprofile', 'UserController@updateProfile')->name('updat
 
 Route::get('/donationrequests/create', 'DonationRequestController@create')->name('donation');
 
+Route::get('/donationrequests/admin', 'DonationRequestController@admin')->middleware('auth');
+
 Route::get('donationrequests/search','DonationRequestController@searchDonationRequest')->middleware('auth');
 
 Route::get('donationrequests/export', 'DonationRequestController@export')->middleware('auth');

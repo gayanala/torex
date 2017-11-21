@@ -217,7 +217,7 @@
                             <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
                                 <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                                 <div class="col-md-6">
-                                    <input id="phone_number" type="text" class="form-control"
+                                    <input id="phone_number" type="tel" class="form-control"
                                            name="phone_number"  value="{{ old('phone_number') }}" required
                                            >
 

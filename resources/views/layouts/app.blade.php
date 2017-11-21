@@ -339,8 +339,13 @@
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
                             <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a>
                             </li>
-                            <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                                    <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
                                     Donations</a></li>
+                            @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER)
+                                    <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
+                                    Donations</a></li>
+                            @endif
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-expanded="false">
