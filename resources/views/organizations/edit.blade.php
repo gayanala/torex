@@ -84,7 +84,8 @@
                             <label for="org_description" class="col-md-4 control-label">Business Description</label>
 
                             <div class="col-md-6">
-                                <input id="org_description" type="text" class="form-control" name="org_description" value="{{ old('org_description') }}"  autofocus>
+                                <input id="org_description" type="text" class="form-control" name="org_description"
+                                       value="{{ old('org_description', $organization->org_description) }}" autofocus>
 
                                 @if ($errors->has('org_description'))
                                     <span class="help-block">
@@ -99,7 +100,7 @@
 
                             <div class="col-md-6">
 
-                                {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control','required']) !!}
+                                {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control','required', 'disabled']) !!}
 
                                 @if ($errors->has('organization_type_id'))
                                     <span class="help-block">
