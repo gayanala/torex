@@ -1,8 +1,5 @@
 @extends('layouts.app')
-
-
 @section('content')
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
 
@@ -10,17 +7,13 @@
     <script type="text/javascript">
         function yesnoCheck() {
             if (document.getElementById('yesCheck').checked) {
-                document.getElementById('file_upload').style.visibility = 'visible';
+                $('#file_upload').show();
+                $('#attachment').prop('required');
             }
             else {
-                document.getElementById('file_upload').style.visibility = 'hidden';
+                $('#file_upload').hide();
+                $('#attachment').removeProp('required');
             }
-        }
-    </script>
-    <script>
-        if ($('#attachment')[0].files.length === 0) {
-            alert("Attachment Required");
-            $('#attachment').focus();
         }
     </script>
     <script>
@@ -31,6 +24,13 @@
                 greedy: false,
                 definitions: {'#': {validator: "[0-9]", cardinality: 1}}
             });
+            if ( {{ ! empty($_GET['newrequest']) }} ) {
+                $('nav').hide();
+                $('#navDemo').wrap('<span style="display: none;" />');
+            }
+            $('#file_upload').hide();
+            $('#explain').hide();
+            $('#explain_purpose').hide()
         });
 
 
@@ -44,7 +44,7 @@
                     <div class="panel-heading">Donation Request Form</div>
 
                     <div class="panel-body">
-                    {!! Form::open(['url' => 'attachment', 'class' => 'form-horizontal', 'id' => 'attachment', 'files' => true]) !!}
+                    {!! Form::open(['url' => 'attachment', 'class' => 'form-horizontal', 'id' => 'donationRequestForm', 'files' => true]) !!}
                     {{ csrf_field() }}
 
 
@@ -251,12 +251,9 @@
                         <div class="form-group{{ $errors->has('attachment') ? ' has-error' : '' }}" id="file_upload">
                             <label for="attachment" class="col-md-4 control-label">Attachment <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-
-                        <!-- {!! Form::label('attachment', 'Attachment',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!} -->
                             <div class="col-md-4">
                                 <input type="file" class="form-control" name="attachment" id="attachment"
-                                       required="required" required autofocus>
-                            <!-- {!! Form::file('attachment',['id'=>'attachment'],['class'=>'form-control', 'required']) !!} -->
+                                       autofocus>
 
                                 @if ($errors->has('attachment'))
                                     <span class="help-block">
@@ -279,17 +276,16 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group" id="explain" style="visibility:hidden">
-
+                        <div class="form-group" id="explain">
                             {!! Form::label('explain', 'Explain',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
                             <div class="col-md-6">
                                 <textarea name="item_requested_explain" id="item_requested_explain" class="form-control"
                                           pattern="[a-zA-Z0-9\s]"
-                                          maxlength="1000" required
+                                          maxlength="1000"
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
                                           placeholder="Explain the Requested item within 100 characters"
-                                          autofocus style="visibility:hidden;"></textarea>
+                                          autofocus></textarea>
                                 <!--<input id="item_requested_explain" type="textbox" name="other" style="visibility:hidden;" required autofocus/>-->
                             </div>
                         </div>
@@ -323,17 +319,17 @@
                             </div>
                         </div>
 
-                        <div class="form-group" id="explain_purpose" style="visibility:hidden">
+                        <div class="form-group" id="explain_purpose">
 
                             {!! Form::label('explain_purpose', 'Explain_purpose',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
                             <div class="col-md-6">
                                 <textarea name="item_purpose_explain" id="item_purpose_explain" class="form-control"
                                           pattern="[a-zA-Z0-9\s]"
-                                          maxlength="200" required
+                                          maxlength="200"
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
                                           placeholder="Explain your donation Purpose within 200 characters"
-                                          autofocus style="visibility:hidden;"></textarea>
+                                          autofocus ></textarea>
 
                             </div>
                         </div>
@@ -458,7 +454,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-success">
+                                <button type="button" id="btnSubmit" class="btn btn-success">
                                     Send Request
                                 </button>
                                 <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
@@ -472,26 +468,39 @@
     </div>
 
     <script>
+        $('#explain').hide();
         $('#item_requested').change(function () {
-            var er = document.getElementById("item_requested");
-            var strRequested = er.options[er.selectedIndex].text;
-            if (strRequested == 'Other (please explain)') {
-                document.getElementById('item_requested_explain').style.visibility = 'visible';
+            if ($(this).val() == 5) {
+                $('#explain').show();
             } else {
-                document.getElementById('item_requested_explain').style.visibility = 'hidden';
-                document.getElementById('item_requested_explain').innerText = "";
+                $('#explain').hide();
+                $('#item_requested_explain').val('');
             }
         });
-    </script>
-    <script>
+        $('#explain_purpose').hide();
         $('#item_purpose').change(function () {
-            var ep = document.getElementById("item_purpose");
-            var strPurpose = ep.options[ep.selectedIndex].text;
-            if (strPurpose == 'Other (please explain)') {
-                document.getElementById('item_purpose_explain').style.visibility = 'visible';
+            if ($(this).val() == 9) {
+                $('#explain_purpose').show();
             } else {
-                document.getElementById('item_purpose_explain').style.visibility = 'hidden';
-                document.getElementById('item_purpose_explain').innerText = "";
+                $('#explain_purpose').hide();
+                $('#item_purpose_explain').val('');
+            }
+        });
+
+        $('#btnSubmit').on('click', function () {
+            if (document.getElementById('yesCheck').checked) {
+                if ($('#attachment')[0].files.length === 0) {
+                    alert("Attachment Required");
+                    $(this).focus();
+                }
+                else {
+                    //alert("Checked: true, Attachment: true");
+                    document.getElementById("donationRequestForm").submit();
+                }
+            }
+            else {
+                //alert("Checked: false");
+                document.getElementById("donationRequestForm").submit();
             }
         });
     </script>

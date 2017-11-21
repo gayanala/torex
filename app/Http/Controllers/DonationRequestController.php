@@ -40,6 +40,20 @@ class DonationRequestController extends Controller
 
     }
 
+    public function admin()
+    {
+        $organizationId = Auth::user()->organization_id;
+        
+        $organization = Organization::findOrFail($organizationId);
+        $organizationName = $organization->org_name;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+        $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
+        $today = Carbon::now()->toDateString();
+        return view('donationrequests.admin-index', compact('donationrequests', 'organizationName', 'today'));
+
+    }
+
     public function create(Request $request)
     {
         $organization = Organization::where('id', $request->orgId)->get();
