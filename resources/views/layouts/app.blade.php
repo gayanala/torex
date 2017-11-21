@@ -236,14 +236,11 @@
             padding-bottom: 10px;
         }
 
-        .main-navigation ul li a {
-            padding-right: 25px !important;
-            padding-left: 25px !important;
-            color: white;
-        }
+
 
         .w3-bar .w3-button {
             padding: 16px;
+            padding-top: 10px;
         }
 
         body, h1, h2, h3, h4, h5, h6 {
@@ -256,8 +253,15 @@
         }
 
         .divsmall {
-            padding: 25px -5px 5px 100px;
+            padding: 25px -50px 5px 100px;
         }
+
+        .divsmall ul > li
+        {
+            list-style-type: none;
+            padding-top: 1px;!important;
+            font-style: inherit;
+            }
 
         .dropdown-menu a {
             background-color: #9c27b0;
@@ -463,11 +467,18 @@
             <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span
                             class="glyphicon glyphicon-log-in"></span></a></li>
         </ul>
-    @else
+    @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
+                   OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
         <ul>
             <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
-            <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search Donations</a></li>
-            <li class="dropdown">
+            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                        Donations</a></li>
+            @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER)
+                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
+                        Donations</a></li>
+            @endif
+                <li class="dropdown">
                 <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-expanded="false">
@@ -476,18 +487,30 @@
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
-
+                        @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                            <li>
+                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                            </li>
+                        @endif
                         <li>
-                            <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('organizations.index')}}">Business Locations</a>
-                        </li>
+                             <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business
+                                    Profile</a>
+                         </li>
+                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)
+                                <li>
+                                    <a href="{{ url('user/manageusers')}}">Users</a>
+                                </li>
+                                @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                                    <li>
+                                        <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                    </li>
+                                @endif
                         <li>
                             <a href="{{ route('emailtemplates.index') }}">
                                 Communication Template
                             </a>
                         </li>
+                            @endif
                     </ul>
                 </div>
             </li>
@@ -512,7 +535,7 @@
                         <li>
                             <a href="{{ route('logout') }}"
                                onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
+                                document.getElementById('logout-form').submit();">
                                 Logout
                             </a>
 
@@ -525,7 +548,25 @@
                 </div>
             </li>
         </ul>
-    @endif
+    @else
+        <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
+            <li><a href="{{ url('/subscription')}}"
+                   class="w3-bar-item w3-button current">Subscription</a>
+            </li>
+            <li>
+                <a href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                      style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </li>
+        </ul>
+        @endif
 </div>
 <div id="content">
     {{--@include('layouts.partials._status')--}}
