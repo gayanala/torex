@@ -34,7 +34,7 @@
                             <script type="text/javascript">
                                 function Copy() {
                                     var urlCopied = document.getElementById('urlCopied');
-                                    urlCopied.value = "{{url('donationrequests/create')}}?orgId={{$organization->id}}" ;
+                                    urlCopied.value = "{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true" ;
                                     urlCopied.select();
                                     //Copied = Url.createTextRange();
                                     document.execCommand("copy");
