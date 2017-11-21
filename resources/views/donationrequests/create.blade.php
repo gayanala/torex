@@ -14,10 +14,18 @@
             }
             else {
                 document.getElementById('file_upload').style.visibility = 'hidden';
+
             }
         }
     </script>
+<script>
+    if($('#attachment')[0].files.length === 0){
+        alert("Attachment Required");
+        $('#attachment').focus();
 
+        return false;
+    }
+</script>
     <script>
         $(window).load(function () {
             var phones = [{"mask": "(###) ###-####"}];
@@ -39,7 +47,6 @@
                     <div class="panel-heading">Donation Request Form</div>
 
                     <div class="panel-body">
-
                     {!! Form::open(['url' => 'attachment', 'class' => 'form-horizontal', 'id' => 'attachment', 'files' => true]) !!}
                     {{ csrf_field() }}
 
@@ -218,8 +225,7 @@
                             <div class="col-md-6">
 
                                 <label for="chkYes">
-                                    <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="yesCheck"
-                                           value="1">Yes
+                                    <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="yesCheck" value="1">Yes
                                 </label>
                                 <label for="chkNo">
                                     <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="noCheck" value="0">No
@@ -232,11 +238,21 @@
                             </div>
                         </div>
 
-                        <div class="form-group" id="file_upload"  style="visibility:hidden">
-                            {!! Form::label('attachment', 'Attachment',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                        <div class="form-group{{ $errors->has('attachment') ? ' has-error' : '' }}" id="file_upload">
+                          <label for="attachment" class="col-md-4 control-label">Attachment <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+
+                            <!-- {!! Form::label('attachment', 'Attachment',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!} -->
                             <div class="col-md-4">
-                                {!! Form::file('attachment',['id'=>'attachment']) !!}
+                              <input type="file" class="form-control" name="attachment" id="attachment" required="required" required autofocus>
+                                <!-- {!! Form::file('attachment',['id'=>'attachment'],['class'=>'form-control', 'required']) !!} -->
+
+                                @if ($errors->has('attachment'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('attachment') }}</strong>
+                                    </span>
+                                @endif
                             </div>
+
                         </div>
 
 
