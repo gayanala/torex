@@ -136,6 +136,7 @@
                 </div>
                 @if($donationAcceptanceFlag == 1)
                     {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
+                        {{ csrf_field() }}
                         @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
                             <div>
                                 <label for="dollar_amount" class="col-md-3 control-label">Dollar Amount Approval</label>

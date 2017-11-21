@@ -45,6 +45,7 @@
                                 </ul>
                             </div>
                         @endif
+                        {{ csrf_field() }}
                         <input name="userId" type="hidden" id="userId" value="{{ $user->id }}" />
                         <div class="form-group">
                             <label for="first_name" class="col-md-4 control-label"> First Name <span

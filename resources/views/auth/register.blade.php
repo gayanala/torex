@@ -131,7 +131,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control']) !!}
+                                    {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control', 'required']) !!}
                                     @if ($errors->has('organization_type_id'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('organization_type_id') }}</strong>
@@ -187,7 +187,7 @@
                                 <label for="state" class="col-md-4 control-label">State <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    {!! Form::select('state', array(null => 'Select...') + $states->all(), null, ['class'=>'form-control']) !!}
+                                    {!! Form::select('state', array(null => 'Select...') + $states->all(), null, ['class'=>'form-control', 'required']) !!}
                                     @if ($errors->has('state'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('state') }}</strong>
