@@ -97,7 +97,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-user-circle fa-5x" style="color: greenyellow"></i>
+                                    <i class="fa fa-user-circle-o fa-5x" style="color: greenyellow"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge" style="font-weight: bold; font-size: 20px;">{{ $userCount }}</div>
@@ -128,7 +128,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-user-circle fa-5x" style="color: darkgreen"></i>
+                                    <i class="fa fa-user-circle-o fa-5x" style="color: darkgreen"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"
@@ -144,7 +144,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-user-circle fa-5x" style="color: yellow"></i>
+                                    <i class="fa fa-user-circle-o fa-5x" style="color: yellow"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"
@@ -160,7 +160,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-user-circle fa-5x" style="color: blue"></i>
+                                    <i class="fa fa-user-circle-o fa-5x" style="color: blue"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"

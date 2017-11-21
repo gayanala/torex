@@ -22,9 +22,9 @@
                     text: 'Place Holders',
                     icon: false,
                     menu: [{
-                        text: 'Patron',
+                        text: 'Addressee',
                         onclick: function () {
-                            editor.insertContent('&nbsp;<b>{Requester Name}</b>&nbsp;');
+                            editor.insertContent('&nbsp;<b>{Addressee}</b>&nbsp;');
                         }
                     }, {
                         text: 'My Business Name',
@@ -57,11 +57,11 @@
                                 </ul>
                             </div>
                         @endif
-
+                        {{ csrf_field() }}
                         <div class="form-group">
                             {!! Form::label('To', 'To:', ['class'=>'col-md-3 control-label', ]) !!}
                             <div class="col-lg-9" align="center">
-                                {!! Form::text('To', $emails, ['class'=>'col-md-9 control-label'] ) !!}
+                                {!! Form::text('To', $emails, ['class'=>'col-md-9 control-label' , 'readonly'] ) !!}
                                 {!! Form::hidden('names', $names) !!}
                                 {!! Form::hidden('status', 'Reject') !!}
                                 {!! Form::hidden('ids_string', $ids_string) !!}
@@ -70,19 +70,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            {!! Form::label('Email Subject', '* Email Subject:', ['class'=>'col-md-3 control-label', ]) !!}
+                            {!! Form::label('Email Subject', 'Email Subject:', ['class'=>'col-md-3 control-label', ]) !!}
                             <div class="col-lg-9">
-                                {!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}
+                                {!! Form::text('email_subject', null, ['class' => 'form-control']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Email Message', '* Email Message:', ['class'=>'col-md-3 control-label' ]) !!}
+                            {!! Form::label('Email Message', 'Email Message:', ['class'=>'col-md-3 control-label' ]) !!}
                         </div>
 
                         <div class="form-group">
                             <!--div class="col-lg-6"-->
-                            {!! Form::textarea('email_message', null, ['required'], ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::textarea('email_message', null, ['class' => 'col-md-4 control-label', 'width'=> '1000px']) !!}
                         </div>
 
                         <div class="form-group">

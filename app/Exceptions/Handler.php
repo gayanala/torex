@@ -55,10 +55,16 @@ class Handler extends ExceptionHandler
 
         }
 
-        if ($exception instanceof ErrorException ) {
+        elseif ($exception instanceof ErrorException ) {
 
             // flash your message
 
+            \Session::flash('flash_message_important', 'Sorry, your session seems to have expired. Please try again.');
+
+            return redirect('login');
+        }
+
+        elseif ($exception instanceof TokenMismatchException) {
             \Session::flash('flash_message_important', 'Sorry, your session seems to have expired. Please try again.');
 
             return redirect('login');
