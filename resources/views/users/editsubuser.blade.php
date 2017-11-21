@@ -19,7 +19,7 @@
                                 </ul>
                             </div>
                         @endif
-
+                        {{ csrf_field() }}
                         <div class="">
                             {!! Form::hidden('id',$user->id,['class' => 'form-control', 'required']) !!}
                         </div>

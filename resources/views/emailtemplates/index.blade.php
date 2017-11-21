@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
+                    {{ csrf_field() }}
                     <div class="panel-heading"><h1 style="text-align: center; font-size: xx-large; vertical-align: ">Edit Email Templates Here</h1></div>
 
                     <div class="panel-body">

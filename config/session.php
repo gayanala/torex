@@ -28,10 +28,9 @@ return [
     | to immediately expire on the browser closing, set that option.
     |
     */
+    'lifetime' => getenv("APP_SESSION_EXPIRE") ?? 30,
 
-    'lifetime' => 200,
-
-    'expire_on_close' => false,
+    'expire_on_close' => true,
 
     /*
     |--------------------------------------------------------------------------
