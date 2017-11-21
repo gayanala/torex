@@ -106,6 +106,22 @@ class UserController extends Controller
         $user->zipcode = $request->zipcode;
         $user->phone_number = $request->phone_number;
         $user->organization_id = $orgId;
+
+        $validator = Validator::make($request->all(), [
+            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+            'zipcode' => 'required|numeric|digits:5',
+            'state' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($user->id),
+            ],
+
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         $user->save();
         $user->roles()->attach(Constant::BUSINESS_ADMIN);
 
@@ -160,6 +176,18 @@ class UserController extends Controller
         $user->organization_id = $request->location;
         $user->phone_number = $organization->phone_number;
 
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($user->id),
+            ],
+
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         $user->save();
 
         $user->roles()->attach($request->role_id);
