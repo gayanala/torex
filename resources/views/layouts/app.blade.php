@@ -527,16 +527,9 @@
         </ul>
     @endif
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<br>
 <div id="content">
     {{--@include('layouts.partials._status')--}}
     @yield('content')
-</div>
 </div>
 
 

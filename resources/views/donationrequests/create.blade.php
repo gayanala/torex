@@ -34,6 +34,7 @@
             if ({!! ! empty($_GET['newrequest']) !!})
             {
                 $('nav').hide();
+                $('#navDemo').wrap('<span style="display: none;" />');
             }
         });
 
@@ -283,17 +284,16 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group" id="explain" style="visibility:hidden">
-
+                        <div class="form-group" id="explain">
                             {!! Form::label('explain', 'Explain',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
                             <div class="col-md-6">
                                 <textarea name="item_requested_explain" id="item_requested_explain" class="form-control"
                                           pattern="[a-zA-Z0-9\s]"
-                                          maxlength="1000" required
+                                          maxlength="1000"
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
                                           placeholder="Explain the Requested item within 100 characters"
-                                          autofocus style="visibility:hidden;"></textarea>
+                                          autofocus ></textarea>
                                 <!--<input id="item_requested_explain" type="textbox" name="other" style="visibility:hidden;" required autofocus/>-->
                             </div>
                         </div>
@@ -327,17 +327,17 @@
                             </div>
                         </div>
 
-                        <div class="form-group" id="explain_purpose" style="visibility:hidden">
+                        <div class="form-group" id="explain_purpose" >
 
                             {!! Form::label('explain_purpose', 'Explain_purpose',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
                             <div class="col-md-6">
                                 <textarea name="item_purpose_explain" id="item_purpose_explain" class="form-control"
                                           pattern="[a-zA-Z0-9\s]"
-                                          maxlength="200" required
+                                          maxlength="200"
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
                                           placeholder="Explain your donation Purpose within 200 characters"
-                                          autofocus style="visibility:hidden;"></textarea>
+                                          autofocus ></textarea>
 
                             </div>
                         </div>
@@ -476,27 +476,26 @@
     </div>
 
     <script>
+        $(window).load(function () {
+            $('#explain').hide();
+            $('#explain_purpose').hide()
+        });
         $('#item_requested').change(function () {
-            var er = document.getElementById("item_requested");
-            var strRequested = er.options[er.selectedIndex].text;
-            if (strRequested == 'Other (please explain)') {
-                document.getElementById('item_requested_explain').style.visibility = 'visible';
+            if ($(this).val() == 5) {
+               $('#explain').show();
             } else {
-                document.getElementById('item_requested_explain').style.visibility = 'hidden';
-                document.getElementById('item_requested_explain').innerText = "";
+                $('#explain').hide();
+                $('#item_requested_explain').val('');
             }
         });
-    </script>
-    <script>
         $('#item_purpose').change(function () {
-            var ep = document.getElementById("item_purpose");
-            var strPurpose = ep.options[ep.selectedIndex].text;
-            if (strPurpose == 'Other (please explain)') {
-                document.getElementById('item_purpose_explain').style.visibility = 'visible';
+            if ($(this).val() == 9) {
+                $('#explain_purpose').show();
             } else {
-                document.getElementById('item_purpose_explain').style.visibility = 'hidden';
-                document.getElementById('item_purpose_explain').innerText = "";
+                $('#explain_purpose').hide();
+                $('#item_purpose_explain').val('');
             }
         });
+
     </script>
 @endsection
