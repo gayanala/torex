@@ -25,15 +25,18 @@
                 <div class="panel panel-default">
                     @if ($count < $subscription)
                         <div class="panel-heading">
-                            <a href="{{URL::action('SubscriptionController@cancel')}}"
-                               class="btn btn-primary pull-right" style="" id="cancel">
-                                Cancel Subscription
-                            </a>
-                            <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-                            <a href="{{URL::action('SubscriptionController@resume')}}"
-                               class="btn btn-primary pull-right" style="" id="resume">
-                                Resume Subscription
-                            </a>
+                            @if($subscriptionEnds == '')
+                                <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                                   class="btn btn-primary pull-right" style="" id="cancel">
+                                    Cancel Subscription
+                                </a>
+                            @else
+
+                                <a href="{{ URL::action('SubscriptionController@resume') }}"
+                                   class="btn btn-primary pull-right" style="" id="resume">
+                                    Resume Subscription
+                                </a>
+                            @endif
                             <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
                             <a href="{{action('OrganizationController@createOrganization')}}"
                                class="btn btn-primary pull-right"> [+] Add </a>
@@ -146,6 +149,7 @@
     <script>
 
         $(document).on('click', '#cancel', function () {
+
             $(this).addClass('disabled');
 
         });

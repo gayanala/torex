@@ -23,8 +23,9 @@ class OrganizationController extends Controller
         $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', $organizationId)->get();
         $count = $childOrganizations->count();
         $subscriptionQuantity = Subscription::where('organization_id', $organizationId)->value('quantity');
+        $subscriptionEnds = Subscription::where('organization_id', $organizationId)->value('ends_at');
         $subscription = $subscriptionQuantity - 1;
-        return view('organizations.index', compact('loggedOnUserOrganization', 'childOrganizations', 'count', 'subscriptionQuantity', 'subscription'));
+        return view('organizations.index', compact('loggedOnUserOrganization', 'childOrganizations', 'count', 'subscriptionQuantity', 'subscription', 'subscriptionEnds'));
 
     }
 
@@ -59,18 +60,22 @@ class OrganizationController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
+
             $organizationUpdate = $request->all();
+
             Organization::find($id)->update($organizationUpdate);
+
+            $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
+            //dd($childOrganizations);
+            Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
             //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
             //Organization::find($id)->update($);
-            if($id == Auth::user()->organization_id)
-            {
+
+            if ($id == Auth::user()->organization_id) {
                 return redirect('organizations/'.$id.'/edit');
             }
             return redirect('organizations');
-        }
-        else
-        {
+        } else {
             return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
         }
 
