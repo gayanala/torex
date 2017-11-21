@@ -103,8 +103,8 @@ class UserController extends Controller
         $user->phone_number = $request->phone_number;
         $user->organization_id = $orgId;
         $user->save();
-        $user->roles()->attach(Constant::BUSINESS_ADMIN);
-
+        //$user->roles()->attach(Constant::BUSINESS_ADMIN);
+        RoleUser::create(['role_id' => $request->role_id, 'user_id' => $user->id,]);
         $userid = $user->id;
 
         //fire NewBusiness event to initiate sending welcome mail
@@ -158,7 +158,8 @@ class UserController extends Controller
 
         $user->save();
 
-        $user->roles()->attach($request->role_id);
+        //$user->roles()->attach($request->role_id);
+        RoleUser::create(['role_id' => $request->role_id, 'user_id' => $user->id,]);
 
         //fire NewBusiness event to initiate sending welcome mail
 
