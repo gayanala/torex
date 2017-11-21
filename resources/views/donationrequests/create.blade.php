@@ -7,7 +7,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
 
 
-
     <script type="text/javascript">
         function yesnoCheck() {
             if (document.getElementById('yesCheck').checked) {
@@ -17,18 +16,16 @@
                 document.getElementById('file_upload').style.visibility = 'hidden';
             }
         }
+    </script>
+<script>
+    if($('#attachment')[0].files.length === 0){
+        alert("Attachment Required");
+        $('#attachment').focus();
 
-
-//        function explain() {
-//            console.log('asdf');
-//            var e = document.getElementById("item_requested");
-//            var strUser = e.options[e.selectedIndex].text;
-//            if ($strUser == 'Other (please explain)')
-//                this.form['item_requested_explain'].style.visibility = 'visible'
-//            else
-//                this.form['item_requested_explain'].style.visibility = 'hidden'
-//        }
-
+        return false;
+    }
+</script>
+    <script>
         $(window).load(function () {
             var phones = [{"mask": "(###) ###-####"}];
             $('#phonenumber').inputmask({
@@ -49,7 +46,6 @@
                     <div class="panel-heading">Donation Request Form</div>
 
                     <div class="panel-body">
-
                     {!! Form::open(['url' => 'attachment', 'class' => 'form-horizontal', 'id' => 'attachment', 'files' => true]) !!}
                     {{ csrf_field() }}
 
@@ -228,8 +224,7 @@
                             <div class="col-md-6">
 
                                 <label for="chkYes">
-                                    <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="yesCheck"
-                                           value="1">Yes
+                                    <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="yesCheck" value="1">Yes
                                 </label>
                                 <label for="chkNo">
                                     <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="noCheck" value="0">No
@@ -242,10 +237,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group" id="file_upload"  style="visibility:hidden">
-                            {!! Form::label('attachment', 'Attachment',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                        <div class="form-group{{ $errors->has('attachment') ? ' has-error' : '' }}" id="file_upload">
+                          <label for="attachment" class="col-md-4 control-label">Attachment <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+
+                            <!-- {!! Form::label('attachment', 'Attachment',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!} -->
                             <div class="col-md-4">
-                                {!! Form::file('attachment',['id'=>'attachment']) !!}
+                              <input type="file" class="form-control" name="attachment" id="attachment" required="required" required autofocus>
+                                <!-- {!! Form::file('attachment',['id'=>'attachment'],['class'=>'form-control', 'required']) !!} -->
+
+                                @if ($errors->has('attachment'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('attachment') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
@@ -259,10 +263,8 @@
                                         <strong>{{ $errors->first('item_requested') }}</strong>
                                     </span>
                                 @endif
-
                             </div>
                         </div>
-
                         <div class="form-group" id="explain"  style="visibility:hidden">
 
                             {!! Form::label('explain', 'Explain',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
@@ -274,6 +276,18 @@
                                           placeholder="Explain the Requested item within 100 characters"
                                           autofocus style="visibility:hidden;"></textarea>
                                 <!--<input id="item_requested_explain" type="textbox" name="other" style="visibility:hidden;" required autofocus/>-->
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('dollar_amount') ? ' has-error' : '' }}">
+                            <label for="dollar_amount" class="col-md-4 control-label">Dollar Amount<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <div class="col-md-6">
+                                <input id="dollar_amount" type="text" pattern="\d+(\.\d{2})?" required title="Please use the format $.$$ for this field. " class="form-control" name="dollar_amount" value="{{ old('formAttendees') }}" placeholder="Estimated Request Dollar Amount" required autofocus>
+
+                                @if ($errors->has('dollar_amount'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('dollar_amount') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
