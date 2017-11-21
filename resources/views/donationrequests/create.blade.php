@@ -24,7 +24,7 @@
                 greedy: false,
                 definitions: {'#': {validator: "[0-9]", cardinality: 1}}
             });
-            if ( "{!! empty($_GET['newrequest']) !!}" != "") {
+            if ( {{ ! empty($_GET['newrequest']) }} ) {
                 $('nav').hide();
                 $('#navDemo').wrap('<span style="display: none;" />');
             }
