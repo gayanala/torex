@@ -18,17 +18,19 @@
     </script>
     <script>
         $(window).load(function () {
-            $('#file_upload').hide();
             var phones = [{"mask": "(###) ###-####"}];
             $('#phonenumber').inputmask({
                 mask: phones,
                 greedy: false,
                 definitions: {'#': {validator: "[0-9]", cardinality: 1}}
             });
-            if ({!! ! empty($_GET['newrequest']) !!}) {
+            if ( "{!! empty($_GET['newrequest']) !!}" != "") {
                 $('nav').hide();
                 $('#navDemo').wrap('<span style="display: none;" />');
             }
+            $('#file_upload').hide();
+            $('#explain').hide();
+            $('#explain_purpose').hide()
         });
 
 
@@ -466,10 +468,6 @@
     </div>
 
     <script>
-        $(window).load(function () {
-            $('#explain').hide();
-            $('#explain_purpose').hide()
-        });
         $('#item_requested').change(function () {
             if ($(this).val() == 5) {
                 $('#explain').show();
