@@ -106,6 +106,7 @@
 
         <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
             {{ csrf_field() }}
+
             <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
                 <br>
                 <table width="100%" style="background-color:#f9a825">

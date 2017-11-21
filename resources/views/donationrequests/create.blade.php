@@ -253,7 +253,7 @@
                             <label for="item_requested" class="col-md-4 control-label">Request For <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
-                                {!! Form::select('item_requested', array_merge(['' => '-- Please Select --'], $request_item_types->all()), null, ['id' => 'item_requested','class'=>'form-control', 'required']) !!}
+                                {!! Form::select('item_requested', array('' => '-- Please Select --') + $request_item_types->all(), null, ['id' => 'item_requested','class'=>'form-control', 'required']) !!}
                                 @if ($errors->has('item_requested'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('item_requested') }}</strong>
@@ -267,7 +267,7 @@
 
                             {!! Form::label('explain', 'Explain',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
                             <div class="col-md-6">
-                                <textarea id="item_requested_explain" class="form-control" pattern="[a-zA-Z0-9\s]"
+                                <textarea name="item_requested_explain" id="item_requested_explain" class="form-control" pattern="[a-zA-Z0-9\s]"
                                           maxlength="1000" required
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
@@ -280,7 +280,7 @@
                         <div class="form-group{{ $errors->has('item_purpose') ? ' has-error' : '' }}">
                             <label for="item_purpose" class="col-md-4 control-label">Donation Purpose <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                             <div class="col-md-6">
-                                {!! Form::select('item_purpose', array_merge(['' => '-- Please Select --'], $request_item_purpose->all()), null, ['id' => 'item_purpose','class'=>'form-control', 'required']) !!}
+                                {!! Form::select('item_purpose', array('' => '-- Please Select --') + $request_item_purpose->all(), null, ['id' => 'item_purpose','class'=>'form-control', 'required']) !!}
                                 @if ($errors->has('item_purpose'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('item_purpose') }}</strong>
@@ -293,7 +293,7 @@
 
                             {!! Form::label('explain_purpose', 'Explain_purpose',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
                             <div class="col-md-6">
-                                <textarea id="item_purpose_explain" class="form-control" pattern="[a-zA-Z0-9\s]"
+                                <textarea name="item_purpose_explain" id="item_purpose_explain" class="form-control" pattern="[a-zA-Z0-9\s]"
                                           maxlength="200" required
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
@@ -434,7 +434,7 @@
                 document.getElementById('item_requested_explain').style.visibility = 'visible';
             } else {
                 document.getElementById('item_requested_explain').style.visibility = 'hidden';
-                document.getElementById('item_requested_explain').innerText = " ";
+                document.getElementById('item_requested_explain').innerText = "";
             }
         });
     </script>
@@ -446,7 +446,7 @@
                 document.getElementById('item_purpose_explain').style.visibility = 'visible';
             } else {
                 document.getElementById('item_purpose_explain').style.visibility = 'hidden';
-                document.getElementById('item_purpose_explain').innerText = " ";
+                document.getElementById('item_purpose_explain').innerText = "";
             }
         });
     </script>
