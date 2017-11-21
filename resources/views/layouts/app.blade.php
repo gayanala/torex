@@ -56,8 +56,9 @@
             margin-bottom: 100px;
             padding: 0;
             min-height: 100%;
-            position: relative;
             clear: both;
+            margin-top: 20px;
+            padding-top:30px;
         }
 
         @media screen and (max-width: 600px) {
@@ -184,6 +185,10 @@
 
         .navbar-nav li a:hover {
             color: #1abc9c !important;
+                    }
+
+        .navbar-nav li a:active {
+            background-color: #e1bee7 !important;
         }
 
         .col-sm-6 {
@@ -288,8 +293,11 @@
 </script>
 @yield('scripts')
 <div id="app">
-    <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light primarybg-"
-         style="background-color: #8e24aa;padding-bottom: .5px">
+
+
+
+    <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light navbar-fixed-top" style="background-color: #8e24aa;padding-bottom: .5px;margin-bottom: 10px">
+
         <div class="container-fluid">
 
             <div class="row">
@@ -298,7 +306,7 @@
                     @if (Auth::guest())
                         <a href="{{ url('/') }}">
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
-                                 width="100%" style='background-size: inherit'/>
+                                 width="60%" style='background-size: inherit'/>
                         </a>
                     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                     OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))

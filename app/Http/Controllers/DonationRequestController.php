@@ -125,8 +125,10 @@ class DonationRequestController extends Controller
             $donationRequest->file_url = $imageName;
         }
         $donationRequest->item_requested = $request->item_requested;
+        $donationRequest->other_item_requested = $request->item_requested_explain;
         $donationRequest->dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
+        $donationRequest->other_item_purpose = $request->item_purpose_explain;
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
         $donationRequest->event_start_date = $request->startdate;

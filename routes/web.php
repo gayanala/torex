@@ -77,7 +77,7 @@ Route::post('user/register', 'UserController@create');
 
 Route::get('/organization', 'OrganizationController@index')->middleware('auth');
 
-Route::post('/organization', 'OrganizationController@create');
+Route::post('/organization', 'OrganizationController@create')->middleware('auth');
 
 Route::get('user/manageusers', 'UserController@indexUsers')->name('indexsubuser')->middleware('auth');
 

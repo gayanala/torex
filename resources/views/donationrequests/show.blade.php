@@ -82,6 +82,21 @@
                                 <td>Request For</td>
                                 <td><?php echo ($item_requested_name); ?></td>
                             </tr>
+                            <?php  if($donationrequest['item_requested'] == 5) { ?>
+                            <tr>
+                                <td>Requested Item Explained:</td>
+                                <!-- <td> echo ($file_url)</td> -->
+                                <td><?php echo($donationrequest['other_item_requested']) ?></td>
+
+
+                            <?php } else { ?>
+
+                            <td>Requested Item Explained:</td>
+                            <!-- <td> echo ($file_url)</td> -->
+                            <td><?php echo "Not Applicable" ?></td>
+                            </tr>
+                        <?php } ?>
+
                             <tr>
                                 <td>Dollar Amount</td>
                                 <td>$<?php echo ($donationrequest['dollar_amount']); ?></td>
@@ -89,6 +104,21 @@
                             <tr>
                                 <td>Donation Purpose</td>
                                 <td><?php echo ($donation_purpose_name); ?></td>
+                            </tr>
+                            <?php  if($donationrequest['item_purpose'] == 9) { ?>
+                            <tr>
+                                <td>Donation Purpose Explained:</td>
+                                <!-- <td> echo ($file_url)</td> -->
+                                <td><?php echo($donationrequest['other_item_purpose']) ?></td>
+
+
+                            <?php } else { ?>
+
+                            <td>Requested Item Explained:</td>
+                            <!-- <td> echo ($file_url)</td> -->
+                            <td><?php echo "Not Applicable" ?></td>
+
+                            <?php } ?>
                             </tr>
                             <tr>
                                 <td>Handout Date</td>

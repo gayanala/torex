@@ -23,8 +23,9 @@ class OrganizationController extends Controller
         $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', $organizationId)->get();
         $count = $childOrganizations->count();
         $subscriptionQuantity = Subscription::where('organization_id', $organizationId)->value('quantity');
+        $subscriptionEnds = Subscription::where('organization_id', $organizationId)->value('ends_at');
         $subscription = $subscriptionQuantity - 1;
-        return view('organizations.index', compact('loggedOnUserOrganization', 'childOrganizations', 'count', 'subscriptionQuantity', 'subscription'));
+        return view('organizations.index', compact('loggedOnUserOrganization', 'childOrganizations', 'count', 'subscriptionQuantity', 'subscription', 'subscriptionEnds'));
 
     }
 
@@ -59,34 +60,37 @@ class OrganizationController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
+
             $organizationUpdate = $request->all();
+
             Organization::find($id)->update($organizationUpdate);
+
+            $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
+            //dd($childOrganizations);
+            Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
             //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
             //Organization::find($id)->update($);
-            if($id == Auth::user()->organization_id)
-            {
+
+            if ($id == Auth::user()->organization_id) {
                 return redirect('organizations/'.$id.'/edit');
             }
             return redirect('organizations');
-        }
-        else
-        {
+        } else {
             return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
         }
 
     }
 
 
-    protected function validator(array $data)
+    protected function validatorLocation($data)
     {
-        return Validator::make($data, [
+        return Validator::make($data->toArray(), [
             'org_name' => 'required|string|max:255',
             'organization_type_id' => 'required',
             'street_address1' => 'required|string|max:255',
-            'street_address2' => 'string|max:255',
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
-            'zipcode' => 'required',
+            'zipcode' => 'required|regex:/[0-9]{5}/',
             'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
 
             /*'name' => 'required|string|max:255',
@@ -133,6 +137,12 @@ class OrganizationController extends Controller
         $organization->zipcode = $request['zipcode'];
         $organization->phone_number = $request['phone_number'];
         $organization->save();
+
+        $validator = $this->validatorLocation($organization);//dd($validator);
+        if ($validator -> fails())
+        {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         // Inserting the relation between parent organization and child organization
         ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);
