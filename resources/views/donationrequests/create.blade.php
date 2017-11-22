@@ -16,6 +16,7 @@
             }
         }
     </script>
+
     <script>
         $(window).load(function () {
             var phones = [{"mask": "(###) ###-####"}];
@@ -28,14 +29,12 @@
                 $('nav').hide();
                 $('#navDemo').wrap('<span style="display: none;" />');
             }
-            $('#file_upload').hide();
-            $('#explain').hide();
-            $('#explain_purpose').hide()
+            
         });
 
 
     </script>
-
+{{ csrf_field() }}
 
     <div class="container">
         <div class="row">
@@ -137,22 +136,20 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('phonenumber') ? ' has-error' : '' }}">
-                            <label for="phonenumber" class="col-md-4 control-label">Phone Number <span
-                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-
-                            <div class="col-md-6">
-                                <input id="phonenumber" type="text" class="form-control"
-                                       name="phonenumber" value="{{ old('phonenumber') }}" required
-                                       autofocus>
+                           <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                                <div class="col-md-6">
+                                    <input id="phonenumber" type="tel" class="form-control"
+                                           name="phonenumber"  value="{{ old('phonenumber') }}" required
+                                           >
 
 
-                                @if ($errors->has('phonenumber'))
-                                    <span class="help-block">
+                                    @if ($errors->has('phonenumber'))
+                                        <span class="help-block">
                                         <strong>{{ $errors->first('phonenumber') }}</strong>
                                     </span>
-                                @endif
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
                         <div class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
                             <label for="address1" class="col-md-4 control-label">Address 1 <span
