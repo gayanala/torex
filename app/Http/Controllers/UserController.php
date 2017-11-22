@@ -119,8 +119,8 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user->save();
-        //$user->roles()->attach(Constant::BUSINESS_ADMIN);
-        RoleUser::create(['role_id' => $request->role_id, 'user_id' => $user->id,]);
+        $user->roles()->attach(Constant::BUSINESS_ADMIN);
+        //RoleUser::create(['role_id' => $request->role_id, 'user_id' => $user->id]);
         $userid = $user->id;
 
         //fire NewBusiness event to initiate sending welcome mail
@@ -186,8 +186,7 @@ class UserController extends Controller
         }
         $user->save();
 
-        //$user->roles()->attach($request->role_id);
-        RoleUser::create(['role_id' => $request->role_id, 'user_id' => $user->id,]);
+        $user->roles()->attach($request->role_id);
 
         //fire NewBusiness event to initiate sending welcome mail
 
