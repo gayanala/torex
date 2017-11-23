@@ -19,7 +19,7 @@
 var this_js_script = $('script[src*=range_dates]'); // or better regexp to get the file name..
 var columnLocation = this_js_script.attr('data-date-column');
 if (typeof columnLocation === "undefined" ) {
-    columnLocation = 5;
+    columnLocation = 4;
 }
 
 
