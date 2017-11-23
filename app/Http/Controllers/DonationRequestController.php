@@ -22,22 +22,29 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use URL;
+use Vinkla\Hashids\Facades\Hashids;
 
 
 
 class DonationRequestController extends Controller
 {
+
     public function index()
     {
         $organizationId = Auth::user()->organization_id;
         $organization = Organization::findOrFail($organizationId);
         $organizationName = $organization->org_name;
+        // change this arr name
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
         $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
+//
+//        foreach ($donationrequests as $donationrequest)
+//            $donationrequest->id = Hashids::encode($donationrequest->id);
+
+
         $today = Carbon::now()->toDateString();
         return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
-
     }
 
     public function admin()
@@ -171,6 +178,9 @@ class DonationRequestController extends Controller
 
     public function show($id)
     {
+        //dd(Hashids::decode($id));
+        $id = Hashids::decode($id)[0];
+//        dd($id);
         $donationAcceptanceFlag = 0;
         if (URL::previous() === URL::route('show-donation', ['id' => 1])) {
             $donationAcceptanceFlag = 0;
@@ -200,8 +210,15 @@ class DonationRequestController extends Controller
             $donationRequestName = $donationRequest->type_name;
         }
 
+//        return redirect()->route('donationrequests.show');
+
         return view('donationrequests.show', compact('donationrequest', 'event_purpose_name', 'donation_purpose_name'
             , 'item_requested_name', 'donationRequestName', 'donationAcceptanceFlag'));
+    }
+
+    public function getRouteKey()
+    {
+        return $this->slug;
     }
 
     public function changeDonationStatus(Request $request)
