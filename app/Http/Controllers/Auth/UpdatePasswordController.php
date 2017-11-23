@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 
 class UpdatePasswordController extends Controller
 {
@@ -31,7 +32,7 @@ class UpdatePasswordController extends Controller
     {
         $this->validate($request, [
             'old' => 'required',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         $user = User::find(Auth::id());
@@ -43,13 +44,17 @@ class UpdatePasswordController extends Controller
                 'password' => Hash::make($request->password)
             ])->save();
 
-            $request->session()->flash('success', 'Your password has been changed.');
-
             //Password changed email notification event trigger
 
             event(new PasswordUpdate($user));
 
-            return back();
+            Auth::logout();
+
+            $request->session()->flash('success', 'Your password has been changed.');
+
+//            return back();
+
+            return redirect('/login');
         }
 
         $request->session()->flash('failure', 'Your password has not been changed.');

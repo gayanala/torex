@@ -17,8 +17,8 @@ class email_template_types extends Seeder
 
        EmailTemplateTypes::create(['id' => 1, 'template_type' => 'Business Registration(Admin)']);
        EmailTemplateTypes::create(['id' => 2, 'template_type' => 'Business Registration(User)']);
-       EmailTemplateTypes::create(['id' => 3, 'template_type' => 'Donation Request Success']);;
-       EmailTemplateTypes::create(['id' => 4, 'template_type' => 'Donation Request Denied']);
+       EmailTemplateTypes::create(['id' => 3, 'template_type' => 'Donation Request Approve']);;
+       EmailTemplateTypes::create(['id' => 4, 'template_type' => 'Donation Request Reject']);
        EmailTemplateTypes::create(['id' => 5, 'template_type' => 'Forgot Password']);
      
    }

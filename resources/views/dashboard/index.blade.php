@@ -24,7 +24,8 @@
                                     <i class="fa fa-money fa-5x" style="color: #3e8f3e"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$amountDonated}}</div>
+                                    <div class="huge" style="font-weight: bold; font-size: 20px;">
+                                        ${{$amountDonated}}</div>
                                     <div>TOTAL AMOUNT DONATED</div>
                                 </div>
                             </div>
@@ -40,7 +41,8 @@
                                     <i class="fa fa-window-close-o fa-5x" style="color: red"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$rejectedNumber}}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{$rejectedNumber}}</div>
                                     <div>REJECTED</div>
                                 </div>
                             </div>
@@ -62,7 +64,8 @@
                                     <i class="fa fa-check-square-o fa-5x" style="color: #00dd00"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$approvedNumber}}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{$approvedNumber}}</div>
                                     <div>APPROVED</div>
                                 </div>
                             </div>
@@ -84,7 +87,8 @@
                                     <i class="fa fa-clock-o fa-5x" style="color: darkorange"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge">{{$pendingNumber}}</div>
+                                    <div class="huge"
+                                         style="font-weight: bold; font-size: 20px;">{{$pendingNumber}}</div>
                                     <div>PENDING</div>
                                 </div>
                             </div>
@@ -124,6 +128,7 @@
                                         <th class="text-center">Location</th>
                                         <th class="text-center">Handout Date</th>
                                         <th class="text-center">Status</th>
+                                        <th class="text-center">Status Reason</th>
                                         <th class="text-center">View Details</th>
                                     </tr>
                                     </thead>
@@ -140,9 +145,10 @@
                                             <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
 
                                             <td id="status{{$donationrequest->id}}" style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
+                                            <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                             <td>
-                                                <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-warning" title="Detail">
-                                                    <span class="glyphicon glyphicon-list-alt"></span></a>
+                                                <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
+                                                    <span class="glyphicon glyphicon-list-alt" text-></span></a>
 
                                             </td>
                                             {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
@@ -156,8 +162,9 @@
                                     @endif
                                 </table>
                                 {!! Form::open(['action' =>  'EmailTemplateController@send', 'method' => 'GET']) !!}
-                                {{ Form::hidden('hiddenname','' , array('id' => 'selected-ids-hidden')) }}
-                                {{ Form::hidden('pagefrom', '/dashboard') }}
+                                {{ csrf_field() }}
+                                {{ Form::hidden('ids_string','' , array('id' => 'selected-ids-hidden')) }}
+                                {{ Form::hidden('page_from', '/dashboard') }}
                                 {{--add if condition to show approve and reject buttons only if there are pending requests and atleast one is selected--}}
                                 @if(sizeOf($donationrequests) != 0)
                                     {!! Form::submit( 'Approve', ['class' => 'btn btn-default', 'name' => 'submitbutton', 'value' => 'approve'])!!}

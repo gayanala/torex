@@ -20,7 +20,9 @@ class DonationRequest extends Model
         'state',
         'zipcode',
         'tax_exempt',
+        'file_url',
         'item_requested',
+        'other_item_requested',
         'dollar_amount',
         'item_purpose',
         'other_item_purpose',
@@ -37,6 +39,7 @@ class DonationRequest extends Model
         'approved_user_id',
         'rule_process_date',
         'approval_status_id',
+        'approval_status_reason',
         'email_sent'
     ];
 

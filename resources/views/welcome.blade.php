@@ -35,7 +35,7 @@
 
             <div id="about" class="col-sm-6">
                 <h3>About Us </h3>
-                <p class="text-center">CommunityQ helps caring business managers in streamlining contributions to
+                <p class="text-center">CharityQ helps caring business managers in streamlining contributions to
                     their community, charities, non-profits, and other organizations.  This allows our business partners to operate more
                     efficiently and successfully within their community.
                 </p>
@@ -66,7 +66,7 @@
             <br>
             <br>
             <br>
-            <h4><a href="{{ route('register') }}" class="w3-bar-item w3-button ">Sign Up !</a></h4>
+              <a href="{{ route('register') }}" class="btn btn-primary " title="Signup"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign Up !</a></h4>
             <br>
 
         </div>

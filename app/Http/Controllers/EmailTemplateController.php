@@ -2,39 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Constant;
 use App\DonationRequest;
+use App\EmailTemplate;
+use App\RoleUser;
+use Auth;
 use Illuminate\Http\Request;
 
 
-use App\EmailTemplate;
-
-
-
-use App\Http\Controllers\Controller;
-
 class EmailTemplateController extends Controller
 {
+
     public function index()
     {
-    	
-    	$emailtemplates = EmailTemplate::all();
-    	return view('emailtemplates.index', compact('emailtemplates'));
+
+        $email_templates = [];
+        $org_id = Auth::user()->organization_id;
+        $user_id = Auth::id();
+        $user_role = RoleUser::where('user_id', $user_id)->value('role_id'); //get user role of current user
+
+        if ($user_role == Constant::TAGG_ADMIN OR $user_role == Constant::BUSINESS_ADMIN) {
+
+            $email_templates = EmailTemplate::where('organization_id', $org_id)->get();
+
+
+        }
+
+        return view('emailtemplates.index', compact('email_templates'));
     }
 
     public function update(Request $request, $id)
     {
 
-        $emailtemplate = EmailTemplate::find($id);
-        $emailtemplate -> update($request->all());
-        $emailtemplate->save();
+        $email_template = EmailTemplate::find($id);
+        $email_template->update($request->all());
+        $email_template->save();
         return redirect('emailtemplates');
     }
 
     public function edit($id)
     {
-        $emailtemplate = EmailTemplate::findOrFail($id);
-        return view('emailtemplates.edit', compact('emailtemplate'));
+        $email_template = EmailTemplate::findOrFail($id);
+        return view('emailtemplates.edit', compact('email_template'));
     }
+
 
     /**
      * Uses Template model to send values like email template to populate in email editor,
@@ -45,35 +56,42 @@ class EmailTemplateController extends Controller
      */
     public function send(Request $request)
     {
-        $idsString = $request->hiddenname;
-        $pagefrom = $request->pagefrom;
+        $ids_string = $request->ids_string;
+        if (!empty($ids_string)) {
+            $page_from = $request->page_from;
+            $org_id = Auth::user()->organization_id;
 
-        // Storing what button is clicked
-        // either accept or reject
-        $changestatus = $request->submitbutton;
+            // Storing what button is clicked
+            // either accept or reject
+            $change_status = $request->submitbutton;
 
-        $idsArray = [];
-        $idsArray = explode(',', $idsString); //split string into array seperated by ', '
+            $ids_array = [];
+            $ids_array = explode(',', $ids_string); //split string into array seperated by ', '
 
-        //get email ids
-        $emails = DonationRequest::whereIn('id', $idsArray)->pluck('email');
-        $emails = str_replace(array("[","]",'"'),"", ($emails));
+            //get email ids
+            $emails = DonationRequest::whereIn('id', $ids_array)->pluck('email');
+            $emails = str_replace(array("[", "]", '"'), "", ($emails));
 
-        //get first and last names in string
-        $names = DonationRequest::whereIn('id', $idsArray)->pluck('last_name', 'first_name');
+            //get first and last names in string
+            $names = DonationRequest::whereIn('id', $ids_array)->pluck('last_name', 'first_name');
 
-        //returns to different views based on button clicked by user 'Approve' or 'Reject'
-        if ($changestatus == 'Approve') {
+            //returns to different views based on button clicked by user 'Approve' or 'Reject'
+            if ($change_status == 'Approve') {
 
-            //get email template for Approve id value = 3
-            $emailtemplate = EmailTemplate::findOrFail(3);
-            return view('emaileditor.approvesendmail', compact('emailtemplate', 'emails', 'names', 'idsString', 'pagefrom'));
-        }
-        else {
+                //get email template for Approve id value = 3
+                $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_APPROVED)->where('organization_id', $org_id)->get();
+                $email_template = $email_template[0]; //convert collection into an array
+                return view('emaileditor.approvesendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
+            } else {
 
-            //get email template for Reject id value = 4
-            $emailtemplate = EmailTemplate::findOrFail(4);
-            return view('emaileditor.rejectsendmail', compact('emailtemplate', 'emails', 'names', 'idsString', 'pagefrom'));
+                //get email template for Reject id value = 4
+                $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_REJECTED)->where('organization_id', $org_id)->get();
+                $email_template = $email_template[0]; //convert collection into an array
+                return view('emaileditor.rejectsendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
+            }
+        } else {
+            //do not redirect to email editor if no request is selected
+            return redirect('/dashboard')->with('message', 'select something');
         }
     }
 }

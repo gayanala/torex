@@ -51,7 +51,7 @@
                                 <td>Zip Code</td>
                                 <td><?php echo ($donationrequest['zipcode']); ?></td>
                             </tr>
-                           
+
                             <tr>
                                 <td>Tax Exempt</td>
                                 <td>
@@ -64,11 +64,39 @@
                                     ?><?php echo ($taxexempt_value); ?>
                                 </td>
                             </tr>
+                            <?php  if($donationrequest['tax_exempt'] == 1) { ?>
+                            <tr>
+                                <td>File URL</td>
+                                <!-- <td> echo ($file_url)</td> -->
+                                <td><a href="<?php echo($donationrequest['file_url']) ?>" target="_blank"><b>Link to
+                                            File</b> </a></td>
+
+                            </tr>
+                            <?php } else { ?>
+
+
+
+                        <?php } ?>
 
                             <tr>
                                 <td>Request For</td>
                                 <td><?php echo ($item_requested_name); ?></td>
                             </tr>
+                            <?php  if($donationrequest['item_requested'] == 5) { ?>
+                            <tr>
+                                <td>Requested Item Explained:</td>
+                                <!-- <td> echo ($file_url)</td> -->
+                                <td><?php echo($donationrequest['other_item_requested']) ?></td>
+
+
+                            <?php } else { ?>
+
+                            <td>Requested Item Explained:</td>
+                            <!-- <td> echo ($file_url)</td> -->
+                            <td><?php echo "Not Applicable" ?></td>
+                            </tr>
+                        <?php } ?>
+
                             <tr>
                                 <td>Dollar Amount</td>
                                 <td>$<?php echo ($donationrequest['dollar_amount']); ?></td>
@@ -76,6 +104,21 @@
                             <tr>
                                 <td>Donation Purpose</td>
                                 <td><?php echo ($donation_purpose_name); ?></td>
+                            </tr>
+                            <?php  if($donationrequest['item_purpose'] == 9) { ?>
+                            <tr>
+                                <td>Donation Purpose Explained:</td>
+                                <!-- <td> echo ($file_url)</td> -->
+                                <td><?php echo($donationrequest['other_item_purpose']) ?></td>
+
+
+                            <?php } else { ?>
+
+                            <td>Requested Item Explained:</td>
+                            <!-- <td> echo ($file_url)</td> -->
+                            <td><?php echo "Not Applicable" ?></td>
+
+                            <?php } ?>
                             </tr>
                             <tr>
                                 <td>Handout Date</td>
@@ -85,19 +128,24 @@
                                 <td>Event Name</td>
                                 <td><?php echo ($donationrequest['event_name']); ?></td>
                             </tr>
-                            <tr>
-                                <td>Event Start Date</td>
-                                <td><?php echo date("m/d/Y", strtotime($donationrequest['event_start_date'])); ?></td>
-                            </tr>
-
-                            <tr>
-                                <td>Event Purpose</td>
-                                <td><?php echo ($event_purpose_name); ?></td>
-                            </tr>
-                            <tr>
-                                <td>Estimated Number Of Attendes</td>
-                                <td><?php echo ($donationrequest['est_attendee_count']); ?></td>
-                            </tr>
+                            @if($donationrequest->event_start_date)
+                                <tr>
+                                    <td>Event Start Date</td>
+                                    <td><?php echo date("m/d/Y", strtotime($donationrequest['event_start_date'])); ?></td>
+                                </tr>
+                            @endif
+                            @if($donationrequest->event_type)
+                                <tr>
+                                    <td>Event Purpose</td>
+                                    <td><?php echo ($event_purpose_name); ?></td>
+                                </tr>
+                            @endif
+                            @if($donationrequest->est_attendee_count)
+                                <tr>
+                                    <td>Estimated Number Of Attendes</td>
+                                    <td><?php echo ($donationrequest['est_attendee_count']); ?></td>
+                                </tr>
+                            @endif
                             <tr>
                                 <td>Event Venue or Address</td>
                                 <td><?php echo ($donationrequest['venue']); ?></td>
@@ -116,34 +164,41 @@
                         </div>
                     </table>
                 </div>
-                {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
-                @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
-                    <div>
-                        <label for="dollar_amount" class="col-md-3 control-label">Dollar Amount Approval</label>
-                        <div class="col-lg-6">
-                            {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
-                            {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['class' => 'form-control', 'required'] )!!}
+                @if($donationAcceptanceFlag == 1)
+                    {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
+                        {{ csrf_field() }}
+                        @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
+                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER) 
+                                <div>
+                                    <label for="dollar_amount" class="col-md-3 control-label">Dollar Amount Approval</label>
+                                    <div class="col-lg-6">
+
+                                        {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
+                                        {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['class' => 'form-control', 'required'] )!!}
+                                    </div>
+                                </div>
+                                <br><br>
+                            @endif
+                        @endif
+                        <div style="text-align:center">
+
+                            @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
+                                @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER) 
+                                    <input class="btn active btn-success" type="submit" name="approve" value="Approve">
+                                    <input class="btn active btn-danger" type="submit" name="reject" value="Reject">
+                                @endif
+
+
+                                <input class="btn btn-primary" type="button" value="Go Back" onClick="history.go(-1);">
+                                {{--<a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation--}}
+                                {{--Request</a>--}}
+                            @else
+                                <input class="btn btn-primary" type="button" value="Go Back" onClick="history.go(-1);">
+                            @endif
                         </div>
-                    </div>
-                    <br><br>
+                    {!! Form::close() !!}
                 @endif
-                <div style="text-align:center">
-                    @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
-                        <input class="btn active btn-success" type="submit" name="approve" value="Approve">
-                        <input class="btn active btn-danger" type="submit" name="reject" value="Reject">
-                        <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
-                            Request</a>
-                    @else
-                        <a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation
-                            Request</a>
-                    @endif
-                </div>
-                {!! Form::close() !!}
-
-
                 <br><br>
-            </div>
-                </div>
             </div>
         </div>
     </div>

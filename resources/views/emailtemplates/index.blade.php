@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
+                    {{ csrf_field() }}
                     <div class="panel-heading"><h1 style="text-align: center; font-size: xx-large; vertical-align: ">Edit Email Templates Here</h1></div>
 
                     <div class="panel-body">
@@ -18,12 +19,12 @@
                             </tr>
                             </thead>
                             <tr>
-                            @foreach($emailtemplates as $emailtemplate)
-                                      <td style="vertical-align: middle">{{ $emailtemplate->emailTemplateTypes->template_type }}</td>
-                                    <td style="vertical-align: middle">{{ $emailtemplate->email_subject }}</td>
+                                @foreach($email_templates as $email_template)
+                                    <td style="vertical-align: middle">{{ $email_template->emailTemplateTypes->template_type }}</td>
+                                    <td style="vertical-align: middle">{{ $email_template->email_subject }}</td>
                                    
                                     <td style="vertical-align: middle"><a href="
-                                    {{action('EmailTemplateController@edit', ['id' => $emailtemplate->id])}}
+                                    {{action('EmailTemplateController@edit', ['id' => $email_template->id])}}
                                     " class="btn btn-info btn-lg"><span class="glyphicon glyphicon-pencil"></span></a>
                                 </tr>
                                 @endforeach

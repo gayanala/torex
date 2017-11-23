@@ -14,15 +14,15 @@ class Organization_typesTableSeeder extends Seeder
     {
         DB::table('organization_types')->delete();
 
-        Organization_type::create(['id' => 1, 'type_name' => 'Animal Services', 'type_description' => 'Veterinary Practices, Pet Stores, etc.']);
-        Organization_type::create(['id' => 2, 'type_name' => 'Education', 'type_description' => 'Colleges, Trade Schools, etc.']);
-        Organization_type::create(['id' => 3, 'type_name' => 'Financial', 'type_description' => 'Banking, Insurance, etc.']);;
-        Organization_type::create(['id' => 4, 'type_name' => 'Food Services', 'type_description' => 'Restaurants, Fast Food, etc.']);
-        Organization_type::create(['id' => 5, 'type_name' => 'Infrastructure', 'type_description' => 'Construction, etc.']);
-        Organization_type::create(['id' => 6, 'type_name' => 'Legal', 'type_description' => 'Law Practices']);
-        Organization_type::create(['id' => 7, 'type_name' => 'Retail', 'type_description' => 'Retail & Home Improvement Stores, etc.']);
-        Organization_type::create(['id' => 8, 'type_name' => 'Transportation', 'type_description' => 'Rail, Trucking, etc.']);
-        Organization_type::create(['id' => 9, 'type_name' => 'Others', 'type_description' => 'It is for others']);
+        Organization_type::create(['id' => 1, 'type_name' => 'Restaurant', 'type_description' => 'Restaurant']);
+        Organization_type::create(['id' => 2, 'type_name' => 'Retail', 'type_description' => 'Retail']);
+        Organization_type::create(['id' => 3, 'type_name' => 'Health/Beauty', 'type_description' => 'Health/Beauty']);;
+        Organization_type::create(['id' => 4, 'type_name' => 'Entertainment', 'type_description' => 'Entertainment']);
+        Organization_type::create(['id' => 5, 'type_name' => 'Hospitality/Travel', 'type_description' => 'Hospitality/Travel']);
+        Organization_type::create(['id' => 6, 'type_name' => 'B2B Service', 'type_description' => 'B2B Service']);
+        Organization_type::create(['id' => 7, 'type_name' => 'B2C Service', 'type_description' => 'B2C Service']);
+        Organization_type::create(['id' => 8, 'type_name' => 'Others', 'type_description' => 'Anything other than the above options']);
 
     }
 }
+

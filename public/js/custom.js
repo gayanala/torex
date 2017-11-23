@@ -1,44 +1,53 @@
-$("body").on('change', '#plan', function () {
+$("body").on('change', '#plan,#user_locations', function () {
+    $("#cart").removeClass("hide");
+    document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = 0;
+    document.getElementById("coupon-message").innerHTML = '';
+    document.getElementById("coupon").value = '';
     var plan = $('#plan').val();
     var user = $('#user_locations').val();
+    var location_selected = document.getElementById("user_locations").options[document.getElementById("user_locations").selectedIndex].text;
+    var plan_selected = document.getElementById("plan").options[document.getElementById("plan").selectedIndex].text;
+    $('#plan_selected').html(plan_selected);
+    $('#location_selected').html(location_selected);
+
     var yearly_charge = '';
     var totalamount = '';
     if ((plan != '') && (user != '')) {
-        if (plan == 'monthly') {
-            totalamount = MON_CHAR + user * EXTRA_CHAR;
+        if (plan == 'Monthly') {
+            if (user == '5') {
+                totalamount = 19;
+            } else if (user == '25') {
+                totalamount = 49;
+            } else if (user == '100') {
+                totalamount = 99;
+            }
+            else {
+                totalamount = 249;
+            }
         } else {
-            yearly_charge = (ANUAL_CHAR + user * 12 * EXTRA_CHAR);
+            if (user == '5') {
+                yearly_charge = (19 * 12);
+            } else if (user == '25') {
+                yearly_charge = (49 * 12);
+            } else if (user == '100') {
+                yearly_charge = (99 * 12);
+            }
+            else {
+                yearly_charge = (249 * 12);
+            }
             var discount = (yearly_charge * 20) / 100;
             totalamount = yearly_charge - discount;
-            //alert('ssss');
+
         }
         if (totalamount != '') {
-            $('#result_final').html(totalamount);
-        } else {
-            $('#result_final').html(0);
+            $('#total_price').html(totalamount);
+            $('#balance_price').html(totalamount);
+
         }
     }
 });
-$("body").on('keyup', '#user_locations', function () {
-    var user = $('#user_locations').val();
-    var plan = $('#plan').val();
-    var yearly_charge = '';
-    var totalamount = '';
-    if ((plan != '') && (user != '')) {
-        if (plan == 'monthly') {
-            totalamount = MON_CHAR + user * EXTRA_CHAR;
-        } else {
-            yearly_charge = (ANUAL_CHAR + user * 12 * EXTRA_CHAR);
-            var discount = (yearly_charge * 20) / 100;
-            totalamount = yearly_charge - discount;
-        }
-        if (totalamount != '') {
-            $('#result_final').html(totalamount);
-        } else {
-            $('#result_final').html(0);
-        }
-    }
-});
+
+
 $("body").on('keyup', '#cardNumber', function () {
     var regexp1 = new RegExp("[^0-9]");
     if (regexp1.test(document.getElementById("cardNumber").value)) {
@@ -51,6 +60,7 @@ $("body").on('keyup', '#cardNumber', function () {
     }
 
 });
+
 $("body").on('keyup', '#expiryMonth', function () {
     var regexp1 = new RegExp("[^0-9]");
     if (regexp1.test(document.getElementById("expiryMonth").value)) {
@@ -87,3 +97,15 @@ $("body").on('keyup', '#cvCode', function () {
     }
 
 });
+$("body").on('change', '#coupon', function () {
+    var coupon = $('#coupon').val();
+    if (coupon == '') {
+        document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = 0;
+        var total = document.getElementById("cart_table").rows[1].cells.namedItem("total_price").innerHTML;
+        document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = total;
+    }
+
+});
+
+
+

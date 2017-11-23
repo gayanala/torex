@@ -2,25 +2,29 @@
 
 namespace App\Mail;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use App\User;
 
 class UserCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $user;
+    public $resetLink;
+    public $emailTemplate;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct($emailTemplate, $resetLink, User $user)
     {
         $this->user = $user;
+        $this->resetLink = $resetLink;
+        $this->emailTemplate = $emailTemplate[0];
     }
 
     /**
@@ -30,9 +34,10 @@ class UserCreated extends Mailable
      */
     public function build()
     {
+        //dd($this->emailTemplate->email_subject);
         //return $this->markdown('emails.user.usercreatedmail');
         return $this ->from('noreply@charityq.com')
-            ->subject('Welcome to CommunityQ!')
-            ->markdown('emails.user.usercreatedmail');
+            ->subject($this->emailTemplate->email_subject)
+            ->view('emails.user.usercreatedmail');
     }
 }

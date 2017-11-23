@@ -22,14 +22,14 @@
               text: 'Place Holders',
               icon: false,
               menu: [{
-                  text: 'Patron',
+                  text: 'Addressee',
                   onclick: function () {
-                      editor.insertContent('&nbsp;<b>{patron}</b>&nbsp;');
+                      editor.insertContent('&nbsp;<b>{Addressee}</b>&nbsp;');
                   }
               }, {
                   text: 'My Business Name',
                   onclick: function () {
-                      editor.insertContent('&nbsp;<b>{organization}</b>&nbsp;');
+                      editor.insertContent('&nbsp;<b>{My Business Name}</b>&nbsp;');
                   }
               }]
           });
@@ -46,7 +46,7 @@
 
                     <div class="panel-body">
 
-                        {!! Form::model($emailtemplate, ['method' => 'PUT', 'route'=>['emailtemplates.update', $emailtemplate->id], 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($email_template, ['method' => 'PUT', 'route'=>['emailtemplates.update', $email_template->id], 'class' => 'form-horizontal']) !!}
 
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -58,15 +58,17 @@
                             </div>
                         @endif
 
+                        {{ csrf_field() }}
+
                         <div class="form-group">
-                            {!! Form::label('Email Subject', '* Email Subject:', ['class'=>'col-md-3 control-label', ]) !!}
+                            <label for="Email Subject" class="col-md-3 control-label">Email Subject <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-9">
                                 {!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Email Message', '* Email Message:', ['class'=>'col-md-3 control-label' ]) !!}
+                            <label for="Email Message" class="col-md-3 control-label">Email Message <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                         </div>
 
                         <div class="form-group">

@@ -22,14 +22,14 @@
                     text: 'Place Holders',
                     icon: false,
                     menu: [{
-                        text: 'Patron',
+                        text: 'Addresee',
                         onclick: function () {
-                            editor.insertContent('&nbsp;<b>{patron}</b>&nbsp;');
+                            editor.insertContent('&nbsp;<b>{Addressee}</b>&nbsp;');
                         }
                     }, {
                         text: 'My Business Name',
                         onclick: function () {
-                            editor.insertContent('&nbsp;<b>{organization}</b>&nbsp;');
+                            editor.insertContent('&nbsp;<b>{My Business Name}</b>&nbsp;');
                         }
                     }]
                 });
@@ -46,7 +46,7 @@
 
                     <div class="panel-body">
 
-                        {!! Form::model($emailtemplate, ['method' => 'GET', 'route'=>['approveandsendmail'], 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($email_template, ['method' => 'GET', 'route'=>['approveandsendmail'], 'class' => 'form-horizontal']) !!}
 
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -57,39 +57,39 @@
                                 </ul>
                             </div>
                         @endif
-
+                        {{ csrf_field() }}
                         <div class="form-group">
-                            {!! Form::label('To', 'To:', ['class'=>'col-md-3 control-label', ]) !!}
+                            {!! Form::label('To', 'To:', ['class'=>'col-md-3 control-label' ]) !!}
                             <div class="col-lg-9" align="center">
-                                {!! Form::text('To', $emails, ['class'=>'col-md-9 control-label'] ) !!}
+                                {!! Form::text('To', $emails, ['class'=>'col-md-9 control-label', 'readonly'] ) !!}
                                 {!! Form::hidden('names', $names) !!}
                                 {!! Form::hidden('status', 'Approve') !!}
-                                {!! Form::hidden('idsString', $idsString) !!}
-                                {!! Form::hidden('pagefrom', $pagefrom) !!}
+                                {!! Form::hidden('ids_string', $ids_string) !!}
+                                {!! Form::hidden('page_from', $page_from) !!}
 
                                 {{--{!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}--}}
                             </div>
                         </div>
                         <div class="form-group">
-                            {!! Form::label('Email Subject', '* Email Subject:', ['class'=>'col-md-3 control-label', ]) !!}
+                            {!! Form::label('Email Subject', 'Email Subject:', ['class'=>'col-md-3 control-label']) !!}
                             <div class="col-lg-9">
-                                {!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}
+                                {!! Form::text('email_subject', null, ['class' => 'form-control' , 'width'=> '1000px']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Email Message', '* Email Message:', ['class'=>'col-md-3 control-label' ]) !!}
+                            {!! Form::label('Email Message', 'Email Message:', ['class'=>'col-md-3 control-label' ]) !!}
                         </div>
 
                         <div class="form-group">
                             <!--div class="col-lg-6"-->
-                            {!! Form::textarea('email_message', null, ['required'], ['class' => 'col-md-4 control-label']) !!}
+                            {!! Form::textarea('email_message', null, ['class' => 'col-md-4 control-label']) !!}
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Approve and Send', ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ route('dashboardindex')}}" class="btn btn-primary">Cancel</a>
+                                <a href="{{ url()->previous() }}" class="btn btn-primary">Cancel</a>
 
                             </div>
                         </div>

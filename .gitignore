@@ -30,4 +30,4 @@ bootstrap/cache/packages.php
 bootstrap/cache/services.php
 storage/logs/laravel.log
 composer.lock
-config/database.php
+

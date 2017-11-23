@@ -19,112 +19,165 @@
             $('[data-toggle="popover"]').popover();
         });
     </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div class="row">
+
+        <!--<section class="bs-docs-section clearfix"> -->
+        {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
 
 
-    <!--<section class="bs-docs-section clearfix"> -->
-    {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
-    <div class="col-md-12 col-lg-10 col-lg-offset-1">
-        <h1>Basic Settings</h1>
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
-            <div class="col-md-8 form-group">
-                <br/>
-                <table width="50%">
+            <br/>
+            {{ csrf_field() }}
+            <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
+
+
+                <table width="100%" style="background-color:#f9a825">
+
                     <tr>
-                        <td>
+                        <td align="center" bgcolor="#f9a825">
+
+
+                            <h1 style="color:white"><label>Basic Settings</label></h1>
+
+
+                        </td>
+                    </tr>
+
+                </table>
+
+
+                <table width="100%" style="background-color:#fffde7" frame="border" bordercolor="#ffcc80">
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="center">
                             <label style="cursor: help;"
                                    title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
                                 Monthly Budget:</label>&nbsp;
+
+                            <input id="monthlyBudget" type="text" name="monthlyBudget"
+                                   pattern="(?=.{1,10}$)\d{1,3}(?:,\d{3})+|(?=.{1,8}$)\d+"
+                                   min="0"
+                                   step="1" required value="{{ number_format($monthlyBudget, 0, '.', ',' ) }}"/>
                         </td>
-                        <td>
-                            <input id="monthlyBudget" type="number" name="monthlyBudget" pattern="[0-9]+([\.,][0-9]+)?"
-                                   min="0.00"
-                                   step="0.01" required value="{{ $monthlyBudget }}" size="10"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>
+
+
+                        <td align="center">
                             <label style="cursor: help;"
                                    title="Enter your minimum days notice. Requests that need to be fulfilled before your business can fulfill them will be automatically declined.">
                                 Required Days Notice: &nbsp;</label>
-                        </td>
-                        <td>
+
                             <input id="daysNotice" type="number" min="0" step="1" name="daysNotice" required
                                    value="{{ $daysNotice }}" size="10"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="8" align="center"><br></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" align="center">
+                            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                                <button id="btnSaveBudgetNotice" class="btn btn-primary" type="submit">Save
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" align="center"><br></td>
+                    </tr>
                 </table>
             </div>
-            <div class="col-md-12 col-lg-10 col-lg-offset-1">
-                <button id="btnSaveBudgetNotice" class="btn btn-primary" type="submit">Save
-                </button>
-            </div>
-        </form>
-    </div>
-    <div>
-        <br/>
-        <br/>
-        <br/>
-    </div>
 
-    <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
-        <!--<Rules help in new window/tab>  -->
-        <div class="col-md-12" style="padding-left:82.5%">
-            <a href="{{url('/help') }}" target="_blank">
-                <h1><b><u>How to set rules?</u></b></h1>
-            </a>
+        </form>
+
+    </div>
+    @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
+        <div class="row" style="background-color:#ffffff">
+            <div class="col-sm-7" style="padding-left:45%">
+                <a href="{{url('/help') }}" target="pdf-frame">
+                    <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
+                </a>
+            </div>
         </div>
-        <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
-            <h1>Global Business Rules (Admin Only)</h1>
-            <div class="col-md-8">
-                <table width="60%">
+        <br>
+
+
+        <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
+            {{ csrf_field() }}
+
+            <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
+                <br>
+                <table width="100%" style="background-color:#f9a825">
                     <tr>
-                        <td>
-                            <label for="ddlRuleType">Rule Selected:</label>
-                        </td>
-                        <td width="70%">
-                            {!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType', 'name'=>'ddlRuleType']) !!}
+                        <td align="center" bgcolor="#f9a825">
+
+                            <h1 style="color:white"><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
+
                         </td>
                     </tr>
                 </table>
-                {{--<a href="#" data-title="Rule management help" data-toggle="popover"
-                   data-content="Select individual fields and corresponding conditions to set the rules for auto rejection and pre approval of donation requests.
-                   The auto rejection rule helps you in setting parameters to reject the donation request and the pre approval rule helps you in setting parameters
-                    for approving the donation requests for further evaluation.">Help</a>--}}
+
+                <table width="100%" style="background-color:#fffde7" frame="vsides" bordercolor="#ffcc80">
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                    <tr>
+
+                        <td align="right">
+                            <label for="ddlRuleType">Select Rule To Edit:</label>
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td width="50%">
+                            {!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType', 'name'=>'ddlRuleType']) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                </table>
             </div>
-        </div>
-        <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
-        <div class="col-md-12 col-lg-10 col-lg-offset-1">
-            <div id="builder-plugins"></div>
-            <div class="btn-group">
-                <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
-                <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
-                <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
-                <button id="btnSave" class="btn btn-primary parse-json" type="button" data-target="plugins">Save Rules
-                </button>
-                <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
-                        class="btn btn-default">Run Rule Workflow
-                </button>
-                <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
-                        class="btn btn-default">Run Budget
-                </button>
-                <button id="btnRunMinimumNoticeCheckRule" type="button"
-                        href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
-                        class="btn btn-default">Run Required Days Notice
-                </button>
-            </div>
-            <br/>
-            <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
-            <br/>
-            <br/>
-            <br/>
-            <!-- <div id="querybuilder"></div> -->
-        </div>
+            <!--<Rules help in new window/tab>  -->
 
 
-    </form>
+            </div>
+            <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
+            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                <div id="builder-plugins"></div>
+                <div class="btn-group">
+                    <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
+                    <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
+                    <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
+                    <button id="btnSave" class="btn btn-primary parse-json" type="button" data-target="plugins">Save Rules
+                    </button>
+                    <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
+                            class="btn btn-default">Run Rule Workflow
+                    </button>
+                    <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
+                            class="btn btn-default">Run Budget
+                    </button>
+                    <button id="btnRunMinimumNoticeCheckRule" type="button"
+                            href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
+                            class="btn btn-default">Run Required Days Notice
+                    </button>
+                </div>
+                <br/>
+                <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
+                <br/>
+                <br/>
+                <br/>
+                <!-- <div id="querybuilder"></div> -->
+            </div>
+
+
+        </form>
+    @endif
     {{--    {{ Form::close() }}--}}
 
     <!-- </section> -->
@@ -165,6 +218,15 @@
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
+
+        var el = document.getElementById('monthlyBudget');
+        el.addEventListener('keyup', function (event) {
+            if (event.which >= 37 && event.which <= 40) return;
+
+            this.value = this.value.replace(/\D/g, '')
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        });
+
         $('#ddlRuleType').val({{ $_GET['rule'] }});
 
                 @if ($rule)
@@ -258,19 +320,7 @@
                 type: 'integer',
                 input: 'checkbox',
                 values: {
-                    1: 'Animal Welfare',
-                    2: 'Arts, Culture & Humanities',
-                    3: 'Civil Rights, Social Action & Advocacy',
-                    4: 'Community Improvement',
-                    5: 'Corporate Giving',
-                    6: 'Education K-12',
-                    7: 'Environment',
-                    8: 'Faith/Religious',
-                    9: 'Food, Agriculture & Nutrition',
-                    10: 'Health Care',
-                    11: 'Human Services',
-                    12: 'Youth Sports/Activities',
-                    13: 'Others'
+                    {!!  htmlspecialchars_decode($requesterTypes, ENT_NOQUOTES) !!}
                 },
                 operators: ['in', 'not_in']
                 // operators: ['equal', 'not_equal']
