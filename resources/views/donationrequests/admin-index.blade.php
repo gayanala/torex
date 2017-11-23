@@ -25,12 +25,12 @@
 
                             <tr class="bg-info">
                                 <th class="text-center">Requester</th>
-                                <th class="text-center">Requster Type</th>
+                                <th class="text-center">Requester Type</th>
                                 <th class="text-center">Requested Amount</th>
                                 <th class="text-center">Requested Format</th>
-                                <th class="text-center">Donating Organizaiton</th>
-                                <th class="text-center">Name of the Event</th>
                                 <th class="text-center">Needed By Date</th>
+                                <th class="text-center">Donating Organization</th>
+                                <th class="text-center">Name of the Event</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Status Reason</th>
                                 <th class="text-center">View Details</th>
@@ -41,12 +41,12 @@
 
                             <tr class="bg-info">
                                 <th class="text-center">Requester</th>
-                                <th class="text-center">Requster Type</th>
+                                <th class="text-center">Requester Type</th>
                                 <th class="text-center">Requested Amount</th>
                                 <th class="text-center">Requested Format</th>
-                                <th class="text-center">Donating Organizaiton</th>
-                                <th class="text-center">Name of the Event</th>
                                 <th class="text-center">Needed By Date</th>
+                                <th class="text-center">Donating Organization</th>
+                                <th class="text-center">Name of the Event</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Status Reason</th>
                                 <th class="text-center">View Details</th>
@@ -60,11 +60,11 @@
                                     <td style="vertical-align: middle">{{ $donationrequest->requester_type }}</td>
                                     <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
+                                    <td id="neededByDate"
+                                        style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?>
+                                    </td>
                                     <td style="vertical-align: middle">{{ $donationrequest->organization->org_name }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>
-                                    <td id="neededByDate"
-                                        style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
-
                                     <td style="vertical-align: middle"
                                         id="status{{$donationrequest->id}}">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
                                     <td style="vertical-align: middle"
@@ -120,7 +120,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js"></script>
 
-    <script src="{{ asset('js/range_dates.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/range_dates.js') }}" type="text/javascript" data-date-column="6"></script>
 
     <script>
 
@@ -191,22 +191,23 @@
                 ]
             });
             // Add event listeners to the two range filtering inputs
-            $('#dateStart').change(function () {
-                table.draw();
-            });
-            $('#dateEnd').change(function () {
-                table.draw();
-            });
 
 
 //search
-                table.columns().eq( 0 ).each( function ( colIdx ) {
-        $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
-            table
-                .column( colIdx )
-                .search( this.value )
-                .draw();
+        table.columns().eq( 0 ).each( function ( colIdx ) {
+            $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+                table
+                    .column( colIdx )
+                    .search( this.value )
+                    .draw();
         } );
+
+        $('#dateStart').change(function () {
+            table.draw();
+        });
+        $('#dateEnd').change(function () {
+            table.draw();
+        });
     } );
 
 
