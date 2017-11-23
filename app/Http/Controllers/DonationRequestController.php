@@ -27,6 +27,11 @@ use URL;
 
 class DonationRequestController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('create','store');
+    }
+
     public function index()
     {
         $organizationId = Auth::user()->organization_id;
