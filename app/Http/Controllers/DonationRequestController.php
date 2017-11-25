@@ -171,6 +171,7 @@ class DonationRequestController extends Controller
 
     public function show($id)
     {
+        $id = decrypt($id);
         $donationAcceptanceFlag = 0;
         if (URL::previous() === URL::route('show-donation', ['id' => 1])) {
             $donationAcceptanceFlag = 0;
