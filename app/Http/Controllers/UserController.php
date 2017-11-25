@@ -76,7 +76,6 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-
         $organization = new Organization;
         $organization->org_name = $request->org_name;
         $organization->organization_type_id = $request->organization_type_id;
@@ -248,6 +247,7 @@ class UserController extends Controller
 
     public function editsubuser($id)
     {
+        $id = decrypt($id);
         $roles = $this->getRoles();
 
         $user = User::findOrFail($id);
