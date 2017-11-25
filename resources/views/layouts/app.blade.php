@@ -371,7 +371,7 @@
                                             </li>
                                         @endif
                                         <li>
-                                            <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business
+                                            <a href="{{route('organizations.edit',encrypt(Auth::user()->organization_id) )}}">Business
                                                 Profile</a>
                                         </li>
                                         @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)
@@ -491,7 +491,7 @@
                             </li>
                         @endif
                         <li>
-                             <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business
+                             <a href="{{route('organizations.edit',Auth::user()->organization_id)}}">Business
                                     Profile</a>
                          </li>
                             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)

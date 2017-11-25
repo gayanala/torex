@@ -83,7 +83,7 @@
                             <td style="vertical-align: middle">{{ $loggedOnUserOrganization[0]->phone_number}}</td>
                             <td style="vertical-align: middle">{{'$'}}{{ $loggedOnUserOrganization[0]->monthly_budget}}</td>
                             <td style="vertical-align: middle"><a
-                                        href="{{route('organizations.edit',$loggedOnUserOrganization[0]->id)}}"
+                                        href="{{route('organizations.edit',encrypt($loggedOnUserOrganization[0]->id))}}"
                                         class="btn btn-warning">Edit</a></td>
                         </tr>
                         </tbody>
@@ -121,7 +121,7 @@
                                 <td style="vertical-align: middle">{{ $organization->organization['phone_number']}}</td>
                                 <td style="vertical-align: middle">{{'$'}}{{ $organization->organization['monthly_budget']}}</td>
                                 <td style="vertical-align: middle"><a
-                                            href="{{route('organizations.edit',$organization->child_org_id)}}"
+                                            href="{{route('organizations.edit',encrypt($organization->child_org_id))}}"
                                             class="btn btn-warning">Edit</a>
                                 </td>
                                 <td style="vertical-align: middle">
