@@ -17,6 +17,7 @@ use App\State;
 use Auth;
 use Carbon\Carbon;
 use Excel;
+use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
@@ -36,7 +37,8 @@ class DonationRequestController extends Controller
         array_push($arr, $organizationId);
         $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
         $today = Carbon::now()->toDateString();
-        return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
+        $hashids = new Hashids('', 10);
+        return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today', 'hashids'));
 
     }
 
@@ -171,6 +173,9 @@ class DonationRequestController extends Controller
 
     public function show($id)
     {
+        $hashids = new Hashids('', 10);
+        $id = $hashids->decode($id);
+        $id = $id[0];
         $donationAcceptanceFlag = 0;
         if (URL::previous() === URL::route('show-donation', ['id' => 1])) {
             $donationAcceptanceFlag = 0;
