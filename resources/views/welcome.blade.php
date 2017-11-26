@@ -77,7 +77,7 @@
                 As a business user, you will be able to approve or reject requests in bulk and respond within the
                 application.
                 Custom or generic responses can communicate instructions to approved organizations, and gently inform
-                other organizations when requests are rejectd.
+                other organizations when requests are rejected.
                 Q Reports can enable your business to easily organize donations and figure out potential tax advantages.
 
             </p>
