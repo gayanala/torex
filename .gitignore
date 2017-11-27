@@ -30,8 +30,5 @@ bootstrap/cache/packages.php
 bootstrap/cache/services.php
 storage/logs/laravel.log
 composer.lock
-config/app.php
-bootstrap/cache/services.php
-config/app.php
-bootstrap/cache/services.php
+
 bootstrap/cache/services.php
