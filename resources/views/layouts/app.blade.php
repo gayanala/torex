@@ -183,6 +183,14 @@
             letter-spacing: 5px;
         }
 
+        .navbar-fixed-top
+        {
+            position: fixed ! important;
+            top:0px;
+            width: 100%;
+            height:45px;
+        }
+
         .navbar-nav li a:hover {
             color: #1abc9c !important;
                     }
@@ -304,7 +312,7 @@
 
             <div class="row">
                 <div class="col-sm-3"
-                     style='padding-left: 0px;padding-top: .5px;padding-bottom: -5px;padding-right:10px;margin-top: -2px;margin-bottom: -0.5px'>
+                     style='padding-left: 0px;padding-top: .5px;padding-bottom: -5px;padding-right:10px;margin-top: -2px;margin-bottom: -2px;'>
                     @if (Auth::guest())
                         <a href="{{ url('/') }}">
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
