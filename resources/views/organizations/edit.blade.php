@@ -142,7 +142,7 @@
 
                         <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
                             <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'required']) !!}</div>
+                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'maxlength' => 5,'required']) !!}</div>
                         </div>
 
                         <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : ''}}">
@@ -158,7 +158,7 @@
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
                                 <button id="btnEdit" class="btn btn-primary hidden" type="button">Edit</button>
-                                <a id="btnCancel" href="{{ route('organizations.index')}}" class="btn btn-primary">Cancel</a>
+                                <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>

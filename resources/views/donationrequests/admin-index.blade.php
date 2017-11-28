@@ -25,10 +25,10 @@
 
                             <tr class="bg-info">
                                 <th class="text-center">Requester</th>
-                                <th class="text-center">Requster Type</th>
+                                <th class="text-center">Requester Type</th>
                                 <th class="text-center">Requested Amount</th>
                                 <th class="text-center">Requested Format</th>
-                                <th class="text-center">Donating Organizaiton</th>
+                                <th class="text-center">Donating Business</th>
                                 <th class="text-center">Name of the Event</th>
                                 <th class="text-center">Needed By Date</th>
                                 <th class="text-center">Status</th>
@@ -41,10 +41,10 @@
 
                             <tr class="bg-info">
                                 <th class="text-center">Requester</th>
-                                <th class="text-center">Requster Type</th>
+                                <th class="text-center">Requester Type</th>
                                 <th class="text-center">Requested Amount</th>
                                 <th class="text-center">Requested Format</th>
-                                <th class="text-center">Donating Organizaiton</th>
+                                <th class="text-center">Donating Business</th>
                                 <th class="text-center">Name of the Event</th>
                                 <th class="text-center">Needed By Date</th>
                                 <th class="text-center">Status</th>
@@ -57,7 +57,7 @@
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
                                     <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
-                                    <td style="vertical-align: middle">{{ $donationrequest->requester_type }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->donationRequestTypes->type_name }}</td>
                                     <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->organization->org_name }}</td>
@@ -120,7 +120,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js"></script>
 
-    <script src="{{ asset('js/range_dates.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/range_dates.js') }}" type="text/javascript" data-date-column="6"></script>
 
     <script>
 
@@ -146,10 +146,18 @@
     // } ); 
     
         $(document).ready(function () {
+            $('#example tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            } );
             var table = $('#example').DataTable({
                 
                 dom: 'Bfrtip',
+<<<<<<< HEAD
 
+=======
+                scrollX : true,
+>>>>>>> 083cafa9b749c6a240211a00367fa4a4211de148
                 buttons: [
                     {
                         extend: 'pdf',
@@ -188,25 +196,23 @@
                 ]
             });
             // Add event listeners to the two range filtering inputs
-            $('#dateStart').change(function () {
-                table.draw();
-            });
-            $('#dateEnd').change(function () {
-                table.draw();
-            });
 
-                $('#example tfoot th').each( function () {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-    } );
+
 //search
-                table.columns().eq( 0 ).each( function ( colIdx ) {
-        $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
-            table
-                .column( colIdx )
-                .search( this.value )
-                .draw();
+        table.columns().eq( 0 ).each( function ( colIdx ) {
+            $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+                table
+                    .column( colIdx )
+                    .search( this.value )
+                    .draw();
         } );
+
+        $('#dateStart').change(function () {
+            table.draw();
+        });
+        $('#dateEnd').change(function () {
+            table.draw();
+        });
     } );
 
 

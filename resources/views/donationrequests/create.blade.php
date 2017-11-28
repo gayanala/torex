@@ -2,7 +2,7 @@
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
-
+    <script type="text/javascript" src="https://unpkg.com/iframe-resizer@3.5.15/js/iframeResizer.contentWindow.min.js"></script>
 
     <script type="text/javascript">
         function yesnoCheck() {
@@ -25,9 +25,9 @@
                 greedy: false,
                 definitions: {'#': {validator: "[0-9]", cardinality: 1}}
             });
-            if ( {{ ! empty($_GET['newrequest']) }} ) {
-                $('nav').hide();
-                $('#navDemo').wrap('<span style="display: none;" />');
+            if ( "{!! ! empty($_GET['newrequest']) !!}" != "" ) {
+                $('#app').hide();
+                $('#navDemo').wrap('<span style="display: none;" hidden />');
             }
             
         });
@@ -39,7 +39,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
+                <div id="divRequestForm" class="panel panel-default">
                     <div class="panel-heading">Donation Request Form</div>
 
                     <div class="panel-body">
@@ -459,6 +459,7 @@
                         </div>
                         {!! Form::close() !!}
                     </div>
+                    <span data-iframe-height />
                 </div>
             </div>
         </div>

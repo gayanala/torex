@@ -16,12 +16,18 @@
  *        $('#max').keyup( function() { table.draw(); } );
  *    } );
  */
+var this_js_script = $('script[src*=range_dates]'); // or better regexp to get the file name..
+var columnLocation = this_js_script.attr('data-date-column');
+if (typeof columnLocation === "undefined" ) {
+    columnLocation = 4;
+}
+
 
 $.fn.dataTableExt.afnFiltering.push(
     function (oSettings, aData, iDataIndex) {
         var dateStart = document.getElementById('dateStart').value;
         var dateEnd = document.getElementById('dateEnd').value;
-        var evalDate = parseDateValue(aData[4]);
+        var evalDate = parseDateValue(aData[columnLocation]);
 
         if (dateStart === "" && dateEnd === "") {
             return true;
