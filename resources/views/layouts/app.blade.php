@@ -189,6 +189,7 @@
             top:0px;
             width: 100%;
             height:45px;
+            box-shadow: 1px 1px 20px 1px #4a148c;
         }
 
         .navbar-nav li a:hover {
