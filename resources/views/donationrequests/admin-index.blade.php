@@ -76,7 +76,7 @@
                                             
                                             
                                         
-                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}"
+                                            <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
                                                class="btn btn-info" title="Detail">
                                                 <span class="glyphicon glyphicon-list-alt"></span></a>
                                        
