@@ -274,7 +274,10 @@
                             </div>
                         </div>
                         <div class="form-group" id="explain">
-                            {!! Form::label('explain', 'Explain',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                            <div class="col-md-4">
+
+                            </div>
+
                             <div class="col-md-6">
                                 <textarea name="item_requested_explain" id="item_requested_explain" class="form-control"
                                           pattern="[a-zA-Z0-9\s]"
@@ -317,8 +320,10 @@
                         </div>
 
                         <div class="form-group" id="explain_purpose">
+                            <div class="col-md-4">
 
-                            {!! Form::label('explain_purpose', 'Explain_purpose',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                             </div>
+
                             <div class="col-md-6">
                                 <textarea name="item_purpose_explain" id="item_purpose_explain" class="form-control"
                                           pattern="[a-zA-Z0-9\s]"
@@ -433,12 +438,9 @@
                             </label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]"
-                                          maxlength="1000" required
-                                          title="Please restrict your Text Length to 1000 characters"
-                                          name="marketingopportunities" rows="5"
-                                          value="{{ old('marketingopportunities') }}" placeholder="MAX 1000 characters"
-                                          autofocus> </textarea>
+                                <textarea placeholder="Explain the marketting opportunity that this donation request holds" class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]" maxlength="1000" title="Please restrict your Text Length to 1000 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" autofocus></textarea>
+
+
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
