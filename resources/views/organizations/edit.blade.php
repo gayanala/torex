@@ -142,7 +142,7 @@
 
                         <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
                             <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'maxlength' => 5,'required']) !!}</div>
+                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'maxlength' => 5,'id'=>'zipcode','required']) !!}</div>
                         </div>
 
                         <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : ''}}">
@@ -182,6 +182,12 @@
         $('select').removeAttr('disabled');
         $('#btnSave').removeClass('hidden');
         $('#btnEdit').addClass('hidden');
+    });
+    $("#zipcode").on('keypress', function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            return false;
+        }
     });
 </script>
         @endif

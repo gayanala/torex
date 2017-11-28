@@ -112,7 +112,7 @@
                         <div class="form-group">
                             <label for="zipcode" class="col-md-4 control-label">Zip Code <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control','maxlength' => 5, 'required']) !!}
+                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control','id'=>'zipcode','maxlength' => 5,'required']) !!}
                             </div>
                         </div>
 
@@ -153,5 +153,12 @@
             $('#btnSave').removeClass('hidden');
             $('#btnEdit').addClass('hidden');
         });
+        $("#zipcode").on('keypress', function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                return false;
+            }
+        });
+
     </script>
 @endsection
