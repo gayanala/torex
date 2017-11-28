@@ -32,13 +32,15 @@
                                 <td style="vertical-align: middle">{{ $user->first_name }} {{ $user->last_name }}</td>
                                 <td style="vertical-align: middle">{{ $user->roles[0]->name }}</td>
                                 <td style="vertical-align: middle">{{ $user->organization->org_name }}</td>
-<<<<<<< HEAD
+
                                <!-- <td style="vertical-align: middle">{{ $user->organization->city }}, {{ $user->organization->zipcode }}</td>  -->
+
                                 <td style="vertical-align: middle"><a href="{{route('edituser',$user->id)}}"
-=======
-                                <td style="vertical-align: middle">{{ $user->organization->city }}, {{ $user->organization->zipcode }}</td>
+
+                              
+
                                 <td style="vertical-align: middle"><a href="{{route('edituser',encrypt($user->id))}}"
->>>>>>> 083cafa9b749c6a240211a00367fa4a4211de148
+
                                                                       class="btn btn-warning"> Edit </a>
                                 </td>
                             </tr>
