@@ -16,6 +16,7 @@
             }
         }
     </script>
+
     <script>
         $(window).load(function () {
             var phones = [{"mask": "(###) ###-####"}];
@@ -28,14 +29,12 @@
                 $('#app').hide();
                 $('#navDemo').wrap('<span style="display: none;" hidden />');
             }
-            $('#file_upload').hide();
-            $('#explain').hide();
-            $('#explain_purpose').hide()
+            
         });
 
 
     </script>
-
+{{ csrf_field() }}
 
     <div class="container">
         <div class="row">
@@ -137,22 +136,20 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('phonenumber') ? ' has-error' : '' }}">
-                            <label for="phonenumber" class="col-md-4 control-label">Phone Number <span
-                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-
-                            <div class="col-md-6">
-                                <input id="phonenumber" type="text" class="form-control"
-                                       name="phonenumber" value="{{ old('phonenumber') }}" required
-                                       autofocus>
+                           <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                                <div class="col-md-6">
+                                    <input id="phonenumber" type="tel" class="form-control"
+                                           name="phonenumber"  value="{{ old('phonenumber') }}" required
+                                           >
 
 
-                                @if ($errors->has('phonenumber'))
-                                    <span class="help-block">
+                                    @if ($errors->has('phonenumber'))
+                                        <span class="help-block">
                                         <strong>{{ $errors->first('phonenumber') }}</strong>
                                     </span>
-                                @endif
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
                         <div class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
                             <label for="address1" class="col-md-4 control-label">Address 1 <span
@@ -277,7 +274,10 @@
                             </div>
                         </div>
                         <div class="form-group" id="explain">
-                            {!! Form::label('explain', 'Explain',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                            <div class="col-md-4">
+
+                            </div>
+
                             <div class="col-md-6">
                                 <textarea name="item_requested_explain" id="item_requested_explain" class="form-control"
                                           pattern="[a-zA-Z0-9\s]"
@@ -320,8 +320,10 @@
                         </div>
 
                         <div class="form-group" id="explain_purpose">
+                            <div class="col-md-4">
 
-                            {!! Form::label('explain_purpose', 'Explain_purpose',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                             </div>
+
                             <div class="col-md-6">
                                 <textarea name="item_purpose_explain" id="item_purpose_explain" class="form-control"
                                           pattern="[a-zA-Z0-9\s]"
@@ -436,12 +438,7 @@
                             </label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]"
-                                          maxlength="1000" required
-                                          title="Please restrict your Text Length to 1000 characters"
-                                          name="marketingopportunities" rows="5"
-                                          value="{{ old('marketingopportunities') }}" placeholder="MAX 1000 characters"
-                                          autofocus> </textarea>
+                                <textarea placeholder="Explain how you will let others know my business has contributed to your cause" class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]" maxlength="1000" title="Please restrict your Text Length to 1000 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" autofocus></textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">

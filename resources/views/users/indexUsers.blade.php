@@ -22,7 +22,7 @@
                                 <th class="text-center">Business User</th>
                                 <th class="text-center">Role</th>
                                 <th class="text-center">Business Location</th>
-                                <th class="text-center">City & Zip Code</th>
+                               <!-- <th class="text-center">City & Zip Code</th> -->
                                 <th colspan="3" class="text-center">Actions</th>
                             </tr>
                             </thead>
@@ -32,8 +32,15 @@
                                 <td style="vertical-align: middle">{{ $user->first_name }} {{ $user->last_name }}</td>
                                 <td style="vertical-align: middle">{{ $user->roles[0]->name }}</td>
                                 <td style="vertical-align: middle">{{ $user->organization->org_name }}</td>
-                                <td style="vertical-align: middle">{{ $user->organization->city }}, {{ $user->organization->zipcode }}</td>
+
+                               <!-- <td style="vertical-align: middle">{{ $user->organization->city }}, {{ $user->organization->zipcode }}</td>  -->
+
+                                <td style="vertical-align: middle"><a href="{{route('edituser',$user->id)}}"
+
+                              
+
                                 <td style="vertical-align: middle"><a href="{{route('edituser',encrypt($user->id))}}"
+
                                                                       class="btn btn-warning"> Edit </a>
                                 </td>
                             </tr>
