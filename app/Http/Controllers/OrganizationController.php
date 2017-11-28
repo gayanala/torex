@@ -31,6 +31,7 @@ class OrganizationController extends Controller
 
     public function edit($id)
     {
+        $id = decrypt($id);
         if (in_array($id, $this->getAllMyOrganizationIds()))
         {
             $organization = Organization::find($id);
@@ -48,6 +49,7 @@ class OrganizationController extends Controller
 
     public function update(Request $request, $id)
     {
+
         //dd($request);
         if (in_array($id, $this->getAllMyOrganizationIds()))
         {
@@ -72,9 +74,10 @@ class OrganizationController extends Controller
             //Organization::find($id)->update($);
 
             if ($id == Auth::user()->organization_id) {
-                return redirect('organizations/'.$id.'/edit');
+                return redirect('organizations');
+//                return redirect('organizations/'.encrypt($id).'/edit');
             }
-            return redirect('organizations');
+
         } else {
             return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
         }

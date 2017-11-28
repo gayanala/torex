@@ -2,7 +2,7 @@
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
-
+    <script type="text/javascript" src="https://unpkg.com/iframe-resizer@3.5.15/js/iframeResizer.contentWindow.min.js"></script>
 
     <script type="text/javascript">
         function yesnoCheck() {
@@ -16,6 +16,7 @@
             }
         }
     </script>
+
     <script>
         $(window).load(function () {
             var phones = [{"mask": "(###) ###-####"}];
@@ -24,23 +25,21 @@
                 greedy: false,
                 definitions: {'#': {validator: "[0-9]", cardinality: 1}}
             });
-            if ( {{ ! empty($_GET['newrequest']) }} ) {
-                $('nav').hide();
-                $('#navDemo').wrap('<span style="display: none;" />');
+            if ( "{!! ! empty($_GET['newrequest']) !!}" != "" ) {
+                $('#app').hide();
+                $('#navDemo').wrap('<span style="display: none;" hidden />');
             }
-            $('#file_upload').hide();
-            $('#explain').hide();
-            $('#explain_purpose').hide()
+            
         });
 
 
     </script>
-
+{{ csrf_field() }}
 
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
+                <div id="divRequestForm" class="panel panel-default">
                     <div class="panel-heading">Donation Request Form</div>
 
                     <div class="panel-body">
@@ -137,22 +136,20 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('phonenumber') ? ' has-error' : '' }}">
-                            <label for="phonenumber" class="col-md-4 control-label">Phone Number <span
-                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-
-                            <div class="col-md-6">
-                                <input id="phonenumber" type="text" class="form-control"
-                                       name="phonenumber" value="{{ old('phonenumber') }}" required
-                                       autofocus>
+                           <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                                <div class="col-md-6">
+                                    <input id="phonenumber" type="tel" class="form-control"
+                                           name="phonenumber"  value="{{ old('phonenumber') }}" required
+                                           >
 
 
-                                @if ($errors->has('phonenumber'))
-                                    <span class="help-block">
+                                    @if ($errors->has('phonenumber'))
+                                        <span class="help-block">
                                         <strong>{{ $errors->first('phonenumber') }}</strong>
                                     </span>
-                                @endif
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
                         <div class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
                             <label for="address1" class="col-md-4 control-label">Address 1 <span
@@ -462,6 +459,7 @@
                         </div>
                         {!! Form::close() !!}
                     </div>
+                    <span data-iframe-height />
                 </div>
             </div>
         </div>

@@ -76,7 +76,6 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-
         $organization = new Organization;
         $organization->org_name = $request->org_name;
         $organization->organization_type_id = $request->organization_type_id;
@@ -119,8 +118,8 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user->save();
-        //$user->roles()->attach(Constant::BUSINESS_ADMIN);
-        RoleUser::create(['role_id' => $request->role_id, 'user_id' => $user->id,]);
+        $user->roles()->attach(Constant::BUSINESS_ADMIN);
+        //RoleUser::create(['role_id' => $request->role_id, 'user_id' => $user->id]);
         $userid = $user->id;
 
         //fire NewBusiness event to initiate sending welcome mail
@@ -186,8 +185,7 @@ class UserController extends Controller
         }
         $user->save();
 
-        //$user->roles()->attach($request->role_id);
-        RoleUser::create(['role_id' => $request->role_id, 'user_id' => $user->id,]);
+        $user->roles()->attach($request->role_id);
 
         //fire NewBusiness event to initiate sending welcome mail
 
@@ -249,6 +247,7 @@ class UserController extends Controller
 
     public function editsubuser($id)
     {
+        $id = decrypt($id);
         $roles = $this->getRoles();
 
         $user = User::findOrFail($id);

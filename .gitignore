@@ -31,3 +31,4 @@ bootstrap/cache/services.php
 storage/logs/laravel.log
 composer.lock
 
+bootstrap/cache/services.php

@@ -43,7 +43,7 @@ class DonationRequestController extends Controller
     public function admin()
     {
         $organizationId = Auth::user()->organization_id;
-        
+
         $organization = Organization::findOrFail($organizationId);
         $organizationName = $organization->org_name;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
@@ -152,7 +152,7 @@ class DonationRequestController extends Controller
         $donationRequest->save();
         if ($request->hasFile('attachment') && $request->taxexempt==1) {
             $this->validate($request, [
-                    'attachment' => 'required|mimes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
+                    'attachment' => 'required|mimes:doc,docx,pdf,jpeg,png,jpg,svg|max:2048',
                 ]);
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
@@ -171,6 +171,7 @@ class DonationRequestController extends Controller
 
     public function show($id)
     {
+        $id = decrypt($id);
         $donationAcceptanceFlag = 0;
         if (URL::previous() === URL::route('show-donation', ['id' => 1])) {
             $donationAcceptanceFlag = 0;
@@ -273,6 +274,7 @@ class DonationRequestController extends Controller
 
     public function showAllDonationRequests($id)
     {
+        $id = decrypt($id);
         $organization = Organization::findOrFail($id);
 
         return view('donationrequests.donation-organization', compact('organization'));
