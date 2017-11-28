@@ -438,9 +438,7 @@
                             </label>
 
                             <div class="col-md-6">
-                                <textarea placeholder="Explain the marketting opportunity that this donation request holds" class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]" maxlength="1000" title="Please restrict your Text Length to 1000 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" autofocus></textarea>
-
-
+                                <textarea placeholder="Explain how you will let others know my business has contributed to your cause" class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]" maxlength="1000" title="Please restrict your Text Length to 1000 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" autofocus></textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
