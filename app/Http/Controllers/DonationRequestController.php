@@ -274,6 +274,7 @@ class DonationRequestController extends Controller
 
     public function showAllDonationRequests($id)
     {
+        $id = decrypt($id);
         $organization = Organization::findOrFail($id);
 
         return view('donationrequests.donation-organization', compact('organization'));
