@@ -29,7 +29,6 @@
     25 => 'Collective\\Html\\HtmlServiceProvider',
     26 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     27 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
-<<<<<<< HEAD
     28 => 'Barryvdh\\Cors\\ServiceProvider',
     29 => 'Collective\\Html\\HtmlServiceProvider',
     30 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
@@ -38,15 +37,6 @@
     33 => 'App\\Providers\\AuthServiceProvider',
     34 => 'App\\Providers\\EventServiceProvider',
     35 => 'App\\Providers\\RouteServiceProvider',
-=======
-    28 => 'Collective\\Html\\HtmlServiceProvider',
-    29 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    30 => 'Laravel\\Cashier\\CashierServiceProvider',
-    31 => 'App\\Providers\\AppServiceProvider',
-    32 => 'App\\Providers\\AuthServiceProvider',
-    33 => 'App\\Providers\\EventServiceProvider',
-    34 => 'App\\Providers\\RouteServiceProvider',
->>>>>>> 083cafa9b749c6a240211a00367fa4a4211de148
   ),
   'eager' => 
   array (
@@ -63,12 +53,13 @@
     10 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     11 => 'Laravel\\Cashier\\CashierServiceProvider',
     12 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    13 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    14 => 'Laravel\\Cashier\\CashierServiceProvider',
-    15 => 'App\\Providers\\AppServiceProvider',
-    16 => 'App\\Providers\\AuthServiceProvider',
-    17 => 'App\\Providers\\EventServiceProvider',
-    18 => 'App\\Providers\\RouteServiceProvider',
+    13 => 'Barryvdh\\Cors\\ServiceProvider',
+    14 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    15 => 'Laravel\\Cashier\\CashierServiceProvider',
+    16 => 'App\\Providers\\AppServiceProvider',
+    17 => 'App\\Providers\\AuthServiceProvider',
+    18 => 'App\\Providers\\EventServiceProvider',
+    19 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (
