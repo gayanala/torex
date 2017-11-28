@@ -121,7 +121,7 @@ $('#open').click(function() {
                     <input type="text" class="form-control" id="username" name="username">
                 </div>
 
-                <label for="inputorganizationname" class="col-lg-2 control-label">Organization Name</label>
+                <label for="inputorganizationname" class="col-lg-2 control-label">Business Name</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="username" name="username">
                     <button type="submit" class="btn btn-">Save Changes</button>
