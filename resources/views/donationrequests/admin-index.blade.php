@@ -147,16 +147,18 @@
     
         $(document).ready(function () {
 
+
+
             $('#example tfoot th').each( function () {
                 var title = $(this).text();
                 $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
             } );
 
             var table = $('#example').DataTable({
-                "pagingType": "full_numbers",
-                
                 dom: 'Bfrtip',
-
+                
+                scrollX : true,
+                
                 buttons: [
                     {
                         extend: 'pdf',
@@ -193,6 +195,8 @@
                         }
                     }
                 ]
+
+
             });
             // Add event listeners to the two range filtering inputs
 
