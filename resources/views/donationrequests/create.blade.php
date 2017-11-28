@@ -215,8 +215,8 @@
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="zipcode" type="text" pattern="[0-9]{5}" required
-                                       title="Enter a 5 digit zipcode" class="form-control" name="zipcode"
+                                <input id="zipcode" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                       maxlength="5" class="form-control" name="zipcode"
                                        value="{{ old('zipcode') }}" placeholder="Zip Code" required autofocus>
 
                                 @if ($errors->has('zipcode'))
