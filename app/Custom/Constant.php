@@ -42,6 +42,9 @@ class Constant
     const BUSINESS_ADMIN = 4;
     const BUSINESS_USER = 5;
 
+    //DELAYED EMAIL IN DAYS
+    const DELAYED_EMAIL_DURATION_FOR_REJECT_REQUESTS = 2;
+
 
 //////////  END OF CONSTANTS USED  //////////
 
