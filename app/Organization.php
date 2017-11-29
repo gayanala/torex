@@ -67,5 +67,12 @@ class Organization extends Model
     {
         return $this->hasMany('App\DonationRequest');
     }
-
+    /**
+     * Get only active Organizations
+     * @param $query
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
 }
