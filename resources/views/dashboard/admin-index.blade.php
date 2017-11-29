@@ -179,7 +179,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default text-left">
                         <div class="panel-heading">
-                            <b>Organization's Donations</b>
+                            <b>Business Donations</b>
                         </div>
 
                         <div class="panel-body">
@@ -189,7 +189,7 @@
                                         <tr class="bg-info">
                                             <th class="text-center">Status</th>
                                             <th class="text-center">Org ID</th>
-                                            <th class="text-center">Organization Name</th>
+                                            <th class="text-center">Business Name</th>
                                             <th class="text-center">Total Donations</th>
                                             <th class="text-center">Approved</th>
                                             <th class="text-center">Rejected</th>
@@ -212,7 +212,7 @@
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>
                                                 <td style="vertical-align: middle"> {{ $organizations[0]->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
                                                 <td>
-                                                    <a href="{{ url('/organizationdonations', $organization->id)}}"
+                                                    <a href="{{ url('/organizationdonations', encrypt($organization->id))}}"
                                                        class="btn btn-info" title="Detail">
                                                         <span class="glyphicon glyphicon-list-alt"></span></a>
 

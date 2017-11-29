@@ -147,9 +147,8 @@
                                             <td id="status{{$donationrequest->id}}" style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
                                             <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                             <td>
-                                                <a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-info" title="Detail">
+                                                <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}" class="btn btn-info" title="Detail">
                                                     <span class="glyphicon glyphicon-list-alt" text-></span></a>
-
                                             </td>
                                             {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
                                             {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}

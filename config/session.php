@@ -29,9 +29,6 @@ return [
     |
     */
 
-
- 
-
     'lifetime' => getenv("APP_SESSION_EXPIRE") ?? 30,
 
 
