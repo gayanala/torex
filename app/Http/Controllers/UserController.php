@@ -290,7 +290,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        User::find($id)->delete();
+        User::find($id)->update(['active' => Constant::INACTIVE]);
         return redirect('users');
     }
 
