@@ -187,7 +187,7 @@
                                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
                                     <thead>
                                         <tr class="bg-info">
-                                            <th class="text-center">Org ID</th>
+                                            <th class="text-center">Business ID</th>
                                             <th class="text-center">Business Name</th>
                                             <th class="text-center">Total Amount Requested</th>
                                             <th class="text-center">Total Approved Amount YTD</th>
