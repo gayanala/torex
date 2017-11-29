@@ -7,6 +7,7 @@ use App\Organization_type;
 use App\ParentChildOrganizations;
 use App\State;
 use App\Subscription;
+use App\User;
 use Auth;
 use Billable;
 use Illuminate\Http\Request;
@@ -20,7 +21,9 @@ class OrganizationController extends Controller
     {
         $organizationId = Auth::user()->organization_id;
         $loggedOnUserOrganization = Organization::where('id', '=', $organizationId)->get();
-        $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', $organizationId)->get();
+        $childOrganizationIds = ParentChildOrganizations::where('parent_org_id', '=', $organizationId)->pluck('child_org_id');
+        $childOrganizations = Organization::active()->whereIn('id', $childOrganizationIds)->get();
+
         $count = $childOrganizations->count();
         $subscriptionQuantity = Subscription::where('organization_id', $organizationId)->value('quantity');
         $subscriptionEnds = Subscription::where('organization_id', $organizationId)->value('ends_at');
@@ -158,9 +161,12 @@ class OrganizationController extends Controller
     {
         if (in_array($id, $this->getAllMyOrganizationIds()))
         {
-            $organization = ParentChildOrganizations::where('child_org_id', '=', $id);
-            $organization->delete();
-            return redirect()->back()->with('message', 'Successfully deleted the Business Location');
+            $organization = Organization::find($id);
+            $organization->active = 0;
+            $organization->save();
+            $users = User::active()->where('organization_id', $id);
+            $users->update(['active' => 0]);
+            return redirect()->back()->with('message', 'Successfully deactivated the Business Location');
         }
         else
         {
@@ -173,6 +179,7 @@ class OrganizationController extends Controller
     {
         $organization = Auth::user()->organization;
         $arr = ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
+        $arr = Organization::active()->whereIn('id', $arr)->pluck('id')->toArray();
         array_push($arr, $organization->id);
         return $arr;
     }

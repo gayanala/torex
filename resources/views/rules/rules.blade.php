@@ -159,13 +159,13 @@
                     <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
                             class="btn btn-default">Run Rule Workflow
                     </button>
-                    <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
+                    {{--<button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
                             class="btn btn-default">Run Budget
                     </button>
                     <button id="btnRunMinimumNoticeCheckRule" type="button"
                             href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
                             class="btn btn-default">Run Required Days Notice
-                    </button>
+                    </button>--}}
                 </div>
                 <br/>
                 <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
@@ -259,14 +259,6 @@
         $('#btnRun').on('click', function () {
             var iRuleType = $('#ruleType').val();
             window.location.href = '{{ action('RuleEngineController@manualRunRule') }}?rule=' + iRuleType;
-        });
-
-        $('#btnRunBudget').on('click', function () {
-            window.location.href = '{{ action('RuleEngineController@runBudgetCheckRule') }}';
-        });
-
-        $('#btnRunMinimumNoticeCheckRule').on('click', function () {
-            window.location.href = '{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}';
         });
 
         $('#btnSave').on('click', function () {

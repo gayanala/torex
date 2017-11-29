@@ -103,4 +103,12 @@ class User extends Authenticatable
         return null !== $this->roles()->where('name', $role)->first();
     }
 
+    /**
+     * Get only active Users
+     * @param $query
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
 }
