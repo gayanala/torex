@@ -28,7 +28,7 @@
                                 <th class="text-center">Requester Type</th>
                                 <th class="text-center">Requested Amount</th>
                                 <th class="text-center">Requested Format</th>
-                                <th class="text-center">Donating Organization</th>
+                                <th class="text-center">Donating Business</th>
                                 <th class="text-center">Name of the Event</th>
                                 <th class="text-center">Needed By Date</th>
                                 <th class="text-center">Status</th>
@@ -44,7 +44,7 @@
                                 <th class="text-center">Requester Type</th>
                                 <th class="text-center">Requested Amount</th>
                                 <th class="text-center">Requested Format</th>
-                                <th class="text-center">Donating Organization</th>
+                                <th class="text-center">Donating Business</th>
                                 <th class="text-center">Name of the Event</th>
                                 <th class="text-center">Needed By Date</th>
                                 <th class="text-center">Status</th>
@@ -76,7 +76,7 @@
                                             
                                             
                                         
-                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}"
+                                            <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
                                                class="btn btn-info" title="Detail">
                                                 <span class="glyphicon glyphicon-list-alt"></span></a>
                                        
@@ -146,13 +146,19 @@
     // } ); 
     
         $(document).ready(function () {
+
+
+
             $('#example tfoot th').each( function () {
                 var title = $(this).text();
                 $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
             } );
+
             var table = $('#example').DataTable({
                 dom: 'Bfrtip',
+                
                 scrollX : true,
+                
                 buttons: [
                     {
                         extend: 'pdf',
@@ -189,6 +195,8 @@
                         }
                     }
                 ]
+
+
             });
             // Add event listeners to the two range filtering inputs
 

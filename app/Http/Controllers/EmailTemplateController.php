@@ -33,7 +33,6 @@ class EmailTemplateController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $email_template = EmailTemplate::find($id);
         $email_template->update($request->all());
         $email_template->save();
@@ -42,6 +41,7 @@ class EmailTemplateController extends Controller
 
     public function edit($id)
     {
+        $id = decrypt($id);
         $email_template = EmailTemplate::findOrFail($id);
         return view('emailtemplates.edit', compact('email_template'));
     }

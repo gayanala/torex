@@ -28,11 +28,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('CronJob:cronjob')
-        //->twiceDaily(self::FIRST_RUN_HOUR, self::SECOND_RUN_HOUR);
         ->everyFiveMinutes();
         $schedule->command('CronJob:scheduledrulejob')->cron('0 */2 * * *'); // Run every two hours
 
         $schedule->command('command:SendReminders')->mondays();
+        $schedule->command('CronJob :sendemailforrejectedrequestsjob')->mondays()
+            ->twiceDaily(1, 4);
+
+
+
     }
 
     /**

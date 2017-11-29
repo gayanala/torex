@@ -55,14 +55,14 @@
                                                don-id="{{$donationrequest->id}}"
                                                onClick="func(0, '{{$donationrequest->id}}')">
                                                 <span class="glyphicon glyphicon-ok"></span></a>
-                                            <a href="{{route('donationrequests.show',$hashids->encode($donationrequest->id))}}"
+                                            <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
                                                class="btn btn-info" title="Detail">
                                                 <span class="glyphicon glyphicon-list-alt"></span></a>
                                             <a href="" class="btn btn-danger" title="Reject"
                                                onClick="func(1, '{{$donationrequest->id}}')">
                                                 <span class="glyphicon glyphicon-remove"></span></a>
                                         @else
-                                            <a href="{{route('donationrequests.show',$hashids->encode($donationrequest->id))}}"
+                                            <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
                                                class="btn btn-info" title="Detail">
                                                 <span class="glyphicon glyphicon-list-alt"></span></a>
                                         @endif
@@ -135,6 +135,7 @@
                         },
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5, 6]
+
                         }
 
                     },

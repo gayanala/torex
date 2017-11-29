@@ -19,28 +19,32 @@
                 @endif
 
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h1>Manage Business Locations </h1></div>
+                    <div class="panel-heading">
+                        @if($subscriptionEnds == '')
+                            <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                               class="btn btn-primary pull-right" style="" id="cancel">
+                                Cancel Subscription
+                            </a>
+                        @else
+
+                            <a href="{{ URL::action('SubscriptionController@resume') }}"
+                               class="btn btn-primary pull-right" style="" id="resume">
+                                Resume Subscription
+                            </a>
+                        @endif
+                        <h1 style="">Manage Business Locations </h1>
+
+                    </div>
                     <div class="panel-body">
 
-                <div class="panel panel-default">
-                    @if ($count < $subscription)
-                        <div class="panel-heading">
-                            @if($subscriptionEnds == '')
-                                <a href="{{ URL::action('SubscriptionController@cancel') }}"
-                                   class="btn btn-primary pull-right" style="" id="cancel">
-                                    Cancel Subscription
-                                </a>
-                            @else
-
-                                <a href="{{ URL::action('SubscriptionController@resume') }}"
-                                   class="btn btn-primary pull-right" style="" id="resume">
-                                    Resume Subscription
-                                </a>
-                            @endif
+                        <div class="panel panel-default">
+                            @if ($count < $subscription)
+                                <div class="panel-heading">
                             <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
                             <a href="{{action('OrganizationController@createOrganization')}}"
                                class="btn btn-primary pull-right"> [+] Add </a>
-                            <h1 style="text-align: center">{{$count + 1}} out of {{$subscriptionQuantity}}
+                                    <h1 style="text-align: center;width: 50%;">{{$count + 1}} out
+                                        of {{$subscriptionQuantity}}
                                 locations added</h1>
                         </div>
                     @else
@@ -83,7 +87,7 @@
                             <td style="vertical-align: middle">{{ $loggedOnUserOrganization[0]->phone_number}}</td>
                             <td style="vertical-align: middle">{{'$'}}{{ $loggedOnUserOrganization[0]->monthly_budget}}</td>
                             <td style="vertical-align: middle"><a
-                                        href="{{route('organizations.edit',$loggedOnUserOrganization[0]->id)}}"
+                                        href="{{route('organizations.edit',encrypt($loggedOnUserOrganization[0]->id))}}"
                                         class="btn btn-warning">Edit</a></td>
                         </tr>
                         </tbody>
@@ -121,7 +125,7 @@
                                 <td style="vertical-align: middle">{{ $organization->organization['phone_number']}}</td>
                                 <td style="vertical-align: middle">{{'$'}}{{ $organization->organization['monthly_budget']}}</td>
                                 <td style="vertical-align: middle"><a
-                                            href="{{route('organizations.edit',$organization->child_org_id)}}"
+                                            href="{{route('organizations.edit',encrypt($organization->child_org_id))}}"
                                             class="btn btn-warning">Edit</a>
                                 </td>
                                 <td style="vertical-align: middle">
