@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Custom\Constant;
 
 class User extends Authenticatable
 {
@@ -109,6 +110,6 @@ class User extends Authenticatable
      */
     public function scopeActive($query)
     {
-        return $query->where('active', 1);
+        return $query->where('active', Constant::ACTIVE);
     }
 }

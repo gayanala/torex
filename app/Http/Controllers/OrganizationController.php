@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Constant;
 use App\Organization;
 use App\Organization_type;
 use App\ParentChildOrganizations;
@@ -162,10 +163,10 @@ class OrganizationController extends Controller
         if (in_array($id, $this->getAllMyOrganizationIds()))
         {
             $organization = Organization::find($id);
-            $organization->active = 0;
+            $organization->active = Constant::INACTIVE;
             $organization->save();
             $users = User::active()->where('organization_id', $id);
-            $users->update(['active' => 0]);
+            $users->update(['active' => Constant::INACTIVE]);
             return redirect()->back()->with('message', 'Successfully deactivated the Business Location');
         }
         else

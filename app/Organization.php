@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
+use App\Custom\Constant;
 
 class Organization extends Model
 {
@@ -73,6 +74,6 @@ class Organization extends Model
      */
     public function scopeActive($query)
     {
-        return $query->where('active', 1);
+        return $query->where('active', Constant::ACTIVE);
     }
 }
