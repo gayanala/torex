@@ -187,13 +187,13 @@
                                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
                                     <thead>
                                         <tr class="bg-info">
-                                            <th class="text-center">Status</th>
                                             <th class="text-center">Org ID</th>
                                             <th class="text-center">Business Name</th>
-                                            <th class="text-center">Total Donations</th>
+                                            <th class="text-center">Total Amount Requested</th>
+                                            <th class="text-center">Total Approved Amount YTD</th>
                                             <th class="text-center">Approved</th>
                                             <th class="text-center">Rejected</th>
-                                            <th class="text-center">Amount Donated YTD</th>
+                                            <th class="text-center">Status</th>
                                             <th class="text-center">Details</th>
                                         </tr>
                                     </thead>
@@ -204,13 +204,13 @@
                                                 @continue;
                                             @endif
                                             <tr>
-                                                <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->id }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
                                                 <td style="vertical-align: middle">${{ $organization->donationRequest->sum('dollar_amount') }}</td>
+                                                <td style="vertical-align: middle">${{ $organization->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '5')->count() }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>
-                                                <td style="vertical-align: middle"> {{ $organization->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
                                                 <td>
                                                     <a href="{{ url('/organizationdonations', encrypt($organization->id))}}"
                                                        class="btn btn-info" title="Detail">
