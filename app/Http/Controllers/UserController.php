@@ -69,8 +69,7 @@ class UserController extends Controller
         $admin = Auth::user();
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
-
-        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();//dd($users[0]->id);//dd($users[0]->roles[0]->name);
+        $users = User::active()->whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();//dd($users[0]->id);//dd($users[0]->roles[0]->name);
         return view('users.indexUsers', compact('users', 'admin'));
     }
 
@@ -291,7 +290,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        User::find($id)->delete();
+        User::find($id)->update(['active' => Constant::INACTIVE]);
         return redirect('users');
     }
 

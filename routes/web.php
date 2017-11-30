@@ -96,6 +96,8 @@ Route::get('donationrequests/search','DonationRequestController@searchDonationRe
 
 Route::get('donationrequests/export', 'DonationRequestController@export')->middleware('auth');
 
+Route::get('acknowledgeRequestReceived', 'DonationRequestController@acknowledgeRequestReceived')->name('acknowledgeRequestReceived');
+
 Route::resource('/donationrequests', 'DonationRequestController');
 
 Route::get('change-password', function() {

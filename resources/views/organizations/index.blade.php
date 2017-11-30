@@ -116,25 +116,25 @@
 
 
                             <tr class="text-center">
-                                <td style="vertical-align: middle">{{ $organization->organization['org_name'] }}</td>
-                                <td style="vertical-align: middle">{{ $organization->organization['org_description'] }}</td>
-                                <td style="vertical-align: middle">{{ $organization->organization['street_address1'] }}
-                                    {{ $organization->organization['street_address2'] }}
-                                    , {{ $organization->organization['city'] }}
-                                    , {{ $organization->organization['state'] }} {{ $organization->organization['zipcode'] }}</td>
-                                <td style="vertical-align: middle">{{ $organization->organization['phone_number']}}</td>
-                                <td style="vertical-align: middle">{{'$'}}{{ $organization->organization['monthly_budget']}}</td>
+                                <td style="vertical-align: middle">{{ $organization['org_name'] }}</td>
+                                <td style="vertical-align: middle">{{ $organization['org_description'] }}</td>
+                                <td style="vertical-align: middle">{{ $organization['street_address1'] }}
+                                    {{ $organization['street_address2'] }}
+                                    , {{ $organization['city'] }}
+                                    , {{ $organization['state'] }} {{ $organization['zipcode'] }}</td>
+                                <td style="vertical-align: middle">{{ $organization['phone_number']}}</td>
+                                <td style="vertical-align: middle">{{'$'}}{{ $organization['monthly_budget']}}</td>
                                 <td style="vertical-align: middle"><a
-                                            href="{{route('organizations.edit',encrypt($organization->child_org_id))}}"
+                                            href="{{route('organizations.edit',encrypt($organization->id))}}"
                                             class="btn btn-warning">Edit</a>
                                 </td>
                                 <td style="vertical-align: middle">
                                     {{ Form::open([
                                                     'method' => 'DELETE',
-                                                    'action' => ['OrganizationController@destroy', $organization->child_org_id]
+                                                    'action' => ['OrganizationController@destroy', $organization->id]
                                                   ]) }}
                                     <input type="submit" value="Delete" class='btn btn-danger'
-                                           onClick="return confirm('Are you sure you want to delete the Business Location?');">
+                                           onClick="return confirm('Are you sure you want to delete the Business Location? \n\nALL users for this Location will be inactivated!\nIf you wish to keep these users, please press cancel and move them to a new location from the Users management page before removing the location.');">
                                     {{ Form::close() }}
                                 </td>
                             </tr>

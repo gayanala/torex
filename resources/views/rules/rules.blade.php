@@ -159,13 +159,13 @@
                     <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
                             class="btn btn-default">Run Rule Workflow
                     </button>
-                    <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
+                    {{--<button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
                             class="btn btn-default">Run Budget
                     </button>
                     <button id="btnRunMinimumNoticeCheckRule" type="button"
                             href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
                             class="btn btn-default">Run Required Days Notice
-                    </button>
+                    </button>--}}
                 </div>
                 <br/>
                 <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
@@ -261,14 +261,6 @@
             window.location.href = '{{ action('RuleEngineController@manualRunRule') }}?rule=' + iRuleType;
         });
 
-        $('#btnRunBudget').on('click', function () {
-            window.location.href = '{{ action('RuleEngineController@runBudgetCheckRule') }}';
-        });
-
-        $('#btnRunMinimumNoticeCheckRule').on('click', function () {
-            window.location.href = '{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}';
-        });
-
         $('#btnSave').on('click', function () {
             var target = $(this).data('target');
             var result = $('#builder-' + target).queryBuilder('getRules');
@@ -316,7 +308,7 @@
                 operators: ['equal', 'not_equal', 'contains', 'not_contains', 'begins_with', 'not_begins_with', 'ends_with', 'not_ends_with']
             }, {
                 id: 'requester_type',
-                label: 'Requester Type',
+                label: 'Organization Requester Type',
                 type: 'integer',
                 input: 'checkbox',
                 values: {

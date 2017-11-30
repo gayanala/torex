@@ -20,6 +20,9 @@ class Constant
     const REJECTED = 4;
     const APPROVED = 5;
 
+    //APPROVAL STATUS REASON
+    CONST STATUS_REASON_DEFAULT = 'Business Rules failed to run on request.';
+
     // RULE TYPES
     const AUTO_REJECT_RULE = 1;
     const PRE_APPROVE_RULE = 2;
@@ -41,6 +44,9 @@ class Constant
     const TAGG_USER = 3;
     const BUSINESS_ADMIN = 4;
     const BUSINESS_USER = 5;
+
+    //DELAYED EMAIL IN DAYS
+    const DELAYED_EMAIL_DURATION_FOR_REJECT_REQUESTS = 2;
 
 
 //////////  END OF CONSTANTS USED  //////////

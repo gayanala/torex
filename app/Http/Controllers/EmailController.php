@@ -23,25 +23,6 @@ class EmailController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*   public function email(){
-
-           Mail::send(
-
-               ['text'=>'emails.startmail'],[],function($message){
-               $message->to(Auth::user()->email,Auth::user()->first_name)->subject('Welcome to CharityQ');
-               $message->from('tagg@gmail.com','tagg');
-           });
-           Mail::to(Auth::user()->email)->send(new RegistrationSuccessful(Auth::user()));
-
-           return redirect('\home');
-
-       }*/
-
-    /**
      * Gets email ids, edited email template and sends email by calling SendManualRequest Mailable
      *
      * @param Request $request
@@ -67,18 +48,27 @@ class EmailController extends Controller
 
             $donation_id = $ids_array[$index];
             $donation = DonationRequest::where('id', $donation_id)->get();
+            $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
+            $userId = Auth::id();
+            $organizationId = Auth::user()->organization_id;
 
             if($request->status == 'Approve'){
                 //update donation request status in database
-                $donation[0]->update(['approval_status_id' => Constant::APPROVED]);
-                $donation[0]->update(['approval_status_reason' => 'Approved Manually']);
+                $donation[0]->update([
+                    'approval_status_id' => Constant::APPROVED,
+                    'approval_status_reason' => 'Approved by '.$userName,
+                    'approved_organization_id' => $organizationId,
+                    'approved_user_id' => $userId
+                ]);
             } elseif($request->status == 'Reject'){
-                $donation[0]->update(['approval_status_id' => Constant::REJECTED]);
-                $donation[0]->update(['approval_status_reason' => 'Rejected Manually']);
+                $donation[0]->update([
+                    'approved_dollar_amount' => 0.00,
+                    'approval_status_id' => Constant::REJECTED,
+                    'approval_status_reason' => 'Rejected by '.$userName,
+                    'approved_organization_id' => $organizationId,
+                    'approved_user_id' => $userId
+                ]);
             }
-            $donation[0]->update(['approved_organization_id' => Auth::user()->organization_id]);
-            $donation[0]->update(['approved_user_id' => Auth::id()]);
-
 
             Mail::to($email)->send(new SendManualRequest($request));
             $request->email_message = $default_template;

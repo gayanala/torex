@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Custom\Constant;
 
 class User extends Authenticatable
 {
@@ -103,4 +104,12 @@ class User extends Authenticatable
         return null !== $this->roles()->where('name', $role)->first();
     }
 
+    /**
+     * Get only active Users
+     * @param $query
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', Constant::ACTIVE);
+    }
 }
