@@ -451,6 +451,7 @@
                                 <button type="button" id="btnSubmit" class="btn btn-success">
                                     Send Request
                                 </button>
+                                <input id="hiddenSubmit" type="submit" class="btn btn-success" style="display: none">
                                 <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                             </div>
                         </div>
@@ -490,12 +491,12 @@
                 }
                 else {
                     //alert("Checked: true, Attachment: true");
-                    document.getElementById("donationRequestForm").submit();
+                        $('#hiddenSubmit').click();
                 }
             }
             else {
                 //alert("Checked: false");
-                document.getElementById("donationRequestForm").submit();
+                $('#hiddenSubmit').click();
             }
         });
     </script>
