@@ -487,7 +487,7 @@
                     <ul class="dropdown-menu" role="menu">
                         @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                             <li>
-                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                                <a href="{{ url('/rules?rule=1')}}">Donation Preferences</a>
                             </li>
                         @endif
                         <li>
@@ -505,7 +505,7 @@
                                 @endif
                         <li>
                             <a href="{{ route('emailtemplates.index') }}">
-                                Communication Template
+                                Email Templates
                             </a>
                         </li>
                             @endif
