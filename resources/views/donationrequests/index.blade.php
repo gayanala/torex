@@ -38,7 +38,7 @@
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
                                     <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
-                                    <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
+                                    <td style="vertical-align: middle">${{ $donationrequest->approved_dollar_amount }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->organization->org_name }}</td>
                                     {{--<td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>--}}

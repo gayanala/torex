@@ -98,7 +98,7 @@
                         <?php } ?>
 
                             <tr>
-                                <td>Dollar Amount</td>
+                                <td>Requested Dollar Amount</td>
                                 <td>$<?php echo ($donationrequest['dollar_amount']); ?></td>
                             </tr>
                             <tr>
@@ -130,7 +130,7 @@
                             </tr>
                             @if($donationrequest->event_start_date)
                                 <tr>
-                                    <td>Event Start Date</td>
+                                    <td>Event Date</td>
                                     <td><?php echo date("m/d/Y", strtotime($donationrequest['event_start_date'])); ?></td>
                                 </tr>
                             @endif
@@ -154,7 +154,7 @@
                                 <td>What are the marketing opportunities?</td>
                                 <td><?php echo ($donationrequest['marketing_opportunities']); ?></td>
                             </tr>
-                            @if($donationrequest->approved_dollar_amount <> 0.00)
+                            @if($donationrequest->approval_status_id == \App\Custom\Constant::APPROVED OR $donationrequest->approval_status_id == \App\Custom\Constant::REJECTED)
                                 <tr>
                                     <td>Approved Amount</td>
                                     <td>$<?php echo ($donationrequest['approved_dollar_amount']); ?></td>
@@ -167,22 +167,30 @@
                 @if($donationAcceptanceFlag == 1)
                     {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
                         {{ csrf_field() }}
-                        @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
+                        @if ($donationrequest->approval_status_id == \App\Custom\Constant::SUBMITTED OR $donationrequest->approval_status_id == \App\Custom\Constant::PENDING_REJECTION OR $donationrequest->approval_status_id == \App\Custom\Constant::PENDING_APPROVAL)
                             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER) 
                                 <div>
                                     <label for="dollar_amount" class="col-md-3 control-label">Dollar Amount Approval</label>
                                     <div class="col-lg-6">
 
                                         {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
-                                        {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['class' => 'form-control', 'required'] )!!}
+                                        {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['id' => 'approved_amount', 'class' => 'form-control', 'required', 'onblur' => 'setEmptyToZero(this)'] )!!}
                                     </div>
                                 </div>
+                        <script type="text/javascript">
+                            function setEmptyToZero(e) {
+                                if (e.value == null || e.value == '')
+                                {
+                                    e.value = '0.00';
+                                }
+                            };
+                        </script>
                                 <br><br>
                             @endif
                         @endif
                         <div style="text-align:center">
 
-                            @if ($donationrequest->approval_status_id == 1 OR $donationrequest->approval_status_id == 2 OR $donationrequest->approval_status_id == 3)
+                            @if ($donationrequest->approval_status_id == \App\Custom\Constant::SUBMITTED OR $donationrequest->approval_status_id == \App\Custom\Constant::PENDING_REJECTION OR $donationrequest->approval_status_id == \App\Custom\Constant::PENDING_APPROVAL)
                                 @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER) 
                                     <input class="btn active btn-success" type="submit" name="approve" value="Approve">
                                     <input class="btn active btn-danger" type="submit" name="reject" value="Reject">

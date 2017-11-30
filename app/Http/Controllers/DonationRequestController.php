@@ -117,15 +117,15 @@ class DonationRequestController extends Controller
         $donationRequest->first_name = $request->firstname;
         $donationRequest->last_name = $request->lastname;
         $donationRequest->email = $request->email;
-        $donationRequest->phone_number = $request->phonenumber;
+        $donationRequest->phone_number = $request->phone_number;
         $donationRequest->street_address1 = $request->address1;
         $donationRequest->street_address2 = $request->address2;
         $donationRequest->city = $request->city;
         $donationRequest->state = $request->state;
         $donationRequest->zipcode = $request->zipcode;
-        $donationRequest->tax_exempt = $request->taxexempt;
+        $donationRequest->tax_exempt = $request->tax_exempt;
 
-        if ($request->hasFile('attachment') && $request->taxexempt==1) {
+        if ($request->hasFile('attachment') && $request->tax_exempt==1) {
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $imageName = Storage::disk('s3')->url($imageName);
             $donationRequest->file_url = $imageName;
@@ -133,11 +133,12 @@ class DonationRequestController extends Controller
         $donationRequest->item_requested = $request->item_requested;
         $donationRequest->other_item_requested = $request->item_requested_explain;
         $donationRequest->dollar_amount = $request->dollar_amount;
+        $donationRequest->approved_dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
         $donationRequest->other_item_purpose = $request->item_purpose_explain;
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
-        $donationRequest->event_start_date = $request->startdate;
+        $donationRequest->event_start_date = $request->event_date;
         $donationRequest->event_type = $request->event_type;
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
@@ -147,16 +148,16 @@ class DonationRequestController extends Controller
         $this->validate($request, [
 
             'needed_by_date' => 'after:today',
-            'startdate' => 'after:today',
-            'taxexempt' => "required",
-            'phonenumber' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+            'event_date' => 'after:today',
+            'tax_exempt' => "required",
+            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
         ]);
 
 
 
 
         $donationRequest->save();
-        if ($request->hasFile('attachment') && $request->taxexempt==1) {
+        if ($request->hasFile('attachment') && $request->tax_exempt==1) {
             $this->validate($request, [
                     'attachment' => 'required|mimes:doc,docx,pdf,jpeg,png,jpg,svg|max:2048',
                 ]);
@@ -221,11 +222,13 @@ class DonationRequestController extends Controller
             $approved_amount = $request->approved_amount;
             $donation_id = $request->id;
             $donation = DonationRequest::where('id', $donation_id)->get();
-            $donation[0]->update(['approval_status_id' => Constant::APPROVED]);
-            $donation[0]->update(['approved_dollar_amount' => $approved_amount]);
-            $donation[0]->update(['approved_organization_id' => $organizationId]);
-            $donation[0]->update(['approved_user_id' => $userId]);
-            $donation[0]->update(['approval_status_reason' => 'Approved by ' . $userName]);
+            $donation[0]->update([
+                'approval_status_id' => Constant::APPROVED,
+                'approved_dollar_amount' => $approved_amount,
+                'approved_organization_id' => $organizationId,
+                'approved_user_id' => $userId,
+                'approval_status_reason' => 'Approved by ' . $userName
+            ]);
             event(new TriggerAcceptEmailEvent($donation[0]));
 
             $organization = Organization::findOrFail($organizationId);
@@ -237,10 +240,13 @@ class DonationRequestController extends Controller
         } elseif ($request->input('reject') == 'Reject') {
             $donation_id = $request->id;
             $donation = DonationRequest::where('id', $donation_id)->get();
-            $donation[0]->update(['approval_status_id' => Constant::REJECTED]);
-            $donation[0]->update(['approved_organization_id' => $organizationId]);
-            $donation[0]->update(['approved_user_id' => $userId]);
-            $donation[0]->update(['approval_status_reason' => 'Rejected by ' . $userName]);
+            $donation[0]->update([
+                'approved_dollar_amount' => 0.00,
+                'approval_status_id' => Constant::REJECTED,
+                'approved_organization_id' => $organizationId,
+                'approved_user_id' => $userId,
+                'approval_status_reason' => 'Rejected by ' . $userName
+            ]);
             event(new TriggerRejectEmailEvent($donation[0]));
 
             $organization = Organization::findOrFail($organizationId);
@@ -261,7 +267,7 @@ class DonationRequestController extends Controller
             }
 
         } elseif ($request['status'] == 1) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => Constant::REJECTED, 'approval_status_reason' => 'Rejected by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approved_dollar_amount' => 0.00, 'approval_status_id' => Constant::REJECTED, 'approval_status_reason' => 'Rejected by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($rejectedrequests as $rejectedrequest) {
