@@ -166,7 +166,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
-                                <label for="zipcode" class="col-md-4 control-label">Zipcode <span
+                                <label for="zipcode" class="col-md-4 control-label">Zip Code <span
                                             style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                                 </label>
 
