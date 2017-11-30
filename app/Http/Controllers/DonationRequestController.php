@@ -132,6 +132,7 @@ class DonationRequestController extends Controller
         $donationRequest->item_requested = $request->item_requested;
         $donationRequest->other_item_requested = $request->item_requested_explain;
         $donationRequest->dollar_amount = $request->dollar_amount;
+        $donationRequest->approved_dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
         $donationRequest->other_item_purpose = $request->item_purpose_explain;
         $donationRequest->needed_by_date = $request->needed_by_date;
@@ -220,11 +221,13 @@ class DonationRequestController extends Controller
             $approved_amount = $request->approved_amount;
             $donation_id = $request->id;
             $donation = DonationRequest::where('id', $donation_id)->get();
-            $donation[0]->update(['approval_status_id' => Constant::APPROVED]);
-            $donation[0]->update(['approved_dollar_amount' => $approved_amount]);
-            $donation[0]->update(['approved_organization_id' => $organizationId]);
-            $donation[0]->update(['approved_user_id' => $userId]);
-            $donation[0]->update(['approval_status_reason' => 'Approved by ' . $userName]);
+            $donation[0]->update([
+                'approval_status_id' => Constant::APPROVED,
+                'approved_dollar_amount' => $approved_amount,
+                'approved_organization_id' => $organizationId,
+                'approved_user_id' => $userId,
+                'approval_status_reason' => 'Approved by ' . $userName
+            ]);
             event(new TriggerAcceptEmailEvent($donation[0]));
 
             $organization = Organization::findOrFail($organizationId);
@@ -236,10 +239,13 @@ class DonationRequestController extends Controller
         } elseif ($request->input('reject') == 'Reject') {
             $donation_id = $request->id;
             $donation = DonationRequest::where('id', $donation_id)->get();
-            $donation[0]->update(['approval_status_id' => Constant::REJECTED]);
-            $donation[0]->update(['approved_organization_id' => $organizationId]);
-            $donation[0]->update(['approved_user_id' => $userId]);
-            $donation[0]->update(['approval_status_reason' => 'Rejected by ' . $userName]);
+            $donation[0]->update([
+                'approved_dollar_amount' => 0.00,
+                'approval_status_id' => Constant::REJECTED,
+                'approved_organization_id' => $organizationId,
+                'approved_user_id' => $userId,
+                'approval_status_reason' => 'Rejected by ' . $userName
+            ]);
             event(new TriggerRejectEmailEvent($donation[0]));
 
             $organization = Organization::findOrFail($organizationId);
@@ -260,7 +266,7 @@ class DonationRequestController extends Controller
             }
 
         } elseif ($request['status'] == 1) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => Constant::REJECTED, 'approval_status_reason' => 'Rejected by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
+            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approved_dollar_amount' => 0.00, 'approval_status_id' => Constant::REJECTED, 'approval_status_reason' => 'Rejected by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
             $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
 
             foreach ($rejectedrequests as $rejectedrequest) {
