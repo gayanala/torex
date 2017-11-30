@@ -65,10 +65,8 @@ class Handler extends ExceptionHandler
             return redirect('login');
         }
 
-        elseif ($exception instanceof TokenMismatchException) {
-            \Session::flash('flash_message_important', 'Sorry, your session seems to have expired. Please try again.');
-
-            return redirect('login');
+        elseif ($exception instanceof \Illuminate\Session\TokenMismatchException) {
+            return redirect()->back()->withInput()->with('token', csrf_token());
         }
         elseif ($exception instanceof QueryException) {
             //\Session::flash('flash_message_important', 'Bad Data. Use different email address');
