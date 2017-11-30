@@ -242,6 +242,7 @@ class DonationRequestController extends Controller
 
         } elseif ($request->input('reject') == 'Reject') {
             $approved_amount = 0.00;
+            $donation->update(['approved_dollar_amount' => $approved_amount]);
             $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_REJECTED)->where('organization_id', $organizationId)->get();
             $email_template = $email_template[0]; //convert collection into an array
 
