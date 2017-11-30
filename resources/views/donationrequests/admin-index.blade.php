@@ -25,9 +25,9 @@
 
                             <tr class="bg-info">
                                 <th class="text-center">Requester</th>
-                                <th class="text-center">Requester Type</th>
+                                <th class="text-center">Organization Requester Type</th>
                                 <th class="text-center">Requested Amount</th>
-                                <th class="text-center">Requested Format</th>
+                                <th class="text-center">Type of Donation</th>
                                 <th class="text-center">Donating Business</th>
                                 <th class="text-center">Name of the Event</th>
                                 <th class="text-center">Needed By Date</th>
@@ -41,9 +41,9 @@
 
                             <tr class="bg-info">
                                 <th class="text-center">Requester</th>
-                                <th class="text-center">Requester Type</th>
+                                <th class="text-center">Organization Requester Type</th>
                                 <th class="text-center">Requested Amount</th>
-                                <th class="text-center">Requested Format</th>
+                                <th class="text-center">Type of Donation</th>
                                 <th class="text-center">Donating Business</th>
                                 <th class="text-center">Name of the Event</th>
                                 <th class="text-center">Needed By Date</th>

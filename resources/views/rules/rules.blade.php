@@ -308,7 +308,7 @@
                 operators: ['equal', 'not_equal', 'contains', 'not_contains', 'begins_with', 'not_begins_with', 'ends_with', 'not_ends_with']
             }, {
                 id: 'requester_type',
-                label: 'Requester Type',
+                label: 'Organization Requester Type',
                 type: 'integer',
                 input: 'checkbox',
                 values: {
