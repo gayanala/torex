@@ -227,18 +227,18 @@ class DonationRequestController extends Controller
         $emails = $donation->email;
 
         if ($request->input('approve') == 'Approve') {
-            $approved_amount = $request->approved_amount;
+            if ($request->approved_amount)
+            {
+                $approved_amount = $request->approved_amount;
+            }
+            else {
+                $approved_amount = $donation->dollar_amount;
+            }
             $donation->update(['approved_dollar_amount' => $approved_amount]);
             $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_APPROVED)->where('organization_id', $organizationId)->get();
             $email_template = $email_template[0]; //convert collection into an array
 
             return view('emaileditor.approvesendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
-
-//            $organization = Organization::findOrFail($organizationId);
-//            $organizationName = $organization->org_name;
-//            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-//            $today = Carbon::now()->toDateString();
-            //return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
 
         } elseif ($request->input('reject') == 'Reject') {
             $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_REJECTED)->where('organization_id', $organizationId)->get();
@@ -246,12 +246,6 @@ class DonationRequestController extends Controller
 
             return view('emaileditor.rejectsendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
 
-
-//            $organization = Organization::findOrFail($organizationId);
-//            $organizationName = $organization->org_name;
-//            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-//            $today = Carbon::now()->toDateString();
-//            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
         }
 
     }

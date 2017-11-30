@@ -51,16 +51,19 @@
                                         id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td style="white-space: nowrap">
                                         @if($donationrequest->donationApprovalStatus->id == 2 || $donationrequest->donationApprovalStatus->id == 3)
-                                            <a href="" class="btn btn-success" title="Approve"
-                                               don-id="{{$donationrequest->id}}"
-                                               onClick="func(0, '{{$donationrequest->id}}')">
-                                                <span class="glyphicon glyphicon-ok"></span></a>
-                                            <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
-                                               class="btn btn-info" title="Detail">
-                                                <span class="glyphicon glyphicon-list-alt"></span></a>
-                                            <a href="" class="btn btn-danger" title="Reject"
-                                               onClick="func(1, '{{$donationrequest->id}}')">
-                                                <span class="glyphicon glyphicon-remove"></span></a>
+                                            <div>
+
+
+                                            {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
+                                                {{ csrf_field() }}
+                                                {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
+                                                {{Form::button('<i class="glyphicon glyphicon-ok"></i>', ['type' => 'submit', 'class' => 'btn btn-success', 'name' => 'approve', 'value' => 'Approve'])}}
+                                                <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
+                                                   class="btn btn-info" title="Detail">
+                                                    <span class="glyphicon glyphicon-list-alt"></span></a>
+                                                {{Form::button('<i class="glyphicon glyphicon-remove"></i>', ['type' => 'submit', 'class' => 'btn btn-danger', 'name' => 'reject', 'value' => 'Reject'])}}
+                                            {!! Form::close() !!}
+                                            </div>
                                         @else
                                             <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
                                                class="btn btn-info" title="Detail">
@@ -163,41 +166,5 @@
             });
         });
 
-        function func(actionStatus, donId) {
-
-            // Populating array with the id
-            var idsArray = [donId];
-
-            // Sending an ajax post request with the list of checked
-            // checkboxes to update to either approved or rejected
-            $.ajax({
-                type: "POST",
-                url: 'donation/change-status',
-                dataType: 'json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (resp) {
-                    setStatusText = '';
-                    if (resp.status == 0) {
-                        setStatusText = 'Approved';
-                    } else if (resp.status == 1) {
-                        setStatusText = 'Rejected';
-                    }
-                    // Handle your response..
-                    for (var i = 0; i < resp.idsArray.length; i++) {
-                        // 0 - approved
-                        //1- rejected
-                        $('#status' + resp.idsArray[i]).text(setStatusText);
-                    }
-                },
-                data: {ids: idsArray, status: actionStatus}
-            });
-
-            // clearing the array
-            idsArray = [];
-
-
-        }
     </script>
 @endsection
