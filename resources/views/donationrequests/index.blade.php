@@ -81,7 +81,7 @@
 
                         <div class="panel-heading"><h1>Add a Donation Request</h1></div>
                         <input type="button" value="Manual Entry for Donation Request"
-                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_self') ;"/>
+                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank') ;"/>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ class DonationRequestController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('create','store');
+        $this->middleware('auth')->except('create','store','acknowledgeRequestReceived');
     }
 
     public function index()
@@ -169,12 +169,12 @@ class DonationRequestController extends Controller
         }
 
 
-        //fire NewBusiness event to initiate sending welcome mail
+        //fire NewBusiness event to initiate sending donation received mail
         event(new DonationRequestReceived($donationRequest));
 
         // Execute Business rules on newly submitted request
         app('App\Http\Controllers\RuleEngineController')->runRuleOnSubmit($donationRequest);
-        return redirect('/');
+        return redirect('acknowledgeRequestReceived');
     }
 
     public function show($id)
@@ -257,11 +257,6 @@ class DonationRequestController extends Controller
 
     }
 
-    public function updatestatus(Request $request)
-    {
-        dd($request);
-    }
-
     public function showAllDonationRequests($id)
     {
         $id = decrypt($id);
@@ -286,5 +281,10 @@ class DonationRequestController extends Controller
 
         return view('donationrequests.donation-child', compact('organization', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'userCount', 'userThisWeek', 'userThisMonth', 'userThisYear'));
         //return view('donationrequests.donation-organization', compact('organization'));
+    }
+
+    public function acknowledgeRequestReceived()
+    {
+        return view('donationrequests.request-confirmation');
     }
 }
