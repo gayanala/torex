@@ -31,7 +31,7 @@
                                 <th class="text-center">Date Needed</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Status Reason</th>
-                                <th class="text-center">Actions</th>
+                                <th class="text-center">Details</th>
                             </tr>
                             </thead>
                             <tbody style="text-align: center">

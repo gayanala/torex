@@ -32,7 +32,6 @@ class SendManualRequest extends Mailable
      */
     public function build()
     {
-
         return $this->view('emails.decisionmail.senddecision')
             ->subject($this->email-> email_subject)
             ->from(Auth::user()->email);

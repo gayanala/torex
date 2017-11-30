@@ -120,13 +120,13 @@
                                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
                                     <thead>
                                     <tr class="bg-info">
-                                        <th class="text-center">SelectAll <input type="checkbox" id="selectall"/></th>
+                                        <th class="text-center">Select all <input type="checkbox" id="selectall"/></th>
                                         <th class="text-center">Organization Name</th>
                                         <th class="text-center">Request Amount</th>
                                         <th class="text-center">Request For</th>
                                         {{--<th class="text-center">Event Name</th>--}}
                                         <th class="text-center">Location</th>
-                                        <th class="text-center">Handout Date</th>
+                                        <th class="text-center">Date Needed</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Status Reason</th>
                                         <th class="text-center">View Details</th>

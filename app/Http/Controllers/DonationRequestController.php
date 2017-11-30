@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Custom\Constant;
 use App\DonationRequest;
+use App\EmailTemplate;
 use App\Events\DonationRequestReceived;
 use App\Events\TriggerAcceptEmailEvent;
 use App\Events\TriggerRejectEmailEvent;
@@ -142,7 +143,7 @@ class DonationRequestController extends Controller
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
         $donationRequest->approval_status_id = Constant::SUBMITTED;
-        $donationRequest->approval_status_reason = 'Business Rules failed to run on request.';
+        $donationRequest->approval_status_reason = Constant::STATUS_REASON_DEFAULT;
         $this->validate($request, [
 
             'needed_by_date' => 'after:today',
@@ -215,61 +216,42 @@ class DonationRequestController extends Controller
         $userId = Auth::user()->id;
         $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
         $organizationId = Auth::user()->organization_id;
+        $donation_id = $request->id;
+        $donation = DonationRequest::where('id', $donation_id)->get();
+        $donation = $donation[0]; //convert collection into an array
+        $page_from = 'donationrequests';
+        $ids_string = (string)$donation->id;
+        $names = $donation->first_name.' '.$donation->last_name;
+        $emails = $donation->email;
 
         if ($request->input('approve') == 'Approve') {
             $approved_amount = $request->approved_amount;
-            $donation_id = $request->id;
-            $donation = DonationRequest::where('id', $donation_id)->get();
-            $donation[0]->update(['approval_status_id' => Constant::APPROVED]);
-            $donation[0]->update(['approved_dollar_amount' => $approved_amount]);
-            $donation[0]->update(['approved_organization_id' => $organizationId]);
-            $donation[0]->update(['approved_user_id' => $userId]);
-            $donation[0]->update(['approval_status_reason' => 'Approved by ' . $userName]);
-            event(new TriggerAcceptEmailEvent($donation[0]));
+            $donation->update(['approved_dollar_amount' => $approved_amount]);
+            $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_APPROVED)->where('organization_id', $organizationId)->get();
+            $email_template = $email_template[0]; //convert collection into an array
 
-            $organization = Organization::findOrFail($organizationId);
-            $organizationName = $organization->org_name;
-            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-            $today = Carbon::now()->toDateString();
-            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
+            return view('emaileditor.approvesendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
+
+//            $organization = Organization::findOrFail($organizationId);
+//            $organizationName = $organization->org_name;
+//            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
+//            $today = Carbon::now()->toDateString();
+            //return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
 
         } elseif ($request->input('reject') == 'Reject') {
-            $donation_id = $request->id;
-            $donation = DonationRequest::where('id', $donation_id)->get();
-            $donation[0]->update(['approval_status_id' => Constant::REJECTED]);
-            $donation[0]->update(['approved_organization_id' => $organizationId]);
-            $donation[0]->update(['approved_user_id' => $userId]);
-            $donation[0]->update(['approval_status_reason' => 'Rejected by ' . $userName]);
-            event(new TriggerRejectEmailEvent($donation[0]));
+            $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_REJECTED)->where('organization_id', $organizationId)->get();
+            $email_template = $email_template[0]; //convert collection into an array
 
-            $organization = Organization::findOrFail($organizationId);
-            $organizationName = $organization->org_name;
-            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-            $today = Carbon::now()->toDateString();
-            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
+            return view('emaileditor.rejectsendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
+
+
+//            $organization = Organization::findOrFail($organizationId);
+//            $organizationName = $organization->org_name;
+//            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
+//            $today = Carbon::now()->toDateString();
+//            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
         }
 
-        $emailids = [];
-        if ($request['status'] == 0) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => Constant::APPROVED, 'approval_status_reason' => 'Approved by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
-            $acceptedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
-
-            foreach ($acceptedrequests as $acceptedrequest) {
-                event(new TriggerAcceptEmailEvent($acceptedrequest));
-                usleep(500000);
-            }
-
-        } elseif ($request['status'] == 1) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => Constant::REJECTED, 'approval_status_reason' => 'Rejected by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
-            $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
-
-            foreach ($rejectedrequests as $rejectedrequest) {
-                event(new TriggerRejectEmailEvent($rejectedrequest));
-                usleep(500000);
-            }
-        }
-
-        return response()->json(['idsArray' => $request['ids'], 'status' => $request['status']]);
     }
 
     public function updatestatus(Request $request)

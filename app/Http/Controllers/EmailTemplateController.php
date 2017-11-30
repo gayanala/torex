@@ -81,6 +81,7 @@ class EmailTemplateController extends Controller
                 //get email template for Approve id value = 3
                 $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_APPROVED)->where('organization_id', $org_id)->get();
                 $email_template = $email_template[0]; //convert collection into an array
+
                 return view('emaileditor.approvesendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
             } else {
 
