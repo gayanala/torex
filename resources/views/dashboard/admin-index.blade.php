@@ -187,7 +187,6 @@
                                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
                                     <thead>
                                         <tr class="bg-info">
-                                            <th class="text-center">Business ID</th>
                                             <th class="text-center">Business Name</th>
                                             <th class="text-center">Total Amount Requested</th>
                                             <th class="text-center">Total Amount Approved YTD</th>
@@ -204,7 +203,6 @@
                                                 @continue;
                                             @endif
                                             <tr>
-                                                <td style="vertical-align: middle">{{ $organization->id }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
                                                 <td style="vertical-align: middle">${{ $organization->donationRequest->sum('dollar_amount') }}</td>
                                                 <td style="vertical-align: middle">${{ $organization->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
