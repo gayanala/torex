@@ -352,7 +352,7 @@
                              @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                                     <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
                                     Donations</a></li>
-                            @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER)
+                            @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER)
                                     <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
                                     Donations</a></li>
                             @endif
@@ -367,7 +367,7 @@
                                     <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                                         @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                                             <li>
-                                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                                                <a href="{{ url('/rules?rule=1')}}">Donation Preferences</a>
                                             </li>
                                         @endif
                                         <li>
@@ -385,7 +385,7 @@
                                             @endif
                                             <li>
                                                 <a href="{{ route('emailtemplates.index') }}">
-                                                    Communication Template
+                                                    E-mail Templates
                                                 </a>
                                             </li>
                                         @endif
