@@ -294,7 +294,7 @@
                                        title="Please use the format $.$$ for this field. " class="form-control"
                                        name="dollar_amount" value="{{ old('dollar_amount') }}"
                                        onblur="setTwoNumberDecimal(this)"
-                                       placeholder="Estimated Request Dollar Amount" required autofocus>
+                                       placeholder="0.00" required autofocus>
 
                                 @if ($errors->has('dollar_amount'))
                                     <span class="help-block">
