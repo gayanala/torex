@@ -190,7 +190,7 @@
                                             <th class="text-center">Business ID</th>
                                             <th class="text-center">Business Name</th>
                                             <th class="text-center">Total Amount Requested</th>
-                                            <th class="text-center">Total Approved Amount YTD</th>
+                                            <th class="text-center">Total Amount Approved YTD</th>
                                             <th class="text-center">Approved</th>
                                             <th class="text-center">Rejected</th>
                                             <th class="text-center">Status</th>
