@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>A Tagg Intiative</title>
+  <title>A CharityQ Intiative</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -100,6 +100,7 @@
     </div>
     </div>
   </div>
+  </div>
 </nav>
 
 <!-- First Container -->
@@ -156,7 +157,7 @@
 
 <!-- Footer -->
 <footer class="container-fluid bg-4 text-center">
-  <h3> <a href="http://www.togetheragreatergood.com/">A Tagg Initiative</a></h3>
+  <h3><a href="http://www.togetheragreatergood.com/">A CharityQ Initiative</a></h3>
   <img src="http://www.unhcr.ca/wp-content/uploads/2016/04/icon-partner.png" class="rounded sm-auto d-block" style="width:20%" alt="Image" align="middle">
 
 
