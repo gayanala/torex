@@ -116,15 +116,15 @@ class DonationRequestController extends Controller
         $donationRequest->first_name = $request->firstname;
         $donationRequest->last_name = $request->lastname;
         $donationRequest->email = $request->email;
-        $donationRequest->phone_number = $request->phonenumber;
+        $donationRequest->phone_number = $request->phone_number;
         $donationRequest->street_address1 = $request->address1;
         $donationRequest->street_address2 = $request->address2;
         $donationRequest->city = $request->city;
         $donationRequest->state = $request->state;
         $donationRequest->zipcode = $request->zipcode;
-        $donationRequest->tax_exempt = $request->taxexempt;
+        $donationRequest->tax_exempt = $request->tax_exempt;
 
-        if ($request->hasFile('attachment') && $request->taxexempt==1) {
+        if ($request->hasFile('attachment') && $request->tax_exempt==1) {
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $imageName = Storage::disk('s3')->url($imageName);
             $donationRequest->file_url = $imageName;
@@ -136,7 +136,7 @@ class DonationRequestController extends Controller
         $donationRequest->other_item_purpose = $request->item_purpose_explain;
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
-        $donationRequest->event_start_date = $request->startdate;
+        $donationRequest->event_start_date = $request->event_date;
         $donationRequest->event_type = $request->event_type;
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
@@ -146,16 +146,16 @@ class DonationRequestController extends Controller
         $this->validate($request, [
 
             'needed_by_date' => 'after:today',
-            'startdate' => 'after:today',
-            'taxexempt' => "required",
-            'phonenumber' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+            'event_date' => 'after:today',
+            'tax_exempt' => "required",
+            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
         ]);
 
 
 
 
         $donationRequest->save();
-        if ($request->hasFile('attachment') && $request->taxexempt==1) {
+        if ($request->hasFile('attachment') && $request->tax_exempt==1) {
             $this->validate($request, [
                     'attachment' => 'required|mimes:doc,docx,pdf,jpeg,png,jpg,svg|max:2048',
                 ]);

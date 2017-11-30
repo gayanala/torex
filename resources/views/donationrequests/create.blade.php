@@ -20,7 +20,7 @@
     <script>
         $(window).load(function () {
             var phones = [{"mask": "(###) ###-####"}];
-            $('#phonenumber').inputmask({
+            $('#phone_number').inputmask({
                 mask: phones,
                 greedy: false,
                 definitions: {'#': {validator: "[0-9]", cardinality: 1}}
@@ -135,17 +135,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('phonenumber') ? ' has-error' : '' }}">
-                           <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                        <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
+                           <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                                 <div class="col-md-6">
-                                    <input id="phonenumber" type="tel" class="form-control"
-                                           name="phonenumber"  value="{{ old('phonenumber') }}" required
+                                    <input id="phone_number" type="tel" class="form-control"
+                                           name="phone_number"  value="{{ old('phone_number') }}" required
                                            >
-
-
-                                    @if ($errors->has('phonenumber'))
+                                    @if ($errors->has('phone_number'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('phonenumber') }}</strong>
+                                        <strong>{{ $errors->first('phone_number') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -224,22 +222,22 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('taxexempt') ? ' has-error' : '' }}">
-                            <label for="taxexempt" class="col-md-4 control-label"> Are you a 501c3? <span
+                        <div class="form-group{{ $errors->has('tax_exempt') ? ' has-error' : '' }}">
+                            <label for="tax_exempt" class="col-md-4 control-label"> Are you a 501c3? <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
 
                                 <label for="chkYes">
-                                    <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="yesCheck"
+                                    <input type="radio" onclick="yesnoCheck();" name="tax_exempt" id="yesCheck"
                                            value="1">Yes
                                 </label>
                                 <label for="chkNo">
-                                    <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="noCheck" value="0">No
+                                    <input type="radio" onclick="yesnoCheck();" name="tax_exempt" id="noCheck" value="0">No
                                 </label>
-                                @if ($errors->has('taxexempt'))
+                                @if ($errors->has('tax_exempt'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('taxexempt') }}</strong>
+                                        <strong>{{ $errors->first('tax_exempt') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -247,11 +245,10 @@
 
                         <div class="form-group{{ $errors->has('attachment') ? ' has-error' : '' }}" id="file_upload">
                             <label for="attachment" class="col-md-4 control-label">Attachment <span
-                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label><small>Supported File Types: doc, docx, pdf, jpeg, png, jpg, svg</small>
                             <div class="col-md-4">
                                 <input type="file" class="form-control" name="attachment" id="attachment"
                                        autofocus>
-
                                 @if ($errors->has('attachment'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('attachment') }}</strong>
@@ -293,9 +290,9 @@
                             <label for="dollar_amount" class="col-md-4 control-label">Dollar Amount<span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                             <div class="col-md-6">
-                                <input id="dollar_amount" type="text" pattern="\d+(\.\d{2})?" required
+                                <input id="dollar_amount" type="number" min="0.00" step="0.01" pattern="\d+(\.\d{2})" required
                                        title="Please use the format $.$$ for this field. " class="form-control"
-                                       name="dollar_amount" value="{{ old('formAttendees') }}"
+                                       name="dollar_amount" value="{{ old('dollar_amount') }}"
                                        placeholder="Estimated Request Dollar Amount" required autofocus>
 
                                 @if ($errors->has('dollar_amount'))
@@ -336,7 +333,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('startdate') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('event_date') ? ' has-error' : '' }}">
                             <label for="needed_by_date" class="col-md-4 control-label">Needed by Date <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
@@ -370,17 +367,17 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('startdate') ? ' has-error' : '' }}">
-                            <label for="startdate" class="col-md-4 control-label">Event Date <span
+                        <div class="form-group{{ $errors->has('event_date') ? ' has-error' : '' }}">
+                            <label for="event_date" class="col-md-4 control-label">Event Date <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="startdate" type="date" class="form-control" name="startdate"
-                                       value="{{ old('startdate') }}" placeholder="Start Date" required autofocus>
+                                <input id="event_date" type="date" class="form-control" name="event_date"
+                                       value="{{ old('event_date') }}" placeholder="Start Date" required autofocus>
 
-                                @if ($errors->has('startdate'))
+                                @if ($errors->has('event_date'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('startdate') }}</strong>
+                                        <strong>{{ $errors->first('event_date') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -405,7 +402,7 @@
                             <label for="formAttendees" class="col-md-4 control-label">Estimated Number Of Attendees<span
                                         style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
                             <div class="col-md-6">
-                                <input id="formAttendees" type="text" class="form-control" name="formAttendees"
+                                <input id="formAttendees" type="number" step="1" class="form-control" name="formAttendees"
                                        value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees"
                                        autofocus>
 

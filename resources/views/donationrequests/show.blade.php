@@ -130,7 +130,7 @@
                             </tr>
                             @if($donationrequest->event_start_date)
                                 <tr>
-                                    <td>Event Start Date</td>
+                                    <td>Event Date</td>
                                     <td><?php echo date("m/d/Y", strtotime($donationrequest['event_start_date'])); ?></td>
                                 </tr>
                             @endif
