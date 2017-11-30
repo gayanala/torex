@@ -385,7 +385,7 @@
                                             @endif
                                             <li>
                                                 <a href="{{ route('emailtemplates.index') }}">
-                                                    E-mail Templates
+                                                    Email Templates
                                                 </a>
                                             </li>
                                         @endif
