@@ -293,6 +293,7 @@
                                 <input id="dollar_amount" type="number" min="0.00" step="0.01" pattern="\d+(\.\d{2})" required
                                        title="Please use the format $.$$ for this field. " class="form-control"
                                        name="dollar_amount" value="{{ old('dollar_amount') }}"
+                                       onblur="setTwoNumberDecimal(this)"
                                        placeholder="Estimated Request Dollar Amount" required autofocus>
 
                                 @if ($errors->has('dollar_amount'))
@@ -482,7 +483,9 @@
                 $('#item_purpose_explain').val('');
             }
         });
-
+        function setTwoNumberDecimal(e) {
+            e.value = parseFloat(e.value).toFixed(2);
+        };
         $('#btnSubmit').on('click', function () {
             if (document.getElementById('yesCheck').checked) {
                 if ($('#attachment')[0].files.length === 0) {
