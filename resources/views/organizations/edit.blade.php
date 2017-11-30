@@ -29,7 +29,7 @@
 
                 <div class="col-10">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
+                        <div class="panel-heading"><h1>URL for Donations</h1></div>
                         <div class="panel-body">
                             <script type="text/javascript">
                                 function Copy() {
@@ -42,13 +42,15 @@
                                         "The URL has been copied to your clipboard.");
                                 }
                             </script>
-                            <body>
                             <div>
-                                <input type="button" style="cursor: help;" value="Generate Url" title="For use for promotions or on social media." onclick="Copy();" />
-                                <input type="text" id="urlCopied" size="80"/>
-
+                                <input type="button" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
+                                <input type="text" id="urlCopied" size="80"/><br />
+                                <small>
+                                    Click the button to copy to display and your clipboard the URL to the donation request form to submit requests to your business.
+                                    This URL can be shared on social media sites or embedded as a link in a website to allow outside organizations to submit requests
+                                    online that will automatically be filtered by your donation preferences.
+                                </small>
                             </div>
-                            </body>
                         </div>
                     </div>
                 </div>
