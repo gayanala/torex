@@ -22,6 +22,7 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use URL;
+use App\User;
 
 
 
@@ -282,6 +283,24 @@ class DonationRequestController extends Controller
         $id = decrypt($id);
         $organization = Organization::findOrFail($id);
 
-        return view('donationrequests.donation-organization', compact('organization'));
+        $orgIds = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
+        $organizationsArray = ParentChildOrganizations::whereIn('parent_org_id', $orgIds)->pluck('child_org_id')->toArray();
+        array_push($organizationsArray, $orgIds);
+
+        $numActiveLocations = sizeOf($organizationsArray);
+        $userCount = User::whereIn('organization_id', $organizationsArray)->count();
+
+        $userThisWeek = Organization::where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
+        $userThisMonth = Organization::where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
+        $userThisYear = Organization::where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
+
+        $avgAmountDonated = sprintf("%.2f", (DonationRequest::where('approval_status_id', Constant::APPROVED)->avg('approved_dollar_amount')));
+
+        $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->count();
+        $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->count();
+        $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->count();
+
+        return view('donationrequests.donation-child', compact('organization', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'userCount', 'userThisWeek', 'userThisMonth', 'userThisYear'));
+        //return view('donationrequests.donation-organization', compact('organization'));
     }
 }

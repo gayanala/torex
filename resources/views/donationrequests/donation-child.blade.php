@@ -7,7 +7,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center">Request Management Dashboard</h1>
+                    <h1 class="page-header text-center">Donation Requests for {{ $organization->org_name }}</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -183,45 +183,31 @@
                         </div>
 
                         <div class="panel-body">
-                            @if(sizeOf($organizations) != 0)
-                                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
+                            @if(sizeOf($organization) != 0)
+                                <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                                     <thead>
-                                        <tr class="bg-info">
-                                            <th class="text-center">Business Name</th>
-                                            <th class="text-center">Total Amount Requested</th>
-                                            <th class="text-center">Total Amount Approved YTD</th>
-                                            <th class="text-center">Approved</th>
-                                            <th class="text-center">Rejected</th>
-                                            <th class="text-center">Status</th>
-                                            {{--<th class="text-center">Active Locations</th>--}}
-                                            <th class="text-center">Details</th>
-                                        </tr>
+                                    <tr class="bg-info">
+                                        <th class="text-center">Location Name</th>
+                                        <th class="text-center">Location Address</th>
+                                        <th class="text-center">Location Requested Date</th>
+                                        <th class="text-center">Details</th>
+                                    </tr>
                                     </thead>
-
-                                    <tbody  style="text-align: center">
-                                        @foreach ($organizations as $organization)
-                                            @if(is_null($organization->trial_ends_at))
-                                                @continue;
-                                            @endif
+                                    <tbody style="text-align: center">
+                                        @foreach($organization->donationRequest as $donationRequest)
                                             <tr>
-                                                <td style="vertical-align: middle">{{ $organization->org_name }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->donationRequest->sum('dollar_amount') }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
-                                                <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '5')->count() }}</td>
-                                                <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>
-                                                <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
-                                                {{--<td style="vertical-align: middle">{{ App\Organization::findOrFail($organization->id)->where('trial_ends_at', '>=', \Carbon\Carbon::now()->toDateTimeString())->get()  OR App\ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->count() }}</td>--}}
-                                                <td>
-                                                    <a href="{{ url('/organizationdonations', encrypt($organization->id))}}"
-                                                       class="btn btn-info" title="Detail">
+                                                <td style="vertical-align: middle"><?php echo ($donationRequest->organization->org_name); ?></td>
+                                                <td style="vertical-align: middle"><?php echo ($donationRequest['street_address1'] . ' ' . $donationRequest['street_address2'] . ' ' . $donationRequest['city'] . ' ' . $donationRequest['state'] . ' ' . $donationRequest['zipcode']); ?></td>
+                                                <td style="vertical-align: middle"><?php echo ($donationRequest->created_at); ?></td>
+                                                <td style="vertical-align: middle">
+                                                    <a href="{{route('donationrequests.show',encrypt($donationRequest->id))}}" class="btn btn-info" title="Detail">
                                                         <span class="glyphicon glyphicon-list-alt"></span></a>
 
                                                 </td>
-                                                {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
-                                                {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
                                             </tr>
                                         @endforeach
                                     </tbody>
+
                                 </table>
                             @else
                                 <div>No pending donation requests to show.</div>
@@ -243,103 +229,11 @@
         </div>
         <!-- /#wrapper -->
 
-        <script>
 
+        <script>
             $(document).ready(function() {
                 $('#example').DataTable();
-                // Storing the number of all the checkboxes
-                // of donation requests
-                var totalCheckboxes = $('.myCheckbox').length;
-                // Toggling selectall by checking if all the checkboxes are checked
-                $('.myCheckbox').change(function() {
-                    if (($('.myCheckbox:checked').size() == totalCheckboxes) && (totalCheckboxes != 0)) {
-                        $('#selectall').prop('checked', true);
-                    } else {
-                        $('#selectall').prop('checked', false);
-                    }
-                });
-            } );
-
-            $('#selectall').change(function() {
-                idsArray = [];
-                if(document.getElementById('selectall').checked) {
-                    $('.myCheckbox').prop('checked', true);
-                    $('.myCheckbox').each(function(){
-                        idsArray.push($(this).attr('ids'));
-                    });
-                    $('#selected-ids-hidden').val(idsArray);
-                    //get all ids push to idsArray
-                } else {
-                    $('.myCheckbox').prop('checked', false);
-
-                    $('#selected-ids-hidden').val('');
-                    // empty/splice idsArray
-                }
-
             });
-
-            var idsArray = [];
-
-            // Populating array with the list of checkboxes with
-            // checked ids
-            $('.myCheckbox').change(function () {
-                var id = $(this).attr('ids');
-                if(this.checked) {
-                    idsArray.push(id);
-                } else {
-                    idsArray.splice(idsArray.indexOf(id), 1);
-                }
-                $('#selected-ids-hidden').val((idsArray));
-            });
-
-
-            function func(actionStatus) {
-
-
-                $('#selected-ids-hidden').val(JSON.stringify(idsArray));
-
-                // Populating array with the list of checkboxes with
-                // checked ids
-                $('.myCheckbox').each(function () {
-                    if(this.checked) {
-                        idsArray.push($(this).attr('ids'));
-                    }
-                });
-
-                // Sending an ajax post request with the list of checked
-                // checkboxes to update to either approved or rejected
-                $.ajax({
-                    type: "POST",
-                    url: 'donation/change-status',
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function( resp ) {
-                        //window.location.href = 'emaileditor/editsendmail/' + $.param(idsArray);
-                        setStatusText = '';
-                        if(resp.status == 0) {
-                            setStatusText = 'Approved';
-                        } else if (resp.status == 1) {
-                            setStatusText = 'Rejected';
-                        }
-                        // Handle your response..
-                        for (var i = 0; i < resp.idsArray.length; i++) {
-                            // 0 - approved
-                            //1- rejected
-                            $('#status' + resp.idsArray[i]).text(setStatusText);
-                        }
-                        //alert(resp.emailids);
-                    },
-                    data: {ids:idsArray, status:actionStatus}
-                });
-
-                // clearing the array
-                idsArray = [];
-
-                $('input:checkbox:checked').prop('checked', false);
-
-            }
         </script>
 
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
