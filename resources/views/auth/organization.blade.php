@@ -38,7 +38,7 @@
                                 <div class="col-md-6">
                                     <input id="org_description" type="text" class="form-control" name="org_description"
                                            value="{{ old('org_description') }}"
-                                           placeholder="Description Of Your Busines Ex.Restraunt, Gas Station"
+                                           placeholder="Description Of Your Business Ex.Restraunt, Gas Station"
                                            required autofocus>
 
                                     @if ($errors->has('org_description'))
