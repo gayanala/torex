@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::text('phone_number',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
@@ -82,10 +82,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="taxexempt" class="col-md-4 control-label"> Are you a 501c3? <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <label for="tax_exempt" class="col-md-4 control-label"> Are you a 501c3? <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                             <div class="col-md-6">
-                                {!! Form::radio('taxexempt',null,['class' => 'form-control', 'required']) !!} Yes &nbsp;&nbsp;
-                                {!! Form::radio('taxexempt',null,['class' => 'form-control', 'required']) !!} No
+                                {!! Form::radio('tax_exempt',null,['class' => 'form-control', 'required']) !!} Yes &nbsp;&nbsp;
+                                {!! Form::radio('tax_exempt',null,['class' => 'form-control', 'required']) !!} No
                             </div>
                         </div>
 
@@ -109,7 +109,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="startdate" class="col-md-4 control-label">Event Date <span
+                            <label for="event_date" class="col-md-4 control-label">Event Date <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::date('event_start_date',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>

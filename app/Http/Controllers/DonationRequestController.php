@@ -23,6 +23,7 @@ use Illuminate\Http\withErrors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use URL;
+use App\User;
 
 
 
@@ -117,15 +118,15 @@ class DonationRequestController extends Controller
         $donationRequest->first_name = $request->firstname;
         $donationRequest->last_name = $request->lastname;
         $donationRequest->email = $request->email;
-        $donationRequest->phone_number = $request->phonenumber;
+        $donationRequest->phone_number = $request->phone_number;
         $donationRequest->street_address1 = $request->address1;
         $donationRequest->street_address2 = $request->address2;
         $donationRequest->city = $request->city;
         $donationRequest->state = $request->state;
         $donationRequest->zipcode = $request->zipcode;
-        $donationRequest->tax_exempt = $request->taxexempt;
+        $donationRequest->tax_exempt = $request->tax_exempt;
 
-        if ($request->hasFile('attachment') && $request->taxexempt==1) {
+        if ($request->hasFile('attachment') && $request->tax_exempt==1) {
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $imageName = Storage::disk('s3')->url($imageName);
             $donationRequest->file_url = $imageName;
@@ -133,11 +134,12 @@ class DonationRequestController extends Controller
         $donationRequest->item_requested = $request->item_requested;
         $donationRequest->other_item_requested = $request->item_requested_explain;
         $donationRequest->dollar_amount = $request->dollar_amount;
+        $donationRequest->approved_dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
         $donationRequest->other_item_purpose = $request->item_purpose_explain;
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
-        $donationRequest->event_start_date = $request->startdate;
+        $donationRequest->event_start_date = $request->event_date;
         $donationRequest->event_type = $request->event_type;
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
@@ -147,16 +149,16 @@ class DonationRequestController extends Controller
         $this->validate($request, [
 
             'needed_by_date' => 'after:today',
-            'startdate' => 'after:today',
-            'taxexempt' => "required",
-            'phonenumber' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+            'event_date' => 'after:today',
+            'tax_exempt' => "required",
+            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
         ]);
 
 
 
 
         $donationRequest->save();
-        if ($request->hasFile('attachment') && $request->taxexempt==1) {
+        if ($request->hasFile('attachment') && $request->tax_exempt==1) {
             $this->validate($request, [
                     'attachment' => 'required|mimes:doc,docx,pdf,jpeg,png,jpg,svg|max:2048',
                 ]);
@@ -239,6 +241,7 @@ class DonationRequestController extends Controller
             //return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
 
         } elseif ($request->input('reject') == 'Reject') {
+            $approved_amount = 0.00;
             $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_REJECTED)->where('organization_id', $organizationId)->get();
             $email_template = $email_template[0]; //convert collection into an array
 
@@ -264,6 +267,24 @@ class DonationRequestController extends Controller
         $id = decrypt($id);
         $organization = Organization::findOrFail($id);
 
-        return view('donationrequests.donation-organization', compact('organization'));
+        $orgIds = Organization::findOrFail($id)->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();//dd($orgIds);
+        $organizationsArray = ParentChildOrganizations::whereIn('parent_org_id', $orgIds)->pluck('child_org_id')->toArray();
+        array_push($organizationsArray, $orgIds);
+
+        $numActiveLocations = sizeOf($organizationsArray);
+        $userCount = User::whereIn('organization_id', $organizationsArray)->count();
+
+        $userThisWeek = Organization::findOrFail($id)->where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
+        $userThisMonth = Organization::findOrFail($id)->where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
+        $userThisYear = Organization::findOrFail($id)->where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
+
+        $avgAmountDonated = sprintf("%.2f", (DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organization->id)->avg('approved_dollar_amount')));
+
+        $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->where('organization_id', $organization->id)->count();
+        $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organization->id)->count();
+        $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->where('organization_id', $organization->id)->count();
+
+        return view('donationrequests.donation-child', compact('organization', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'userCount', 'userThisWeek', 'userThisMonth', 'userThisYear'));
+        //return view('donationrequests.donation-organization', compact('organization'));
     }
 }

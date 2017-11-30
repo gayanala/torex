@@ -15,7 +15,7 @@
                 mask: phones,
                 greedy: false,
                 definitions: {'#': {validator: "[0-9]", cardinality: 1}},
-                
+
             });
 
         });
@@ -29,7 +29,7 @@
 
                 <div class="col-10">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
+                        <div class="panel-heading"><h1>URL for Donations</h1></div>
                         <div class="panel-body">
                             <script type="text/javascript">
                                 function Copy() {
@@ -42,13 +42,15 @@
                                         "The URL has been copied to your clipboard.");
                                 }
                             </script>
-                            <body>
                             <div>
-                                <input type="button" style="cursor: help;" value="Generate Url" title="For use for promotions or on social media." onclick="Copy();" />
-                                <input type="text" id="urlCopied" size="80"/>
-
+                                <input type="button" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
+                                <input type="text" id="urlCopied" size="80"/><br />
+                                <small>
+                                    Click the button to copy to display and your clipboard the URL to the donation request form to submit requests to your business.
+                                    This URL can be shared on social media sites or embedded as a link in a website to allow outside organizations to submit requests
+                                    online that will automatically be filtered by your donation preferences.
+                                </small>
                             </div>
-                            </body>
                         </div>
                     </div>
                 </div>
@@ -150,7 +152,7 @@
                             <div class="col-lg-6">
                             {!! Form::text('phone_number',null,['class' => 'form-control', 'id'      => 'phone_number' ,'required']) !!}
 
- 
+
                             </div>
                         </div>
 
@@ -158,7 +160,7 @@
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
                                 <button id="btnEdit" class="btn btn-primary hidden" type="button">Edit</button>
-                                <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
+                                <input class="btn btn-primary" type="button" value="Back" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>

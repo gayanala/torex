@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <title>A Tagg Intiative</title>
+    <title>{{ env('APP_NAME', 'CharityQ')  }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -307,19 +307,19 @@
                      style='padding-left: 0px;padding-top: .5px;padding-bottom: -5px;padding-right:10px;margin-top: -2px;margin-bottom: -0.5px'>
                     @if (Auth::guest())
                         <a href="{{ url('/') }}">
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}" id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
                         </a>
                     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                     OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
                         <a href="{{ url('/dashboard') }}">
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}" id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
                         </a>
 
                     @else
                         <a href="{{ url('/') }}">
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}" id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
                         </a>
                     @endif
@@ -487,7 +487,7 @@
                     <ul class="dropdown-menu" role="menu">
                         @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                             <li>
-                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                                <a href="{{ url('/rules?rule=1')}}">Donation Preferences</a>
                             </li>
                         @endif
                         <li>
@@ -505,7 +505,7 @@
                                 @endif
                         <li>
                             <a href="{{ route('emailtemplates.index') }}">
-                                Communication Template
+                                Email Templates
                             </a>
                         </li>
                             @endif
@@ -579,5 +579,5 @@
 
     <img src="{{ asset('img/icon-partner.png') }}" class="imgalign"  style="width:100px;height:50px;"  >
 
-    <h5>A tagg Intiative</h5>
+    <h5>A {{ env('APP_NAME', 'CharityQ')  }} Intiative</h5>
  </footer> -->
