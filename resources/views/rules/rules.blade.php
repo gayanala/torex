@@ -20,6 +20,7 @@
         });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
     <div class="row">
 
         <!--<section class="bs-docs-section clearfix"> -->
@@ -29,16 +30,16 @@
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
             <br/>
             {{ csrf_field() }}
-            <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
 
-                <table width="100%" style="background-color:#f9a825">
+
+                <table width="100%" style="background-color:#bbdefb">
 
                     <tr>
-                        <td align="center" bgcolor="#f9a825">
+                        <td align="left" bgcolor="#bbdefb" style="padding-left: 10px;padding-top: 0px">
 
 
-                            <h1 style="color:white"><label>Basic Settings</label></h1>
+                            <h1><label>Basic Settings</label></h1>
 
 
                         </td>
@@ -47,7 +48,7 @@
                 </table>
 
 
-                <table width="100%" style="background-color:#fffde7" frame="border" bordercolor="#ffcc80">
+                <table width="100%" style="background-color:#e3f2fd" frame="border" bordercolor="#bbdefb">
                     <tr>
                         <td>&nbsp;</td>
                     </tr>
@@ -64,7 +65,7 @@
                         </td>
 
 
-                        <td align="center">
+                        <td colspan="10" align="center">
                             <label style="cursor: help;"
                                    title="Enter your minimum days notice. Requests that need to be fulfilled before your business can fulfill them will be automatically declined.">
                                 Required Days Notice: &nbsp;</label>
@@ -74,18 +75,18 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="8" align="center"><br></td>
+                        <td colspan="10" align="center"><br></td>
                     </tr>
                     <tr>
-                        <td colspan="8" align="center">
-                            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                        <td colspan="10" align="center">
+
                                 <button id="btnSaveBudgetNotice" class="btn btn-primary" type="submit">Save
                                 </button>
-                            </div>
+
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="8" align="center"><br></td>
+                        <td colspan="10" align="center"><br></td>
                     </tr>
                 </table>
             </div>
@@ -93,33 +94,30 @@
         </form>
 
     </div>
-    @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
-        <div class="row" style="background-color:#ffffff">
-            <div class="col-sm-7" style="padding-left:45%">
-                <a href="{{url('/help') }}" target="pdf-frame">
-                    <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
-                </a>
-            </div>
-        </div>
-        <br>
 
 
+    <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
         <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
             {{ csrf_field() }}
 
-            <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
+
                 <br>
-                <table width="100%" style="background-color:#f9a825">
+                <table width="100%" style="background-color:#bbdefb">
                     <tr>
-                        <td align="center" bgcolor="#f9a825">
+                        <td align="left" bgcolor="#bbdefb " style="padding-left: 10px;padding-top: -10px;vertical-align:center">
 
-                            <h1 style="color:white"><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
-
+                            <h1><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
                         </td>
+                        <td align="center" bgcolor="#bbdefb" style="padding-right: 10px;padding-top: 0px">
+                        @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
+                                 <a href="{{url('/help') }}" target="pdf-frame">
+                                        <h5 align="right" vertical-align="middle"><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
+                                    </a>
+                       </td>
                     </tr>
                 </table>
 
-                <table width="100%" style="background-color:#fffde7" frame="vsides" bordercolor="#ffcc80">
+                <table width="100%" style="background-color:#e3f2fd" frame="border" bordercolor="#bbdefb">
                     <tr>
                         <td colspan="4">&nbsp;</td>
                     </tr>
@@ -149,7 +147,7 @@
             </div>
             <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
             <div class="col-md-12 col-lg-10 col-lg-offset-1">
-                <div id="builder-plugins"></div>
+                <div id="builder-plugins" style="background-color:#bbdefb"></div>
                 <div class="btn-group">
                     <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
                     <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
