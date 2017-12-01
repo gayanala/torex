@@ -21,7 +21,7 @@
         });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
+    <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group" style="padding-left: 30px;padding-right: 30px">
     <div class="row">
 
         <!--<section class="bs-docs-section clearfix"> -->
@@ -54,7 +54,7 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td align="center">
+                        <td align="center" style="border:#bbdefb">
                             <label style="cursor: help;"
                                    title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
                                 Monthly Budget:</label>&nbsp;
@@ -113,7 +113,7 @@
                         <td align="center" bgcolor="#bbdefb" style="padding-right: 10px;padding-top: 0px">
                         @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
                                  <a href="{{url('/help') }}" target="pdf-frame">
-                                        <h5 align="right" vertical-align="middle"><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
+                                        <h5 align="right" vertical-align="middle" style="color: #ff9100"><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
                                     </a>
                        </td>
                     </tr>
