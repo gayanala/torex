@@ -37,9 +37,9 @@ class UsersTableSeeder extends Seeder
             'email' => 'email2@mailinator.com',
             'password' => bcrypt('password'),
             'organization_id' => '1',
-            'street_address1' => 'Tagg Owner',
-            'street_address2' => 'Tagg Owner',
-            'city' => 'Tagg',
+            'street_address1' => 'CharityQ Owner',
+            'street_address2' => 'CharityQ Owner',
+            'city' => 'CharityQ',
             'zipcode' => '67654',
             'state' => 'NE',
             'phone_number' => '9876543210',]);
@@ -52,9 +52,9 @@ class UsersTableSeeder extends Seeder
             'email' => 'email3@mailinator.com',
             'password' => bcrypt('password'),
             'organization_id' => '1',
-            'street_address1' => 'tagg user',
-            'street_address2' => 'tagg user',
-            'city' => 'Tagg',
+            'street_address1' => 'CharityQ user',
+            'street_address2' => 'CharityQ user',
+            'city' => 'CharityQ',
             'zipcode' => '67654',
             'state' => 'NE',
             'phone_number' => '9876543210',]);
@@ -69,7 +69,7 @@ class UsersTableSeeder extends Seeder
             'organization_id' => '1',
             'street_address1' => 'business admin',
             'street_address2' => 'business admin',
-            'city' => 'Tagg',
+            'city' => 'CharityQ',
             'zipcode' => '67654',
             'state' => 'NE',
             'phone_number' => '9876543210',]);
@@ -84,7 +84,7 @@ class UsersTableSeeder extends Seeder
             'organization_id' => '1',
             'street_address1' => 'business user',
             'street_address2' => 'business user',
-            'city' => 'Tagg',
+            'city' => 'CharityQ',
             'zipcode' => '67654',
             'state' => 'NE',
             'phone_number' => '9876543210',]);
@@ -99,7 +99,7 @@ class UsersTableSeeder extends Seeder
             'organization_id' => '2',
             'street_address1' => 'business user',
             'street_address2' => 'business user',
-            'city' => 'Tagg',
+            'city' => 'CharityQ',
             'zipcode' => '67654',
             'state' => 'NE',
             'phone_number' => '9876543210',]);
@@ -114,7 +114,7 @@ class UsersTableSeeder extends Seeder
             'organization_id' => '3',
             'street_address1' => 'business user',
             'street_address2' => 'business user',
-            'city' => 'Tagg',
+            'city' => 'CharityQ',
             'zipcode' => '67654',
             'state' => 'NE',
             'phone_number' => '9876543210',]);

@@ -66,9 +66,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="Email Message" class="col-md-3 control-label">Email Message <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                        </div>
 
                         <div class="form-group">
                         <!--div class="col-lg-6"-->
