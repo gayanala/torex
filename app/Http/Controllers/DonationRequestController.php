@@ -227,14 +227,10 @@ class DonationRequestController extends Controller
         $emails = $donation->email;
 
         if ($request->input('approve') == 'Approve') {
-            if ($request->approved_amount)
-            {
+            if ($request->approved_amount) {
                 $approved_amount = $request->approved_amount;
+                $donation->update(['approved_dollar_amount' => $approved_amount]);
             }
-            else {
-                $approved_amount = $donation->dollar_amount;
-            }
-            $donation->update(['approved_dollar_amount' => $approved_amount]);
             $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_APPROVED)->where('organization_id', $organizationId)->get();
             $email_template = $email_template[0]; //convert collection into an array
 
