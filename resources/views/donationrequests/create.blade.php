@@ -90,7 +90,7 @@
                                 <input id="firstname" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required
                                        title="Your First Name should be 2-20 characters long." class="form-control"
                                        name="firstname" value="{{ old('firstname') }}"
-                                       placeholder="Enter Your First Name" required autofocus>
+                                       placeholder="Enter Your First Name" required>
 
                                 @if ($errors->has('firstname'))
                                     <span class="help-block">
@@ -108,7 +108,7 @@
                                 <input id="lastname" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required
                                        title="Your Last Name should be 2-20 characters long." class="form-control"
                                        name="lastname" value="{{ old('lastname') }}" placeholder="Enter Your Last Name"
-                                       required autofocus>
+                                       required>
 
                                 @if ($errors->has('lastname'))
                                     <span class="help-block">
@@ -124,7 +124,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email"
-                                       value="{{ old('email') }}" placeholder="Enter Your Email Address" autofocus
+                                       value="{{ old('email') }}" placeholder="Enter Your Email Address"
                                        required>
 
                                 @if ($errors->has('email'))
@@ -155,8 +155,7 @@
 
                             <div class="col-md-6">
                                 <input id="address1" type="text" class="form-control" name="address1"
-                                       value="{{ old('address1') }}" placeholder="Street Address/PO Box" required
-                                       autofocus>
+                                       value="{{ old('address1') }}" placeholder="Street Address/PO Box" required>
 
                                 @if ($errors->has('address1'))
                                     <span class="help-block">
@@ -180,7 +179,7 @@
 
                             <div class="col-md-6">
                                 <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}"
-                                       placeholder="Enter Your City" required autofocus>
+                                       placeholder="Enter Your City" required>
 
                                 @if ($errors->has('city'))
                                     <span class="help-block">
@@ -212,7 +211,7 @@
                             <div class="col-md-6">
                                 <input id="zipcode" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                        maxlength="5" class="form-control" name="zipcode"
-                                       value="{{ old('zipcode') }}" placeholder="Zip Code" required autofocus>
+                                       value="{{ old('zipcode') }}" placeholder="Zip Code" required>
 
                                 @if ($errors->has('zipcode'))
                                     <span class="help-block">
@@ -247,8 +246,7 @@
                             <label for="attachment" class="col-md-4 control-label">Attachment <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label><small>Supported File Types: doc, docx, pdf, jpeg, png, jpg, svg</small>
                             <div class="col-md-4">
-                                <input type="file" class="form-control" name="attachment" id="attachment"
-                                       autofocus>
+                                <input type="file" class="form-control" name="attachment" id="attachment">
                                 @if ($errors->has('attachment'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('attachment') }}</strong>
@@ -281,8 +279,7 @@
                                           maxlength="1000"
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
-                                          placeholder="Explain the Requested item within 100 characters"
-                                          autofocus></textarea>
+                                          placeholder="Explain the Requested item within 100 characters"></textarea>
                                 <!--<input id="item_requested_explain" type="textbox" name="other" style="visibility:hidden;" required autofocus/>-->
                             </div>
                         </div>
@@ -294,7 +291,7 @@
                                        title="Please use the format $.$$ for this field. " class="form-control"
                                        name="dollar_amount" value="{{ old('dollar_amount') }}"
                                        onblur="setTwoNumberDecimal(this)"
-                                       placeholder="0.00" required autofocus>
+                                       placeholder="0.00" required>
 
                                 @if ($errors->has('dollar_amount'))
                                     <span class="help-block">
@@ -329,7 +326,7 @@
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
                                           placeholder="Explain your donation Purpose within 200 characters"
-                                          autofocus ></textarea>
+                                           ></textarea>
 
                             </div>
                         </div>
@@ -341,7 +338,7 @@
                             <div class="col-md-6">
                                 <input id="needed_by_date" type="date" class="form-control" name="needed_by_date"
                                        value="{{ old('needed_by_date') }}" placeholder="The Request Needed Date"
-                                       required autofocus>
+                                       required>
 
                                 @if ($errors->has('needed_by_date'))
                                     <span class="help-block">
@@ -357,8 +354,7 @@
 
                             <div class="col-md-6">
                                 <input id="eventname" type="text" class="form-control" name="eventname"
-                                       value="{{ old('eventname') }}" placeholder="Enter Name of Your Event" required
-                                       autofocus>
+                                       value="{{ old('eventname') }}" placeholder="Enter Name of Your Event" required>
 
                                 @if ($errors->has('eventname'))
                                     <span class="help-block">
@@ -374,7 +370,7 @@
 
                             <div class="col-md-6">
                                 <input id="event_date" type="date" class="form-control" name="event_date"
-                                       value="{{ old('event_date') }}" placeholder="Start Date" required autofocus>
+                                       value="{{ old('event_date') }}" placeholder="Start Date" required>
 
                                 @if ($errors->has('event_date'))
                                     <span class="help-block">
@@ -404,8 +400,7 @@
                                         style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
                             <div class="col-md-6">
                                 <input id="formAttendees" type="number" step="1" class="form-control" name="formAttendees"
-                                       value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees"
-                                       autofocus>
+                                       value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees">
 
                                 @if ($errors->has('formAttendees'))
                                     <span class="help-block">
@@ -420,7 +415,7 @@
 
                             <div class="col-md-6">
                                 <input id="venue" type="text" class="form-control" name="venue"
-                                       value="{{ old('venue') }}" placeholder="Place event will be held" autofocus>
+                                       value="{{ old('venue') }}" placeholder="Place event will be held">
 
                                 @if ($errors->has('venue'))
                                     <span class="help-block">
@@ -436,7 +431,7 @@
                             </label>
 
                             <div class="col-md-6">
-                                <textarea placeholder="Explain how you will let others know my business has contributed to your cause" class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]" maxlength="1000" title="Please restrict your Text Length to 1000 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}" autofocus></textarea>
+                                <textarea placeholder="Explain how you will let others know my business has contributed to your cause" class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]" maxlength="1000" title="Please restrict your Text Length to 1000 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}"></textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
