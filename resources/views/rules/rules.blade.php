@@ -94,14 +94,14 @@
 
     </div>
     @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
-        <div class="row" style="background-color:#ffffff">
-            <div class="col-sm-7" style="padding-left:45%">
-                <a href="{{url('/help') }}" target="pdf-frame">
-                    <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
-                </a>
+        {{--      <div class="row" style="background-color:#ffffff">
+                <div class="col-sm-7" style="padding-left:45%">
+                    <a href="{{url('/help') }}" target="pdf-frame">
+                        <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
+                    </a>
+                </div>
             </div>
-        </div>
-        <br>
+            <br>--}}
 
 
         <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
@@ -124,13 +124,16 @@
                         <td colspan="4">&nbsp;</td>
                     </tr>
                     <tr>
-
+                        <td align="right">
+                            <a href="{{url('/help') }}" target="pdf-frame">
+                                <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u>
+                                </h5>
+                            </a>
+                        </td>
                         <td align="right">
                             <label for="ddlRuleType">Select Rule To Edit:</label>
                         </td>
-                        <td>
-                            &nbsp;
-                        </td>
+
                         <td>
                             &nbsp;
                         </td>
