@@ -14,6 +14,7 @@
 
 @endsection
 @section('content')
+    <br>
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();
@@ -89,9 +90,10 @@
                         <td colspan="10" align="center"><br></td>
                     </tr>
                 </table>
+        </form>
             </div>
 
-        </form>
+
 
     </div>
 
@@ -122,13 +124,16 @@
                         <td colspan="4">&nbsp;</td>
                     </tr>
                     <tr>
-
+                        <td align="right">
+                            <a href="{{url('/help') }}" target="pdf-frame">
+                                <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u>
+                                </h5>
+                            </a>
+                        </td>
                         <td align="right">
                             <label for="ddlRuleType">Select Rule To Edit:</label>
                         </td>
-                        <td>
-                            &nbsp;
-                        </td>
+
                         <td>
                             &nbsp;
                         </td>

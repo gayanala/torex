@@ -77,10 +77,6 @@
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Email Message', 'Email Message:', ['class'=>'col-md-3 control-label' ]) !!}
-                        </div>
-
-                        <div class="form-group">
                             <!--div class="col-lg-6"-->
                             {!! Form::textarea('email_message', null, ['class' => 'col-md-4 control-label']) !!}
                         </div>
