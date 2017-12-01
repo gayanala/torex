@@ -21,29 +21,33 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        @if($subscriptionEnds == '')
-                            <a href="{{ URL::action('SubscriptionController@cancel') }}"
-                               class="btn btn-primary pull-right" style="" id="cancel">
-                                Cancel Subscription
-                            </a>
-                        @else
 
-                            <a href="{{ URL::action('SubscriptionController@resume') }}"
-                               class="btn btn-primary pull-right" style="" id="resume">
-                                Resume Subscription
-                            </a>
-                        @endif
                         <h1 style="">Manage Business Locations </h1>
 
                     </div>
                     <div class="panel-body">
 
                         <div class="panel panel-default">
+                            @if($subscriptionEnds == '')
+                                <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                                   class="btn btn-primary pull-right" style="" id="cancel">
+                                    Cancel Subscription
+                                </a>
+                            @else
+
+                                <a href="{{ URL::action('SubscriptionController@resume') }}"
+                                   class="btn btn-primary pull-right" style="" id="resume">
+                                    Resume Subscription
+                                </a>
+                            @endif
+
+
+
                             @if ($count < $subscription)
                                 <div class="panel-heading">
                             <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
                             <a href="{{action('OrganizationController@createOrganization')}}"
-                               class="btn btn-primary pull-right"> [+] Add </a>
+                               class="btn btn-primary pull-right"> [+] Add New Lccation </a>
                                     <h1 style="text-align: center;width: 50%;">{{$count + 1}} out
                                         of {{$subscriptionQuantity}}
                                 locations added</h1>

@@ -88,7 +88,7 @@
 
                             <div class="col-md-6">
                                 <input id="org_description" type="text" class="form-control" name="org_description"
-                                       value="{{ old('org_description', $organization->org_description) }}" autofocus>
+                                       value="{{ old('org_description', $organization->org_description) }}">
 
                                 @if ($errors->has('org_description'))
                                     <span class="help-block">
