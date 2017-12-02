@@ -203,7 +203,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-university fa-5x" style="color: #24d116"></i>
+                                    <i class="fa fa-line-chart fa-5x" style="color: #24d116"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div> NEW BUSINESSES THIS WEEK <span class="huge"
