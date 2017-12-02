@@ -42,10 +42,16 @@
                                     window.confirm("You have successfully generated the URL needed for donation Requests on your website\n" +
                                         "The URL has been copied to your clipboard.");
                                 }
+                                function GenerateDRForm() {
+                                    var embedCode = document.getElementById('embeddedCode');
+                                    embedCode.innerHTML =
+                                }
                             </script>
                             <div>
                                 <input type="button" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
+                                <input type="button" style="cursor: help;" value="Show Embedded Form Code" title="For use for embedding the form in websites." onclick="GenerateDRForm();" />
                                 <input type="text" id="urlCopied" size="80"/><br />
+                                <xmp id="embeddedCode"></xmp>
                                 <small>
                                     Click the button to copy to display and your clipboard the URL to the donation request form to submit requests to your business.
                                     This URL can be shared on social media sites or embedded as a link in a website to allow outside organizations to submit requests
