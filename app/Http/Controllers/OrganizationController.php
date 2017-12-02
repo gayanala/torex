@@ -80,7 +80,6 @@ class OrganizationController extends Controller
 
             if ($id == Auth::user()->organization_id) {
                 return redirect('organizations');
-//                return redirect('organizations/'.encrypt($id).'/edit');
             } elseif (Auth::user()->organization_id = $ParentOrgId) {
                 return redirect('organizations');
             } else {
