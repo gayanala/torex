@@ -105,6 +105,7 @@ class UserController extends Controller
             'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
             'zipcode' => 'required|numeric|digits:5',
             'state' => 'required',
+            'password' => 'required|confirmed|min:6|max:15',
             'email' => [
                 'required',
                 'email',

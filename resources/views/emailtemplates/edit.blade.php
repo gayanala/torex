@@ -1,8 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
+<<<<<<< HEAD
   
   <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey={{env('TINYMCE_API_KEY')}}"></script>
+
+
+
+
   <script type="text/javascript">
 
   tinymce.init({
@@ -66,9 +71,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="Email Message" class="col-md-3 control-label">Email Message <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                        </div>
 
                         <div class="form-group">
                         <!--div class="col-lg-6"-->
@@ -79,9 +81,9 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                               <a href="{{ route('emailtemplates.index')}}" class="btn btn-primary">Cancel</a>
+                               <a href="{{ route('emailtemplates.index')}}" class="btn btn-danger">Cancel</a>
                                 <span style="color: red"> <h5>Fields Marked With (<span
-                                                style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory </h5></span>             
+                                                style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory </h5></span>
 
                             </div>
                         </div>

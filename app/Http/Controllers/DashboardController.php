@@ -14,15 +14,15 @@ use App\Organization;
 use App\ParentChildOrganizations;
 use App\User;
 use Auth;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
 
-        if ($request->user()->hasAnyRole(['Root User', 'Tagg Owner', 'Tagg User'])) {
+        if ($request->user()->hasAnyRole(['Root User', 'CharityQ Owner', 'CharityQ User'])) {
             $organizations = Organization::all();
 
             $orgIds = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();

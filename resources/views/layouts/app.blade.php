@@ -58,7 +58,7 @@
             min-height: 100%;
             clear: both;
             margin-top: 20px;
-            padding-top:100px;
+            padding-top:25px;
         }
 
         @media screen and (max-width: 600px) {
@@ -185,7 +185,7 @@
 
         .navbar-nav li a:hover {
             color: #1abc9c !important;
-                    }
+        }
 
         .navbar-nav li a:active {
             background-color: #e1bee7 !important;
@@ -282,6 +282,10 @@
             padding-top: 0px;
         }
 
+        .freetextsearch {
+            width: 310px;
+        }
+
     </style>
 </head>
 
@@ -349,12 +353,12 @@
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
                             <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a>
                             </li>
-                             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                                    <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
-                                    Donations</a></li>
+                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                                        Donations</a></li>
                             @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER)
-                                    <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
-                                    Donations</a></li>
+                                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
+                                        Donations</a></li>
                             @endif
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -476,7 +480,7 @@
                 <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
                         Donations</a></li>
             @endif
-                <li class="dropdown">
+            <li class="dropdown">
                 <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-expanded="false">
@@ -491,24 +495,24 @@
                             </li>
                         @endif
                         <li>
-                             <a href="{{route('organizations.edit',encrypt(Auth::user()->organization_id))}}">Business
-                                    Profile</a>
-                         </li>
-                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)
-                                <li>
-                                    <a href="{{ url('user/manageusers')}}">Users</a>
-                                </li>
-                                @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                                    <li>
-                                        <a href="{{ route('organizations.index')}}">Business Locations</a>
-                                    </li>
-                                @endif
-                        <li>
-                            <a href="{{ route('emailtemplates.index') }}">
-                                Email Templates
-                            </a>
+                            <a href="{{route('organizations.edit',encrypt(Auth::user()->organization_id))}}">Business
+                                Profile</a>
                         </li>
+                        @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)
+                            <li>
+                                <a href="{{ url('user/manageusers')}}">Users</a>
+                            </li>
+                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                                <li>
+                                    <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                </li>
                             @endif
+                            <li>
+                                <a href="{{ route('emailtemplates.index') }}">
+                                    Email Templates
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </li>
@@ -564,7 +568,7 @@
                 </form>
             </li>
         </ul>
-        @endif
+    @endif
 </div>
 <div id="content">
     {{--@include('layouts.partials._status')--}}

@@ -20,6 +20,7 @@
 
         });
     </script>
+    <br>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -41,10 +42,16 @@
                                     window.confirm("You have successfully generated the URL needed for donation Requests on your website\n" +
                                         "The URL has been copied to your clipboard.");
                                 }
+                                function GenerateDRForm() {
+                                    var embedCode = document.getElementById('embeddedCode');
+                                    embedCode.innerHTML = '<iframe src="{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true"\n style="border=0;" id="donationRequest1" name="ifr" height="800" width="800" > \n</iframe>'
+                                }
                             </script>
                             <div>
-                                <input type="button" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
+                                <input type="button" class="btn btn-info" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
                                 <input type="text" id="urlCopied" size="80"/><br />
+                                <input type="button" style="cursor: help;" value="Show Embedded Form Code" title="For use for embedding the form in websites." onclick="GenerateDRForm();" /><br />
+                                <div style="background-color: #DDDDDD"><xmp id="embeddedCode"></xmp></div>
                                 <small>
                                     Click the button to copy to display and your clipboard the URL to the donation request form to submit requests to your business.
                                     This URL can be shared on social media sites or embedded as a link in a website to allow outside organizations to submit requests
@@ -87,7 +94,7 @@
 
                             <div class="col-md-6">
                                 <input id="org_description" type="text" class="form-control" name="org_description"
-                                       value="{{ old('org_description', $organization->org_description) }}" autofocus>
+                                       value="{{ old('org_description', $organization->org_description) }}">
 
                                 @if ($errors->has('org_description'))
                                     <span class="help-block">
@@ -160,9 +167,9 @@
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
                                 <button id="btnEdit" class="btn btn-primary hidden" type="button">Edit</button>
-                                <input class="btn btn-primary" type="button" value="Back" onClick="history.go(-1);">
+                                <input class="btn btn-danger" type="button" value="Back" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
-                                                style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
+                                                style="color: red; font-size: 20px; align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}
