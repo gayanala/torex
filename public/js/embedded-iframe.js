@@ -56,9 +56,9 @@
         // https://unpkg.com/iframe-resizer@3.5.14/js/iframeResizer.contentWindow.min.js
         resizerScriptTag.src = 'https://unpkg.com/iframe-resizer@3.5.15/js/iframeResizer.min.js';
     } else {
-        // Cool, the iFrameResizer exists so we can just load our iframe.
+        // Cool, the iFrameResizer exists so we can just load our iframe.*/
         loadIFrame();
-    }*/
+    //}
     if(!window.jQuery) {
         var jQueryTagg = document.createElement('script');
         jQueryTagg.type = 'text/javascript';
