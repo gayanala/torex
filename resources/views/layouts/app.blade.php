@@ -254,7 +254,7 @@
 
         body, html {
             /*height: 100%;*/
-            line-height: 1.8;
+            line-height: 2.8;
         }
 
         .divsmall {
