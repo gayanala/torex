@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('content')
 
-<<<<<<< HEAD
-  
-  <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey={{env('TINYMCE_API_KEY')}}"></script>
+
+ <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey={{env('TINYMCE_API_KEY')}}"></script>
 
 
 
+<script type="text/javascript">
 
-  <script type="text/javascript">
 
-  tinymce.init({
+
+    tinymce.init({
     selector: 'textarea',
     theme: 'modern',
     width: 745,
@@ -35,12 +35,13 @@
                   onclick: function () {
                       editor.insertContent('&nbsp;<b>{My Business Name}</b>&nbsp;');
                   }
-              }]
+              }],
           });
       }
   });
 
-  </script>
+    </script>
+
 
     <div class="container">
         <div class="row">
