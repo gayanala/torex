@@ -20,10 +20,12 @@
                 @endif
 
                 <div class="panel panel-default">
-
+                    <div class="panel-heading">
+                        <h1 style="">Manage Business Locations </h1>
+                    </div>
                     <div class="panel-body">
 
-                        <div class="panel-body">
+                        <div class="panel panel-default">
 
                             @if ($subscriptionQuantity=='101')
                                 <div class="panel-heading">
@@ -137,21 +139,23 @@
                             </table>
                         </div>
 
-                    </div>
-                    <div class="panel panel-body">
-                        @if($subscriptionEnds == '')
-                            <a href="{{ URL::action('SubscriptionController@cancel') }}"
-                               class="btn btn-primary pull-right" style="" id="cancel">
-                                Cancel Subscription
-                            </a>
-                        @else
 
-                            <a href="{{ URL::action('SubscriptionController@resume') }}"
-                               class="btn btn-primary pull-right" style="" id="resume">
-                                Resume Subscription
-                            </a>
-                        @endif
-                        <h1 style="">Manage Business Locations </h1>
+                        <div class="panel-body">
+                            @if($subscriptionEnds == '')
+                                <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                                   class="btn btn-primary pull-right" style="" id="cancel">
+                                    Cancel Subscription
+                                </a>
+                            @else
+
+                                <a href="{{ URL::action('SubscriptionController@resume') }}"
+                                   class="btn btn-primary pull-right" style="" id="resume">
+                                    Resume Subscription
+                                </a>
+                            @endif
+
+                        </div>
+
 
                     </div>
                 </div>
