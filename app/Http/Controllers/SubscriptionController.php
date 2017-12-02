@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Organization;
 use App\ParentChildOrganizations;
+use App\Subscription;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,6 +28,7 @@ class SubscriptionController extends Controller
                 return view('subscriptions.expiredsubscription');
             }
         } else {
+
             if ($organization->subscribed('main') AND $organization->trial_ends_at->gte(Carbon::now())) {
                 return redirect('/dashboard');
             } else {
@@ -38,6 +40,7 @@ class SubscriptionController extends Controller
     {
         $id = Auth::user()->organization_id;
         $organization = Organization::findOrFail($id);
+
         $locations = $request->input('user_locations');
         $pickedPlan = $request->get('plan');
         $plan = $pickedPlan . $locations;
@@ -46,36 +49,45 @@ class SubscriptionController extends Controller
             return redirect('subscription')->with('message', 'Plan Already Submitted!');
         } else {
             if ($request->input('plan') == "Annually") {
+
                 if (isset($coupon)) {
-                    $organization->newSubscription('main', $plan)->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+                    $organization->newSubscription('main', $plan)->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->create($request->input('token'), [
                         'email' => $organization->org_name
 
                     ]);
 
                 } else {
-                    $organization->newSubscription('main', $plan)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+
+                    $organization->newSubscription('main', $plan)->withMetadata(array('organization_id' => $organization->id))->create($request->input('token'), [
                         'email' => $organization->org_name
 
                     ]);
 
+
                 }
+                Subscription::where('organization_id', $id)->update(['quantity' => $locations]);
+
                 $organization->trial_ends_at = Carbon::now()->addYear(1);
+
                 $organization->save();
+
+
             } else {
                 if ($request->input('plan') == "Monthly") {
 
                     if (isset($coupon)) {
 
-                        $organization->newSubscription('main', $plan)->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+                        $organization->newSubscription('main', $plan)->withCoupon($coupon)->withMetadata(array('organization_id' => $organization->id))->create($request->input('token'), [
                             'email' => $organization->org_name
                         ]);
 
                     } else {
-                        $organization->newSubscription('main', $plan)->withMetadata(array('organization_id' => $organization->id))->quantity($request->input('user_locations'))->create($request->input('token'), [
+                        $organization->newSubscription('main', $plan)->withMetadata(array('organization_id' => $organization->id))->create($request->input('token'), [
                             'email' => $organization->org_name
                         ]);
 
                     }
+                    Subscription::where('organization_id', $id)->update(['quantity' => $locations]);
                     $organization->trial_ends_at = Carbon::now()->addMonth(1);
                     $organization->save();
                 }
