@@ -82,7 +82,7 @@ class OrganizationController extends Controller
                 return redirect('organizations');
 //                return redirect('organizations/'.encrypt($id).'/edit');
             } elseif (Auth::user()->organization_id = $ParentOrgId) {
-                return redirect('dashboardindex');
+                return redirect('donationrequests');
             } else {
                 return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
             }
