@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    <br>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
     <script type="text/javascript" src="https://unpkg.com/iframe-resizer@3.5.15/js/iframeResizer.contentWindow.min.js"></script>
@@ -291,7 +292,7 @@
                                        title="Please use the format $.$$ for this field. " class="form-control"
                                        name="dollar_amount" value="{{ old('dollar_amount') }}"
                                        onblur="setTwoNumberDecimal(this)"
-                                       placeholder="0.00" required>
+                                       placeholder="$0.00" required>
 
                                 @if ($errors->has('dollar_amount'))
                                     <span class="help-block">

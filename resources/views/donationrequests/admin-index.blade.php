@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <br>
     <div class="container">
         <div class="row">
             {{--<div class="col-md-10 col-md-offset-1">--}}
@@ -70,16 +71,16 @@
                                     <td style="vertical-align: middle"
                                         id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td style="white-space: nowrap">
-                                        
 
-                                            
-                                            
-                                            
-                                        
+
+
+
+
+
                                             <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
                                                class="btn btn-info" title="Detail">
                                                 <span class="glyphicon glyphicon-list-alt"></span></a>
-                                       
+
 
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
@@ -93,8 +94,7 @@
                             @endif
                         </table>
 
-                        <div class="panel-heading"><h1>Add a Donation Request</h1></div>
-                        <input type="button" value="Manual Entry for Donation Request"
+                        <input type="button" class="btn btn-info" value="Request Donation from your Own Business"
                                onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_self') ;"/>
                 </div>
             </div>
@@ -128,14 +128,14 @@
     //     var title = $(this).text();
     //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
     // } );
- 
+
     // // DataTable
     // var table = $('#example').DataTable();
- 
+
     // // Apply the search
     // table.columns().every( function () {
     //     var that = this;
- 
+
     //     $( 'input', this.footer() ).on( 'keyup change', function () {
     //         if ( that.search() !== this.value ) {
     //             that
@@ -143,8 +143,8 @@
     //                 .draw();
     //         }
     //     } );
-    // } ); 
-    
+    // } );
+
         $(document).ready(function () {
 
 
@@ -156,9 +156,9 @@
 
             var table = $('#example').DataTable({
                 dom: 'Bfrtip',
-                
+
                 scrollX : true,
-                
+
                 buttons: [
                     {
                         extend: 'pdf',
