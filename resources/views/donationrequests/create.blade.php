@@ -210,7 +210,8 @@
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="zipcode" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                <input id="zipcode" type="number"
+                                       oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                        maxlength="5" class="form-control" name="zipcode"
                                        value="{{ old('zipcode') }}" placeholder="Zip Code" required>
 
@@ -383,7 +384,7 @@
 
 
                         <div class="form-group{{ $errors->has('event_type') ? ' has-error' : '' }}">
-                            <label for="event_type" class="col-md-4 control-label">Purpose Of The Event <span
+                            <label for="event_type" class="col-md-4 control-label">Purpose of The Event <span
                                         style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
                             <div class="col-md-6">
                                 {!! Form::select('event_type', array(null => 'Select...') + $request_event_type->all(), null, ['class'=>'form-control']) !!}
@@ -397,7 +398,7 @@
 
 
                         <div class="form-group{{ $errors->has('formAttendees') ? ' has-error' : '' }}">
-                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number Of Attendees<span
+                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number of Attendees<span
                                         style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
                             <div class="col-md-6">
                                 <input id="formAttendees" type="number" step="1" class="form-control" name="formAttendees"
@@ -481,7 +482,7 @@
         });
         function setTwoNumberDecimal(e) {
             e.value = parseFloat(e.value).toFixed(2);
-        };
+        }
         $('#btnSubmit').on('click', function () {
             if (document.getElementById('yesCheck').checked) {
                 if ($('#attachment')[0].files.length === 0) {

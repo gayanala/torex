@@ -55,8 +55,7 @@ class OrganizationController extends Controller
     {
 
         //dd($request);
-        if (in_array($id, $this->getAllMyOrganizationIds()))
-        {
+        if (in_array($id, $this->getAllMyOrganizationIds())) {
             $validator = Validator::make($request->all(), [
                 'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
                 'zipcode' => 'required|regex:/[0-9]{5}/',
@@ -77,15 +76,17 @@ class OrganizationController extends Controller
             //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
             //Organization::find($id)->update($);
 
+            $ParentOrgId = ParentChildOrganizations::where('child_org_id', $id)->first()->parent_org_id;
+
             if ($id == Auth::user()->organization_id) {
                 return redirect('organizations');
 //                return redirect('organizations/'.encrypt($id).'/edit');
+            } elseif (Auth::user()->organization_id = $ParentOrgId) {
+                return redirect('organizations');
+            } else {
+                return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
             }
-
-        } else {
-            return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
         }
-
     }
 
 
