@@ -143,7 +143,7 @@
                             @endif
                             @if($donationrequest->est_attendee_count)
                                 <tr>
-                                    <td>Estimated Number Of Attendes</td>
+                                    <td>Estimated Number of Attendes</td>
                                     <td><?php echo ($donationrequest['est_attendee_count']); ?></td>
                                 </tr>
                             @endif
@@ -184,7 +184,7 @@
                                 {
                                     e.value = '0.00';
                                 }
-                            };
+                            }
                         </script>
                                 <br><br>
                             @endif
