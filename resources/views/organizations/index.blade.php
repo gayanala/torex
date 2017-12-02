@@ -20,25 +20,10 @@
                 @endif
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        @if($subscriptionEnds == '')
-                            <a href="{{ URL::action('SubscriptionController@cancel') }}"
-                               class="btn btn-primary pull-right" style="" id="cancel">
-                                Cancel Subscription
-                            </a>
-                        @else
 
-                            <a href="{{ URL::action('SubscriptionController@resume') }}"
-                               class="btn btn-primary pull-right" style="" id="resume">
-                                Resume Subscription
-                            </a>
-                        @endif
-                        <h1 style="">Manage Business Locations </h1>
-
-                    </div>
                     <div class="panel-body">
 
-                        <div class="panel panel-default">
+                        <div class="panel-body">
 
                             @if ($subscriptionQuantity=='101')
                                 <div class="panel-heading">
@@ -52,12 +37,12 @@
                                     <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
                                     <a href="{{action('OrganizationController@createOrganization')}}"
                                        class="btn btn-primary pull-right"> [+] Add </a>
-                                    <h1 style="text-align: center;width: 50%;">{{$count + 1}} out
-                                        of {{$subscriptionQuantity}}
-                                        locations added</h1>
+                                    <h1 style="text-align: center;width: 50%;">You account allows
+                                        for {{$subscriptionQuantity}} locations. You have used {{$count + 1}}.</h1>
                                 </div>
                             @else
-                                <div class="alert alert-info">Plan limit includes the parent organization and the limit is
+                                <div class="alert alert-info">Plan limit includes the parent organization and the limit
+                                    is
                                     crossed, upgrade to add more locations.
                                 </div>
 
@@ -142,7 +127,8 @@
                                                             'method' => 'DELETE',
                                                             'action' => ['OrganizationController@destroy', $organization->id]
                                                           ]) }}
-                                            <input type="submit" value="Delete" class='btn btn-danger'onClick="return confirm('Are you sure you want to delete the Business Location? \n\nALL users for this Location will be inactivated!\nIf you wish to keep these users, please press cancel and move them to a new location from the Users management page before removing the location.');">
+                                            <input type="submit" value="Delete" class='btn btn-danger'
+                                                   onClick="return confirm('Are you sure you want to delete the Business Location? \n\nALL users for this Location will be inactivated!\nIf you wish to keep these users, please press cancel and move them to a new location from the Users management page before removing the location.');">
                                             {{ Form::close() }}
                                         </td>
                                     </tr>
@@ -150,6 +136,23 @@
                                 </tbody>
                             </table>
                         </div>
+
+                    </div>
+                    <div class="panel panel-body">
+                        @if($subscriptionEnds == '')
+                            <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                               class="btn btn-primary pull-right" style="" id="cancel">
+                                Cancel Subscription
+                            </a>
+                        @else
+
+                            <a href="{{ URL::action('SubscriptionController@resume') }}"
+                               class="btn btn-primary pull-right" style="" id="resume">
+                                Resume Subscription
+                            </a>
+                        @endif
+                        <h1 style="">Manage Business Locations </h1>
+
                     </div>
                 </div>
             </div>
