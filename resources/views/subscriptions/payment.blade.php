@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <br>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{{asset('js/stripe.js')}}"></script>
@@ -78,10 +79,10 @@
                             <div class="col-sm-6" style="padding-bottom: 12px;">
                             </div>
                             <div class="col-sm-12">
-                                <label for="coupon" class="control-label">Coupon</label>
+                                <label for="coupon" class="control-label">Promo Code</label>
                                 <div class="col-md-6" style="padding-left: 0px;">
                                     <input id="coupon" type="text" class="form-control" name="coupon"
-                                           value="{{ old('coupon') }}" placeholder="Coupon"
+                                           value="{{ old('coupon') }}" placeholder="Promo Code"
                                            autofocus>
                                     <div style="padding-bottom: 15px;"></div>
                                     <input type="button"

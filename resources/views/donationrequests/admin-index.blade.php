@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <br>
     <div class="container">
         <div class="row">
             {{--<div class="col-md-10 col-md-offset-1">--}}
@@ -93,8 +94,7 @@
                             @endif
                         </table>
 
-                        <div class="panel-heading"><h1>Add a Donation Request</h1></div>
-                        <input type="button" value="Manual Entry for Donation Request"
+                        <input type="button" value="Request Donation from your Own Business"
                                onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_self') ;"/>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    <br>
     <div class="container">
         <input name="_token" type="hidden" id="_token" value="{{ csrf_token() }}" />
         @if(Session::has('flash_message'))
