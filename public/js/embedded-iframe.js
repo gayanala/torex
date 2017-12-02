@@ -1,43 +1,37 @@
 // /js/embedded-iframe.js
 
 (function(){
-    var this_js_script = $('script[src*=embedded-iframe]'); // or better regexp to get the file name..
+    /*var this_js_script = $('script[src*=embedded-iframe]'); // or better regexp to get the file name..
 
     var dataOrganization = this_js_script.attr('data-organization');
-    var dataHeader = this_js_script.attr('data-form_config');
     if (typeof dataOrganization === "undefined" ) {
         dataOrganization = 'some_default_value';
     }
-    if (typeof dataHeader === "undefined" ) {
-        dataHeader = 'true';
-    }
+    alert(dataOrganization);*/
 
     // Note the id, we need to set this correctly on the script tag responsible for
     // requesting this file.
     var me = document.getElementById('tagg-embedded-donation-request');
-    var meSrc = this_js_script.src;
-    var rootURL = meSrc.split("js/embedded-iframe.js")[0];
+
     function loadIFrame() {
         var ifrm = document.createElement('iframe');
         ifrm.id = 'my-iframe-identifier';
-        ifrm.setAttribute('src', rootURL + 'donationrequests/create?orgId=' + dataOrganization + '&newrequest=' + dataHeader);
+        ifrm.setAttribute('src', 'http://localhost:8080/tagg/public/donationrequests/create?orgId=1&newrequest=2');
         ifrm.style.width = '1px';
         ifrm.style.minWidth = '100%';
         ifrm.style.border = 0;
-        ifrm.height = '800';
-        ifrm.width(800);
         // we initially hide the iframe to avoid seeing the iframe resizing
         //ifrm.style.opacity = 0;
-        //ifrm.scrolling = 'no';
+        ifrm.scrolling = 'no';
 
         me.insertAdjacentElement('afterend', ifrm);
-        /*$('#my-iframe-identifier').iFrameResize({
+        $('#my-iframe-identifier').iFrameResize({
             log: true, inPageLinks: true,
             heightCalculationMethod: 'taggedElement'
             //maxHeight: 2500
-        }, '#my-iframe-identifier');*/
+        }, '#my-iframe-identifier');
     }
-    /*if (!window.iFrameResize) {
+    if (!window.iFrameResize) {
         // We first need to ensure we inject the js required to resize our iframe.
 
 
@@ -56,9 +50,9 @@
         // https://unpkg.com/iframe-resizer@3.5.14/js/iframeResizer.contentWindow.min.js
         resizerScriptTag.src = 'https://unpkg.com/iframe-resizer@3.5.15/js/iframeResizer.min.js';
     } else {
-        // Cool, the iFrameResizer exists so we can just load our iframe.*/
+        // Cool, the iFrameResizer exists so we can just load our iframe.
         loadIFrame();
-    //}
+    }
     if(!window.jQuery) {
         var jQueryTagg = document.createElement('script');
         jQueryTagg.type = 'text/javascript';
