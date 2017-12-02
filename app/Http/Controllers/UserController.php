@@ -298,10 +298,10 @@ class UserController extends Controller
     protected function getRoles()
     {
         $authUser = Auth::user();
-        if ($authUser->roleuser->role_id == 1 OR $authUser->roleuser->role_id == 2) {
-            return Role::where('id', '<>', 1)->pluck('name', 'id');
+        if ($authUser->hasRole(Constant::TAGG_ADMIN) OR $authUser->hasRole(Constant::ROOT_USER)) {
+            return Role::where('id', '<>', Constant::ROOT_USER)->pluck('name', 'id');
         } else {
-            return Role::whereIn('id', [4, 5])->pluck('name', 'id');
+            return Role::whereIn('id', [Constant::BUSINESS_ADMIN, Constant::BUSINESS_USER])->pluck('name', 'id');
         }
     }
 }
