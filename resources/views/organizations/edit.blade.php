@@ -48,7 +48,7 @@
                                 }
                             </script>
                             <div>
-                                <input type="button" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
+                                <input type="button" class="btn btn-info" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
                                 <input type="button" style="cursor: help;" value="Show Embedded Form Code" title="For use for embedding the form in websites." onclick="GenerateDRForm();" />
                                 <input type="text" id="urlCopied" size="80"/><br />
                                 <xmp id="embeddedCode"></xmp>
@@ -94,7 +94,7 @@
 
                             <div class="col-md-6">
                                 <input id="org_description" type="text" class="form-control" name="org_description"
-                                       value="{{ old('org_description', $organization->org_description) }}" autofocus>
+                                       value="{{ old('org_description', $organization->org_description) }}">
 
                                 @if ($errors->has('org_description'))
                                     <span class="help-block">
@@ -167,9 +167,9 @@
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
                                 <button id="btnEdit" class="btn btn-primary hidden" type="button">Edit</button>
-                                <input class="btn btn-primary" type="button" value="Back" onClick="history.go(-1);">
+                                <input class="btn btn-danger" type="button" value="Back" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
-                                                style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
+                                                style="color: red; font-size: 20px; align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}

@@ -58,7 +58,7 @@
                                 <div class="col-md-6">
                                     <input id="street_address1" type="text" class="form-control" name="street_address1"
                                            value="{{ old('street_address1') }}"
-                                           placeholder="Street Address, Company Name, C/O" required autofocus>
+                                           placeholder="Street Address, Company Name" required autofocus>
 
                                     @if ($errors->has('street_address1'))
                                         <span class="help-block">
