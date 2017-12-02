@@ -38,15 +38,23 @@
                     <div class="panel-body">
 
                         <div class="panel panel-default">
-                            @if ($count < $subscription)
+
+                            @if ($subscriptionQuantity=='101')
                                 <div class="panel-heading">
-                            <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-                            <a href="{{action('OrganizationController@createOrganization')}}"
-                               class="btn btn-primary pull-right"> [+] Add </a>
+                                    <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+                                    <a href="{{action('OrganizationController@createOrganization')}}"
+                                       class="btn btn-primary pull-right"> [+] Add </a>
+                                    <h1 style="text-align: center;width: 50%;">Unlimited Locations can be added</h1>
+                                </div>
+                            @elseif ($count < $subscription)
+                                <div class="panel-heading">
+                                    <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+                                    <a href="{{action('OrganizationController@createOrganization')}}"
+                                       class="btn btn-primary pull-right"> [+] Add </a>
                                     <h1 style="text-align: center;width: 50%;">{{$count + 1}} out
                                         of {{$subscriptionQuantity}}
-                                locations added</h1>
-                        </div>
+                                        locations added</h1>
+                                </div>
                     @else
                         <div class="alert alert-info">Plan limit includes the parent organization and the limit is
                             crossed, upgrade to add more locations.
