@@ -6,7 +6,7 @@
 <script>
 
 
-  
+
 
     $(window).load(function () {
         var phones = [{"mask": "(###) ###-####"}];
@@ -14,7 +14,7 @@
             mask: phones,
             greedy: false,
             definitions: {'#': {validator: "[0-9]", cardinality: 1}},
-            
+
         });
 
     });
@@ -176,7 +176,7 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary']) !!}
-        <a href="{{ route('organizations.index')}}" class="btn btn-primary">Cancel</a>
+        <a href="{{ route('organizations.index')}}" class="btn btn-danger">Cancel</a>
         <span style="color: red"> <h5>Fields Marked With (<span style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <title>A Tagg Intiative</title>
+    <title>{{ env('APP_NAME', 'CharityQ')  }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -183,18 +183,9 @@
             letter-spacing: 5px;
         }
 
-        .navbar-fixed-top
-        {
-            position: fixed ! important;
-            top:0px;
-            width: 100%;
-            height:45px;
-            box-shadow: 1px 1px 20px 1px #4a148c;
-        }
-
         .navbar-nav li a:hover {
             color: #1abc9c !important;
-                    }
+        }
 
         .navbar-nav li a:active {
             background-color: #e1bee7 !important;
@@ -243,7 +234,6 @@
             font-size: 15px;
             box-shadow: 1px 1px 20px 1px #4a148c;
             padding-bottom: 10px;
-            padding-right: 30px;
         }
 
         .main-navigation ul li a {
@@ -264,7 +254,7 @@
 
         body, html {
             /*height: 100%;*/
-            line-height: 2.8;
+            line-height: 1.8;
         }
 
         .divsmall {
@@ -318,22 +308,22 @@
 
             <div class="row">
                 <div class="col-sm-3"
-                     style='padding-left: 0px;padding-top: .5px;padding-bottom: -5px;padding-right:10px;margin-top: -2px;margin-bottom: -2px;'>
+                     style='padding-left: 0px;padding-top: .5px;padding-bottom: -5px;padding-right:10px;margin-top: -2px;margin-bottom: -0.5px'>
                     @if (Auth::guest())
                         <a href="{{ url('/') }}">
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}" id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
                         </a>
                     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                     OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
                         <a href="{{ url('/dashboard') }}">
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}" id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
                         </a>
 
                     @else
                         <a href="{{ url('/') }}">
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}" id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
                         </a>
                     @endif
@@ -363,12 +353,12 @@
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
                             <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a>
                             </li>
-                             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                                    <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
-                                    Donations</a></li>
-                            @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER)
-                                    <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
-                                    Donations</a></li>
+                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                                        Donations</a></li>
+                            @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER)
+                                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
+                                        Donations</a></li>
                             @endif
                             <li>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -381,7 +371,7 @@
                                     <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                                         @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                                             <li>
-                                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                                                <a href="{{ url('/rules?rule=1')}}">Donation Preferences</a>
                                             </li>
                                         @endif
                                         <li>
@@ -399,7 +389,7 @@
                                             @endif
                                             <li>
                                                 <a href="{{ route('emailtemplates.index') }}">
-                                                    Communication Template
+                                                    Email Templates
                                                 </a>
                                             </li>
                                         @endif
@@ -480,10 +470,9 @@
                             class="glyphicon glyphicon-log-in"></span></a></li>
         </ul>
     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
-                     OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
-        <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
-            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a>
-            </li>
+                   OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
+        <ul class="divsmall visible-xs-block visible-sm-block">
+            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                 <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
                         Donations</a></li>
@@ -491,7 +480,7 @@
                 <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
                         Donations</a></li>
             @endif
-                <li class="dropdown">
+            <li class="dropdown">
                 <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-expanded="false">
@@ -502,28 +491,28 @@
                     <ul class="dropdown-menu" role="menu">
                         @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                             <li>
-                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                                <a href="{{ url('/rules?rule=1')}}">Donation Preferences</a>
                             </li>
                         @endif
                         <li>
-                             <a href="{{route('organizations.edit',Auth::user()->organization_id)}}">Business
-                                    Profile</a>
-                         </li>
-                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)
-                                <li>
-                                    <a href="{{ url('user/manageusers')}}">Users</a>
-                                </li>
-                                @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                                    <li>
-                                        <a href="{{ route('organizations.index')}}">Business Locations</a>
-                                    </li>
-                                @endif
-                        <li>
-                            <a href="{{ route('emailtemplates.index') }}">
-                                Communication Template
-                            </a>
+                            <a href="{{route('organizations.edit',encrypt(Auth::user()->organization_id))}}">Business
+                                Profile</a>
                         </li>
+                        @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)
+                            <li>
+                                <a href="{{ url('user/manageusers')}}">Users</a>
+                            </li>
+                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                                <li>
+                                    <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                </li>
                             @endif
+                            <li>
+                                <a href="{{ route('emailtemplates.index') }}">
+                                    Email Templates
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </li>
@@ -579,7 +568,7 @@
                 </form>
             </li>
         </ul>
-        @endif
+    @endif
 </div>
 <div id="content">
     {{--@include('layouts.partials._status')--}}
@@ -594,5 +583,5 @@
 
     <img src="{{ asset('img/icon-partner.png') }}" class="imgalign"  style="width:100px;height:50px;"  >
 
-    <h5>A tagg Intiative</h5>
+    <h5>A {{ env('APP_NAME', 'CharityQ')  }} Intiative</h5>
  </footer> -->
