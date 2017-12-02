@@ -200,7 +200,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-users fa-5x" style="color: #0700ff"></i>
+                                <i class="fa fa-line-chart fa-5x" style="color: #2c11ec"></i>
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div> AVERAGE AMOUNT DONATED <span class="huge"
