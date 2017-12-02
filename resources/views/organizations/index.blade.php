@@ -134,8 +134,7 @@
                                                     'method' => 'DELETE',
                                                     'action' => ['OrganizationController@destroy', $organization->id]
                                                   ]) }}
-                                    <input type="submit" value="Delete" class='btn btn-danger'
-                                           onClick="return confirm('Are you sure you want to delete the Business Location? \n\nALL users for this Location will be inactivated!\nIf you wish to keep these users, please press cancel and move them to a new location from the Users management page before removing the location.');">
+                                    <input type="submit" value="Delete" class='btn btn-danger'onClick="return confirm('Are you sure you want to delete the Business Location? \n\nALL users for this Location will be inactivated!\nIf you wish to keep these users, please press cancel and move them to a new location from the Users management page before removing the location.');">
                                     {{ Form::close() }}
                                 </td>
                             </tr>

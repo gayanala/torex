@@ -44,7 +44,7 @@
                                 }
                             </script>
                             <div>
-                                <input type="button" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
+                                <input type="button"class="btn btn-info" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
                                 <input type="text" id="urlCopied" size="80"/><br />
                                 <small>
                                     Click the button to copy to display and your clipboard the URL to the donation request form to submit requests to your business.
@@ -160,10 +160,10 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
-                                <button id="btnEdit" class="btn btn-primary hidden" type="button">Edit</button>
-                                <input class="btn btn-primary" type="button" value="Back" onClick="history.go(-1);">
+                                <button id="btnEdit" class="btn btn-primary hidden"type="button">Edit</button>
+                                <input class="btn btn-danger" type="button" value="Back" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
-                                                style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
+                                                style="color: red; font-size: 20px; align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}
