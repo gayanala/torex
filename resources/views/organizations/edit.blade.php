@@ -42,15 +42,24 @@
                                     window.confirm("You have successfully generated the URL needed for donation Requests on your website\n" +
                                         "The URL has been copied to your clipboard.");
                                 }
+                                function GenerateDRForm() {
+                                    var embedCode = document.getElementById('embeddedCode');
+                                    embedCode.innerHTML = '<iframe src="{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true"\n style="border=0;" id="donationRequest1" name="ifr" height="800" width="800" > \n</iframe>'
+                                }
                             </script>
                             <div>
-                                <input type="button"class="btn btn-info" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
+                                <input type="button" class="btn btn-info" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
                                 <input type="text" id="urlCopied" size="80"/><br />
                                 <small>
-                                    Click the button to copy to display and your clipboard the URL to the donation request form to submit requests to your business.
-                                    This URL can be shared on social media sites or embedded as a link in a website to allow outside organizations to submit requests
-                                    online that will automatically be filtered by your donation preferences.
-                                </small>
+                                    Click the button to display the URL and copy it to your clipboard. Share your
+                                    business’ donation request form on social media sites.  The URL can be embedded on
+                                    your business website.  Outside organizations can submit requests online that will
+                                    automatically be filtered by your donation preferences.
+                                </small><br />
+                                <input type="button" style="cursor: help;" value="Show Embedded Form Code"
+                                       title="Insert this HTML code in your business website to allow outside organizations to fill out a donation request form.."
+                                       onclick="GenerateDRForm();" /><br />
+                                <div style="background-color: #DDDDDD"><xmp id="embeddedCode"></xmp></div>
                             </div>
                         </div>
                     </div>

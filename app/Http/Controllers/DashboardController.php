@@ -21,8 +21,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-
-        if ($request->user()->hasAnyRole(['Root User', 'CharityQ Owner', 'CharityQ User'])) {
+        if ($request->user()->roleuser->role_id == 1 OR $request->user()->roleuser->role_id == 2 OR $request->user()->roleuser->role_id == 3) {
             $organizations = Organization::all();
 
             $orgIds = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();

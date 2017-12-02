@@ -149,6 +149,7 @@ class DonationRequestController extends Controller
         $this->validate($request, [
 
             'needed_by_date' => 'after:today',
+            'zipcode' => 'required|numeric|digits:5',
             'event_date' => 'after:today',
             'tax_exempt' => "required",
             'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
