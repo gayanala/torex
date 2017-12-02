@@ -42,15 +42,24 @@
                                     window.confirm("You have successfully generated the URL needed for donation Requests on your website\n" +
                                         "The URL has been copied to your clipboard.");
                                 }
+                                function GenerateDRForm() {
+                                    var embedCode = document.getElementById('embeddedCode');
+                                    embedCode.innerHTML = '<iframe src="{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true"\n style="border=0;" id="donationRequest1" name="ifr" height="800" width="800" > \n</iframe>'
+                                }
                             </script>
                             <div>
-                                <input type="button"class="btn btn-info" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
+                                <input type="button" class="btn btn-info" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
                                 <input type="text" id="urlCopied" size="80"/><br />
                                 <small>
-                                    Click the button to copy to display and your clipboard the URL to the donation request form to submit requests to your business.
-                                    This URL can be shared on social media sites or embedded as a link in a website to allow outside organizations to submit requests
-                                    online that will automatically be filtered by your donation preferences.
-                                </small>
+                                    Click the button to display the URL and copy it to your clipboard. Share your
+                                    business’ donation request form on social media sites.  The URL can be embedded on
+                                    your business website.  Outside organizations can submit requests online that will
+                                    automatically be filtered by your donation preferences.
+                                </small><br />
+                                <input type="button" style="cursor: help;" value="Show Embedded Form Code"
+                                       title="Insert this HTML code in your business website to allow outside organizations to fill out a donation request form.."
+                                       onclick="GenerateDRForm();" /><br />
+                                <div style="background-color: #DDDDDD"><xmp id="embeddedCode"></xmp></div>
                             </div>
                         </div>
                     </div>
@@ -88,7 +97,7 @@
 
                             <div class="col-md-6">
                                 <input id="org_description" type="text" class="form-control" name="org_description"
-                                       value="{{ old('org_description', $organization->org_description) }}" autofocus>
+                                       value="{{ old('org_description', $organization->org_description) }}">
 
                                 @if ($errors->has('org_description'))
                                     <span class="help-block">
@@ -160,7 +169,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
-                                <button id="btnEdit" class="btn btn-primary hidden"type="button">Edit</button>
+                                <button id="btnEdit" class="btn btn-primary hidden" type="button">Edit</button>
                                 <input class="btn btn-danger" type="button" value="Back" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; align:middle;">*</span>) Are Mandatory</h5></span>

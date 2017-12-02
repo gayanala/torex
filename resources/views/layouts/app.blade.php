@@ -282,6 +282,10 @@
             padding-top: 0px;
         }
 
+        .freetextsearch {
+            width: 310px;
+        }
+
     </style>
 </head>
 

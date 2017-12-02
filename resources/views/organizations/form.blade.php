@@ -84,7 +84,7 @@
 
     <div class="col-md-6">
         <input id="street_address1" type="text" class="form-control" name="street_address1"
-               value="{{ old('street_address1') }}" placeholder="Street Address, Company Name,C/O" required autofocus>
+               value="{{ old('street_address1') }}" placeholder="Street Address, Company Name" required autofocus>
 
         @if ($errors->has('street_address1'))
             <span class="help-block">
@@ -143,7 +143,8 @@
     <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
     <div class="col-md-6">
-        <input id="zipcode" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+        <input id="zipcode" type="number"
+               oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                maxlength="5" class="form-control" name="zipcode"
                value="{{ old('zipcode') }}"
                placeholder="Zip Code" required autofocus>
