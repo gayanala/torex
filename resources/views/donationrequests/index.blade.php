@@ -83,8 +83,7 @@
                             @endif
                         </table>
 
-                        <input type="button" value="Request Donation from your Own Business"
-                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank') ;"/>
+                        <input type="button" class="btn btn-info" value="Request Donation from your Own Business" onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank') ;"/>
                 </div>
             </div>
         </div>
