@@ -54,7 +54,7 @@ class OrganizationController extends Controller
     public function update(Request $request, $id)
     {
         if (in_array($id, $this->getAllMyOrganizationIds())) {
-            dd($id);
+            //dd($id);
             $validator = Validator::make($request->all(), [
                 'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
                 'zip_code' => 'required|regex:/[0-9]{5}/',
@@ -62,6 +62,7 @@ class OrganizationController extends Controller
             ]);
 //dd($validator->fails());
             if ($validator->fails()) {
+                dd($validator);
                 return redirect()->back()->withErrors($validator)->withInput();
             }
             $organizationUpdate = $request->all();
