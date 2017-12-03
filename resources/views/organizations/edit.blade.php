@@ -88,7 +88,7 @@
                         <div class="form-group">
                             <label for="org_name" class="col-md-4 control-label"> Business Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                                {!! Form::text('org_name',null,['class' => 'form-control', 'required']) !!}
+                                {!! Form::text('org_name', old('org_name'),['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
 

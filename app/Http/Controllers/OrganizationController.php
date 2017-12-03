@@ -80,7 +80,7 @@ class OrganizationController extends Controller
                 return redirect('organizations');
             }
             elseif ($ParentOrgId = ParentChildOrganizations::active()->where('child_org_id', $id)->first()->parent_org_id) {
-                if (Auth::user()->organization_id = $ParentOrgId) {
+                if (Auth::user()->organization_id == $ParentOrgId) {
                     return redirect('organizations');
                 }
             }
