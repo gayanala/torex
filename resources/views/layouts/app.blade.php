@@ -191,6 +191,41 @@
             background-color: #e1bee7 !important;
         }
 
+        .btn {
+            align:center;
+            border: none;
+            padding: 5px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+        }
+        .savebtn
+        {
+          background-color: #008CBA;
+          color: white;
+            padding: 5px 12px;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+        }
+
+        .updatebtn
+        {
+          background-color: #4CAF50;
+          color: white;
+          padding: 5px 12px;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+        }
+             .backbtn
+             {
+               background-color: #B2EBF2;
+             }
+
+
         .col-sm-6 {
             display: block;
             padding: 5px;
@@ -280,10 +315,6 @@
         .dropdown-menu {
             padding-bottom: 0px;
             padding-top: 0px;
-        }
-
-        .freetextsearch {
-            width: 310px;
         }
 
     </style>

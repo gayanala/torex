@@ -123,7 +123,7 @@
                                         <th class="text-center">Select all <input type="checkbox" id="selectall"/></th>
                                         <th class="text-center">Business Name</th>
                                         <th class="text-center">Request Amount</th>
-                                        <th class="text-center">Type of donation</th>
+                                        <th class="text-center">Type of Donation</th>
                                         {{--<th class="text-center">Event Name</th>--}}
                                         <th class="text-center">Location</th>
                                         <th class="text-center">Date Needed</th>
@@ -150,8 +150,8 @@
                                                 <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}" class="btn btn-info" title="Detail">
                                                     <span class="glyphicon glyphicon-list-alt" text-></span></a>
                                             </td>
-                                            {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
-                                            {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
+                                            {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn savebtn"> Detail </a>--}}
+                                            {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn savebtn"> Edit </a>--}}
                                         </tr>
                                     @endforeach
 

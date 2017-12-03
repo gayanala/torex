@@ -19,4 +19,11 @@ class ParentChildOrganizations extends Model
     {
         return $this->belongsTo('App\Organization', 'parent_org_id', 'id');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->whereHas('organization', function($query) {
+        $query->where('active', 1);
+    });
+    }
 }

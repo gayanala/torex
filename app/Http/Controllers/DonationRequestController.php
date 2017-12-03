@@ -219,8 +219,6 @@ class DonationRequestController extends Controller
 
     public function changeDonationStatus(Request $request)
     {
-        $userId = Auth::user()->id;
-        $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
         $organizationId = Auth::user()->organization_id;
         $donation_id = $request->id;
         $donation = DonationRequest::where('id', $donation_id)->get();

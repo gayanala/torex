@@ -70,8 +70,8 @@
 
                     <div class="form-group">
                         <div class=" col-md-offset-4">
-                            <button class="btn btn-primary" type="submit" class="" id="createbutton">Submit</button>
-                            <input class="btn btn-danger" type="button" value="Cancel" onClick="history.go(-1);">
+                            <button class="btn savebtn" type="submit" class="" id="createbutton">Submit</button>
+                            <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
                             <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                         </div>
                     </div>

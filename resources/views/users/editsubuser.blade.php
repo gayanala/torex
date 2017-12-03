@@ -24,7 +24,7 @@
                         <div class="">
                             {!! Form::hidden('id',$user->id,['class' => 'form-control', 'required']) !!}
                         </div>
-                        @if(Auth::user()->roleuser->role_id == 1 OR Auth::user()->roleuser->role_id == 2 OR Auth::user()->roleuser->role_id == 3)
+
                         <div class="form-group">
                             <label for="role" class="col-md-4 control-label"> Role <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
@@ -32,7 +32,6 @@
                                 {!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control']) !!}
                             </div>
                         </div>
-                        @endif
 
                         <div class="form-group">
                             <label for="first_name" class="col-md-4 control-label"> First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
@@ -109,8 +108,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                                <input class="btn btn-danger" type="button" value="Back" onClick="history.go(-1);">
+                                {!! Form::submit('Update', ['class' => 'btn updatebtn']) !!}
+                                <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
                         </div>

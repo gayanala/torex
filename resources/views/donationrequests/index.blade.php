@@ -24,7 +24,7 @@
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr class="bg-info">
-                                <th class="text-center">Organization Name</th>
+                                <th class="text-center">Business Name</th>
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Request For</th>
                                 <th class="text-center">Location</th>
@@ -72,8 +72,8 @@
                                         @endif
 
                                     </td>
-                                    {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
-                                    {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
+                                    {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn savebtn"> Detail </a>--}}
+                                    {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn savebtn"> Edit </a>--}}
                                 </tr>
                             @endforeach
 
@@ -83,8 +83,7 @@
                             @endif
                         </table>
 
-                        <input type="button" value="Request Donation from your Own Business"
-                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank') ;"/>
+                        <input type="button" class="btn btn-info" value="Request Donation from your Own Business" onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank') ;"/>
                 </div>
             </div>
         </div>
@@ -113,7 +112,7 @@
     <script>
 
 
-   
+
         $(document).ready(function () {
             var table = $('#example').DataTable({
                 dom: 'Bfrtip',

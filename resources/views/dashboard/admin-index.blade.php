@@ -7,7 +7,8 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center">Request Management Dashboard</h1>
+                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">MANAGEMENT
+                        DASHBOARD</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -237,8 +238,8 @@
                 <!-- /.col-lg-8 -->
                 <div class="col-lg-12">
                     <div class="panel panel-default text-left">
-                        <div class="panel-heading">
-                            <b>Donations per Businesses</b>
+                        <div class="panel-heading text-center" style="color:#0077aa;font-size:15px;">
+                            <b>DONATIONS SUMMARY</b>
                         </div>
 
                         <div class="panel-body">
@@ -276,8 +277,8 @@
                                                         <span class="glyphicon glyphicon-list-alt"></span></a>
 
                                                 </td>
-                                                {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
-                                                {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
+                                                {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn savebtn"> Detail </a>--}}
+                                                {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn savebtn"> Edit </a>--}}
                                             </tr>
                                         @endforeach
                                     </tbody>
