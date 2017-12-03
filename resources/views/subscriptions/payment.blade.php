@@ -86,7 +86,7 @@
                                            autofocus>
                                     <div style="padding-bottom: 15px;"></div>
                                     <input type="button"
-                                           class="btn btn-primary pull-right" style="padding-left:1%;" id="apply"
+                                           class="btn savebtn pull-right" style="padding-left:1%;" id="apply"
                                            value='Apply'
                                            disabled/>
 

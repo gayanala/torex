@@ -66,7 +66,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary form-control">Submit</button>
+                                    <button type="submit" class="btn savebtn form-control">Submit</button>
                                     <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                                 </div>
                             </div>

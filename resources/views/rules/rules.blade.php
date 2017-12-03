@@ -81,7 +81,7 @@
                     <tr>
                         <td colspan="10" align="center">
 
-                                <button id="btnSaveBudgetNotice" class="btn btn-primary" type="submit">Save
+                                <button id="btnSaveBudgetNotice" class="btn savebtn" type="submit">Save
                                 </button>
 
                         </td>
@@ -155,9 +155,9 @@
                 <div id="builder-plugins" style="background-color:#bbdefb"></div>
                 <div class="btn-group">
                     <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
-                    <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
+                    <button class="btn backbtn reset" type="button" data-target="plugins">Clear Rules</button>
                     <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
-                    <button id="btnSave" class="btn btn-primary parse-json" type="button" data-target="plugins">Save Rules
+                    <button id="btnSave" class="btn savebtn parse-json" type="button" data-target="plugins">Save Rules
                     </button>
                     <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
                             class="btn btn-default">Run Rule Workflow

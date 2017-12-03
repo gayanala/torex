@@ -6,8 +6,6 @@ use App\Custom\Constant;
 use App\DonationRequest;
 use App\EmailTemplate;
 use App\Events\DonationRequestReceived;
-use App\Events\TriggerAcceptEmailEvent;
-use App\Events\TriggerRejectEmailEvent;
 use App\Organization;
 use App\ParentChildOrganizations;
 use App\Request_event_type;
@@ -15,16 +13,14 @@ use App\Request_item_purpose;
 use App\Request_item_type;
 use App\Requester_type;
 use App\State;
+use App\User;
 use Auth;
 use Carbon\Carbon;
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use URL;
-use App\User;
-
 
 
 class DonationRequestController extends Controller
@@ -63,20 +59,27 @@ class DonationRequestController extends Controller
 
     public function create(Request $request)
     {
-        $organization = Organization::where('id', $request->orgId)->get();
-        $expireDate = $organization[0]->trial_ends_at;
+        $organization = Organization::active()->where('id', $request->orgId)->get();
+        if (!($organization->isEmpty())) {
+            $expireDate = $organization[0]->trial_ends_at;
 
-        if ($expireDate > Carbon::now() OR ($organization[0]->parentOrganization->isNotEmpty() AND $organization[0]->parentOrganization[0]->parentOrganization->trial_ends_at >= Carbon::now())) {
-            $states = State::pluck('state_name', 'state_code');
-            $requester_types = Requester_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
-            $request_item_types = Request_item_type::where('active', '=', Constant::ACTIVE)->pluck('item_name', 'id');
-            $request_item_purpose = Request_item_purpose::where('active', '=', Constant::ACTIVE)->pluck('purpose_name', 'id');
-            $request_event_type = Request_event_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
-            return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
-                ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+            if ($expireDate > Carbon::now() OR ($organization[0]->parentOrganization->isNotEmpty()
+                    AND $organization[0]->parentOrganization[0]->parentOrganization->trial_ends_at >= Carbon::now())
+            ) {
+                $states = State::pluck('state_name', 'state_code');
+                $requester_types = Requester_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
+                $request_item_types = Request_item_type::where('active', '=', Constant::ACTIVE)->pluck('item_name', 'id');
+                $request_item_purpose = Request_item_purpose::where('active', '=', Constant::ACTIVE)->pluck('purpose_name', 'id');
+                $request_event_type = Request_event_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
+                return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
+                    ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+            } else {
+                return view('donationrequests.expired');
+            }
         } else {
             return view('donationrequests.expired');
         }
+
     }
 
     public function edit($id)
@@ -216,8 +219,6 @@ class DonationRequestController extends Controller
 
     public function changeDonationStatus(Request $request)
     {
-        $userId = Auth::user()->id;
-        $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
         $organizationId = Auth::user()->organization_id;
         $donation_id = $request->id;
         $donation = DonationRequest::where('id', $donation_id)->get();

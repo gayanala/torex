@@ -68,10 +68,9 @@
                         <div class="form-group">
                             <label for="Email Subject" class="col-md-3 control-label">Email Subject <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-9">
-                                {!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}
+                                {!! Form::text('email_subject', null, ['class' => 'form-control' , 'width'=> '1000px']) !!}
                             </div>
                         </div>
-
 
                         <div class="form-group">
                         <!--div class="col-lg-6"-->
@@ -81,8 +80,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                               <a href="{{ route('emailtemplates.index')}}" class="btn btn-danger">Cancel</a>
+                                {!! Form::submit('Update', ['class' => 'btn updatebtn']) !!}
+                               <a href="{{ route('emailtemplates.index')}}" class="btn backbtn">Cancel</a>
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory </h5></span>
 

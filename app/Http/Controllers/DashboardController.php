@@ -21,19 +21,19 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->user()->roleuser->role_id == 1 OR $request->user()->roleuser->role_id == 2 OR $request->user()->roleuser->role_id == 3) {
+        if ($request->user()->roleuser->role_id == Constant::ROOT_USER OR $request->user()->roleuser->role_id == Constant::TAGG_ADMIN OR $request->user()->roleuser->role_id == Constant::TAGG_USER) {
             $organizations = Organization::all();
 
             $orgIds = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
-            $organizationsArray = ParentChildOrganizations::whereIn('parent_org_id', $orgIds)->pluck('child_org_id')->toArray();
+            $organizationsArray = ParentChildOrganizations::active()->whereIn('parent_org_id', $orgIds)->pluck('child_org_id')->toArray();
             array_push($organizationsArray, $orgIds);
 
             $numActiveLocations = sizeOf($organizationsArray);
-            $userCount = User::whereIn('organization_id', $organizationsArray)->count();
+            $userCount = User::active()->whereIn('organization_id', $organizationsArray)->count();
 
-            $userThisWeek = Organization::where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
-            $userThisMonth = Organization::where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
-            $userThisYear = Organization::where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
+            $userThisWeek = Organization::active()->where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
+            $userThisMonth = Organization::active()->where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
+            $userThisYear = Organization::active()->where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
 
             $avgAmountDonated = sprintf("%.2f", (DonationRequest::where('approval_status_id', Constant::APPROVED)->avg('approved_dollar_amount')));
 

@@ -17,7 +17,7 @@
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn savebtn" data-dismiss="modal" aria-hidden="true">Close</button>
     </div>
 </div>
 
@@ -124,15 +124,15 @@ $('#open').click(function() {
                 <label for="inputorganizationname" class="col-lg-2 control-label">Business Name</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="username" name="username">
-                    <button type="submit" class="btn btn-">Save Changes</button>
+                    <button type="submit" class="btn savebtn">Save Changes</button>
                 </div>
             </div>
             <pre></pre>
 
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
-                    <button type="reset" class="btn btn-default">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn backbtn">Cancel</button>
+                    <button type="submit" class="btn savebtn">Submit</button>
                     <h3> Thank You!!!</h3>
 
                 </div>
