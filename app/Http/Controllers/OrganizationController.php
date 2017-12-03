@@ -60,7 +60,7 @@ class OrganizationController extends Controller
                 'zipcode' => 'required|regex:/[0-9]{5}/',
                 'state' => 'required',
             ]);
-//dd($validator->fails());
+
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
@@ -69,7 +69,6 @@ class OrganizationController extends Controller
             Organization::find($id)->update($organizationUpdate);
 
             $childOrganizations = ParentChildOrganizations::active()->where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
-            //dd($childOrganizations);
             Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
             //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
             //Organization::find($id)->update($);
@@ -101,10 +100,6 @@ class OrganizationController extends Controller
             'state' => 'required|string|max:255',
             'zipcode' => 'required|regex:/[0-9]{5}/',
             'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
-
-            /*'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|confirmed|string|min:6|',*/
         ]);
     }
 
