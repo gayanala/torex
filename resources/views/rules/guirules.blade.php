@@ -10,7 +10,7 @@
 @endsection
 @section('content')
 <div class="container"style="padding-left:800px"> <div class="dropdown">
-<button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Select Rule
+<button class="btn savebtn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Select Rule
 <span class="caret"></span></button>
 <ul class="dropdown-menu">
   <li><a href="">PreApproval</a></li>
@@ -26,7 +26,7 @@
             <button class="btn btn-error parse-json" data-target="plugins">Preview Rules</button>
             <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
             <button class="btn btn-success set-json" data-target="plugins">Reset Rules</button>
-            <button class="btn btn-primary parse-json" data-target="plugins">Save (Show) Rules</button>
+            <button class="btn savebtn parse-json" data-target="plugins">Save (Show) Rules</button>
         </div>
         <br />
         <!-- <div id="querybuilder"></div> -->

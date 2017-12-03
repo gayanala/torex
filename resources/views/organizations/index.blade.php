@@ -23,7 +23,7 @@
                     <div class="panel-heading">
                         <h1 style="">Manage Business Locations </h1>
                         @if ($subscriptionQuantity=='101' || ($count < $subscription))
-                            <a href="{{action('OrganizationController@createOrganization')}}" class="btn btn-primary"
+                            <a href="{{action('OrganizationController@createOrganization')}}" class="btn savebtn"
                                style="position: absolute; top: 26px; right:32px;">[+] Add Business Location </a>
 
                         @endif
@@ -36,13 +36,13 @@
                                 <div class="panel-heading">
                                     @if($subscriptionEnds == '')
                                         <a href="{{ URL::action('SubscriptionController@cancel') }}"
-                                           class="btn btn-primary pull-right" style="" id="cancel">
+                                           class="btn backbtn pull-right" style="" id="cancel">
                                             Cancel Subscription
                                         </a>
                                     @else
 
                                         <a href="{{ URL::action('SubscriptionController@resume') }}"
-                                           class="btn btn-primary pull-right" style="" id="resume">
+                                           class="btn savebtn pull-right" style="" id="resume">
                                             Resume Subscription
                                         </a>
                                     @endif
@@ -53,12 +53,12 @@
                                 <div class="panel-heading">
                                     @if($subscriptionEnds == '')
                                         <a href="{{ URL::action('SubscriptionController@cancel') }}"
-                                           class="btn btn-primary pull-right" style="" id="cancel">
+                                           class="btn backbtn pull-right" style="" id="cancel">
                                             Cancel Subscription
                                         </a>
                                     @else
                                         <a href="{{ URL::action('SubscriptionController@resume') }}"
-                                           class="btn btn-primary pull-right" style="" id="resume">
+                                           class="btn savebtn pull-right" style="" id="resume">
                                             Resume Subscription
                                         </a>
                                     @endif
@@ -153,7 +153,7 @@
                                                             'method' => 'DELETE',
                                                             'action' => ['OrganizationController@destroy', $organization->id]
                                                           ]) }}
-                                            <input type="submit" value="Delete" class='btn btn-danger'
+                                            <input type="submit" value="Delete" class='btn backbtn'
                                                    onClick="return confirm('Are you sure you want to delete the Business Location? \n\nALL users for this Location will be inactivated!\nIf you wish to keep these users, please press cancel and move them to a new location from the Users management page before removing the location.');">
                                             {{ Form::close() }}
                                         </td>

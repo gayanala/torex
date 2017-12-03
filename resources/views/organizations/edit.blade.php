@@ -56,7 +56,7 @@
                                     your business website.  Outside organizations can submit requests online that will
                                     automatically be filtered by your donation preferences.
                                 </small><br />
-                                <input type="button" style="cursor: help;" value="Show Embedded Form Code"
+                                <input type="button" class="btn btn-info"style="cursor: help;" value="Show Embedded Form Code"
                                        title="Insert this HTML code in your business website to allow outside organizations to fill out a donation request form.."
                                        onclick="GenerateDRForm();" /><br />
                                 <div style="background-color: #DDDDDD"><xmp id="embeddedCode"></xmp></div>
@@ -180,9 +180,9 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
-                                <button id="btnEdit" class="btn btn-primary hidden" type="button">Edit</button>
-                                <input class="btn btn-danger" type="button" value="Back" onClick="history.go(-1);">
+                                {!! Form::submit('Save', ['class' => 'btn savebtn', 'id' => 'btnSave']) !!}
+                                <button id="btnEdit" class="btn savebtn hidden" type="button">Edit</button>
+                                <input class="btn backbtn" type="button" value="Back" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>

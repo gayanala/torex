@@ -80,8 +80,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                               <a href="{{ route('emailtemplates.index')}}" class="btn btn-danger">Cancel</a>
+                                {!! Form::submit('Update', ['class' => 'btn updatebtn']) !!}
+                               <a href="{{ route('emailtemplates.index')}}" class="btn backbtn">Cancel</a>
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory </h5></span>
 
