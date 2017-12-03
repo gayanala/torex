@@ -75,12 +75,12 @@ class OrganizationController extends Controller
             $organization->state = $request->state;
             $organization->zipcode = $request->zip_code;
             $organization->phone_number = $request->phone_number;
-            dd($organization);
+            //dd($organization);
             $organization->save();
 
-            $childOrganizations = ParentChildOrganizations::active()->where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
+            //$childOrganizations = ParentChildOrganizations::active()->where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
             //dd($childOrganizations);
-            Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
+            //Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
             //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
             //Organization::find($id)->update($);
 
