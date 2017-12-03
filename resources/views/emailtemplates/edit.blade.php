@@ -62,10 +62,9 @@
                         <div class="form-group">
                             <label for="Email Subject" class="col-md-3 control-label">Email Subject <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-9">
-                                {!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}
+                                {!! Form::text('email_subject', null, ['class' => 'form-control' , 'width'=> '1000px']) !!}
                             </div>
                         </div>
-
 
                         <div class="form-group">
                         <!--div class="col-lg-6"-->
