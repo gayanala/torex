@@ -47,14 +47,13 @@ class OrganizationController extends Controller
         {
             return redirect('/organizations')->withErrors(array('0' => 'You do not have access to view this Business!!'));
         }
-        //dd($organization);
+
     }
 
 
     public function update(Request $request, $id)
     {
 
-        //dd($request);
         if (in_array($id, $this->getAllMyOrganizationIds())) {
             $validator = Validator::make($request->all(), [
                 'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
