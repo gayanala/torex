@@ -141,13 +141,12 @@ class OrganizationController extends Controller
         $organization->state = $request['state'];
         $organization->zipcode = $request['zipcode'];
         $organization->phone_number = $request['phone_number'];
-        $organization->save();
-
         $validator = $this->validatorLocation($organization);//dd($validator);
         if ($validator -> fails())
         {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        $organization->save();
 
         // Inserting the relation between parent organization and child organization
         ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);
