@@ -65,6 +65,7 @@ class OrganizationController extends Controller
                 dd($validator);
                 return redirect()->back()->withErrors($validator)->withInput();
             }
+            dd($request->all());
             $organizationUpdate = $request->all();
 
             Organization::find($id)->update($organizationUpdate);
