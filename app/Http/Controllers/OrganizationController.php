@@ -53,14 +53,14 @@ class OrganizationController extends Controller
 
     public function update(Request $request, $id)
     {
-dd($request);
+
         if (in_array($id, $this->getAllMyOrganizationIds())) {
             $validator = Validator::make($request->all(), [
                 'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
                 'zipcode' => 'required|regex:/[0-9]{5}/',
                 'state' => 'required',
             ]);
-
+dd($validator->fails());
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
