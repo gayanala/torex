@@ -60,11 +60,11 @@ class OrganizationController extends Controller
                 'zipcode' => 'required|regex:/[0-9]{5}/',
                 'state' => 'required',
             ]);
-dd($validator->fails());
+//dd($validator->fails());
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-
+dd('67');
             $organizationUpdate = $request->all();
 
             Organization::find($id)->update($organizationUpdate);
