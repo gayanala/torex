@@ -143,7 +143,7 @@
 
                                 </div>
                                 <div class="panel-body">
-                                    <div class="stripe-errors panel"></div>
+                                    <div class="stripe-errors panel" style="color:red;"></div>
                                     <form role="form">
                                         <div class="form-group">
                                             <label for="cardNumber">

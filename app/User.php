@@ -90,19 +90,19 @@ class User extends Authenticatable
      * Check multiple roles
      * @param array $roles
      */
-//    public function hasAnyRole($roles)
-//    {
-//        return null !== $this->roles()->whereIn('name', $roles)->first();
-//    }
+    public function hasAnyRole($roles)
+    {
+        return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
 
     /**
      * Check one role
      * @param string $role
      */
-//    public function hasRole($role)
-//    {
-//        return null !== $this->roles()->where('name', $role)->first();
-//    }
+    public function hasRole($role)
+    {
+        return null !== $this->roles()->where('name', $role)->first();
+    }
 
     /**
      * Get only active Users
