@@ -48,7 +48,9 @@
                                 }
                             </script>
                             <div>
-                                <input type="button" class="btn btn-info" style="cursor: help;" value="Show Url" title="For use for promotions or on social media." onclick="Copy();" />
+                                <input type="button" class="btn btn-info"
+                                       style="cursor: help;background-color: #0099CC;" value="Show Url"
+                                       title="For use for promotions or on social media." onclick="Copy();"/>
                                 <input type="text" id="urlCopied" size="80"/><br />
                                 <small>
                                     Click the button to display the URL and copy it to your clipboard. Share your
@@ -56,7 +58,8 @@
                                     your business website.  Outside organizations can submit requests online that will
                                     automatically be filtered by your donation preferences.
                                 </small><br />
-                                <input type="button" class="btn btn-info"style="cursor: help;" value="Show Embedded Form Code"
+                                <input type="button" class="btn btn-info"
+                                       style="cursor: help;background-color: #0099CC;" value="Show Embedded Form Code"
                                        title="Insert this HTML code in your business website to allow outside organizations to fill out a donation request form.."
                                        onclick="GenerateDRForm();" /><br />
                                 <div style="background-color: #DDDDDD"><xmp id="embeddedCode"></xmp></div>

@@ -30,7 +30,7 @@
                                    
                                     <td style="vertical-align: middle"><a href="
                                     {{action('EmailTemplateController@edit', ['id' => encrypt($email_template->id)])}}
-                                    " class="btn btn-info btn-lg"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                " class="btn savebtn" style="background-color: #0099CC;">Edit</a></td>
                                 </tr>
                                 @endforeach
 

@@ -24,7 +24,8 @@
                         <h1 style="">Manage Business Locations </h1>
                         @if ($subscriptionQuantity=='101' || ($count < $subscription))
                             <a href="{{action('OrganizationController@createOrganization')}}" class="btn savebtn"
-                               style="position: absolute; top: 26px; right:32px;">[+] Add Business Location </a>
+                               style="position: absolute; top: 26px; right:32px;background-color: #0099CC;">[+] Add
+                                Business Location </a>
 
                         @endif
 
@@ -108,7 +109,7 @@
                                     <td style="vertical-align: middle">{{'$'}}{{ $loggedOnUserOrganization[0]->monthly_budget}}</td>
                                     <td style="vertical-align: middle"><a
                                                 href="{{route('organizations.edit',encrypt($loggedOnUserOrganization[0]->id))}}"
-                                                class="btn savebtn">Edit</a></td>
+                                                class="btn savebtn" style="background-color: #0099CC;">Edit</a></td>
                                 </tr>
                                 </tbody>
                             </table>

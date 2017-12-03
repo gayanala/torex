@@ -130,7 +130,9 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Save', ['class' => 'btn savebtn', 'id' => 'btnSave']) !!}
-                                <button id="btnEdit" class="btn savebtn" type="button">Edit</button>
+                                <button id="btnEdit" class="btn savebtn" style="background-color: #0099CC;"
+                                        type="button">Edit
+                                </button>
                                 <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>

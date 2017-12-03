@@ -7,8 +7,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">MANAGEMENT
-                        DASHBOARD</h1>
+                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">TAGG DASHBOARD</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -184,7 +183,7 @@
                         <div class="panel-heading" style="background-color: #b69da8;">
                             <div class="row">
                                 <div class="col-xs-3" style="padding-bottom: 15px;">
-                                    <i class="fa fa-users fa-5x" style="color: white"></i>
+                                    <i class="fa fa-line-chart fa-5x" style="color: white"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div style="color: white;font-size: 15px;font-weight: bolder;"> AVERAGE AMOUNT
