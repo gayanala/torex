@@ -22,7 +22,7 @@
                 <td>{{ $securityquestion->question1}}</td>
                 <td>{{ $securityquestion->answer1 }}</td>
                 <td><a href="{{route('insertcheck', Auth::id())}}" class="btn savebtn">Check</a></td>
-                {{--<td><a href="{{route('securityquestions.edit',$securityquestion->id)}}" class="btn btn-warning">Update</a></td>--}}
+                {{--<td><a href="{{route('securityquestions.edit',$securityquestion->id)}}" class="btn updatebtn">Update</a></td>--}}
                 <td>
                     {!! Form::open(['method' => 'DELETE', 'route'=>['securityquestions.destroy', $securityquestion->id]]) !!}
                     {!! Form::submit('Delete', ['class' => 'btn backbtn']) !!}

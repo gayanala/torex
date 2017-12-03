@@ -24,7 +24,7 @@
         <div id="builder-plugins"></div>
         <div class="btn-group">
             <button class="btn btn-error parse-json" data-target="plugins">Preview Rules</button>
-            <button class="btn btn-warning reset" data-target="plugins">Clear Rules</button>
+            <button class="btn backbtn reset" data-target="plugins">Clear Rules</button>
             <button class="btn btn-success set-json" data-target="plugins">Reset Rules</button>
             <button class="btn savebtn parse-json" data-target="plugins">Save (Show) Rules</button>
         </div>

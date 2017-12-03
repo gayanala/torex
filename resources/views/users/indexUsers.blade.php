@@ -42,7 +42,7 @@
 
                                 <td style="vertical-align: middle"><a href="{{route('edituser',encrypt($user->id))}}"
 
-                                                                      class="btn btn-warning"> Edit </a>
+                                                                      class="btn savebtn"> Edit </a>
                                 </td>
                             </tr>
                             @endforeach

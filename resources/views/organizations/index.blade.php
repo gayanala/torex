@@ -108,7 +108,7 @@
                                     <td style="vertical-align: middle">{{'$'}}{{ $loggedOnUserOrganization[0]->monthly_budget}}</td>
                                     <td style="vertical-align: middle"><a
                                                 href="{{route('organizations.edit',encrypt($loggedOnUserOrganization[0]->id))}}"
-                                                class="btn btn-warning">Edit</a></td>
+                                                class="btn savebtn">Edit</a></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -146,7 +146,7 @@
                                         <td style="vertical-align: middle">{{'$'}}{{ $organization['monthly_budget']}}</td>
                                         <td style="vertical-align: middle"><a
                                                     href="{{route('organizations.edit',encrypt($organization->id))}}"
-                                                    class="btn btn-warning">Edit</a>
+                                                    class="btn savebtn">Edit</a>
                                         </td>
                                         <td style="vertical-align: middle">
                                             {{ Form::open([
