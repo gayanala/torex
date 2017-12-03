@@ -65,10 +65,18 @@ class OrganizationController extends Controller
                 dd($validator);
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-            dd($request->all());
-            $organizationUpdate = $request->all();
 
-            Organization::find($id)->update($organizationUpdate);
+            $organization = Organization::find($id);
+            $organization->org_name = $request->org_name;
+            $organization->org_description = $request->org_description;
+            $organization->street_address1 = $request->street_address1;
+            $organization->street_address2 = $request->street_address2;
+            $organization->city = $request->city;
+            $organization->state = $request->state;
+            $organization->zipcode = $request->zip_code;
+            $organization->phone_number = $request->phone_number;
+            dd($organization);
+            $organization->save();
 
             $childOrganizations = ParentChildOrganizations::active()->where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
             //dd($childOrganizations);
