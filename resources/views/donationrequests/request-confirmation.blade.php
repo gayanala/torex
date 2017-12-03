@@ -48,6 +48,11 @@
     <h4 style="text-align:center;font-size:150%;">Thank You</h4>
 
     <div align="center"  >
+        <script>
+            if (window.self !== window.top) {
+                $("#closeinIfr").hide();
+            }
+        </script>
         <button class="closeDonationBtn"  onclick="self.close()">Close</button>
     </div>
 </div>
