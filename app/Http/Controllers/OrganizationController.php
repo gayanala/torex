@@ -70,23 +70,22 @@ class OrganizationController extends Controller
 
             $childOrganizations = ParentChildOrganizations::active()->where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
             Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
+        }
             //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
             //Organization::find($id)->update($);
 
-
-
-            if ($id == Auth::user()->organization_id) {
+        if ($id == Auth::user()->organization_id) {
+            return redirect('organizations');
+        }
+        elseif ($ParentOrgId = ParentChildOrganizations::active()->where('child_org_id', $id)->first()->parent_org_id) {
+            if (Auth::user()->organization_id = $ParentOrgId) {
                 return redirect('organizations');
             }
-            elseif ($ParentOrgId = ParentChildOrganizations::active()->where('child_org_id', $id)->first()->parent_org_id) {
-                if (Auth::user()->organization_id = $ParentOrgId) {
-                    return redirect('organizations');
-                }
-            }
-            else {
-                return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
-            }
         }
+        else {
+            return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
+        }
+
     }
 
 
