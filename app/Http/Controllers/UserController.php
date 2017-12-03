@@ -284,7 +284,7 @@ class UserController extends Controller
         $admin = Auth::user();
         $arr = ParentChildOrganizations::active()->where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
-        $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
+        $users = User::active()->whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
 
         return view('users.indexUsers', compact('users', 'admin'));
     }
@@ -292,7 +292,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->update(['active' => Constant::INACTIVE]);
-        return redirect('users');
+        return redirect('users.indexUsers');
     }
 
     protected function getRoles()
