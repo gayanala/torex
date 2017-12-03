@@ -22,25 +22,49 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h1 style="">Manage Business Locations </h1>
+                        @if ($subscriptionQuantity=='101' || ($count < $subscription))
+                            <a href="{{action('OrganizationController@createOrganization')}}" class="btn btn-primary"
+                               style="position: absolute; top: 26px; right:32px;">[+] Add Business Location </a>
+
+                        @endif
+
                     </div>
                     <div class="panel-body">
-
                         <div class="panel panel-default">
 
                             @if ($subscriptionQuantity=='101')
                                 <div class="panel-heading">
+                                    @if($subscriptionEnds == '')
+                                        <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                                           class="btn btn-primary pull-right" style="" id="cancel">
+                                            Cancel Subscription
+                                        </a>
+                                    @else
+
+                                        <a href="{{ URL::action('SubscriptionController@resume') }}"
+                                           class="btn btn-primary pull-right" style="" id="resume">
+                                            Resume Subscription
+                                        </a>
+                                    @endif
                                     <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-                                    <a href="{{action('OrganizationController@createOrganization')}}"
-                                       class="btn btn-primary pull-right"> [+] Add </a>
                                     <h1 style="text-align: center;width: 50%;">Unlimited Locations can be added</h1>
                                 </div>
                             @elseif ($count < $subscription)
                                 <div class="panel-heading">
-                                    <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-                                    <a href="{{action('OrganizationController@createOrganization')}}"
-                                       class="btn btn-primary pull-right"> [+] Add </a>
-                                    <h1 style="text-align: center;width: 50%;">You account allows
+                                    @if($subscriptionEnds == '')
+                                        <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                                           class="btn btn-primary pull-right" style="" id="cancel">
+                                            Cancel Subscription
+                                        </a>
+                                    @else
+                                        <a href="{{ URL::action('SubscriptionController@resume') }}"
+                                           class="btn btn-primary pull-right" style="" id="resume">
+                                            Resume Subscription
+                                        </a>
+                                    @endif
+                                    <h1 style="text-align: left;">Your account allows
                                         for {{$subscriptionQuantity}} locations. You have used {{$count + 1}}.</h1>
+
                                 </div>
                             @else
                                 <div class="alert alert-info">Plan limit includes the parent organization and the limit
@@ -68,7 +92,7 @@
                                     <th class="text-center">Address</th>
                                     <th class="text-center">Phone Number</th>
                                     <th class="text-center">Monthly Budget</th>
-                                    <th class="text-center" colspan="2"></th>
+                                    <th class="text-center" colspan="2">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -103,7 +127,7 @@
                                     <th class="text-center">Address</th>
                                     <th class="text-center">Phone Number</th>
                                     <th class="text-center">Monthly Budget</th>
-                                    <th class="text-center" colspan="2"></th>
+                                    <th class="text-center" colspan="2">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -140,21 +164,6 @@
                         </div>
 
 
-                        <div class="panel-body">
-                            @if($subscriptionEnds == '')
-                                <a href="{{ URL::action('SubscriptionController@cancel') }}"
-                                   class="btn btn-primary pull-right" style="" id="cancel">
-                                    Cancel Subscription
-                                </a>
-                            @else
-
-                                <a href="{{ URL::action('SubscriptionController@resume') }}"
-                                   class="btn btn-primary pull-right" style="" id="resume">
-                                    Resume Subscription
-                                </a>
-                            @endif
-
-                        </div>
 
 
                     </div>
