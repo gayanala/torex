@@ -22,7 +22,7 @@ class OrganizationController extends Controller
     {
         $organizationId = Auth::user()->organization_id;
         $loggedOnUserOrganization = Organization::where('id', '=', $organizationId)->get();
-        $childOrganizationIds = ParentChildOrganizations::where('parent_org_id', '=', $organizationId)->pluck('child_org_id');
+        $childOrganizationIds = ParentChildOrganizations::active()->where('parent_org_id', '=', $organizationId)->pluck('child_org_id');
         $childOrganizations = Organization::active()->whereIn('id', $childOrganizationIds)->get();
 
         $count = $childOrganizations->count();
@@ -64,12 +64,11 @@ class OrganizationController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-dd('67');
             $organizationUpdate = $request->all();
 
             Organization::find($id)->update($organizationUpdate);
 
-            $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
+            $childOrganizations = ParentChildOrganizations::active()->where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
             //dd($childOrganizations);
             Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
             //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
@@ -80,7 +79,7 @@ dd('67');
             if ($id == Auth::user()->organization_id) {
                 return redirect('organizations');
             }
-            elseif ($ParentOrgId = ParentChildOrganizations::where('child_org_id', $id)->first()->parent_org_id) {
+            elseif ($ParentOrgId = ParentChildOrganizations::active()->where('child_org_id', $id)->first()->parent_org_id) {
                 if (Auth::user()->organization_id = $ParentOrgId) {
                     return back();
                 }
@@ -182,8 +181,8 @@ dd('67');
     protected function getAllMyOrganizationIds()
     {
         $organization = Auth::user()->organization;
-        $arr = ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
-        $arr = Organization::active()->whereIn('id', $arr)->pluck('id')->toArray();
+        $arr = ParentChildOrganizations::active()->where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
+        //$arr = Organization::active()->whereIn('id', $arr)->pluck('id')->toArray();
         array_push($arr, $organization->id);
         return $arr;
     }

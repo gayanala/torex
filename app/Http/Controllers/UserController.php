@@ -41,7 +41,7 @@ class UserController extends Controller
         $roles = $this->getRoles();
         $authOrganizationId = Auth::user()->organization_id;
 
-        $organizationsIds = ParentChildOrganizations::where('parent_org_id', $authOrganizationId)->pluck('child_org_id')->toArray();
+        $organizationsIds = ParentChildOrganizations::active()->where('parent_org_id', $authOrganizationId)->pluck('child_org_id')->toArray();
 
         array_push($organizationsIds, $authOrganizationId);
 
@@ -67,7 +67,7 @@ class UserController extends Controller
     {
         $organizationId = Auth::user()->organization_id;
         $admin = Auth::user();
-        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        $arr = ParentChildOrganizations::active()->where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
         $users = User::active()->whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();//dd($users[0]->id);//dd($users[0]->roles[0]->name);
         return view('users.indexUsers', compact('users', 'admin'));
@@ -252,7 +252,7 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
         $organizationId = Auth::user()->organization_id;
-        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        $arr = ParentChildOrganizations::active()->where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
         $orgNames = Organization::whereIn('id', $arr)->pluck('org_name', 'id');
 
@@ -282,7 +282,7 @@ class UserController extends Controller
 
         $organizationId = Auth::user()->organization_id;
         $admin = Auth::user();
-        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        $arr = ParentChildOrganizations::active()->where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
         $users = User::whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
 
