@@ -109,7 +109,7 @@ class RuleEngineController extends Controller
     public function runRuleOnSubmit(DonationRequest $donationRequest)
     {
         // This will execute the rule workflow for a donation request using the rules of the organization it was Constant::SUBMITTED to.
-        $parentOrg = ParentChildOrganizations::query()->where('child_org_id', $donationRequest->organization_id)->get(['parent_org_id'])->first();
+        $parentOrg = ParentChildOrganizations::active()->where('child_org_id', $donationRequest->organization_id)->get(['parent_org_id'])->first();
         If ($parentOrg) {
             $ruleOwner = $parentOrg->parent_org_id;
         } else {

@@ -88,7 +88,8 @@
                         <div class="form-group">
                             <label for="org_name" class="col-md-4 control-label"> Business Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                                {!! Form::text('org_name',null,['class' => 'form-control', 'required']) !!}
+                                <input id="org_name" type="text" class="form-control" name="org_name"
+                                       value="{{ old('org_name', $organization->org_name) }}" required >
                             </div>
                         </div>
 
@@ -124,17 +125,26 @@
 
                         <div class="form-group">
                             <label for="street_address1" class="col-md-4 control-label"> Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">{!! Form::text('street_address1',null,['class' => 'form-control', 'required']) !!}</div>
+                            <div class="col-lg-6">
+                                <input id="street_address1" type="text" class="form-control" name="street_address1" required
+                                       value="{{ old('street_address1', $organization->street_address1) }}">
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label for="street_address2" class="col-md-4 control-label"> Address 2 </label>
-                            <div class="col-lg-6">   {!! Form::text('street_address2', null,['class'=>'form-control']) !!}</div>
+                            <div class="col-lg-6">
+                                <input id="street_address2" type="text" class="form-control" name="street_address2"
+                                       value="{{ old('street_address2', $organization->street_address2) }}"  >
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label for="city" class="col-md-4 control-label">City <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">{!! Form::text('city',null,['class' => 'form-control', 'required']) !!}</div>
+                            <div class="col-lg-6">
+                                <input id="city" type="text" class="form-control" name="city"
+                                       value="{{ old('city', $organization->city) }}" required >
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -142,7 +152,7 @@
 
                             <div class="col-md-6">
 
-                                {!! Form::select('state', array(null => 'Select...') + $states->all(), null, ['class'=>'form-control']) !!}
+                                {!! Form::select('state', array(null => 'Select...') + $states->all(), old('state'), ['class'=>'form-control']) !!}
 
                                 @if ($errors->has('state'))
                                     <span class="help-block">
@@ -152,17 +162,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
-                            <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'maxlength' => 5,'id'=>'zipcode','required']) !!}</div>
+                        <div class="form-group{{ $errors->has('zip_code') ? ' has-error' : '' }}">
+                            <label for="zip_code" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">
+                                <input id="zip_code" type="text" class="form-control" name="zip_code"
+                                       value="{{ old('zip_code', $organization->zipcode) }}" maxlength="5" required >
+                            </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : ''}}">
                             <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                            {!! Form::text('phone_number',null,['class' => 'form-control', 'id'      => 'phone_number' ,'required']) !!}
-
-
+                                <input id="phone_number" type="text" class="form-control" name="phone_number"
+                                       value="{{ old('phone_number', $organization->phone_number) }}" required >
                             </div>
                         </div>
 
@@ -182,6 +194,7 @@
         </div>
         @if (Auth::user()->organization_id == $organization->id)
 <script>
+    @if (! $errors->any())
     $(window).load(function() {
         $("input").attr("readonly", true);
         $("select").attr("disabled", true);
@@ -189,13 +202,14 @@
         $("#btnCancel").addClass("hidden");
         $('#btnEdit').removeClass('hidden');
     });
+    @endif
     $('#btnEdit').on('click', function () {
         $('input').removeAttr('readonly');
         $('select').removeAttr('disabled');
         $('#btnSave').removeClass('hidden');
         $('#btnEdit').addClass('hidden');
     });
-    $("#zipcode").on('keypress', function (e) {
+    $("#zip_code").on('keypress', function (e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
             //display error message
             return false;
