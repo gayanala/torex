@@ -54,15 +54,12 @@ class OrganizationController extends Controller
     public function update(Request $request, $id)
     {
         if (in_array($id, $this->getAllMyOrganizationIds())) {
-            //dd($id);
             $validator = Validator::make($request->all(), [
                 'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
                 'zip_code' => 'required|regex:/[0-9]{5}/',
                 'state' => 'required',
             ]);
-//dd($validator->fails());
             if ($validator->fails()) {
-                dd($validator);
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
@@ -81,8 +78,6 @@ class OrganizationController extends Controller
             //$childOrganizations = ParentChildOrganizations::active()->where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
             //dd($childOrganizations);
             //Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
-            //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
-            //Organization::find($id)->update($);
 
 
 
