@@ -14,6 +14,14 @@
 
 @endsection
 @section('content')
+    <style>
+
+    tbody
+    {
+       outline: thin solid #bdbdbd;
+
+    }
+    </style>
     <br>
     <script>
         $(document).ready(function () {
@@ -21,8 +29,9 @@
         });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group" style="padding-left: 30px;padding-right: 30px">
-    <div class="row">
+
+
+    <div class="panel-body col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
         <!--<section class="bs-docs-section clearfix"> -->
         {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
@@ -32,12 +41,24 @@
             <br/>
             {{ csrf_field() }}
 
+            <table width="100%" class="table">
+
+                <tr>
+                    <td align="center" bgcolor="#f5f5f5">
 
 
-                <table width="100%" style="background-color:#bbdefb">
+                        <h1><label>Donation Preference Settings</label></h1>
+
+
+                    </td>
+                </tr>
+
+            </table>
+
+                <table width="100%">
 
                     <tr>
-                        <td align="left" bgcolor="#bbdefb" style="padding-left: 10px;padding-top: 0px">
+                        <td align="left" bgcolor="#f5f5f5" style="padding-left: 10px" >
 
 
                             <h1><label>Basic Settings</label></h1>
@@ -47,14 +68,13 @@
                     </tr>
 
                 </table>
-
-
-                <table width="100%" style="background-color:#e3f2fd" frame="border" bordercolor="#bbdefb">
+                <table width="100%" style="background-color:#fafafa">
                     <tr>
+                        <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td align="center" style="border:#bbdefb">
+                        <td align="center" style="background-color:#fafafa">
                             <label style="cursor: help;"
                                    title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
                                 Monthly Budget:</label>&nbsp;
@@ -66,7 +86,7 @@
                         </td>
 
 
-                        <td colspan="10" align="center">
+                        <td align="center">
                             <label style="cursor: help;"
                                    title="Enter your minimum days notice. Requests that need to be fulfilled before your business can fulfill them will be automatically declined.">
                                 Required Days Notice: &nbsp;</label>
@@ -104,40 +124,35 @@
 
 
                 <br>
-                <table width="100%" style="background-color:#bbdefb">
+                <table width="100%">
                     <tr>
-                        <td align="left" bgcolor="#bbdefb " style="padding-left: 10px;padding-top: -10px;vertical-align:center">
+                        <td align="left" bgcolor="#f5f5f5" style="padding-left: 10px" >
 
                             <h1><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
                         </td>
-                        <td align="center" bgcolor="#bbdefb" style="padding-right: 10px;padding-top: 0px">
+                        <td align="center" bgcolor="#f5f5f5" style="padding-right: 10px;padding-top: 0px">
                         @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
                                  <a href="{{url('/help') }}" target="pdf-frame">
-                                        <h5 align="right" vertical-align="middle" style="color: #ff9100"><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
+                                        <h5 align="right" vertical-align="middle"><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
                                     </a>
                        </td>
                     </tr>
                 </table>
 
-                <table width="100%" style="background-color:#e3f2fd" frame="border" bordercolor="#bbdefb">
+                <table width="100%" style="background-color:#fafafa">
                     <tr>
                         <td colspan="4">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td align="right">
-                            <a href="{{url('/help') }}" target="pdf-frame">
-                                <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u>
-                                </h5>
-                            </a>
-                        </td>
-                        <td align="right">
+
+                        <td align="right" style="padding-right: 20px" >
                             <label for="ddlRuleType">Select Rule To Edit:</label>
                         </td>
 
                         <td>
                             &nbsp;
                         </td>
-                        <td width="50%">
+                        <td width="50%" align="left">
                             {!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType', 'name'=>'ddlRuleType']) !!}
                         </td>
                     </tr>
@@ -145,6 +160,7 @@
                         <td colspan="4">&nbsp;</td>
                     </tr>
                 </table>
+            </form>
             </div>
             <!--<Rules help in new window/tab>  -->
 
