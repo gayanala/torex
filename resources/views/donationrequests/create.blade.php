@@ -3,20 +3,9 @@
     <br>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/iframe-resizer@3.5.15/js/iframeResizer.contentWindow.min.js"></script>
+    <script type="text/javascript"
+            src="https://unpkg.com/iframe-resizer@3.5.15/js/iframeResizer.contentWindow.min.js"></script>
 
-    <script type="text/javascript">
-        function yesnoCheck() {
-            if (document.getElementById('yesCheck').checked) {
-                $('#file_upload').show();
-                $('#attachment').prop('required');
-            }
-            else {
-                $('#file_upload').hide();
-                $('#attachment').removeProp('required');
-            }
-        }
-    </script>
 
     <script>
         $(window).load(function () {
@@ -26,16 +15,16 @@
                 greedy: false,
                 definitions: {'#': {validator: "[0-9]", cardinality: 1}}
             });
-            if ( "{!! ! empty($_GET['newrequest']) !!}" != "" ) {
+            if ("{!! ! empty($_GET['newrequest']) !!}" != "") {
                 $('#app').hide();
                 $('#navDemo').wrap('<span style="display: none;" hidden />');
             }
-            
+
         });
 
 
     </script>
-{{ csrf_field() }}
+    {{ csrf_field() }}
 
     <div class="container">
         <div class="row">
@@ -137,18 +126,19 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
-                           <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                                <div class="col-md-6">
-                                    <input id="phone_number" type="tel" class="form-control"
-                                           name="phone_number"  value="{{ old('phone_number') }}" required
-                                           >
-                                    @if ($errors->has('phone_number'))
-                                        <span class="help-block">
+                            <label for="phone_number" class="col-md-4 control-label">Phone Number <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-md-6">
+                                <input id="phone_number" type="tel" class="form-control"
+                                       name="phone_number" value="{{ old('phone_number') }}" required
+                                >
+                                @if ($errors->has('phone_number'))
+                                    <span class="help-block">
                                         <strong>{{ $errors->first('phone_number') }}</strong>
                                     </span>
-                                    @endif
-                                </div>
+                                @endif
                             </div>
+                        </div>
 
                         <div class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
                             <label for="address1" class="col-md-4 control-label">Address 1 <span
@@ -234,7 +224,8 @@
                                            value="1">Yes
                                 </label>
                                 <label for="chkNo">
-                                    <input type="radio" onclick="yesnoCheck();" name="tax_exempt" id="noCheck" value="0">No
+                                    <input type="radio" onclick="yesnoCheck();" name="tax_exempt" id="noCheck"
+                                           value="0">No
                                 </label>
                                 @if ($errors->has('tax_exempt'))
                                     <span class="help-block">
@@ -246,7 +237,8 @@
 
                         <div class="form-group{{ $errors->has('attachment') ? ' has-error' : '' }}" id="file_upload">
                             <label for="attachment" class="col-md-4 control-label">Attachment <span
-                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label><small>Supported File Types: doc, docx, pdf, jpeg, png, jpg, svg</small>
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <small>Supported File Types: doc, docx, pdf, jpeg, png, jpg, svg</small>
                             <div class="col-md-4">
                                 <input type="file" class="form-control" name="attachment" id="attachment">
                                 @if ($errors->has('attachment'))
@@ -289,7 +281,8 @@
                             <label for="dollar_amount" class="col-md-4 control-label">Dollar Amount<span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                             <div class="col-md-6">
-                                <input id="dollar_amount" type="number" min="0.00" step="0.01" pattern="\d+(\.\d{2})" required
+                                <input id="dollar_amount" type="number" min="0.00" step="0.01" pattern="\d+(\.\d{2})"
+                                       required
                                        title="Please use the format $.$$ for this field. " class="form-control"
                                        name="dollar_amount" value="{{ old('dollar_amount') }}"
                                        onblur="setTwoNumberDecimal(this)"
@@ -319,7 +312,7 @@
                         <div class="form-group" id="explain_purpose">
                             <div class="col-md-4">
 
-                             </div>
+                            </div>
 
                             <div class="col-md-6">
                                 <textarea name="item_purpose_explain" id="item_purpose_explain" class="form-control"
@@ -328,7 +321,7 @@
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
                                           placeholder="Explain your donation Purpose within 200 characters"
-                                           ></textarea>
+                                ></textarea>
 
                             </div>
                         </div>
@@ -401,7 +394,8 @@
                             <label for="formAttendees" class="col-md-4 control-label">Estimated Number of Attendees<span
                                         style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
                             <div class="col-md-6">
-                                <input id="formAttendees" type="number" step="1" class="form-control" name="formAttendees"
+                                <input id="formAttendees" type="number" step="1" class="form-control"
+                                       name="formAttendees"
                                        value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees">
 
                                 @if ($errors->has('formAttendees'))
@@ -433,7 +427,12 @@
                             </label>
 
                             <div class="col-md-6">
-                                <textarea placeholder="Explain how you will let others know my business has contributed to your cause" class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]" maxlength="1000" title="Please restrict your Text Length to 1000 characters" name="marketingopportunities" rows="5" value="{{ old('marketingopportunities') }}"></textarea>
+                                <textarea
+                                        placeholder="Explain how you will let others know my business has contributed to your cause"
+                                        class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]"
+                                        maxlength="1000" title="Please restrict your Text Length to 1000 characters"
+                                        name="marketingopportunities" rows="5"
+                                        value="{{ old('marketingopportunities') }}"></textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
@@ -455,14 +454,33 @@
                         </div>
                         {!! Form::close() !!}
                     </div>
-                    <span data-iframe-height />
+                    <span data-iframe-height/>
                 </div>
             </div>
         </div>
     </div>
-
     <script>
+        @if (! $errors->any())
+        $('#file_upload').hide();
         $('#explain').hide();
+        $('#explain_purpose').hide();
+        @endif
+    </script>
+    <script type="text/javascript">
+        $('#attachment').removeProp('required');
+
+        function yesnoCheck() {
+            if (document.getElementById('yesCheck').checked) {
+                $('#file_upload').show();
+                $('#attachment').prop('required');
+            }
+            else {
+                $('#file_upload').hide();
+                $('#attachment').removeProp('required');
+            }
+        }
+    </script>
+    <script>
         $('#item_requested').change(function () {
             if ($(this).val() == 5) {
                 $('#explain').show();
@@ -471,7 +489,6 @@
                 $('#item_requested_explain').val('');
             }
         });
-        $('#explain_purpose').hide();
         $('#item_purpose').change(function () {
             if ($(this).val() == 9) {
                 $('#explain_purpose').show();
@@ -480,9 +497,11 @@
                 $('#item_purpose_explain').val('');
             }
         });
+
         function setTwoNumberDecimal(e) {
             e.value = parseFloat(e.value).toFixed(2);
         }
+
         $('#btnSubmit').on('click', function () {
             if (document.getElementById('yesCheck').checked) {
                 if ($('#attachment')[0].files.length === 0) {
@@ -491,7 +510,7 @@
                 }
                 else {
                     //alert("Checked: true, Attachment: true");
-                        $('#hiddenSubmit').click();
+                    $('#hiddenSubmit').click();
                 }
             }
             else {
