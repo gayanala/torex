@@ -22,7 +22,7 @@
 
     }
     </style>
-    
+
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();
@@ -108,6 +108,7 @@
                         <td colspan="10" align="center"><br></td>
                     </tr>
                 </table>
+                </div>
         </form>
             </div>
 
@@ -121,7 +122,7 @@
             {{ csrf_field() }}
 
 
-                <br>
+
                 <table width="100%">
                     <tr>
                         <td align="left" bgcolor="#f5f5f5" style="padding-left: 10px" >
@@ -167,7 +168,7 @@
             <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
             <div class="col-md-12 col-lg-10 col-lg-offset-1">
                 <div id="builder-plugins" style="background-color:#bbdefb"></div>
-                <div class="btn-group">
+                <div class="btn-group" style="text-align: center; margin: 0 auto;">
                     <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
                     <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
                     <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
@@ -184,11 +185,9 @@
                             class="btn btn-default">Run Required Days Notice
                     </button>--}}
                 </div>
-                <br/>
+
                 <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
-                <br/>
-                <br/>
-                <br/>
+
                 <!-- <div id="querybuilder"></div> -->
             </div>
 
