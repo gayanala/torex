@@ -21,7 +21,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h1 style="">Manage Business Locations </h1>
+                        <h1 class="page-header text-center">Manage Business Locations </h1>
                         @if ($subscriptionQuantity=='101' || ($count < $subscription))
                             <a href="{{action('OrganizationController@createOrganization')}}" class="btn savebtn"
                                style="position: absolute; top: 26px; right:32px;background-color: #0099CC;">[+] Add

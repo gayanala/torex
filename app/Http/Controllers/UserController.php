@@ -57,7 +57,7 @@ class UserController extends Controller
                 $organizationStatusArray['child_' . $value] = $organizationName;
             }
 
-    }
+        }
 
         return view('users.show', compact('roles', 'organizationStatusArray'));
 
@@ -245,22 +245,38 @@ class UserController extends Controller
         Return redirect('user/editprofile')->with('messages', $messages);
     }
 
-    public function editsubuser($id)
+    public function editSubUser($id)
     {
         $id = decrypt($id);
         $roles = $this->getRoles();
 
         $user = User::findOrFail($id);
-        $organizationId = Auth::user()->organization_id;
-        $arr = ParentChildOrganizations::active()->where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
-        array_push($arr, $organizationId);
-        $orgNames = Organization::whereIn('id', $arr)->pluck('org_name', 'id');
+        $authOrganizationId = Auth::user()->organization_id;
+
+        $organizationsIds = ParentChildOrganizations::active()->where('parent_org_id', $authOrganizationId)->pluck('child_org_id')->toArray();
+        array_push($organizationsIds, $authOrganizationId);
+
+//        $orgNames = Organization::whereIn('id', $organizationsIds)->pluck('org_name', 'id');
 
         $states = State::pluck('state_name', 'state_code');
-        return view('users.editsubuser', compact('user', 'orgNames', 'roles'))->with('states', $states);
+
+        $organizationStatusArray = [];
+
+        foreach ($organizationsIds as $key => $value) {
+
+            $organizationName = Organization::findOrFail($value)->org_name;
+            if ( $value == $authOrganizationId ) {
+                $organizationStatusArray['parent_' . $value] = $organizationName;
+            } else {
+                $organizationStatusArray['child_' . $value] = $organizationName;
+            }
+
+        }
+
+        return view('users.editsubuser', compact('user', 'organizationStatusArray', 'roles'))->with('states', $states);
     }
 
-    public function updatesubuser(Request $request)
+    public function updateSubUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => [
