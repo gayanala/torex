@@ -79,19 +79,21 @@ class OrganizationController extends Controller
             //dd($childOrganizations);
             //Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
 
-
-
-            if ($id == Auth::user()->organization_id) {
-                return redirect('organizations');
-            }
-            elseif ($ParentOrgId = ParentChildOrganizations::active()->where('child_org_id', $id)->first()->parent_org_id) {
-                if (Auth::user()->organization_id == $ParentOrgId) {
-                    return redirect('organizations');
-                }
-            }
-            else {
-                return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
-            }
+            // If user is parent organization and try to edit a parent organization then redirect to organizations page
+            // If user is parent organization and try to edit a child organization then redirect to organizations page
+            // If user is x then redirect to xpage
+//            if ($id == Auth::user()->organization_id) {
+//                return redirect('organizations');
+//            }
+//            elseif ($ParentOrgId = ParentChildOrganizations::active()->where('child_org_id', $id)->first()->parent_org_id) {
+//                if (Auth::user()->organization_id == $ParentOrgId) {
+//                    return redirect('organizations');
+//                }
+//            }
+//            else {
+//                return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
+//            }
+            return redirect('organizations');
         }
     }
 
