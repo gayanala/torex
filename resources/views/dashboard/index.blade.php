@@ -170,8 +170,10 @@
                                 {{ Form::hidden('page_from', '/dashboard') }}
                                 {{--add if condition to show approve and reject buttons only if there are pending requests and atleast one is selected--}}
                                 @if(sizeOf($donationrequests) != 0)
+                                  <div class="col-md-6 col-md-offset-5">
                                     {!! Form::submit( 'Approve', ['class' => 'btn btn-success', 'name' => 'submitbutton', 'value' => 'approve'])!!}
                                     {!! Form::submit( 'Reject', ['class' => 'btn btn-danger', 'name' => 'submitbutton', 'value' => 'reject']) !!}
+                                  </div>
                                 @endif
                                 {!! Form::close() !!}
                         </div>
