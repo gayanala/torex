@@ -22,7 +22,7 @@ class OrganizationController extends Controller
     {
         $organizationId = Auth::user()->organization_id;
         $loggedOnUserOrganization = Organization::where('id', '=', $organizationId)->get();
-        $childOrganizationIds = ParentChildOrganizations::where('parent_org_id', '=', $organizationId)->pluck('child_org_id');
+        $childOrganizationIds = ParentChildOrganizations::active()->where('parent_org_id', '=', $organizationId)->pluck('child_org_id');
         $childOrganizations = Organization::active()->whereIn('id', $childOrganizationIds)->get();
 
         $count = $childOrganizations->count();
@@ -36,56 +36,57 @@ class OrganizationController extends Controller
     public function edit($id)
     {
         $id = decrypt($id);
-        if (in_array($id, $this->getAllMyOrganizationIds()))
-        {
+        if (in_array($id, $this->getAllMyOrganizationIds())) {
             $organization = Organization::find($id);
             $states = State::pluck('state_name', 'state_code');
             $Organization_types = Organization_type::pluck('type_name', 'id');
             return view('organizations.edit', compact('organization', 'states', 'Organization_types'));
+        } else {
+            return redirect('/home')->withErrors(array('0' => 'You do not have access to view this Business!!'));
         }
-        else
-        {
-            return redirect('/organizations')->withErrors(array('0' => 'You do not have access to view this Business!!'));
-        }
-        //dd($organization);
+
     }
 
 
     public function update(Request $request, $id)
     {
-
-        //dd($request);
-        if (in_array($id, $this->getAllMyOrganizationIds()))
-        {
+        if (in_array($id, $this->getAllMyOrganizationIds())) {
             $validator = Validator::make($request->all(), [
                 'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
-                'zipcode' => 'required|regex:/[0-9]{5}/',
+                'zip_code' => 'required|regex:/[0-9]{5}/',
                 'state' => 'required',
             ]);
-
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $organizationUpdate = $request->all();
+            $organization = Organization::find($id);
+            $organization->org_name = $request->org_name;
+            $organization->org_description = $request->org_description;
+            $organization->street_address1 = $request->street_address1;
+            $organization->street_address2 = $request->street_address2;
+            $organization->city = $request->city;
+            $organization->state = $request->state;
+            $organization->zipcode = $request->zip_code;
+            $organization->phone_number = $request->phone_number;
+            $organization->save();
 
-            Organization::find($id)->update($organizationUpdate);
-
-            $childOrganizations = ParentChildOrganizations::where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
-            //dd($childOrganizations);
-            Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
-            //$request->phone_number = str_replace(array("(", ")", "-", " "), "", ($request->phone_number));
-            //Organization::find($id)->update($);
-
+            // If user is editing their own organization then redirect back to their business profile page
+            // If user is parent organization and try to edit a child organization then redirect to organizations page
+            // else redirect users to home page with error that access is denied
             if ($id == Auth::user()->organization_id) {
-                return redirect('organizations');
-//                return redirect('organizations/'.encrypt($id).'/edit');
+                return redirect()->route('organizations.edit', encrypt($id));
+            } elseif ($ParentOrgId = ParentChildOrganizations::active()->where('child_org_id', $id)->first()->parent_org_id) {
+                if (Auth::user()->organization_id == $ParentOrgId) {
+                    return redirect('organizations');
+                }
+            } else {
+                return redirect('home')->withErrors(array('0' => 'You do not have access to change this Business!!'));
             }
-
         } else {
-            return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
+            return redirect('home')->withErrors(array('0' => 'You do not have access to change this Business!!'));
         }
-
+        return redirect('home')->withErrors(array('0' => 'You do not have access to change this Business!!'));
     }
 
 
@@ -99,10 +100,6 @@ class OrganizationController extends Controller
             'state' => 'required|string|max:255',
             'zipcode' => 'required|regex:/[0-9]{5}/',
             'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
-
-            /*'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|confirmed|string|min:6|',*/
         ]);
     }
 
@@ -143,13 +140,11 @@ class OrganizationController extends Controller
         $organization->state = $request['state'];
         $organization->zipcode = $request['zipcode'];
         $organization->phone_number = $request['phone_number'];
-        $organization->save();
-
         $validator = $this->validatorLocation($organization);//dd($validator);
-        if ($validator -> fails())
-        {
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        $organization->save();
 
         // Inserting the relation between parent organization and child organization
         ParentChildOrganizations::create(['parent_org_id' => Auth::user()->organization_id, 'child_org_id' => $organization->id]);
@@ -160,17 +155,14 @@ class OrganizationController extends Controller
 
     public function destroy($id)
     {
-        if (in_array($id, $this->getAllMyOrganizationIds()))
-        {
+        if (in_array($id, $this->getAllMyOrganizationIds())) {
             $organization = Organization::find($id);
             $organization->active = Constant::INACTIVE;
             $organization->save();
             $users = User::active()->where('organization_id', $id);
             $users->update(['active' => Constant::INACTIVE]);
             return redirect()->back()->with('message', 'Successfully deactivated the Business Location');
-        }
-        else
-        {
+        } else {
             return redirect('organizations')->withErrors(array('0' => 'You do not have access to remove this Business!!'));
         }
     }
@@ -179,8 +171,8 @@ class OrganizationController extends Controller
     protected function getAllMyOrganizationIds()
     {
         $organization = Auth::user()->organization;
-        $arr = ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
-        $arr = Organization::active()->whereIn('id', $arr)->pluck('id')->toArray();
+        $arr = ParentChildOrganizations::active()->where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
+        //$arr = Organization::active()->whereIn('id', $arr)->pluck('id')->toArray();
         array_push($arr, $organization->id);
         return $arr;
     }

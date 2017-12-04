@@ -143,7 +143,7 @@
                             @endif
                             @if($donationrequest->est_attendee_count)
                                 <tr>
-                                    <td>Estimated Number Of Attendes</td>
+                                    <td>Estimated Number of Attendes</td>
                                     <td><?php echo ($donationrequest['est_attendee_count']); ?></td>
                                 </tr>
                             @endif
@@ -169,7 +169,7 @@
                     {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
                         {{ csrf_field() }}
                         @if ($donationrequest->approval_status_id == \App\Custom\Constant::SUBMITTED OR $donationrequest->approval_status_id == \App\Custom\Constant::PENDING_REJECTION OR $donationrequest->approval_status_id == \App\Custom\Constant::PENDING_APPROVAL)
-                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER) 
+                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                                 <div>
                                     <label for="dollar_amount" class="col-md-3 control-label">Dollar Amount Approval</label>
                                     <div class="col-lg-6">
@@ -184,7 +184,7 @@
                                 {
                                     e.value = '0.00';
                                 }
-                            };
+                            }
                         </script>
                                 <br><br>
                             @endif
@@ -192,17 +192,17 @@
                         <div style="text-align:center">
 
                             @if ($donationrequest->approval_status_id == \App\Custom\Constant::SUBMITTED OR $donationrequest->approval_status_id == \App\Custom\Constant::PENDING_REJECTION OR $donationrequest->approval_status_id == \App\Custom\Constant::PENDING_APPROVAL)
-                                @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER) 
+                                @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                                     <input class="btn active btn-success" type="submit" name="approve" value="Approve">
                                     <input class="btn active btn-danger" type="submit" name="reject" value="Reject">
                                 @endif
 
 
-                                <input class="btn btn-primary" type="button" value="Go Back" onClick="history.go(-1);">
-                                {{--<a href="{{ route('donationrequests.index')}} " class="btn btn-primary">Return to Donation--}}
+                                <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
+                                {{--<a href="{{ route('donationrequests.index')}} " class="btn savebtn">Return to Donation--}}
                                 {{--Request</a>--}}
                             @else
-                                <input class="btn btn-primary" type="button" value="Go Back" onClick="history.go(-1);">
+                                <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
                             @endif
                         </div>
                     {!! Form::close() !!}

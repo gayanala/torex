@@ -6,7 +6,8 @@
         <div class="row">
             {{--<div class="col-md-10 col-md-offset-1">--}}
             <div class="panel panel-default">
-                <div class="panel-heading"><h1>{{ $organizationName }}</h1></div>
+                <div class="panel-heading"><h1
+                            style="text-align: center;font-weight: bold;">{{ $organizationName }}</h1></div>
                 <br>
 
                 <div class="panel-body" style="position: relative;"><br><br>
@@ -71,20 +72,20 @@
                                     <td style="vertical-align: middle"
                                         id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td style="white-space: nowrap">
-                                        
 
-                                            
-                                            
-                                            
-                                        
+
+
+
+
+
                                             <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
                                                class="btn btn-info" title="Detail">
                                                 <span class="glyphicon glyphicon-list-alt"></span></a>
-                                       
+
 
                                     </td>
-                                    {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
-                                    {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
+                                    {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn savebtn"> Detail </a>--}}
+                                    {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn savebtn"> Edit </a>--}}
                                 </tr>
                             @endforeach
 
@@ -94,8 +95,9 @@
                             @endif
                         </table>
 
-                        <input type="button" value="Request Donation from your Own Business"
-                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_self') ;"/>
+                        <input type="button" class="btn btn-info" style="background-color: #0099CC "
+                               value="Manual Donation Request"
+                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_bank') ;"/>
                 </div>
             </div>
         </div>
@@ -128,14 +130,14 @@
     //     var title = $(this).text();
     //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
     // } );
- 
+
     // // DataTable
     // var table = $('#example').DataTable();
- 
+
     // // Apply the search
     // table.columns().every( function () {
     //     var that = this;
- 
+
     //     $( 'input', this.footer() ).on( 'keyup change', function () {
     //         if ( that.search() !== this.value ) {
     //             that
@@ -143,22 +145,22 @@
     //                 .draw();
     //         }
     //     } );
-    // } ); 
-    
+    // } );
+
         $(document).ready(function () {
 
 
 
             $('#example tfoot th').each( function () {
                 var title = $(this).text();
-                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+                $(this).html('<input type="text"  class="freetextsearch"  placeholder="Search ' + title + '" />');
             } );
 
             var table = $('#example').DataTable({
                 dom: 'Bfrtip',
-                
+
                 scrollX : true,
-                
+
                 buttons: [
                     {
                         extend: 'pdf',

@@ -191,6 +191,42 @@
             background-color: #e1bee7 !important;
         }
 
+        .btn {
+            align:center;
+            border: none;
+            padding: 5px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+        }
+        .savebtn
+        {
+            background-color: #0099CC;
+            color: white;
+            padding: 5px 12px;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+        }
+
+        .updatebtn
+        {
+            background-color: #00C851;
+          color: white;
+          padding: 5px 12px;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+        }
+             .backbtn
+             {
+                 background-color: #ffbb33;
+                 color: white;
+             }
+
+
         .col-sm-6 {
             display: block;
             padding: 5px;

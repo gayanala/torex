@@ -67,10 +67,12 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary form-control">Submit</button>
-                                    <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
-                                </div>
+                                <div class="col-md-3 col-md-offset-5">
+                                    <button type="submit" class="btn savebtn form-control">Submit</button>
+                                </div><br><br>
+                                  <div class="col-md-5 col-md-offset-5">
+                                <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
+                                  </div>
                             </div>
                         </form>
                     </div>
