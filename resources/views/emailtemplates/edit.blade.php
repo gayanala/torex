@@ -2,10 +2,15 @@
 @section('content')
 
 
-  <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=8ti9sy5hwrnyd1keswz66t0f6skecvy5wlkxwii3206xt0sp"></script>
-  <script type="text/javascript">
+ <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey={{env('TINYMCE_API_KEY')}}"></script>
 
-  tinymce.init({
+
+
+<script type="text/javascript">
+
+
+
+    tinymce.init({
     selector: 'textarea',
     theme: 'modern',
     width: 745,
@@ -30,12 +35,13 @@
                   onclick: function () {
                       editor.insertContent('&nbsp;<b>{My Business Name}</b>&nbsp;');
                   }
-              }]
+              }],
           });
       }
   });
 
-  </script>
+    </script>
+
 
     <div class="container">
         <div class="row">
@@ -62,10 +68,9 @@
                         <div class="form-group">
                             <label for="Email Subject" class="col-md-3 control-label">Email Subject <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-9">
-                                {!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}
+                                {!! Form::text('email_subject', null, ['class' => 'form-control' , 'width'=> '1000px']) !!}
                             </div>
                         </div>
-
 
                         <div class="form-group">
                         <!--div class="col-lg-6"-->
@@ -75,8 +80,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                               <a href="{{ route('emailtemplates.index')}}" class="btn btn-danger">Cancel</a>
+                                {!! Form::submit('Update', ['class' => 'btn updatebtn']) !!}
+                               <a href="{{ route('emailtemplates.index')}}" class="btn backbtn">Cancel</a>
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory </h5></span>
 

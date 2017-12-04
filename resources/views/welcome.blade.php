@@ -66,7 +66,7 @@
             <br>
             <br>
             <br>
-              <a href="{{ route('register') }}" class="btn btn-primary " title="Signup"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign Up !</a></h4>
+              <a href="{{ route('register') }}" class="btn savebtn " title="Signup"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign Up !</a></h4>
             <br>
 
         </div>

@@ -5,12 +5,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
+
+
                 <div class="panel panel-default">
                     {{ csrf_field() }}
-                    <div class="panel-heading"><h1 style="text-align: center; font-size: xx-large; vertical-align: ">Edit Email Templates Here</h1></div>
+                    <div class="panel-heading">
+                        <h1>Edit Email Templates Here</h1>
+                    </div>
 
                     <div class="panel-body">
-                        <table class="table table-hover">
+                        <table class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr class="bg-info">
                                 <th>Email Type</th>
@@ -26,7 +30,7 @@
                                    
                                     <td style="vertical-align: middle"><a href="
                                     {{action('EmailTemplateController@edit', ['id' => encrypt($email_template->id)])}}
-                                    " class="btn btn-info btn-lg"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                " class="btn savebtn" style="background-color: #0099CC;">Edit</a></td>
                                 </tr>
                                 @endforeach
 

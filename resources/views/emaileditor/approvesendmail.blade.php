@@ -83,8 +83,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Approve and Send', ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ url()->previous() }}" class="btn btn-primary">Cancel</a>
+                                {!! Form::submit('Approve and Send', ['class' => 'btn savebtn']) !!}
+                                <a href="{{ url()->previous() }}" class="btn backbtn">Cancel</a>
 
                             </div>
                         </div>

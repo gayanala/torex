@@ -25,7 +25,6 @@ use App\Custom\Constant;
 //////////////////////////////  T0D0 ITEMS  //////////////////////////////
 //
 // TODO: Simplify Rule execution: a lot of redundant code in running rules that could be consolidated with some work.
-// TODO: Beautify UI for updating days notice and monthly budget
 // TODO: Decide what to do with loadRules function
 //
 //////////////////////////////  END T0D0  //////////////////////////////
@@ -109,7 +108,7 @@ class RuleEngineController extends Controller
     public function runRuleOnSubmit(DonationRequest $donationRequest)
     {
         // This will execute the rule workflow for a donation request using the rules of the organization it was Constant::SUBMITTED to.
-        $parentOrg = ParentChildOrganizations::query()->where('child_org_id', $donationRequest->organization_id)->get(['parent_org_id'])->first();
+        $parentOrg = ParentChildOrganizations::active()->where('child_org_id', $donationRequest->organization_id)->get(['parent_org_id'])->first();
         If ($parentOrg) {
             $ruleOwner = $parentOrg->parent_org_id;
         } else {
@@ -229,6 +228,12 @@ class RuleEngineController extends Controller
 
 
     //////////  QUERYBUILDER BUSINESS RULES AUGMENTED WITH ORGANIZATION SPECIFIC FILTERING  //////////
+    /* appends global filters based on organization or specific request
+     * @jsonArray - Business Rule stored on DB that is in an editiable format
+     * @iD - Business ID or ID of Donation Request, depending on @isOrgId
+     * @isOrgId - denotes if ID passed is the ID of the business or the donation request
+     * (manual execution of rule vs on submit)
+     */
     protected function filteredQueryBuilderJsonArray(Array $jsonArray, $iD, $isOrgId = true)
     {
         $array['condition'] = 'AND';

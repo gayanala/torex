@@ -20,25 +20,52 @@
                 @endif
 
                 <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="page-header text-center">Manage Business Locations </h1>
+                        @if ($subscriptionQuantity=='101' || ($count < $subscription))
+                            <a href="{{action('OrganizationController@createOrganization')}}" class="btn savebtn"
+                               style="position: absolute; top: 26px; right:32px;background-color: #0099CC;">[+] Add
+                                Business Location </a>
 
+                        @endif
+
+                    </div>
                     <div class="panel-body">
-
-                        <div class="panel-body">
+                        <div class="panel panel-default">
 
                             @if ($subscriptionQuantity=='101')
                                 <div class="panel-heading">
+                                    @if($subscriptionEnds == '')
+                                        <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                                           class="btn backbtn pull-right" style="" id="cancel">
+                                            Cancel Subscription
+                                        </a>
+                                    @else
+
+                                        <a href="{{ URL::action('SubscriptionController@resume') }}"
+                                           class="btn savebtn pull-right" style="" id="resume">
+                                            Resume Subscription
+                                        </a>
+                                    @endif
                                     <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-                                    <a href="{{action('OrganizationController@createOrganization')}}"
-                                       class="btn btn-primary pull-right"> [+] Add </a>
                                     <h1 style="text-align: center;width: 50%;">Unlimited Locations can be added</h1>
                                 </div>
                             @elseif ($count < $subscription)
                                 <div class="panel-heading">
-                                    <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
-                                    <a href="{{action('OrganizationController@createOrganization')}}"
-                                       class="btn btn-primary pull-right"> [+] Add </a>
-                                    <h1 style="text-align: center;width: 50%;">You account allows
+                                    @if($subscriptionEnds == '')
+                                        <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                                           class="btn backbtn pull-right" style="" id="cancel">
+                                            Cancel Subscription
+                                        </a>
+                                    @else
+                                        <a href="{{ URL::action('SubscriptionController@resume') }}"
+                                           class="btn savebtn pull-right" style="" id="resume">
+                                            Resume Subscription
+                                        </a>
+                                    @endif
+                                    <h1 style="text-align: left;">Your account allows
                                         for {{$subscriptionQuantity}} locations. You have used {{$count + 1}}.</h1>
+
                                 </div>
                             @else
                                 <div class="alert alert-info">Plan limit includes the parent organization and the limit
@@ -66,7 +93,7 @@
                                     <th class="text-center">Address</th>
                                     <th class="text-center">Phone Number</th>
                                     <th class="text-center">Monthly Budget</th>
-                                    <th class="text-center" colspan="2"></th>
+                                    <th class="text-center" colspan="2">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -82,7 +109,7 @@
                                     <td style="vertical-align: middle">{{'$'}}{{ $loggedOnUserOrganization[0]->monthly_budget}}</td>
                                     <td style="vertical-align: middle"><a
                                                 href="{{route('organizations.edit',encrypt($loggedOnUserOrganization[0]->id))}}"
-                                                class="btn btn-warning">Edit</a></td>
+                                                class="btn savebtn" style="background-color: #0099CC;">Edit</a></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -101,7 +128,7 @@
                                     <th class="text-center">Address</th>
                                     <th class="text-center">Phone Number</th>
                                     <th class="text-center">Monthly Budget</th>
-                                    <th class="text-center" colspan="2"></th>
+                                    <th class="text-center" colspan="2">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -120,15 +147,15 @@
                                         <td style="vertical-align: middle">{{'$'}}{{ $organization['monthly_budget']}}</td>
                                         <td style="vertical-align: middle"><a
                                                     href="{{route('organizations.edit',encrypt($organization->id))}}"
-                                                    class="btn btn-warning">Edit</a>
+                                                    class="btn savebtn">Edit</a>
                                         </td>
                                         <td style="vertical-align: middle">
                                             {{ Form::open([
                                                             'method' => 'DELETE',
                                                             'action' => ['OrganizationController@destroy', $organization->id]
                                                           ]) }}
-                                            <input type="submit" value="Delete" class='btn btn-danger'
-                                                   onClick="return confirm('Are you sure you want to delete the Business Location? \n\nALL users for this Location will be inactivated!\nIf you wish to keep these users, please press cancel and move them to a new location from the Users management page before removing the location.');">
+                                            <input type="submit" value="Inactivate" class='btn backbtn'
+                                                   onClick="return confirm('Are you sure you want to inactivate the Business Location? \n\nALL users for this Location will be inactivated as well!\nIf you wish to keep these users, please press cancel and move them to a new location from the Users management page before removing the location.');">
                                             {{ Form::close() }}
                                         </td>
                                     </tr>
@@ -137,21 +164,8 @@
                             </table>
                         </div>
 
-                    </div>
-                    <div class="panel panel-body">
-                        @if($subscriptionEnds == '')
-                            <a href="{{ URL::action('SubscriptionController@cancel') }}"
-                               class="btn btn-primary pull-right" style="" id="cancel">
-                                Cancel Subscription
-                            </a>
-                        @else
 
-                            <a href="{{ URL::action('SubscriptionController@resume') }}"
-                               class="btn btn-primary pull-right" style="" id="resume">
-                                Resume Subscription
-                            </a>
-                        @endif
-                        <h1 style="">Manage Business Locations </h1>
+
 
                     </div>
                 </div>

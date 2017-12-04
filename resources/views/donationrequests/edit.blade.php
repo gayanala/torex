@@ -119,14 +119,16 @@
 
 
                         <div class="form-group">
-                            <label for="event_type" class="col-md-4 control-label">Purpose Of The Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="event_type" class="col-md-4 control-label">Purpose of The Event <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
                                 {!! Form::select('item_purpose', array(null => 'Select...') + $request_item_purpose->all(), null, ['class'=>'form-control', 'required']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number Of Attendees<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number of Attendees<span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                             <div class="col-lg-6">{!! Form::text('est_attendee_count',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
@@ -142,8 +144,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ route('donationrequests.index')}}" class="btn btn-primary">Cancel</a>
+                                {!! Form::submit('Update', ['class' => 'btn updatebtn']) !!}
+                                <a href="{{ route('donationrequests.index')}}" class="btn backbtn">Cancel</a>
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>

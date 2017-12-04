@@ -6,7 +6,9 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Profile</div>
+                    <div class="panel-heading">
+                        <h1>My Profile</h1>
+                    </div>
 
 
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -49,6 +51,10 @@
                         {{ csrf_field() }}
                         <input name="userId" type="hidden" id="userId" value="{{ $user->id }}" />
                         <div class="form-group">
+                            <label for="email" class="col-md-4 control-label">Role</label>
+                            <div class="col-lg-6"><p>&nbsp;&nbsp;{!! $user->roles[0]->name !!}</p></div>
+                        </div>
+                        <div class="form-group">
                             <label for="first_name" class="col-md-4 control-label"> First Name <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
@@ -67,12 +73,6 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::text('email',null,['class' => 'form-control', 'required']) !!}</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="col-md-4 control-label">Role <span
-                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6"><p>&nbsp;&nbsp;{!! $user->roles[0]->name !!}</p></div>
                         </div>
 
                         <div class="form-group">
@@ -128,10 +128,12 @@
 
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
-                                <button id="btnEdit" class="btn btn-primary" type="button">Edit</button>
-                                <input class="btn btn-danger" type="button" value="Back" onClick="history.go(-1);">
+                            <div class="col-md-6 col-md-offset-5">
+                                {!! Form::submit('Save', ['class' => 'btn savebtn', 'id' => 'btnSave']) !!}
+                                <button id="btnEdit" class="btn savebtn" style="background-color: #0099CC;"
+                                        type="button">Edit
+                                </button>
+                                <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>

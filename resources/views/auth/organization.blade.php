@@ -38,7 +38,7 @@
                                 <div class="col-md-6">
                                     <input id="org_description" type="text" class="form-control" name="org_description"
                                            value="{{ old('org_description') }}"
-                                           placeholder="Description Of Your Business Ex.Restraunt, Gas Station"
+                                           placeholder="Description of Your Business Ex.Restraunt, Gas Station"
                                            required autofocus>
 
                                     @if ($errors->has('org_description'))
@@ -112,7 +112,7 @@
                                         <option value="CO">Colorado</option>
                                         <option value="CT">Connecticut</option>
                                         <option value="DE">Delaware</option>
-                                        <option value="DC">District Of Columbia</option>
+                                        <option value="DC">District of Columbia</option>
                                         <option value="FL">Florida</option>
                                         <option value="GA">Georgia</option>
                                         <option value="HI">Hawaii</option>
@@ -203,7 +203,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn savebtn">
                                         Register
                                     </button>
                                     <span style="color: red"> <h5>Fields Marked With (<span
