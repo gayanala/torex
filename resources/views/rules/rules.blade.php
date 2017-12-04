@@ -126,12 +126,6 @@
                 </tr>
                 <tr>
                     <td align="right">
-                        <a href="{{url('/help') }}" target="pdf-frame">
-                            <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u>
-                            </h5>
-                        </a>
-                    </td>
-                    <td align="right">
                         <label for="ddlRuleType">Select Rule To Edit:</label>
                     </td>
 

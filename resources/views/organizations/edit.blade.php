@@ -19,6 +19,7 @@
             });
 
         });
+
     </script>
     <br>
     <div class="container">
@@ -39,19 +40,19 @@
                                     urlCopied.select();
                                     //Copied = Url.createTextRange();
                                     document.execCommand("copy");
-                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website\n" +
-                                        "The URL has been copied to your clipboard.");
                                 }
                                 function GenerateDRForm() {
                                     var embedCode = document.getElementById('embeddedCode');
-                                    embedCode.innerHTML = '<iframe src="{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true"\n style="border=0;" id="donationRequest1" name="ifr" height="800" width="800" > \n</iframe>'
+                                    embedCode.value = '<iframe src="{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true"\n style="border=0;" id="donationRequest1" name="ifr" height="800" width="800" > \n</iframe>'
+                                    embedCode.select();
+                                    document.execCommand("copy");
                                 }
                             </script>
                             <div>
                                 <input type="button" class="btn btn-info"
-                                       style="cursor: help;background-color: #0099CC;" value="Show Url"
+                                       style="cursor: help;background-color: #0099CC;" value="Show URL"
                                        title="For use for promotions or on social media." onclick="Copy();"/>
-                                <input type="text" id="urlCopied" size="80"/><br />
+                                <input type="text" placeholder="Click the button to display the URL and copy it to your clipboard" id="urlCopied" size="80"/><br />
                                 <small>
                                     Click the button to display the URL and copy it to your clipboard. Share your
                                     business’ donation request form on social media sites.  The URL can be embedded on
@@ -62,7 +63,8 @@
                                        style="cursor: help;background-color: #0099CC;" value="Show Embedded Form Code"
                                        title="Insert this HTML code in your business website to allow outside organizations to fill out a donation request form.."
                                        onclick="GenerateDRForm();" /><br />
-                                <div style="background-color: #DDDDDD"><xmp id="embeddedCode"></xmp></div>
+                                <input type="text"
+                                       style="width:680px;"  placeholder="Click the button to display the embed code and copy it to your clipboard" id="embeddedCode" size="80"/><br />
                             </div>
                         </div>
                     </div>

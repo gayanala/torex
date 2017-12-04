@@ -9,12 +9,12 @@
 
                 <div class="panel panel-default">
                     {{ csrf_field() }}
-                    <div class="panel-heading"><h1
-                                class="page-header text-center">Edit Email
-                            Templates Here</h1></div>
+                    <div class="panel-heading">
+                        <h1>Edit Email Templates Here</h1>
+                    </div>
 
                     <div class="panel-body">
-                        <table class="table table-hover">
+                        <table class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr class="bg-info">
                                 <th>Email Type</th>
