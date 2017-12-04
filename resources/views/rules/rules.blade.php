@@ -22,7 +22,7 @@
 
     }
     </style>
-    <br>
+    
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();
@@ -38,22 +38,20 @@
 
 
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
-            <br/>
+
             {{ csrf_field() }}
 
-            <table width="100%" class="table">
-
-                <tr>
-                    <td align="center" bgcolor="#f5f5f5">
 
 
-                        <h1><label>Donation Preference Settings</label></h1>
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Donation Preference Settings</h1>
 
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
 
-                    </td>
-                </tr>
-
-            </table>
 
                 <table width="100%">
 
