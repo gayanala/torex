@@ -12,7 +12,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h1> Manage Users </h1>
-                        <a href="{{route('users.show', encrypt($admin->id))}}" class="btn savebtn" style="position: absolute; top: 26px; right:32px;">[+] Add User </a>
+                        <a href="{{route('users.show', encrypt($admin->id))}}" class="btn savebtn"
+                           style="position: absolute; top: 26px; right:32px;background-color: #0099CC;">[+] Add
+                            User </a>
                     </div>
 
                     <div class="panel-body">
@@ -42,7 +44,8 @@
 
                                 <td style="vertical-align: middle"><a href="{{route('edituser',encrypt($user->id))}}"
 
-                                                                      class="btn savebtn"> Edit </a>
+                                                                      class="btn savebtn"
+                                                                      style="background-color: #0099CC;"> Edit </a>
                                 </td>
                             </tr>
                             @endforeach

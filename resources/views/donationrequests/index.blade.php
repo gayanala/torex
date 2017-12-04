@@ -6,7 +6,8 @@
         <div class="row">
             {{--<div class="col-md-10 col-md-offset-1">--}}
             <div class="panel panel-default">
-                <div class="panel-heading"><h1>{{ $organizationName }}</h1></div>
+                <div class="panel-heading"><h1
+                            style="text-align: center;font-weight: bold;">{{ $organizationName }}</h1></div>
                 <br>
 
                 <div class="panel-body" style="position: relative;"><br><br>
@@ -83,7 +84,9 @@
                             @endif
                         </table>
 
-                        <input type="button" class="btn btn-info" value="Request Donation from your Own Business" onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank') ;"/>
+                        <input type="button" class="btn btn-info" style="background-color: #0099CC; "
+                               value="Manual Donation Request"
+                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank') ;"/>
                 </div>
             </div>
         </div>

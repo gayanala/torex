@@ -36,16 +36,13 @@ class OrganizationController extends Controller
     public function edit($id)
     {
         $id = decrypt($id);
-        if (in_array($id, $this->getAllMyOrganizationIds()))
-        {
+        if (in_array($id, $this->getAllMyOrganizationIds())) {
             $organization = Organization::find($id);
             $states = State::pluck('state_name', 'state_code');
             $Organization_types = Organization_type::pluck('type_name', 'id');
             return view('organizations.edit', compact('organization', 'states', 'Organization_types'));
-        }
-        else
-        {
-            return redirect('/organizations')->withErrors(array('0' => 'You do not have access to view this Business!!'));
+        } else {
+            return redirect('/home')->withErrors(array('0' => 'You do not have access to view this Business!!'));
         }
 
     }
@@ -75,24 +72,22 @@ class OrganizationController extends Controller
             //dd($organization);
             $organization->save();
 
-            //$childOrganizations = ParentChildOrganizations::active()->where('parent_org_id', '=', Auth::user()->organization_id)->pluck('child_org_id');
-            //dd($childOrganizations);
-            //Organization::whereIn('id', $childOrganizations)->update(['organization_type_id' => $request->organization_type_id]);
-
-
-
+            // If user is editing their own organization then redirect back to their business profile page
+            // If user is parent organization and try to edit a child organization then redirect to organizations page
+            // else redirect users to home page with error that access is denied
             if ($id == Auth::user()->organization_id) {
-                return redirect('organizations');
-            }
-            elseif ($ParentOrgId = ParentChildOrganizations::active()->where('child_org_id', $id)->first()->parent_org_id) {
+                return redirect()->route('organizations.edit', encrypt($id));
+            } elseif ($ParentOrgId = ParentChildOrganizations::active()->where('child_org_id', $id)->first()->parent_org_id) {
                 if (Auth::user()->organization_id == $ParentOrgId) {
                     return redirect('organizations');
                 }
+            } else {
+                return redirect('home')->withErrors(array('0' => 'You do not have access to change this Business!!'));
             }
-            else {
-                return redirect('organizations')->withErrors(array('0' => 'You do not have access to change this Business!!'));
-            }
+        } else {
+            return redirect('home')->withErrors(array('0' => 'You do not have access to change this Business!!'));
         }
+        return redirect('home')->withErrors(array('0' => 'You do not have access to change this Business!!'));
     }
 
 
@@ -147,8 +142,7 @@ class OrganizationController extends Controller
         $organization->zipcode = $request['zipcode'];
         $organization->phone_number = $request['phone_number'];
         $validator = $this->validatorLocation($organization);//dd($validator);
-        if ($validator -> fails())
-        {
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $organization->save();
@@ -162,17 +156,14 @@ class OrganizationController extends Controller
 
     public function destroy($id)
     {
-        if (in_array($id, $this->getAllMyOrganizationIds()))
-        {
+        if (in_array($id, $this->getAllMyOrganizationIds())) {
             $organization = Organization::find($id);
             $organization->active = Constant::INACTIVE;
             $organization->save();
             $users = User::active()->where('organization_id', $id);
             $users->update(['active' => Constant::INACTIVE]);
             return redirect()->back()->with('message', 'Successfully deactivated the Business Location');
-        }
-        else
-        {
+        } else {
             return redirect('organizations')->withErrors(array('0' => 'You do not have access to remove this Business!!'));
         }
     }

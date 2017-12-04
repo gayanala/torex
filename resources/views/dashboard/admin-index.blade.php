@@ -7,7 +7,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center">Request Management Dashboard</h1>
+                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">TAGG DASHBOARD</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -183,7 +183,7 @@
                         <div class="panel-heading" style="background-color: #b69da8;">
                             <div class="row">
                                 <div class="col-xs-3" style="padding-bottom: 15px;">
-                                    <i class="fa fa-users fa-5x" style="color: white"></i>
+                                    <i class="fa fa-line-chart fa-5x" style="color: white"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div style="color: white;font-size: 15px;font-weight: bolder;"> AVERAGE AMOUNT
@@ -237,8 +237,8 @@
                 <!-- /.col-lg-8 -->
                 <div class="col-lg-12">
                     <div class="panel panel-default text-left">
-                        <div class="panel-heading">
-                            <b>Donations per Businesses</b>
+                        <div class="panel-heading text-center" style="color:#0077aa;font-size:15px;">
+                            <b>DONATIONS SUMMARY</b>
                         </div>
 
                         <div class="panel-body">

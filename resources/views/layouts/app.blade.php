@@ -203,8 +203,8 @@
         }
         .savebtn
         {
-          background-color: #008CBA;
-          color: white;
+            background-color: #0099CC;
+            color: white;
             padding: 5px 12px;
             display: inline-block;
             font-size: 16px;
@@ -213,7 +213,7 @@
 
         .updatebtn
         {
-          background-color: #4CAF50;
+            background-color: #00C851;
           color: white;
           padding: 5px 12px;
           display: inline-block;
@@ -222,7 +222,8 @@
         }
              .backbtn
              {
-               background-color: #B2EBF2;
+                 background-color: #ffbb33;
+                 color: white;
              }
 
 
@@ -315,10 +316,6 @@
         .dropdown-menu {
             padding-bottom: 0px;
             padding-top: 0px;
-        }
-
-        .freetextsearch {
-            width: 310px;
         }
 
     </style>

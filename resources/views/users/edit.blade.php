@@ -70,8 +70,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="col-md-4 control-label">Role <span
-                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="email" class="col-md-4 control-label">Role &nbsp;&nbsp; </label>
                             <div class="col-lg-6"><p>&nbsp;&nbsp;{!! $user->roles[0]->name !!}</p></div>
                         </div>
 
@@ -130,7 +129,9 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Save', ['class' => 'btn savebtn', 'id' => 'btnSave']) !!}
-                                <button id="btnEdit" class="btn savebtn" type="button">Edit</button>
+                                <button id="btnEdit" class="btn savebtn" style="background-color: #0099CC;"
+                                        type="button">Edit
+                                </button>
                                 <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
