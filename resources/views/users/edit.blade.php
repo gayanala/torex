@@ -127,7 +127,7 @@
 
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-6 col-md-offset-5">
                                 {!! Form::submit('Save', ['class' => 'btn savebtn', 'id' => 'btnSave']) !!}
                                 <button id="btnEdit" class="btn savebtn" style="background-color: #0099CC;"
                                         type="button">Edit

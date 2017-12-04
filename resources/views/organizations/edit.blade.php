@@ -182,7 +182,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-6 col-md-offset-5">
                                 {!! Form::submit('Save', ['class' => 'btn savebtn', 'id' => 'btnSave']) !!}
                                 <button id="btnEdit" class="btn savebtn hidden" type="button">Edit</button>
                                 <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
