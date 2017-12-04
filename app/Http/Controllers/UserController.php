@@ -256,7 +256,7 @@ class UserController extends Controller
         $organizationsIds = ParentChildOrganizations::active()->where('parent_org_id', $authOrganizationId)->pluck('child_org_id')->toArray();
         array_push($organizationsIds, $authOrganizationId);
 
-        $orgNames = Organization::whereIn('id', $organizationsIds)->pluck('org_name', 'id');
+//        $orgNames = Organization::whereIn('id', $organizationsIds)->pluck('org_name', 'id');
 
         $states = State::pluck('state_name', 'state_code');
 
@@ -273,11 +273,10 @@ class UserController extends Controller
 
         }
 
-
         return view('users.editsubuser', compact('user', 'organizationStatusArray', 'roles'))->with('states', $states);
     }
 
-    public function updatesubuser(Request $request)
+    public function updateSubUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => [

@@ -69,7 +69,6 @@ class OrganizationController extends Controller
             $organization->state = $request->state;
             $organization->zipcode = $request->zip_code;
             $organization->phone_number = $request->phone_number;
-            //dd($organization);
             $organization->save();
 
             // If user is editing their own organization then redirect back to their business profile page
