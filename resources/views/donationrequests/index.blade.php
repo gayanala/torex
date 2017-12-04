@@ -1,13 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    <br>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Search Donations</h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             {{--<div class="col-md-10 col-md-offset-1">--}}
-            <div class="panel panel-default">
-                <div class="panel-heading"><h1
-                            style="text-align: center;font-weight: bold;">{{ $organizationName }}</h1></div>
+            <div class="panel panel-default" >
+                <div class="panel-heading" ><h1
+                            style="text-align: left;font-weight: bold;">Organization Name:&nbsp {{ $organizationName }}</h1></div>
                 <br>
 
                 <div class="panel-body" style="position: relative;"><br><br>

@@ -31,7 +31,15 @@
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Donation Preference Settings</h1>
 
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
 
     <div class="panel-body col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
@@ -45,15 +53,7 @@
 
 
 
-            <div id="page-wrapper">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Donation Preference Settings</h1>
 
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
-            </div>
                 <table width="100%">
 
                     <tr>
