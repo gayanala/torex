@@ -14,20 +14,22 @@
 
 @endsection
 @section('content')
-    <style>
 
-    tbody
-    {
-       outline: thin solid #bdbdbd;
-
-    }
-    </style>
 
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();
         });
     </script>
+
+    <style>
+
+        tbody
+        {
+            outline: thin solid #bdbdbd;
+
+        }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
@@ -51,8 +53,7 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
-
-
+            </div>
                 <table width="100%">
 
                     <tr>
@@ -108,7 +109,7 @@
                         <td colspan="10" align="center"><br></td>
                     </tr>
                 </table>
-                </div>
+
         </form>
             </div>
 
@@ -168,14 +169,16 @@
             <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
             <div class="col-md-12 col-lg-10 col-lg-offset-1">
                 <div id="builder-plugins" style="background-color:#bbdefb"></div>
-                <div class="btn-group" style="text-align: center; margin: 0 auto;">
+                <div class="btn-group">
                     <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
-                    <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
+                    <button class="btn backbtn reset" type="button" data-target="plugins">Clear Rules</button>
                     <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
-                    <button id="btnSave" class="btn btn-primary parse-json" type="button" data-target="plugins">Save Rules
+                    <button id="btnSave" class="btn savebtn parse-json" type="button" data-target="plugins">Save Rules
                     </button>
+                </div>
+                    <!-- Run Rule buttons hidden now that rules execute automatically-->
                     <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
-                            class="btn btn-default">Run Rule Workflow
+                            class="btn btn-default" style="visibility: hidden;">Run Rule Workflow
                     </button>
                     {{--<button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
                             class="btn btn-default">Run Budget
@@ -184,7 +187,7 @@
                             href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
                             class="btn btn-default">Run Required Days Notice
                     </button>--}}
-                </div>
+
 
                 <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
 
@@ -234,49 +237,41 @@
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
-
         var el = document.getElementById('monthlyBudget');
         el.addEventListener('keyup', function (event) {
             if (event.which >= 37 && event.which <= 40) return;
-
             this.value = this.value.replace(/\D/g, '')
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         });
-
         $('#ddlRuleType').val({{ $_GET['rule'] }});
-
                 @if ($rule)
         var rules_plugins = {!!  htmlspecialchars_decode($rule, ENT_NOQUOTES) !!};
                 @else
         var rules_plugins = {
-                'condition': 'AND',
-                'rules': [
-                    {
-                        'id': 'dollar_amount',
-                        'field': 'dollar_amount',
-                        'type': 'double',
-                        'input': 'number',
-                        'operator': 'equal',
-                        'value': '0.00'
-                    }
-                ],
-                'not': false,
-                'valid': true
-            };
+                    'condition': 'AND',
+                    'rules': [
+                        {
+                            'id': 'dollar_amount',
+                            'field': 'dollar_amount',
+                            'type': 'double',
+                            'input': 'number',
+                            'operator': 'equal',
+                            'value': '0.00'
+                        }
+                    ],
+                    'not': false,
+                    'valid': true
+                };
         @endif
-
-
         $('#ddlRuleType').change(function () {
             var ddlValue = $(this).val();
             $('#ruleType').val(ddlValue);
             window.location.href = '{{ action('RuleEngineController@index') }}?rule=' + ddlValue;
         });
-
         $('#btnRun').on('click', function () {
             var iRuleType = $('#ruleType').val();
             window.location.href = '{{ action('RuleEngineController@manualRunRule') }}?rule=' + iRuleType;
         });
-
         $('#btnSave').on('click', function () {
             var target = $(this).data('target');
             var result = $('#builder-' + target).queryBuilder('getRules');
@@ -284,12 +279,11 @@
                 $('#ruleSet').val(format4popup(result));
                 document.getElementById("mainForm").submit();
                 /*bootbox.alert({
-                    title: $(this).text(),
-                    message: '<pre class="code-popup">' + format4popup(result) + '</pre>'
-                });*/
+                 title: $(this).text(),
+                 message: '<pre class="code-popup">' + format4popup(result) + '</pre>'
+                 });*/
             }
         });
-
         $('#builder-plugins').queryBuilder({
             plugins: [
                 'sortable',
@@ -352,47 +346,41 @@
                     step: 0.01
                 }
             }],
-
             rules: rules_plugins
         });
-
         ////////////////////////////////////////////////////////////////////////////
         // the default rules, what will be used on page loads...
         /*
-        // a button/link that is used to update the rules.
-        function updateFilters() {
-            _rules = $('#querybuilder').queryBuilder('getRules');
-            reloadDatatables();
-        }
-
-        function filterChange() {
-            var _json = JSON.stringify( _rules );
-            datatablesRequest = { rules: _json };
-        }
-
-        filterChange();
-
-        function reloadDatatables() {
-            // Datatables first...
-            filterChange();
-
-            $('.dataTable').each(function() {
-                dt = $(this).dataTable();
-                dt.fnDraw();
-            })
-        }
-
-        jQuery(document).ready(function(){
-            // dynamic table
-            oTable = jQuery('.datatable').dataTable({
-                "fnServerParams": function(aoData) {
-                    // add the extra parameters from the jQuery QueryBuilder to the Datatable endpoint...
-                    $.each(datatablesRequest , function(k,v){
-                        aoData.push({"name": k, "value": v});
-                    })
-                }
-            })
-        });*/
+         // a button/link that is used to update the rules.
+         function updateFilters() {
+         _rules = $('#querybuilder').queryBuilder('getRules');
+         reloadDatatables();
+         }
+         function filterChange() {
+         var _json = JSON.stringify( _rules );
+         datatablesRequest = { rules: _json };
+         }
+         filterChange();
+         function reloadDatatables() {
+         // Datatables first...
+         filterChange();
+         $('.dataTable').each(function() {
+         dt = $(this).dataTable();
+         dt.fnDraw();
+         })
+         }
+         jQuery(document).ready(function(){
+         // dynamic table
+         oTable = jQuery('.datatable').dataTable({
+         "fnServerParams": function(aoData) {
+         // add the extra parameters from the jQuery QueryBuilder to the Datatable endpoint...
+         $.each(datatablesRequest , function(k,v){
+         aoData.push({"name": k, "value": v});
+         })
+         }
+         })
+         });*/
     </script>
+
 
 @endsection
