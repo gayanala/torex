@@ -10,7 +10,7 @@
                 <div class="panel panel-default">
                     {{ csrf_field() }}
                     <div class="panel-heading"><h1
-                                style="text-align: center; font-size: xx-large;">Edit Email
+                                class="page-header text-center">Edit Email
                             Templates Here</h1></div>
 
                     <div class="panel-body">
