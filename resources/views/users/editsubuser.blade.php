@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Update Profile</div>
+                    <div class="panel-heading">Update Profilez</div>
 
                     <div class="panel-body">
 
@@ -26,14 +26,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="role" class="col-md-4 control-label"> Role <span
-                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">
-                                {!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control']) !!}
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             <label for="first_name" class="col-md-4 control-label"> First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
                                 {!! Form::text('first_name',null,['class' => 'form-control', 'required']) !!}
@@ -48,13 +40,42 @@
 
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">{!! Form::text('email',null,['class' => 'form-control', 'required']) !!}</div>
+                            <div class="col-lg-6">{!! Form::text('email', null, ['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
                             <label for="organization_id" class="col-md-4 control-label">Business Location <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                                {!! Form::select('organization_id', $orgNames, $user->organization_id, ['class' => 'form-control']) !!}
+                                {!! Form::select('organization_id', $organizationStatusArray, $user->organization_id, ['class' => 'form-control', 'id' => 'loc-drop-down', 'required']) !!}
+                            </div>
+                        </div>
+
+                        {{--<div class="form-group">--}}
+                            {{--{!! Form::label('Business Location', 'Business Location') !!}--}}
+                            {{--<span style="color: red; font-size: 20px; vertical-align:middle;">*</span>--}}
+                            {{--{!! Form::select('location', array_merge(['' => '-- Please Select --'], $organizationStatusArray), null, ['class' => 'form-control', 'id' => 'loc-drop-down', 'required']) !!}--}}
+                        {{--</div>--}}
+
+                        {{--<div class="form-group">--}}
+                            {{--<label for="role" class="col-md-4 control-label"> Role <span--}}
+                                        {{--style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>--}}
+                            {{--<div class="col-lg-6">--}}
+                                {{--{!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control']) !!}--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
+
+                        <div class="form-group" id="role-group" style="display:block">
+
+                            <label for="Role" class="col-md-4 control-label"> Role: <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">
+                                @if(App\ParentChildOrganizations::active()->where('parent_org_id', $user->organization->id)->count() > 0)
+                                    {!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control', 'id' => 'locations-drop-down-parent', 'style' => 'display:block']) !!}
+                                    {!! Form::select('role_id', array('5' => $roles[5]), $user->roles->first()->id, ['class' => 'form-control', 'id' => 'locations-drop-down-child', 'style' => 'display:none']) !!}
+                                @else
+                                    {!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control', 'id' => 'locations-drop-down-parent']) !!}
+                                    {!! Form::select('role_id', array('5' => $roles[5]), $user->roles->first()->id, ['class' => 'form-control', 'id' => 'locations-drop-down-child', 'style' => 'display:block']) !!}
+                                @endif
                             </div>
                         </div>
 
@@ -121,33 +142,19 @@
     </div>
 
     <script>
-    function (resetPassword) {
+        $("#loc-drop-down").change(function () {
 
-        $.ajax({
-        type: "POST",
-        url: 'yourdomain.com/fireEvent/testEvent',
-        dataType: 'json',
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function( resp ) {
-        //window.location.href = 'emaileditor/editsendmail/' + $.param(idsArray);
-        setStatusText = '';
-        if(resp.status == 0) {
-        setStatusText = 'Approved';
-        } else if (resp.status == 1) {
-        setStatusText = 'Rejected';
-        }
-        // Handle your response..
-        for (var i = 0; i < resp.idsArray.length; i++) {
-        // 0 - approved
-        //1- rejected
-        $('#status' + resp.idsArray[i]).text(setStatusText);
-        }
-        alert('Selected Request(s) are ' + setStatusText);
-        },
-        data: {ids:idsArray, status:actionStatus}
+            if (this.value.startsWith('parent')) {
+                document.getElementById("locations-drop-down-parent").style.display = "block";
+                document.getElementById("locations-drop-down-child").style.display = "none";
+                document.getElementById("locations-drop-down-child").setAttribute('name', 'dummy-name');
+                document.getElementById("locations-drop-down-parent").setAttribute('name', 'role_id');
+            } else if (this.value.startsWith('child')) {
+                document.getElementById("locations-drop-down-child").style.display = "block";
+                document.getElementById("locations-drop-down-parent").style.display = "none";
+                document.getElementById("locations-drop-down-parent").setAttribute('name', 'dummy-name');
+                document.getElementById("locations-drop-down-child").setAttribute('name', 'role_id');
+            }
         });
-    }
     </script>
 @endsection

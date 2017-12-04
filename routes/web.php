@@ -81,7 +81,7 @@ Route::post('/organization', 'OrganizationController@create')->middleware('auth'
 
 Route::get('user/manageusers', 'UserController@indexUsers')->name('indexsubuser')->middleware('auth');
 
-Route::get('user/manageusers/edit/{id}', 'UserController@editsubuser')->name('edituser')->middleware('auth');
+Route::get('user/manageusers/edit/{id}', 'UserController@editSubUser')->name('edituser')->middleware('auth');
 
 Route::post('user/manageusers', 'UserController@updatesubuser')->name('updatesubuser')->middleware('auth');
 
