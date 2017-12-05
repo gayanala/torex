@@ -118,7 +118,7 @@
                         <div class="panel-heading">
                             <table width="100%">
                                 <tr>
-                                    <td align="left" style="padding-left: 10px"><h1 style="font-weight: bold;">Business
+                                    <td align="left"><h1 style="font-weight: bold;">Business
                                             Locations</h1></td>
                                     <td align="right"
                                         style="padding-right: 10px;padding-top: 0px"> @if ($subscriptionQuantity=='101' || ($count < $subscription))

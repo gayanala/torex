@@ -20,6 +20,9 @@ class Constant
     const REJECTED = 4;
     const APPROVED = 5;
 
+    //CHARITYQ ORGID
+    const CHARITYQ_ID = 1;
+
     //APPROVAL STATUS REASON
     CONST STATUS_REASON_DEFAULT = 'Business Rules failed to run on request.';
 

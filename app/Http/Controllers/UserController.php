@@ -69,7 +69,15 @@ class UserController extends Controller
         $admin = Auth::user();
         $arr = ParentChildOrganizations::active()->where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
-        $users = User::active()->whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();//dd($users[0]->id);//dd($users[0]->roles[0]->name);
+        $rootUserId = RoleUser::where('role_id', Constant::ROOT_USER)->pluck('user_id');
+        if ($organizationId == Constant::CHARITYQ_ID)
+        {
+            $users = User::active()->whereIn('organization_id', $arr)->whereNotIn('id', [$admin->id, $rootUserId])->get();
+
+        }
+        else {
+            $users = User::active()->whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
+        }
         return view('users.indexUsers', compact('users', 'admin'));
     }
 
@@ -307,7 +315,7 @@ class UserController extends Controller
                 'user_name' => $userUpdate['email'],
                 'organization_id' => $userUpdate['organization_id'],
                 'role_id' => $userUpdate['role_id']
-            ]) AND ($userUpdate['role_id'] <> Constant::ROOT_USER)) {
+            ])) {
             RoleUser::where('user_id', $request->id)->first()->update($userUpdate);
         }
 
