@@ -77,7 +77,7 @@
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" pattern="^[a-zA-Z][a-z  A-Z0-9-_\.]{1,20}$" required
+                                <input id="firstname" type="text" pattern="^[a-zA-Z][a-z  A-Z0-9-_\s]{1,20}$" required
                                        title="Your First Name should be 2-20 characters long." class="form-control"
                                        name="firstname" value="{{ old('firstname') }}"
                                        placeholder="Enter Your First Name" required>
@@ -95,7 +95,7 @@
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" pattern="^[a-zA-Z][a-z A-Z0-9-_\. ]{1,20}$" required
+                                <input id="lastname" type="text" pattern="^[a-zA-Z][a-z A-Z0-9-_\s]{1,20}$" required
                                        title="Your Last Name should be 2-20 characters long." class="form-control"
                                        name="lastname" value="{{ old('lastname') }}" placeholder="Enter Your Last Name"
                                        required>

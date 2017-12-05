@@ -30,17 +30,6 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h1 style="text-align: left;font-weight: bold;">Manage Business Locations </h1>
-                        @if ($subscriptionQuantity=='101' || ($count < $subscription))
-                            <a href="{{action('OrganizationController@createOrganization')}}" class="btn savebtn"
-                               style="position: absolute; top: 26px; right:32px;background-color: #0099CC;">[+] Add
-                                Business Location </a>
-
-                        @endif
-
-                    </div>
-                    <div class="panel-body">
-                        <div class="panel panel-default">
 
                             @if ($subscriptionQuantity=='101')
                                 <div class="panel-heading">
@@ -88,9 +77,11 @@
                                 </div>
                             @endif
 
-                        </div>
+
+                    </div>
+                    <div class="panel-body">
                         <div class="panel-heading">
-                            <h1>My Business</h1>
+                            <h1 style="font-weight: bold;">My Business</h1>
 
                         </div>
                         <div class="panel-body">
@@ -125,7 +116,20 @@
                         </div>
 
                         <div class="panel-heading">
-                            <h1>Business Locations</h1>
+                            <table width="100%">
+                                <tr>
+                                    <td align="left" style="padding-left: 10px"><h1 style="font-weight: bold;">Business
+                                            Locations</h1></td>
+                                    <td align="right"
+                                        style="padding-right: 10px;padding-top: 0px"> @if ($subscriptionQuantity=='101' || ($count < $subscription))
+                                            <a href="{{action('OrganizationController@createOrganization')}}"
+                                               class="btn savebtn">[+] Add Business Location </a>
+                                        @endif</td>
+                                </tr>
+
+                            </table>
+
+
                         </div>
 
                         <div class="panel-body">

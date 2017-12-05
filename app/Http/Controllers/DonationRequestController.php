@@ -271,7 +271,7 @@ class DonationRequestController extends Controller
         $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->where('organization_id', $organization->id)->count();
 
         return view('donationrequests.donation-child', compact('organization', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'userCount', 'userThisWeek', 'userThisMonth', 'userThisYear'));
-        //return view('donationrequests.donation-organization', compact('organization'));
+
     }
 
     public function acknowledgeRequestReceived()

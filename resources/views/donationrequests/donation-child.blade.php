@@ -274,8 +274,10 @@
                                     <tr class="bg-info">
                                         <th class="text-center">Location Name</th>
                                         <th class="text-center">Location Address</th>
+                                        <th class="text-center">Approved</th>
+                                        <th class="text-center">Rejected</th>
                                         <th class="text-center">Location Requested Date</th>
-                                        <th class="text-center">Details</th>
+                                        {{--<th class="text-center">Details</th>--}}
                                     </tr>
                                     </thead>
                                     <tbody style="text-align: center">
@@ -283,12 +285,14 @@
                                             <tr>
                                                 <td style="vertical-align: middle"><?php echo ($donationRequest->organization->org_name); ?></td>
                                                 <td style="vertical-align: middle"><?php echo ($donationRequest['street_address1'] . ' ' . $donationRequest['street_address2'] . ' ' . $donationRequest['city'] . ' ' . $donationRequest['state'] . ' ' . $donationRequest['zipcode']); ?></td>
+                                                <td style="vertical-align: middle">{{ $donationRequest->where('approval_status_id', '5')->count() }}</td>
+                                                <td style="vertical-align: middle">{{ $donationRequest->where('approval_status_id', '4')->count() }}</td>
                                                 <td style="vertical-align: middle"><?php echo ($donationRequest->created_at); ?></td>
-                                                <td style="vertical-align: middle">
-                                                    <a href="{{route('donationrequests.show',encrypt($donationRequest->id))}}" class="btn btn-info" title="Detail">
-                                                        <span class="glyphicon glyphicon-list-alt"></span></a>
+                                                {{--<td style="vertical-align: middle">--}}
+                                                    {{--<a href="{{route('donationrequests.show',encrypt($donationRequest->id))}}" class="btn btn-info" title="Detail">--}}
+                                                        {{--<span class="glyphicon glyphicon-list-alt"></span></a>--}}
 
-                                                </td>
+                                                {{--</td>--}}
                                             </tr>
                                         @endforeach
                                     </tbody>
