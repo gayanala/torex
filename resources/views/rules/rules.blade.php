@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="panel-body col-md-12 col-lg-10 col-lg-offset-1 form-group">
+    <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
         <!--<section class="bs-docs-section clearfix"> -->
         {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
@@ -161,7 +161,7 @@
 
 
             <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
-            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+          
                 <div id="builder-plugins" style="background-color:#bbdefb"></div>
                 <div class="btn-group">
                     <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
