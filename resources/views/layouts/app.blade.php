@@ -383,17 +383,17 @@
                     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                     OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
-                            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a>
+                            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current" style="right:10px">Dashboard</a>
                             </li>
                             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button " style="right:10px">Search
                                         Donations</a></li>
                             @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER)
-                                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
+                                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button " style="right:10px">Search
                                         Donations</a></li>
                             @endif
                             <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                <a href="#" class="dropdown-toggle" style="right: 10px;" data-toggle="dropdown" role="button"
                                    aria-expanded="false">
                                     My Business
                                     <span class="caret"></span>
@@ -429,9 +429,11 @@
                                 </ul>
                             </li>
 
+                            {{--this is the one showing for nav bar--}}
+
                             <li class="dropdown">
 
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                <a href="#" class="dropdown-toggle" style="right:10px;" data-toggle="dropdown" role="button"
                                    aria-expanded="false">
                                     {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
                                             class="caret"></span>
@@ -506,10 +508,10 @@
         <ul class="divsmall visible-xs-block visible-sm-block">
             <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Search
                         Donations</a></li>
             @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER)
-                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
+                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button">Search
                         Donations</a></li>
             @endif
             <li class="dropdown">

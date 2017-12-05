@@ -115,9 +115,6 @@
 
 
 
-    </div>
-
-
     <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
         <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
             {{ csrf_field() }}
@@ -160,12 +157,9 @@
                         <td colspan="4">&nbsp;</td>
                     </tr>
                 </table>
-            </form>
-            </div>
             <!--<Rules help in new window/tab>  -->
 
 
-            </div>
             <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
             <div class="col-md-12 col-lg-10 col-lg-offset-1">
                 <div id="builder-plugins" style="background-color:#bbdefb"></div>
@@ -196,6 +190,7 @@
 
 
         </form>
+    </div>
     @endif
     {{--    {{ Form::close() }}--}}
 

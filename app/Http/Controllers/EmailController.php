@@ -58,7 +58,8 @@ class EmailController extends Controller
                     'approval_status_id' => Constant::APPROVED,
                     'approval_status_reason' => 'Approved by '.$userName,
                     'approved_organization_id' => $organizationId,
-                    'approved_user_id' => $userId
+                    'approved_user_id' => $userId,
+                    'email_sent' => true
                 ]);
             } elseif($request->status == 'Reject'){
                 $donation[0]->update([
@@ -66,7 +67,8 @@ class EmailController extends Controller
                     'approval_status_id' => Constant::REJECTED,
                     'approval_status_reason' => 'Rejected by '.$userName,
                     'approved_organization_id' => $organizationId,
-                    'approved_user_id' => $userId
+                    'approved_user_id' => $userId,
+                    'email_sent' => true
                 ]);
             }
 

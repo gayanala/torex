@@ -1,13 +1,21 @@
 @extends('layouts.app')
 @section('content')
-    <br>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">User Profile</h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
     <div class="container">
         <input name="_token" type="hidden" id="_token" value="{{ csrf_token() }}" />
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h1>My Profile</h1>
+                        <h1 style="text-align: left;font-weight: bold;">Profile For: &nbsp;{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
                     </div>
 
 

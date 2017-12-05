@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading"> Create A User</div>
+                    <div class="panel-heading"> <h1 style="text-align: left;font-weight: bold;">Create A User</h1></div>
                     <div class="panel-body">
 
                         {{--{!! Form::open(['url' => 'users']) !!}--}}
