@@ -33,7 +33,7 @@
                                 <label for="first_name" class="col-md-4 control-label"> First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="first_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your First Name should be 2-20 characters long." class="form-control" name="first_name"
+                                    <input id="first_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\s]{1,20}$" required title="Your First Name should be 2-20 characters long." class="form-control" name="first_name"
                                            value="{{ old('first_name') }}" placeholder="Enter Your First Name" required
                                            autofocus>
 
@@ -49,7 +49,7 @@
                                 <label for="last_name" class="col-md-4 control-label"> Last Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="last_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your Last Name should be 2-20 characters long." class="form-control" name="last_name"
+                                    <input id="last_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\s]{1,20}$" required title="Your Last Name should be 2-20 characters long." class="form-control" name="last_name"
                                            value="{{ old('last_name') }}" placeholder="Enter Your Last Name" required
                                            >
 
@@ -66,7 +66,7 @@
                                 <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                    <input id="email" type="email" pattern="[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,4}$"
                                            class="form-control" name="email"
                                            value="{{ old('email') }}" placeholder="Enter Your Email Address" required>
                                           
