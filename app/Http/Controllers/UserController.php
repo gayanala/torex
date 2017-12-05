@@ -293,7 +293,10 @@ class UserController extends Controller
 
         $orgId = explode("_", $request->organization_id)[1];
 
+        $userName = $request->email;
+
         $request->merge(['organization_id' => $orgId]);
+        $request->merge(['user_name' => $userName]);
         $userUpdate = $request->all();
         // Find user and only update role if they are not a root user
         if (User::findorFail($request->id)->update($userUpdate) AND ($userUpdate['role_id'] <> Constant::ROOT_USER)) {
