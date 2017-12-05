@@ -19,7 +19,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h1 style="text-align: left;font-weight: bold;"> Ative Users </h1>
+                        <h1 style="text-align: left;font-weight: bold;"> Active Users </h1>
                         <a href="{{route('users.show', encrypt($admin->id))}}" class="btn savebtn"
                            style="position: absolute; top: 26px; right:32px;background-color: #0099CC;">[+] Add
                             User </a>
