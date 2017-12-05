@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('content')
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Business Profile</h1>
 
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -19,8 +27,9 @@
             });
 
         });
+
     </script>
-    <br>
+    
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -30,7 +39,7 @@
 
                 <div class="col-10">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><h1>URL for Donations</h1></div>
+                        <div class="panel-heading"><h1 style="text-align: left;font-weight: bold;">URL for Donations</h1></div>
                         <div class="panel-body">
                             <script type="text/javascript">
                                 function Copy() {
@@ -39,19 +48,19 @@
                                     urlCopied.select();
                                     //Copied = Url.createTextRange();
                                     document.execCommand("copy");
-                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website\n" +
-                                        "The URL has been copied to your clipboard.");
                                 }
                                 function GenerateDRForm() {
                                     var embedCode = document.getElementById('embeddedCode');
-                                    embedCode.innerHTML = '<iframe src="{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true"\n style="border=0;" id="donationRequest1" name="ifr" height="800" width="800" > \n</iframe>'
+                                    embedCode.value = '<iframe src="{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true"\n style="border=0;" id="donationRequest1" name="ifr" height="800" width="800" > \n</iframe>'
+                                    embedCode.select();
+                                    document.execCommand("copy");
                                 }
                             </script>
                             <div>
                                 <input type="button" class="btn btn-info"
-                                       style="cursor: help;background-color: #0099CC;" value="Show Url"
+                                       style="cursor: help;background-color: #0099CC;" value="Show URL"
                                        title="For use for promotions or on social media." onclick="Copy();"/>
-                                <input type="text" id="urlCopied" size="80"/><br />
+                                <input type="text" placeholder="Click the button to display the URL and copy it to your clipboard" id="urlCopied" size="80"/><br />
                                 <small>
                                     Click the button to display the URL and copy it to your clipboard. Share your
                                     business’ donation request form on social media sites.  The URL can be embedded on
@@ -62,7 +71,8 @@
                                        style="cursor: help;background-color: #0099CC;" value="Show Embedded Form Code"
                                        title="Insert this HTML code in your business website to allow outside organizations to fill out a donation request form.."
                                        onclick="GenerateDRForm();" /><br />
-                                <div style="background-color: #DDDDDD"><xmp id="embeddedCode"></xmp></div>
+                                <input type="text"
+                                       style="width:680px;"  placeholder="Click the button to display the embed code and copy it to your clipboard" id="embeddedCode" size="80"/><br />
                             </div>
                         </div>
                     </div>
@@ -72,7 +82,8 @@
 
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Update Location</div>
+                    <div class="panel-heading"><h1
+                                style="text-align: left;font-weight: bold;">Update Location</h1></div>
 
                     <div class="panel-body">
 

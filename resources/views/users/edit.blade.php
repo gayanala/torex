@@ -6,7 +6,9 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Profile</div>
+                    <div class="panel-heading">
+                        <h1>My Profile</h1>
+                    </div>
 
 
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -49,6 +51,10 @@
                         {{ csrf_field() }}
                         <input name="userId" type="hidden" id="userId" value="{{ $user->id }}" />
                         <div class="form-group">
+                            <label for="email" class="col-md-4 control-label">Role</label>
+                            <div class="col-lg-6"><p>&nbsp;&nbsp;{!! $user->roles[0]->name !!}</p></div>
+                        </div>
+                        <div class="form-group">
                             <label for="first_name" class="col-md-4 control-label"> First Name <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
@@ -67,11 +73,6 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::text('email',null,['class' => 'form-control', 'required']) !!}</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="col-md-4 control-label">Role &nbsp;&nbsp; </label>
-                            <div class="col-lg-6"><p>&nbsp;&nbsp;{!! $user->roles[0]->name !!}</p></div>
                         </div>
 
                         <div class="form-group">
