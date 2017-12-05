@@ -1,7 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <br>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Business Locations</h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -21,16 +30,6 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h1 style="">Manage Business Locations </h1>
-                        @if ($subscriptionQuantity=='101' || ($count < $subscription))
-                            <a href="{{action('OrganizationController@createOrganization')}}" class="btn savebtn"
-                               style="position: absolute; top: 26px; right:32px;">[+] Add Business Location </a>
-
-                        @endif
-
-                    </div>
-                    <div class="panel-body">
-                        <div class="panel panel-default">
 
                             @if ($subscriptionQuantity=='101')
                                 <div class="panel-heading">
@@ -78,9 +77,11 @@
                                 </div>
                             @endif
 
-                        </div>
+
+                    </div>
+                    <div class="panel-body">
                         <div class="panel-heading">
-                            <h1>My Business</h1>
+                            <h1 style="font-weight: bold;">My Business</h1>
 
                         </div>
                         <div class="panel-body">
@@ -108,14 +109,27 @@
                                     <td style="vertical-align: middle">{{'$'}}{{ $loggedOnUserOrganization[0]->monthly_budget}}</td>
                                     <td style="vertical-align: middle"><a
                                                 href="{{route('organizations.edit',encrypt($loggedOnUserOrganization[0]->id))}}"
-                                                class="btn savebtn">Edit</a></td>
+                                                class="btn savebtn" style="background-color: #0099CC;">Edit</a></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
 
                         <div class="panel-heading">
-                            <h1>Business Locations</h1>
+                            <table width="100%">
+                                <tr>
+                                    <td align="left" style="padding-left: 10px"><h1 style="font-weight: bold;">Business
+                                            Locations</h1></td>
+                                    <td align="right"
+                                        style="padding-right: 10px;padding-top: 0px"> @if ($subscriptionQuantity=='101' || ($count < $subscription))
+                                            <a href="{{action('OrganizationController@createOrganization')}}"
+                                               class="btn savebtn">[+] Add Business Location </a>
+                                        @endif</td>
+                                </tr>
+
+                            </table>
+
+
                         </div>
 
                         <div class="panel-body">
@@ -153,8 +167,8 @@
                                                             'method' => 'DELETE',
                                                             'action' => ['OrganizationController@destroy', $organization->id]
                                                           ]) }}
-                                            <input type="submit" value="Delete" class='btn backbtn'
-                                                   onClick="return confirm('Are you sure you want to delete the Business Location? \n\nALL users for this Location will be inactivated!\nIf you wish to keep these users, please press cancel and move them to a new location from the Users management page before removing the location.');">
+                                            <input type="submit" value="Inactivate" class='btn backbtn'
+                                                   onClick="return confirm('Are you sure you want to inactivate the Business Location? \n\nALL users for this Location will be inactivated as well!\nIf you wish to keep these users, please press cancel and move them to a new location from the Users management page before removing the location.');">
                                             {{ Form::close() }}
                                         </td>
                                     </tr>

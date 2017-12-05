@@ -1,7 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <br>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Search Donations</h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -9,12 +18,12 @@
 
                 <div class="panel panel-default">
                     {{ csrf_field() }}
-                    <div class="panel-heading"><h1
-                                style="text-align: center; font-size: xx-large;">Edit Email
-                            Templates Here</h1></div>
+                    <div class="panel-heading">
+                        <h1 style="text-align: left;font-weight: bold;">Edit Email Templates Here</h1>
+                    </div>
 
                     <div class="panel-body">
-                        <table class="table table-hover">
+                        <table class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr class="bg-info">
                                 <th>Email Type</th>
@@ -30,7 +39,7 @@
                                    
                                     <td style="vertical-align: middle"><a href="
                                     {{action('EmailTemplateController@edit', ['id' => encrypt($email_template->id)])}}
-                                    " class="btn btn-info btn-lg"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                " class="btn savebtn" style="background-color: #0099CC;">Edit</a></td>
                                 </tr>
                                 @endforeach
 

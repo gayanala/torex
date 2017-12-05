@@ -4,11 +4,13 @@
 @endsection
 
 @section('content')
-    <div class="container" style="padding-top:8%">
+    <div class="container" style="padding-top:2%">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Change Password</div>
+                    <div class="panel-heading">
+                        <h1>Change Password</h1>
+                    </div>
                     <div class="panel-body">
                         @if (Session::has('success'))
                             <div class="alert alert-success">{!! Session::get('success') !!}</div>
@@ -65,10 +67,12 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                                <div class="col-md-3 col-md-offset-5">
                                     <button type="submit" class="btn savebtn form-control">Submit</button>
-                                    <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
-                                </div>
+                                </div><br><br>
+                                  <div class="col-md-5 col-md-offset-5">
+                                <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
+                                  </div>
                             </div>
                         </form>
                     </div>

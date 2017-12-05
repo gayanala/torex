@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('content')
-    <br>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Users</h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
     <div class="container">
         @if(Session::has('flash_message'))
             <div class="col-md-8 alert alert-success">
@@ -11,8 +19,10 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h1> Manage Users </h1>
-                        <a href="{{route('users.show', encrypt($admin->id))}}" class="btn savebtn" style="position: absolute; top: 26px; right:32px;">[+] Add User </a>
+                        <h1 style="text-align: left;font-weight: bold;"> Active Users </h1>
+                        <a href="{{route('users.show', encrypt($admin->id))}}" class="btn savebtn"
+                           style="position: absolute; top: 26px; right:32px;background-color: #0099CC;">[+] Add
+                            User </a>
                     </div>
 
                     <div class="panel-body">
@@ -42,7 +52,8 @@
 
                                 <td style="vertical-align: middle"><a href="{{route('edituser',encrypt($user->id))}}"
 
-                                                                      class="btn savebtn"> Edit </a>
+                                                                      class="btn savebtn"
+                                                                      style="background-color: #0099CC;"> Edit </a>
                                 </td>
                             </tr>
                             @endforeach

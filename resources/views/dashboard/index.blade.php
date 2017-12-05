@@ -9,7 +9,8 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center">Request Management Dashboard</h1>
+                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Request Management
+                        Dashboard</h1>
 
                 </div>
                 <!-- /.col-lg-12 -->
@@ -18,15 +19,17 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-green">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="background-color: #56ba94 ;">
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-money fa-5x" style="color: #3e8f3e"></i>
+                                <div class="col-xs-3" style="padding-bottom: 15px;">
+                                    <i class="fa fa-money fa-5x" style="color: white"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge" style="font-weight: bold; font-size: 20px;">
+                                    <div class="huge" style="color: white;font-size: 15px;font-weight: bolder;">
                                         ${{$amountDonated}}</div>
-                                    <div>TOTAL AMOUNT DONATED</div>
+                                    <div style="color: white;font-size: 15px;font-weight: bolder;">TOTAL AMOUNT
+                                        DONATED
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -34,39 +37,16 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-window-close-o fa-5x" style="color: red"></i>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div class="huge"
-                                         style="font-weight: bold; font-size: 20px;">{{$rejectedNumber}}</div>
-                                    <div>REJECTED</div>
-                                </div>
-                            </div>
-                        </div>
-                        {{--<a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>--}}
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
                     <div class="panel panel-yellow">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="background-color: #9f8cb9;">
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-check-square-o fa-5x" style="color: #00dd00"></i>
+                                <div class="col-xs-3" style="padding-bottom: 15px;">
+                                    <i class="fa fa-check-square-o fa-5x" style="color: white"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"
-                                         style="font-weight: bold; font-size: 20px;">{{$approvedNumber}}</div>
-                                    <div>APPROVED</div>
+                                         style="color: white;font-size: 15px;font-weight: bolder;">{{$approvedNumber}}</div>
+                                    <div style="color: white;font-size: 15px;font-weight: bolder;">APPROVED</div>
                                 </div>
                             </div>
                         </div>
@@ -81,15 +61,15 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-red">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="background-color: #6c6ba4;">
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-clock-o fa-5x" style="color: darkorange"></i>
+                                <div class="col-xs-3" style="padding-bottom: 15px;">
+                                    <i class="fa fa-clock-o fa-5x" style="color: white;"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"
-                                         style="font-weight: bold; font-size: 20px;">{{$pendingNumber}}</div>
-                                    <div>PENDING</div>
+                                         style="color: white;font-size: 15px;font-weight: bolder;">{{$pendingNumber}}</div>
+                                    <div style="color: white;font-size: 15px;font-weight: bolder;">PENDING</div>
                                 </div>
                             </div>
                         </div>
@@ -102,6 +82,30 @@
                         </a>--}}
                     </div>
                 </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading" style="background-color: #332f52;">
+                            <div class="row">
+                                <div class="col-xs-3" style="padding-bottom: 15px;">
+                                    <i class="fa fa-window-close-o fa-5x" style="color: white"></i>
+                                </div>
+                                <div class="col-xs-9 text-left">
+                                    <div class="huge"
+                                         style="color: white;font-size: 15px;font-weight: bolder;">{{$rejectedNumber}}</div>
+                                    <div style="color: white;font-size: 15px;font-weight: bolder;">REJECTED</div>
+                                </div>
+                            </div>
+                        </div>
+                        {{--<a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>--}}
+                    </div>
+                </div>
+
             </div>
             <!-- /.row -->
             <div class="row">
@@ -109,7 +113,7 @@
                 <!-- /.col-lg-8 -->
                 <div class="col-lg-12">
                     <div class="panel panel-default text-left">
-                        <div class="panel-heading">
+                        <div class="panel-heading text-center" style="color:#0077aa;font-size:15px;">
                             <b>Pending Requests</b>
                         </div>
 
@@ -166,8 +170,10 @@
                                 {{ Form::hidden('page_from', '/dashboard') }}
                                 {{--add if condition to show approve and reject buttons only if there are pending requests and atleast one is selected--}}
                                 @if(sizeOf($donationrequests) != 0)
+                                  <div class="col-md-6 col-md-offset-5">
                                     {!! Form::submit( 'Approve', ['class' => 'btn btn-success', 'name' => 'submitbutton', 'value' => 'approve'])!!}
                                     {!! Form::submit( 'Reject', ['class' => 'btn btn-danger', 'name' => 'submitbutton', 'value' => 'reject']) !!}
+                                  </div>
                                 @endif
                                 {!! Form::close() !!}
                         </div>

@@ -7,7 +7,8 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center">Donation Requests for {{ $organization->org_name }}</h1>
+                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Dashboard
+                        for {{ $organization->org_name }}</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -174,22 +175,28 @@
             {{--</div>--}}
             <div class="col-lg-4 col-md-6">
                 <div class="panel panel-red">
-                    <div class="panel-heading">
+                    <div class="panel-heading" style="background-color: #d4c8b8;">
                         <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-envelope-open fa-5x" style="color: #ff00bb"></i>
+                            <div class="col-xs-3" style="padding-bottom: 15px;">
+                                <i class="fa fa-envelope-open fa-5x" style="color: white;"></i>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div> APPROVED <span class="huge"
-                                                     style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</span></div>
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> APPROVED : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</span>
+                                </div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div> REJECTED <span class="huge"
-                                                     style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</span></div>
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REJECTED : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</span>
+                                </div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div> PENDING <span class="huge"
-                                                    style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</span></div>
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> PENDING : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -197,22 +204,27 @@
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="panel panel-red">
-                    <div class="panel-heading">
+                    <div class="panel-heading" style=" background-color: #b69da8;">
                         <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-line-chart fa-5x" style="color: #2c11ec"></i>
+                            <div class="col-xs-3" style="padding-bottom: 15px;">
+                                <i class="fa fa-line-chart fa-5x" style="color: white;"></i>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div> AVERAGE AMOUNT DONATED <span class="huge"
-                                                                   style="font-weight: bold; font-size: 20px;">${{ $avgAmountDonated }}</span></div>
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AVERAGE AMOUNT DONATED :
+                                    <span class="huge"
+                                          style="font-weight: bold; font-size: 20px;">${{ $avgAmountDonated }}</span>
+                                </div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div> ACTIVE CUSTOMERS <span class="huge"
-                                                             style="font-weight: bold; font-size: 20px;">{{ $userCount }}</span></div>
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> ACTIVE CUSTOMERS : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $userCount }}</span></div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div> ACTIVE LOCATIONS <span class="huge"
-                                                             style="font-weight: bold; font-size: 20px;">{{ $numActiveLocations }}</span></div>
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> ACTIVE LOCATIONS : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $numActiveLocations }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -220,22 +232,26 @@
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="panel panel-red">
-                    <div class="panel-heading">
+                    <div class="panel-heading" style=" background-color:#a5c5bd;">
                         <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-university fa-5x" style="color: #24d116"></i>
+                            <div class="col-xs-3" style="padding-bottom: 15px;">
+                                <i class="fa fa-university fa-5x" style="color: white;"></i>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div> NEW BUSINESSES THIS WEEK <span class="huge"
-                                                                     style="font-weight: bold; font-size: 20px;">{{ $userThisWeek }}</span></div>
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> NEW BUSINESSES THIS WEEK
+                                    : <span class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $userThisWeek }}</span></div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div> NEW BUSINESSES THIS MONTH <span class="huge"
-                                                                      style="font-weight: bold; font-size: 20px;">{{ $userThisMonth }}</span></div>
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> NEW BUSINESSES THIS
+                                    MONTH : <span class="huge"
+                                                  style="font-weight: bold; font-size: 20px;">{{ $userThisMonth }}</span>
+                                </div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div> NEW BUSINESSES THIS YEAR <span class="huge"
-                                                                     style="font-weight: bold; font-size: 20px;">{{ $userThisYear }}</span></div>
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> NEW BUSINESSES THIS YEAR
+                                    : <span class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $userThisYear }}</span></div>
                             </div>
                         </div>
                     </div>
@@ -258,8 +274,10 @@
                                     <tr class="bg-info">
                                         <th class="text-center">Location Name</th>
                                         <th class="text-center">Location Address</th>
+                                        <th class="text-center">Approved</th>
+                                        <th class="text-center">Rejected</th>
                                         <th class="text-center">Location Requested Date</th>
-                                        <th class="text-center">Details</th>
+                                        {{--<th class="text-center">Details</th>--}}
                                     </tr>
                                     </thead>
                                     <tbody style="text-align: center">
@@ -267,12 +285,14 @@
                                             <tr>
                                                 <td style="vertical-align: middle"><?php echo ($donationRequest->organization->org_name); ?></td>
                                                 <td style="vertical-align: middle"><?php echo ($donationRequest['street_address1'] . ' ' . $donationRequest['street_address2'] . ' ' . $donationRequest['city'] . ' ' . $donationRequest['state'] . ' ' . $donationRequest['zipcode']); ?></td>
+                                                <td style="vertical-align: middle">{{ $donationRequest->where('approval_status_id', '5')->count() }}</td>
+                                                <td style="vertical-align: middle">{{ $donationRequest->where('approval_status_id', '4')->count() }}</td>
                                                 <td style="vertical-align: middle"><?php echo ($donationRequest->created_at); ?></td>
-                                                <td style="vertical-align: middle">
-                                                    <a href="{{route('donationrequests.show',encrypt($donationRequest->id))}}" class="btn btn-info" title="Detail">
-                                                        <span class="glyphicon glyphicon-list-alt"></span></a>
+                                                {{--<td style="vertical-align: middle">--}}
+                                                    {{--<a href="{{route('donationrequests.show',encrypt($donationRequest->id))}}" class="btn btn-info" title="Detail">--}}
+                                                        {{--<span class="glyphicon glyphicon-list-alt"></span></a>--}}
 
-                                                </td>
+                                                {{--</td>--}}
                                             </tr>
                                         @endforeach
                                     </tbody>

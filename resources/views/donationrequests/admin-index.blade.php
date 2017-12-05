@@ -1,12 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    <br>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Search Donations</h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             {{--<div class="col-md-10 col-md-offset-1">--}}
             <div class="panel panel-default">
-                <div class="panel-heading"><h1>{{ $organizationName }}</h1></div>
+                <div class="panel-heading"><h1
+                            style="text-align: center;font-weight: bold;">{{ $organizationName }}</h1></div>
                 <br>
 
                 <div class="panel-body" style="position: relative;"><br><br>
@@ -90,12 +99,13 @@
 
                             </tbody>
                             @else
-                                <div>No Donation Request is stored in the system yet.</div>
+                                <div>No Donation Requests are in the system yet.</div>
                             @endif
                         </table>
 
-                        <input type="button" class="btn btn-info" value="Request Donation from your Own Business"
-                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_self') ;"/>
+                        <input type="button" class="btn btn-info" style="background-color: #0099CC "
+                               value="Manual Donation Request"
+                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_bank') ;"/>
                 </div>
             </div>
         </div>

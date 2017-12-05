@@ -14,30 +14,50 @@
 
 @endsection
 @section('content')
-    <br>
+
+
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();
         });
     </script>
+
+    <style>
+
+        tbody
+        {
+            outline: thin solid #bdbdbd;
+
+        }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group" style="padding-left: 30px;padding-right: 30px">
-    <div class="row">
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Donation Preference Settings</h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
+
+    <div class="panel-body col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
         <!--<section class="bs-docs-section clearfix"> -->
         {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
 
 
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
-            <br/>
+
             {{ csrf_field() }}
 
 
 
-                <table width="100%" style="background-color:#bbdefb">
+
+                <table width="100%">
 
                     <tr>
-                        <td align="left" bgcolor="#bbdefb" style="padding-left: 10px;padding-top: 0px">
+                        <td align="left" bgcolor="#f5f5f5" style="padding-left: 10px" >
 
 
                             <h1><label>Basic Settings</label></h1>
@@ -47,14 +67,13 @@
                     </tr>
 
                 </table>
-
-
-                <table width="100%" style="background-color:#e3f2fd" frame="border" bordercolor="#bbdefb">
+                <table width="100%" style="background-color:#fafafa">
                     <tr>
+                        <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td align="center" style="border:#bbdefb">
+                        <td align="center" style="background-color:#fafafa">
                             <label style="cursor: help;"
                                    title="Enter your estimated monthly budget. Requests that would put you above your monthly budget will be removed from pending approval. NOTE: A budget of 0.00 will disable this functionality.">
                                 Monthly Budget:</label>&nbsp;
@@ -66,7 +85,7 @@
                         </td>
 
 
-                        <td colspan="10" align="center">
+                        <td align="center">
                             <label style="cursor: help;"
                                    title="Enter your minimum days notice. Requests that need to be fulfilled before your business can fulfill them will be automatically declined.">
                                 Required Days Notice: &nbsp;</label>
@@ -81,7 +100,7 @@
                     <tr>
                         <td colspan="10" align="center">
 
-                                <button id="btnSaveBudgetNotice" class="btn savebtn" type="submit">Save
+                                <button id="btnSaveBudgetNotice" class="btn btn-primary" type="submit">Save
                                 </button>
 
                         </td>
@@ -90,6 +109,7 @@
                         <td colspan="10" align="center"><br></td>
                     </tr>
                 </table>
+
         </form>
             </div>
 
@@ -103,41 +123,36 @@
             {{ csrf_field() }}
 
 
-                <br>
-                <table width="100%" style="background-color:#bbdefb">
+
+                <table width="100%">
                     <tr>
-                        <td align="left" bgcolor="#bbdefb " style="padding-left: 10px;padding-top: -10px;vertical-align:center">
+                        <td align="left" bgcolor="#f5f5f5" style="padding-left: 10px" >
 
                             <h1><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
                         </td>
-                        <td align="center" bgcolor="#bbdefb" style="padding-right: 10px;padding-top: 0px">
+                        <td align="center" bgcolor="#f5f5f5" style="padding-right: 10px;padding-top: 0px">
                         @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
                                  <a href="{{url('/help') }}" target="pdf-frame">
-                                        <h5 align="right" vertical-align="middle" style="color: #ff9100"><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
+                                        <h5 align="right" vertical-align="middle"><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
                                     </a>
                        </td>
                     </tr>
                 </table>
 
-                <table width="100%" style="background-color:#e3f2fd" frame="border" bordercolor="#bbdefb">
+                <table width="100%" style="background-color:#fafafa">
                     <tr>
                         <td colspan="4">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td align="right">
-                            <a href="{{url('/help') }}" target="pdf-frame">
-                                <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u>
-                                </h5>
-                            </a>
-                        </td>
-                        <td align="right">
+
+                        <td align="right" style="padding-right: 20px" >
                             <label for="ddlRuleType">Select Rule To Edit:</label>
                         </td>
 
                         <td>
                             &nbsp;
                         </td>
-                        <td width="50%">
+                        <td width="50%" align="left">
                             {!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType', 'name'=>'ddlRuleType']) !!}
                         </td>
                     </tr>
@@ -145,6 +160,7 @@
                         <td colspan="4">&nbsp;</td>
                     </tr>
                 </table>
+            </form>
             </div>
             <!--<Rules help in new window/tab>  -->
 
@@ -159,8 +175,10 @@
                     <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
                     <button id="btnSave" class="btn savebtn parse-json" type="button" data-target="plugins">Save Rules
                     </button>
+                </div>
+                    <!-- Run Rule buttons hidden now that rules execute automatically-->
                     <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
-                            class="btn btn-default">Run Rule Workflow
+                            class="btn btn-default" style="visibility: hidden;">Run Rule Workflow
                     </button>
                     {{--<button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
                             class="btn btn-default">Run Budget
@@ -169,12 +187,10 @@
                             href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
                             class="btn btn-default">Run Required Days Notice
                     </button>--}}
-                </div>
-                <br/>
+
+
                 <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
-                <br/>
-                <br/>
-                <br/>
+
                 <!-- <div id="querybuilder"></div> -->
             </div>
 
@@ -221,49 +237,41 @@
     </style>
     <!-- <script>alert('Contact form scripts');</script> -->
     <script>
-
         var el = document.getElementById('monthlyBudget');
         el.addEventListener('keyup', function (event) {
             if (event.which >= 37 && event.which <= 40) return;
-
             this.value = this.value.replace(/\D/g, '')
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         });
-
         $('#ddlRuleType').val({{ $_GET['rule'] }});
-
                 @if ($rule)
         var rules_plugins = {!!  htmlspecialchars_decode($rule, ENT_NOQUOTES) !!};
                 @else
         var rules_plugins = {
-                'condition': 'AND',
-                'rules': [
-                    {
-                        'id': 'dollar_amount',
-                        'field': 'dollar_amount',
-                        'type': 'double',
-                        'input': 'number',
-                        'operator': 'equal',
-                        'value': '0.00'
-                    }
-                ],
-                'not': false,
-                'valid': true
-            };
+                    'condition': 'AND',
+                    'rules': [
+                        {
+                            'id': 'dollar_amount',
+                            'field': 'dollar_amount',
+                            'type': 'double',
+                            'input': 'number',
+                            'operator': 'equal',
+                            'value': '0.00'
+                        }
+                    ],
+                    'not': false,
+                    'valid': true
+                };
         @endif
-
-
         $('#ddlRuleType').change(function () {
             var ddlValue = $(this).val();
             $('#ruleType').val(ddlValue);
             window.location.href = '{{ action('RuleEngineController@index') }}?rule=' + ddlValue;
         });
-
         $('#btnRun').on('click', function () {
             var iRuleType = $('#ruleType').val();
             window.location.href = '{{ action('RuleEngineController@manualRunRule') }}?rule=' + iRuleType;
         });
-
         $('#btnSave').on('click', function () {
             var target = $(this).data('target');
             var result = $('#builder-' + target).queryBuilder('getRules');
@@ -271,12 +279,11 @@
                 $('#ruleSet').val(format4popup(result));
                 document.getElementById("mainForm").submit();
                 /*bootbox.alert({
-                    title: $(this).text(),
-                    message: '<pre class="code-popup">' + format4popup(result) + '</pre>'
-                });*/
+                 title: $(this).text(),
+                 message: '<pre class="code-popup">' + format4popup(result) + '</pre>'
+                 });*/
             }
         });
-
         $('#builder-plugins').queryBuilder({
             plugins: [
                 'sortable',
@@ -339,47 +346,41 @@
                     step: 0.01
                 }
             }],
-
             rules: rules_plugins
         });
-
         ////////////////////////////////////////////////////////////////////////////
         // the default rules, what will be used on page loads...
         /*
-        // a button/link that is used to update the rules.
-        function updateFilters() {
-            _rules = $('#querybuilder').queryBuilder('getRules');
-            reloadDatatables();
-        }
-
-        function filterChange() {
-            var _json = JSON.stringify( _rules );
-            datatablesRequest = { rules: _json };
-        }
-
-        filterChange();
-
-        function reloadDatatables() {
-            // Datatables first...
-            filterChange();
-
-            $('.dataTable').each(function() {
-                dt = $(this).dataTable();
-                dt.fnDraw();
-            })
-        }
-
-        jQuery(document).ready(function(){
-            // dynamic table
-            oTable = jQuery('.datatable').dataTable({
-                "fnServerParams": function(aoData) {
-                    // add the extra parameters from the jQuery QueryBuilder to the Datatable endpoint...
-                    $.each(datatablesRequest , function(k,v){
-                        aoData.push({"name": k, "value": v});
-                    })
-                }
-            })
-        });*/
+         // a button/link that is used to update the rules.
+         function updateFilters() {
+         _rules = $('#querybuilder').queryBuilder('getRules');
+         reloadDatatables();
+         }
+         function filterChange() {
+         var _json = JSON.stringify( _rules );
+         datatablesRequest = { rules: _json };
+         }
+         filterChange();
+         function reloadDatatables() {
+         // Datatables first...
+         filterChange();
+         $('.dataTable').each(function() {
+         dt = $(this).dataTable();
+         dt.fnDraw();
+         })
+         }
+         jQuery(document).ready(function(){
+         // dynamic table
+         oTable = jQuery('.datatable').dataTable({
+         "fnServerParams": function(aoData) {
+         // add the extra parameters from the jQuery QueryBuilder to the Datatable endpoint...
+         $.each(datatablesRequest , function(k,v){
+         aoData.push({"name": k, "value": v});
+         })
+         }
+         })
+         });*/
     </script>
+
 
 @endsection
