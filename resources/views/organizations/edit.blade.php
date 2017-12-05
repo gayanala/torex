@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('content')
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Business Profile</h1>
 
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -21,7 +29,7 @@
         });
 
     </script>
-    <br>
+    
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -31,7 +39,7 @@
 
                 <div class="col-10">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><h1>URL for Donations</h1></div>
+                        <div class="panel-heading"><h1 style="text-align: left;font-weight: bold;">URL for Donations</h1></div>
                         <div class="panel-body">
                             <script type="text/javascript">
                                 function Copy() {
@@ -74,7 +82,8 @@
 
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Update Location</div>
+                    <div class="panel-heading"><h1
+                                style="text-align: left;font-weight: bold;">Update Location</h1></div>
 
                     <div class="panel-body">
 
