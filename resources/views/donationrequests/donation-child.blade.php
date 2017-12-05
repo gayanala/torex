@@ -317,7 +317,7 @@
 
         </div>
         <!-- /#wrapper -->
-
+        <input class="btn backbtn" type="button" value="Back" onClick="history.go(-1);">
 
         <script>
             $(document).ready(function() {
