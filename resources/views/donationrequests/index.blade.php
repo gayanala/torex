@@ -89,7 +89,7 @@
 
                             </tbody>
                             @else
-                                <div>No Donation Request is stored in the system yet.</div>
+                                <div>No Donation Requests are in the system yet.</div>
                             @endif
                         </table>
 
