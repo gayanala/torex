@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:text-align="http://www.w3.org/1999/xhtml">
+
 <head>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <style>
         body  {
             background-image: url("http://www.allwhitebackground.com/images/2/2270.jpg");
@@ -48,8 +50,15 @@
     <h4 style="text-align:center;font-size:150%;">Thank You</h4>
 
     <div align="center"  >
-        <button class="closeDonationBtn"  onclick="self.close()">Close</button>
+        @if ( ! Auth::guest())
+            <button id="clsbtn" class="closeDonationBtn" onclick="self.close()">Close</button>
+        @endif
+
     </div>
+    <script>
+
+
+    </script>
 </div>
 </body>
 </html>
