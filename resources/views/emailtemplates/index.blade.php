@@ -5,7 +5,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Search Donations</h1>
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Email Templates</h1>
 
             </div>
             <!-- /.col-lg-12 -->
@@ -19,7 +19,7 @@
                 <div class="panel panel-default">
                     {{ csrf_field() }}
                     <div class="panel-heading">
-                        <h1 style="text-align: left;font-weight: bold;">Edit Email Templates Here</h1>
+                        <h1 style="text-align: left;font-weight: bold;">Edit Templates Here</h1>
                     </div>
 
                     <div class="panel-body">
