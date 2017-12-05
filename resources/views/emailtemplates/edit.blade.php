@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+<br>
 
  <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey={{env('TINYMCE_API_KEY')}}"></script>
 
@@ -83,7 +83,7 @@
                                 {!! Form::submit('Update', ['class' => 'btn updatebtn']) !!}
                                <a href="{{ route('emailtemplates.index')}}" class="btn backbtn">Cancel</a>
                                 <span style="color: red"> <h5>Fields Marked With (<span
-                                                style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory </h5></span>
+                                                style="color: red; font-size: 20px;text-align: center">*</span>) Are Mandatory </h5></span>
 
                             </div>
                         </div>
