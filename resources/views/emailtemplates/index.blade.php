@@ -5,7 +5,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Search Donations</h1>
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Edit Email Templates Here</h1>
 
             </div>
             <!-- /.col-lg-12 -->
