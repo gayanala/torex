@@ -299,7 +299,7 @@ class UserController extends Controller
         $request->merge(['user_name' => $userName]);
         $userUpdate = $request->all();
         // Find user and only update role if they are not a root user
-        if (User::findorFail($request->id)->update($userUpdate) AND ($userUpdate['role_id'] <> Constant::ROOT_USER)) {
+        if ((count(RoleUser::where('user_id', $userUpdate['id'])->where('role_id', Constant::ROOT_USER)->pluck('id'))== 0) AND User::findorFail($request->id)->update($userUpdate)) {
             RoleUser::where('user_id', $request->id)->first()->update($userUpdate);
         }
 
