@@ -119,7 +119,7 @@
         <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
             {{ csrf_field() }}
 
-
+            @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
 
                 <table width="100%">
                     <tr>
@@ -128,7 +128,7 @@
                             <h1><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
                         </td>
                         <td align="center" bgcolor="#f5f5f5" style="padding-right: 10px;padding-top: 0px">
-                        @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
+
                                  <a href="{{url('/help') }}" target="pdf-frame">
                                         <h5 align="right" vertical-align="middle"><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
                                     </a>
