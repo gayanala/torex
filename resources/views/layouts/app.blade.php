@@ -59,6 +59,7 @@
             clear: both;
             margin-top: 20px;
             padding-top:25px;
+            overflow-x: hidden;
         }
 
         @media screen and (max-width: 600px) {
@@ -172,15 +173,10 @@
             padding-bottom: 0px;
         }
 
-        .navbar {
-            position: fixed;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            border: 0;
-            border-radius: 0;
-            margin-bottom: 0;
-            font-size: 12px;
-            letter-spacing: 5px;
+        .navbar-fixed-top
+        {
+            box-shadow: 1px 1px 5px 2px mediumpurple;
+            max-height: 7%;
         }
 
         .navbar-nav li a:hover {
@@ -268,14 +264,13 @@
             color: white;
             style: bold;
             font-size: 15px;
-            box-shadow: 1px 1px 20px 1px #4a148c;
-            padding-bottom: 10px;
+            padding-bottom: 20px !important;;
         }
-
         .main-navigation ul li a {
-            padding-right: 25px !important;
+
             padding-left: 25px !important;
             padding-top: 25px;!important;
+            padding-bottom: 25px;!important;
             color: white;
         }
 
@@ -295,6 +290,7 @@
 
         .divsmall {
             padding: 25px -5px 5px 100px;
+
         }
 
         .dropdown-menu a {
@@ -505,6 +501,10 @@
         </ul>
     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                    OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
+
+       <br>
+    <br>
+   <br>
         <ul class="divsmall visible-xs-block visible-sm-block">
             <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
