@@ -60,6 +60,7 @@
             margin-top: 20px;
             padding-top:25px;
             overflow-x: hidden;
+
         }
 
         @media screen and (max-width: 600px) {
@@ -264,7 +265,8 @@
             color: white;
             style: bold;
             font-size: 15px;
-            padding-bottom: 20px !important;;
+            vertical-align: middle;
+
         }
         .main-navigation ul li a {
 
@@ -292,6 +294,9 @@
             padding: 25px -5px 5px 100px;
 
         }
+        div{
+            padding:1px;
+        }
 
         .dropdown-menu a {
             background-color: #9c27b0;
@@ -301,8 +306,9 @@
             display: block;
             border: 1px solid #e1bee7;
             box-shadow: 1px 1px 5px 1px grey;
-            padding-bottom: 10px;
-            padding-top: 10px;
+            float:none;
+            overflow: hidden;
+
         }
 
         .dropdown-menu li > a {
