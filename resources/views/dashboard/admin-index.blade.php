@@ -7,7 +7,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">TAGG DASHBOARD</h1>
+                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">TAGG DASHBOARD (YTD)</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -247,10 +247,10 @@
                                     <thead>
                                         <tr class="bg-info">
                                             <th class="text-center">Business Name</th>
-                                            <th class="text-center">Total Amount Requested</th>
-                                            <th class="text-center">Total Amount Approved YTD</th>
+                                            <th class="text-center">Amount Requested</th>
+                                            <th class="text-center">Amount Approved</th>
                                             <th class="text-center">Approved</th>
-                                            <th class="text-center">Rejected</th>
+                                            {{--<th class="text-center">Rejected</th>--}}
                                             <th class="text-center">Status</th>
                                             {{--<th class="text-center">Active Locations</th>--}}
                                             <th class="text-center">Details</th>
@@ -267,7 +267,7 @@
                                                 <td style="vertical-align: middle">${{ $organization->donationRequest->sum('dollar_amount') }}</td>
                                                 <td style="vertical-align: middle">${{ $organization->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
                                                 <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '5')->count() }}</td>
-                                                <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>
+                                                {{--<td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>--}}
                                                 <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
                                                 {{--<td style="vertical-align: middle">{{ App\Organization::findOrFail($organization->id)->where('trial_ends_at', '>=', \Carbon\Carbon::now()->toDateTimeString())->get()  OR App\ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->count() }}</td>--}}
                                                 <td>
