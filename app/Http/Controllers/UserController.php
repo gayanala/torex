@@ -251,6 +251,7 @@ class UserController extends Controller
         $roles = $this->getRoles();
 
         $user = User::findOrFail($id);
+
         $authOrganizationId = Auth::user()->organization_id;
 
         $organizationsIds = ParentChildOrganizations::active()->where('parent_org_id', $authOrganizationId)->pluck('child_org_id')->toArray();
@@ -290,6 +291,9 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $orgId = explode("_", $request->organization_id)[1];
+
+        $request->merge(['organization_id' => $orgId]);
         $userUpdate = $request->all();
         // Find user and only update role if they are not a root user
         if (User::findorFail($request->id)->update($userUpdate) AND ($userUpdate['role_id'] <> Constant::ROOT_USER)) {
