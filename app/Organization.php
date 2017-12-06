@@ -76,4 +76,9 @@ class Organization extends Model
     {
         return $query->where('active', Constant::ACTIVE);
     }
+
+    public function approvedDonationRequest()
+    {
+        return $this->hasMany('App\DonationRequest','approved_organization_id', 'id');
+    }
 }
