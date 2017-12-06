@@ -16,7 +16,8 @@
             {{--<div class="col-md-10 col-md-offset-1">--}}
             <div class="panel panel-default" >
                 <div class="panel-heading" ><h1
-                            style="text-align: left;font-weight: bold;">Organization Name:&nbsp {{ $organizationName }}</h1></div>
+                            style="text-align: left;font-weight: bold;">Business Name:&nbsp {{ $organizationName }}</h1>
+                </div>
                 <br>
 
                 <div class="panel-body" style="position: relative;"><br><br>
@@ -36,7 +37,7 @@
                             <tr class="bg-info">
                                 <th class="text-center">Business Name</th>
                                 <th class="text-center">Request Amount</th>
-                                <th class="text-center">Request For</th>
+                                <th class="text-center">Type of Donation</th>
                                 <th class="text-center">Location</th>
                                 {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Date Needed</th>
@@ -120,6 +121,11 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js"></script>
 
+    <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+    <script>
+        webshims.setOptions('forms-ext', {types: 'date'});
+        webshims.polyfill('forms forms-ext');
+    </script>
     <script src="{{ asset('js/range_dates.js') }}" type="text/javascript" data-date-column="4"></script>
     <script>
 

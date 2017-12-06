@@ -246,11 +246,23 @@ class UserController extends Controller
             }
 
             $userUpdate = $request->all();
-            User::find($id)->update($userUpdate);
+            User::find($id)->update([
+                'first_name' => $userUpdate['first_name'],
+                'last_name' => $userUpdate['last_name'],
+                'email' => $userUpdate['email'],
+                'user_name' => $userUpdate['email'],
+                'street_address1' => $userUpdate['street_address1'],
+                'street_address2' => $userUpdate['street_address2'],
+                'city' => $userUpdate['city'],
+                'state' => $userUpdate['state'],
+                'zipcode' => $userUpdate['zipcode'],
+                'phone_number' => $userUpdate['phone_number']
+            ]);
+            $messages = 'Profile updated successfully';
+            // return view('users.index', compact('user'));
+            Return redirect('user/editprofile')->with('messages', $messages);
         }
-        $messages = 'Profile updated successfully';
-        // return view('users.index', compact('user'));
-        Return redirect('user/editprofile')->with('messages', $messages);
+        return redirect('/home')->withErrors(array('0' => 'You do not have access to edit this user!!'));
     }
 
     public function editSubUser($id)

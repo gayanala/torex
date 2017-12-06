@@ -51,7 +51,7 @@
                                 }
                                 function GenerateDRForm() {
                                     var embedCode = document.getElementById('embeddedCode');
-                                    embedCode.value = '<iframe src="{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true"\n style="border=0;" id="donationRequest1" name="ifr" frameBorder="0" height="800" width="800" > \n</iframe>'
+                                    embedCode.value = '<iframe src="{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true"\n style="border:none;" id="donationRequest1" name="ifr" frameBorder="0" height="800" width="800" > \n</iframe>';
                                     embedCode.select();
                                     document.execCommand("copy");
                                 }

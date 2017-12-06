@@ -24,12 +24,14 @@ class DashboardController extends Controller
         if ($request->user()->roleuser->role_id == Constant::ROOT_USER OR $request->user()->roleuser->role_id == Constant::TAGG_ADMIN OR $request->user()->roleuser->role_id == Constant::TAGG_USER) {
             $organizations = Organization::all();
 
-            $orgIds = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
-            $organizationsArray = ParentChildOrganizations::active()->whereIn('parent_org_id', $orgIds)->pluck('child_org_id')->toArray();
-            array_push($organizationsArray, $orgIds);
+            // Only parent organizations have 'trial_ends_at' field in the Organizations table
+            $organizationsArray = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
 
-            $numActiveLocations = sizeOf($organizationsArray);
-            $userCount = User::active()->whereIn('organization_id', $organizationsArray)->count();
+            $activeLocations = Organization::active()->get();
+
+            $numActiveLocations = count($activeLocations);
+
+            $userCount = count($organizationsArray);
 
             $userThisWeek = Organization::active()->where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
             $userThisMonth = Organization::active()->where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
