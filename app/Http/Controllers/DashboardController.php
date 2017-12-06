@@ -34,7 +34,7 @@ class DashboardController extends Controller
             $userThisWeek = Organization::active()->where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
             $userThisMonth = Organization::active()->where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
             $userThisYear = Organization::active()->where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
-dd(DonationRequest::where('approval_status_id', Constant::APPROVED)->pluck('approved_dollar_amount'));
+
             $avgAmountDonated = sprintf("%.2f", (DonationRequest::where('approval_status_id', Constant::APPROVED)->avg('approved_dollar_amount')));
 
             $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->count();
