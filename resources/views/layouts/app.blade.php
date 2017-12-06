@@ -54,11 +54,10 @@
             line-height: 2.0;
             color: #0077aa;
             margin-bottom: 100px;
-            padding: 0;
             min-height: 100%;
             clear: both;
             margin-top: 20px;
-            padding-top:25px;
+            padding: 25px 0 0;
             overflow-x: hidden;
 
         }
@@ -174,8 +173,7 @@
             padding-bottom: 0px;
         }
 
-        .navbar-fixed-top
-        {
+        .navbar-fixed-top {
             box-shadow: 1px 1px 5px 2px mediumpurple;
             max-height: 7%;
         }
@@ -189,7 +187,7 @@
         }
 
         .btn {
-            align:center;
+            align: center;
             border: none;
             padding: 5px 12px;
             text-align: center;
@@ -198,8 +196,8 @@
             font-size: 16px;
             margin: 4px 2px;
         }
-        .savebtn
-        {
+
+        .savebtn {
             background-color: #0099CC;
             color: white;
             padding: 5px 12px;
@@ -208,21 +206,19 @@
             margin: 4px 2px;
         }
 
-        .updatebtn
-        {
+        .updatebtn {
             background-color: #00C851;
-          color: white;
-          padding: 5px 12px;
-          display: inline-block;
-          font-size: 16px;
-          margin: 4px 2px;
+            color: white;
+            padding: 5px 12px;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
         }
-             .backbtn
-             {
-                 background-color: #ffbb33;
-                 color: white;
-             }
 
+        .backbtn {
+            background-color: #ffbb33;
+            color: white;
+        }
 
         .col-sm-6 {
             display: block;
@@ -268,17 +264,19 @@
             vertical-align: middle;
 
         }
+
         .main-navigation ul li a {
 
             padding-left: 25px !important;
-            padding-top: 25px;!important;
-            padding-bottom: 25px;!important;
+            padding-top: 25px;
+        !important;
+            padding-bottom: 25px;
+        !important;
             color: white;
         }
 
         .w3-bar .w3-button {
-            padding: 16px;
-            padding-top: 10px;
+            padding: 10px 16px 16px;
         }
 
         body, h1, h2, h3, h4, h5, h6 {
@@ -294,8 +292,9 @@
             padding: 25px -5px 5px 100px;
 
         }
-        div{
-            padding:1px;
+
+        div {
+            padding: 1px;
         }
 
         .dropdown-menu a {
@@ -306,7 +305,7 @@
             display: block;
             border: 1px solid #e1bee7;
             box-shadow: 1px 1px 5px 1px grey;
-            float:none;
+            float: none;
             overflow: hidden;
 
         }
@@ -314,50 +313,65 @@
         .dropdown-menu li > a {
             color: white;
         }
-
         .dropdown-menu {
+            color: #fff;
+            list-style-type: none;
+            position: relative;
+            background-color: #1a1b20;
+            height: 40px;
+            width: 100%;
+            font-family: Roboto;
+            float: left;
+            padding: 0;
             padding-bottom: 0px;
             padding-top: 0px;
+            font-weight: bold;
         }
+        .dropdown-menu > li{
+            position: relative;
+            float: left;
+            line-height: 40px;
+            width: 340px;
+            text-align: center;
+        }
+
 
     </style>
 </head>
 
 
 <body>
-<script>
 
-    var MON_CHAR = {{ config('variables.monthly_charge') }};
-    var ANUAL_CHAR = {{ config('variables.annual_charge') }};
-    var EXTRA_CHAR = {{ config('variables.extra_charge') }};
-</script>
 @yield('scripts')
 <div id="app">
 
 
-
-    <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light navbar-fixed-top" style="background-color: #8e24aa;padding-bottom: .5px;margin-bottom: 10px">
+    <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light navbar-fixed-top"
+         style="background-color: #8e24aa;padding-bottom: .5px;margin-bottom: 10px">
 
         <div class="container-fluid">
 
             <div class="row">
                 <div class="col-sm-3"
-                     style='padding-left: 0px;padding-top: .5px;padding-bottom: -5px;padding-right:10px;margin-top: -2px;margin-bottom: -0.5px'>
+                     style='padding: .5px 10px -5px 0px;margin-top: -2px;margin-bottom: -0.5px'>
                     @if (Auth::guest())
                         <a href="{{ url('/') }}">
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}" id="logo" class="img-responsive"
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}"
+                                 id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
                         </a>
                     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                     OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
                         <a href="{{ url('/dashboard') }}">
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}" id="logo" class="img-responsive"
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}"
+                                 id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
                         </a>
 
                     @else
                         <a href="{{ url('/') }}">
-                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}" id="logo" class="img-responsive"
+                            <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}"
+                                 id="logo" class="img-responsive"
                                  width="60%" style='background-size: inherit'/>
                         </a>
                     @endif
@@ -385,17 +399,21 @@
                     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                     OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
-                            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current" style="right:10px">Dashboard</a>
+                            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current"
+                                   style="font-weight:bold; right:10px">Dashboard</a>
                             </li>
                             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button " style="right:10px">Search
+                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button "
+                                       style="font-weight:bold; right:10px">Search
                                         Donations</a></li>
                             @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER)
-                                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button " style="right:10px">Search
+                                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button "
+                                       style="font-weight:bold; right:10px">Search
                                         Donations</a></li>
                             @endif
                             <li>
-                                <a href="#" class="dropdown-toggle" style="right: 10px;" data-toggle="dropdown" role="button"
+                                <a href="#" class="dropdown-toggle" style="font-weight:bold; right: 10px;"
+                                   data-toggle="dropdown" role="button"
                                    aria-expanded="false">
                                     My Business
                                     <span class="caret"></span>
@@ -433,15 +451,18 @@
 
                             {{--this is the one showing for nav bar--}}
 
-                            <li class="dropdown">
+                            <li>
 
-                                <a href="#" class="dropdown-toggle" style="right:10px;" data-toggle="dropdown" role="button"
+                                <a href="#" class="dropdown-toggle" style="font-weight:bold;right:10px;"
+                                   data-toggle="dropdown"
+                                   role="button"
                                    aria-expanded="false">
                                     {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
                                             class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                                     <li>
                                         <a href="{{ action('UserController@editProfile')}}">User Profile</a>
                                     </li>
@@ -462,6 +483,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+                                    </div>
                                 </ul>
 
                             </li>
@@ -492,6 +514,7 @@
 </div>
 
 
+{{--
 <div id="navDemo" class="divsmall visible-xs-block visible-sm-block">
     @if (Auth::guest())
 
@@ -508,9 +531,9 @@
     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                    OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
 
-       <br>
-    <br>
-   <br>
+        <br>
+        <br>
+        <br>
         <ul class="divsmall visible-xs-block visible-sm-block">
             <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
@@ -610,6 +633,7 @@
         </ul>
     @endif
 </div>
+--}}
 <div id="content">
     {{--@include('layouts.partials._status')--}}
     @yield('content')
