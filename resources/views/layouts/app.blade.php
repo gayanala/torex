@@ -514,7 +514,6 @@
 </div>
 
 
-{{--
 <div id="navDemo" class="divsmall visible-xs-block visible-sm-block">
     @if (Auth::guest())
 
@@ -633,7 +632,6 @@
         </ul>
     @endif
 </div>
---}}
 <div id="content">
     {{--@include('layouts.partials._status')--}}
     @yield('content')
