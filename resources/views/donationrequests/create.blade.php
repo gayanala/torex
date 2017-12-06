@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('requester_type') ? ' has-error' : '' }}">
-                            <label for="requester_type" class="col-md-4 control-label">Organization Type <span
+                            <label for="requester_type" class="col-md-4 control-label">Requester Organization Type <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">

@@ -16,7 +16,8 @@
             {{--<div class="col-md-10 col-md-offset-1">--}}
             <div class="panel panel-default" >
                 <div class="panel-heading" ><h1
-                            style="text-align: left;font-weight: bold;">Organization Name:&nbsp {{ $organizationName }}</h1></div>
+                            style="text-align: left;font-weight: bold;">Business Name:&nbsp {{ $organizationName }}</h1>
+                </div>
                 <br>
 
                 <div class="panel-body" style="position: relative;"><br><br>
@@ -36,7 +37,7 @@
                             <tr class="bg-info">
                                 <th class="text-center">Business Name</th>
                                 <th class="text-center">Request Amount</th>
-                                <th class="text-center">Request For</th>
+                                <th class="text-center">Type of Donation</th>
                                 <th class="text-center">Location</th>
                                 {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Date Needed</th>

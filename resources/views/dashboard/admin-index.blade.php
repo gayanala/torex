@@ -11,179 +11,40 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
-            {{--<div class="row">--}}
-                {{--<div class="col-lg-3 col-md-6">--}}
-                    {{--<div class="panel panel-green">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-xs-3">--}}
-                                    {{--<i class="fa fa-money fa-5x" style="color: #3e8f3e"></i>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-9 text-left">--}}
-                                    {{--<div>AVERAGE AMOUNT DONATED: <div class="huge" style="font-weight: bold; font-size: 20px;">${{ $avgAmountDonated }}</div></div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-lg-3 col-md-6">--}}
-                    {{--<div class="panel panel-green">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-xs-3">--}}
-                                    {{--<i class="fa fa-window-close-o fa-5x" style="color: red"></i>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-9 text-left">--}}
-                                    {{--<div class="huge"--}}
-                                         {{--style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</div>--}}
-                                    {{--<div>REJECTED</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<a href="#">--}}
-                            {{--<div class="panel-footer">--}}
-                                {{--<span class="pull-left">View Details</span>--}}
-                                {{--<span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>--}}
-                                {{--<div class="clearfix"></div>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-lg-3 col-md-6">--}}
-                    {{--<div class="panel panel-yellow">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-xs-3">--}}
-                                    {{--<i class="fa fa-check-square-o fa-5x" style="color: #00dd00"></i>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-9 text-left">--}}
-                                    {{--<div class="huge"--}}
-                                         {{--style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</div>--}}
-                                    {{--<div>APPROVED</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<a href="#">--}}
-                            {{--<div class="panel-footer">--}}
-                                {{--<span class="pull-left">View Details</span>--}}
-                                {{--<span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>--}}
-                                {{--<div class="clearfix"></div>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-lg-3 col-md-6">--}}
-                    {{--<div class="panel panel-red">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-xs-3">--}}
-                                    {{--<i class="fa fa-clock-o fa-5x" style="color: darkorange"></i>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-9 text-left">--}}
-                                    {{--<div class="huge"--}}
-                                         {{--style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</div>--}}
-                                    {{--<div>PENDING DONATIONS</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-lg-3 col-md-6">--}}
-                    {{--<div class="panel panel-red">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-xs-3">--}}
-                                    {{--<i class="fa fa-user-circle-o fa-5x" style="color: greenyellow"></i>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-9 text-left">--}}
-                                    {{--<div class="huge" style="font-weight: bold; font-size: 20px;">{{ $userCount }}</div>--}}
-                                    {{--<div>ACTIVE CUSTOMERS</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-lg-3 col-md-6">--}}
-                    {{--<div class="panel panel-red">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-xs-3">--}}
-                                    {{--<i class="fa fa-address-book-o fa-5x" ></i>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-9 text-left">--}}
-                                    {{--<div class="huge"--}}
-                                         {{--style="font-weight: bold; font-size: 20px;">{{ $numActiveLocations }}</div>--}}
-                                    {{--<div>ACTIVE LOCATIONS</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-lg-3 col-md-6">--}}
-                    {{--<div class="panel panel-red">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-xs-3">--}}
-                                    {{--<i class="fa fa-user-circle-o fa-5x" style="color: darkgreen"></i>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-9 text-left">--}}
-                                    {{--<div class="huge"--}}
-                                         {{--style="font-weight: bold; font-size: 20px;">{{ $userThisWeek }}</div>--}}
-                                    {{--<div>NEW BUSINESSES THIS WEEK</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-lg-3 col-md-6">--}}
-                    {{--<div class="panel panel-red">--}}
-                        {{--<div class="panel-heading">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-xs-3">--}}
-                                    {{--<i class="fa fa-user-circle-o fa-5x" style="color: yellow"></i>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-9 text-left">--}}
-                                    {{--<div class="huge"--}}
-                                         {{--style="font-weight: bold; font-size: 20px;">{{ $userThisMonth }}</div>--}}
-                                    {{--<div>NEW BUSINESSES THIS MONTH</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                <div class="col-lg-4 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading" style="background-color: #d4c8b8;">
-                            <div class="row">
-                                <div class="col-xs-3" style="padding-bottom: 15px;">
-                                    <i class="fa fa-envelope-open fa-5x" style="color: white"></i>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> APPROVED : <span
-                                                class="huge"
-                                                style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</span></div>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> REJECTED : <span
-                                                class="huge"
-                                                style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</span></div>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> PENDING : <span
-                                                class="huge"
-                                                style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</span></div>
-                                </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading" style="background-color: #d4c8b8;">
+                        <div class="row">
+                            <div class="col-xs-3" style="padding-bottom: 15px;">
+                                <i class="fa fa-envelope-open fa-5x" style="color: white"></i>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AMOUNT APPROVED : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</span></div>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AMOUNT REJECTED : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</span></div>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AMOUNT PENDING : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</span></div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
             <div class="col-lg-4 col-md-6">
                     <div class="panel panel-red">
                         <div class="panel-heading" style="background-color: #b69da8;">
                             <div class="row">
                                 <div class="col-xs-3" style="padding-bottom: 15px;">
-                                    <i class="fa fa-line-chart fa-5x" style="color: white"></i>
+                                    <i class="fa fa-university fa-5x" style="color: white"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div style="color: white;font-size: 15px;font-weight: bolder;"> AVERAGE AMOUNT
@@ -209,7 +70,7 @@
                         <div class="panel-heading" style="background-color: #a5c5bd;">
                             <div class="row">
                                 <div class="col-xs-3" style="padding-bottom: 15px;">
-                                    <i class="fa fa-university fa-5x" style="color: white"></i>
+                                    <i class="fa fa-line-chart fa-5x" style="color: white"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div style="color: white;font-size: 15px;font-weight: bolder;"> NEW BUSINESSES THIS
@@ -264,9 +125,9 @@
                                             @endif
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->donationRequest->sum('dollar_amount') }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
-                                                <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '5')->count() }}</td>
+                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->sum('dollar_amount') }}</td>
+                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', '5')->count() }}</td>
                                                 {{--<td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>--}}
                                                 <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
                                                 {{--<td style="vertical-align: middle">{{ App\Organization::findOrFail($organization->id)->where('trial_ends_at', '>=', \Carbon\Carbon::now()->toDateTimeString())->get()  OR App\ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->count() }}</td>--}}

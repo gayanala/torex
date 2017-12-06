@@ -66,12 +66,23 @@
 
                                 </div>
                             @else
-                                <div class="alert alert-info">Plan limit includes the parent organization and the limit
+                            <div class="alert alert-info">Plan limit includes the parent business and the limit
                                     is
                                     crossed, upgrade to add more locations.
                                 </div>
 
                                 <div class="panel-heading">
+                                    @if($subscriptionEnds == '')
+                                        <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                                           class="btn backbtn pull-right" style="" id="cancel">
+                                            Cancel Subscription
+                                        </a>
+                                    @else
+                                        <a href="{{ URL::action('SubscriptionController@resume') }}"
+                                           class="btn savebtn pull-right" style="" id="resume">
+                                            Resume Subscription
+                                        </a>
+                                    @endif
                                     <h1 style="text-align: center">Subscription made for {{$subscriptionQuantity}}
                                         locations</h1>
                                 </div>
