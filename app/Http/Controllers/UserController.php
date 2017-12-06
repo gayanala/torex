@@ -246,11 +246,23 @@ class UserController extends Controller
             }
 
             $userUpdate = $request->all();
-            User::find($id)->update($userUpdate);
+            User::find($id)->update([
+                'first_name' => $userUpdate['first_name'],
+                'last_name' => $userUpdate['last_name'],
+                'email' => $userUpdate['email'],
+                'user_name' => $userUpdate['email'],
+                'street_address1' => $userUpdate['street_address1'],
+                'street_address2' => $userUpdate['street_address2'],
+                'city' => $userUpdate['city'],
+                'state' => $userUpdate['state'],
+                'zipcode' => $userUpdate['zipcode'],
+                'phone_number' => $userUpdate['phone_number']
+            ]);
+            $messages = 'Profile updated successfully';
+            // return view('users.index', compact('user'));
+            Return redirect('user/editprofile')->with('messages', $messages);
         }
-        $messages = 'Profile updated successfully';
-        // return view('users.index', compact('user'));
-        Return redirect('user/editprofile')->with('messages', $messages);
+        return redirect('/home')->withErrors(array('0' => 'You do not have access to edit this user!!'));
     }
 
     public function editSubUser($id)
@@ -307,7 +319,7 @@ class UserController extends Controller
         $request->merge(['user_name' => $userName]);
         $userUpdate = $request->all();
         // Find user and only update role if they are not a root user
-        if (User::findorFail($request->id)->update([
+        if (($userUpdate['role_id'] <> Constant::ROOT_USER) AND User::findorFail($request->id)->update([
                 'id' => $userUpdate['id'],
                 'first_name' => $userUpdate['first_name'],
                 'last_name' => $userUpdate['last_name'],

@@ -20,13 +20,13 @@ class UsersTableSeeder extends Seeder
             'last_name' => 'admin',
             'user_name' => 'email1@mailinator.com',
             'email' => 'email1@mailinator.com',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('2getherAGr8erGood'),
             'organization_id' => '1',
-            'street_address1' => 'Root User',
-            'street_address2' => 'Root User',
-            'city' => 'Root',
-            'zipcode' => '67654',
-            'state' => 'LA',
-            'phone_number' => '9876543210',]);
+            'street_address1' => '17117 Oak Drive',
+            'street_address2' => 'Ste. A',
+            'city' => 'Omaha',
+            'zipcode' => '68130',
+            'state' => 'NE',
+            'phone_number' => '(402) 715-5230',]);
     }
 }
