@@ -324,12 +324,7 @@
 
 
 <body>
-<script>
 
-    var MON_CHAR = {{ config('variables.monthly_charge') }};
-    var ANUAL_CHAR = {{ config('variables.annual_charge') }};
-    var EXTRA_CHAR = {{ config('variables.extra_charge') }};
-</script>
 @yield('scripts')
 <div id="app">
 
@@ -441,7 +436,8 @@
 
                             <li class="dropdown">
 
-                                <a href="#" class="dropdown-toggle" style="right:10px;" data-toggle="dropdown"
+                                <a href="#" class="dropdown-toggle" style="font-weight:bold;right:10px;"
+                                   data-toggle="dropdown"
                                    role="button"
                                    aria-expanded="false">
                                     {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
