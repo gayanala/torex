@@ -312,27 +312,27 @@
 
         .dropdown-menu li > a {
             color: white;
+            padding-right: 3px;
+            padding-bottom: 0px;
+            padding-left: 3px;
+            float:none;
+            overflow: hidden;
         }
         .dropdown-menu {
-            color: #fff;
-            list-style-type: none;
-            position: relative;
-            background-color: #1a1b20;
-            height: 40px;
-            width: 100%;
-            font-family: Roboto;
-            float: left;
+
             padding: 0;
             padding-bottom: 0px;
             padding-top: 0px;
+            text-align: left;
+            float:none;
+            overflow: hidden;
             font-weight: bold;
         }
         .dropdown-menu > li{
-            position: relative;
-            float: left;
-            line-height: 40px;
-            width: 340px;
-            text-align: center;
+
+            text-align:left;
+
+
         }
 
 
@@ -353,7 +353,7 @@
 
             <div class="row">
                 <div class="col-sm-3"
-                     style='padding: .5px 10px -5px 0px;margin-top: -2px;margin-bottom: -0.5px'>
+                     style='padding-left: 0px;padding-top: .5px;padding-bottom: -5px;padding-right:10px;margin-top: -2px;margin-bottom: -0.5px'>
                     @if (Auth::guest())
                         <a href="{{ url('/') }}">
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="{{ env('APP_NAME', 'CharityQ')  }}"
