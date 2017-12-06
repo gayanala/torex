@@ -66,7 +66,7 @@
 
                                 </div>
                             @else
-                                <div class="alert alert-info">Plan limit includes the parent organization and the limit
+                            <div class="alert alert-info">Plan limit includes the parent business and the limit
                                     is
                                     crossed, upgrade to add more locations.
                                 </div>
