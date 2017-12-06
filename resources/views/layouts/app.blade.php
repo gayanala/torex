@@ -313,11 +313,28 @@
         .dropdown-menu li > a {
             color: white;
         }
-
         .dropdown-menu {
+            color: #fff;
+            list-style-type: none;
+            position: relative;
+            background-color: #1a1b20;
+            height: 40px;
+            width: 100%;
+            font-family: Roboto;
+            float: left;
+            padding: 0;
             padding-bottom: 0px;
             padding-top: 0px;
+            font-weight: bold;
         }
+        .dropdown-menu > li{
+            position: relative;
+            float: left;
+            line-height: 40px;
+            width: 340px;
+            text-align: center;
+        }
+
 
     </style>
 </head>
@@ -434,7 +451,7 @@
 
                             {{--this is the one showing for nav bar--}}
 
-                            <li class="dropdown">
+                            <li>
 
                                 <a href="#" class="dropdown-toggle" style="font-weight:bold;right:10px;"
                                    data-toggle="dropdown"
@@ -445,6 +462,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
                                     <li>
                                         <a href="{{ action('UserController@editProfile')}}">User Profile</a>
                                     </li>
@@ -465,6 +483,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+                                    </div>
                                 </ul>
 
                             </li>

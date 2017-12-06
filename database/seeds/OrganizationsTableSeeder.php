@@ -15,14 +15,15 @@ class OrganizationsTableSeeder extends Seeder
         DB::table('organizations')->delete();
         Organization::create([
             'id' => 1,
-            'org_name' => 'Tagg',
+            'org_name' => 'Together A Greater Good',
             'organization_type_id' => 3,
             'org_description' => 'Administrator and Owner of CharityQ',
-            'street_address1' => '123 Main St',
+            'street_address1' => '17117 Oak Drive',
+            'street_address2' => 'Ste. A',
             'city' => 'Omaha',
+            'zipcode' => '68130',
             'state' => 'NE',
-            'zipcode' => '12345',
-            'phone_number' => '555-555-5555',
+            'phone_number' => '(402) 715-5230'
         ]);
 
     }
