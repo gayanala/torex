@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Custom\Constant;
 use App\DonationRequest;
 use App\EmailTemplate;
+use App\ParentChildOrganizations;
 use App\RoleUser;
 use Auth;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class EmailTemplateController extends Controller
         $user_id = Auth::id();
         $user_role = RoleUser::where('user_id', $user_id)->value('role_id'); //get user role of current user
 
-        if ($user_role == Constant::TAGG_ADMIN OR $user_role == Constant::BUSINESS_ADMIN) {
+        if ($user_role == Constant::TAGG_ADMIN OR $user_role == Constant::TAGG_ADMIN OR $user_role == Constant::BUSINESS_ADMIN) {
 
             $email_templates = EmailTemplate::where('organization_id', $org_id)->get();
 
@@ -33,9 +34,10 @@ class EmailTemplateController extends Controller
 
     public function update(Request $request, $id)
     {
-        $email_template = EmailTemplate::find($id);
+        $email_template = EmailTemplate::findOrFail($id);
         $email_template->update($request->all());
         $email_template->save();
+
         return redirect('emailtemplates');
     }
 
@@ -65,6 +67,8 @@ class EmailTemplateController extends Controller
             // either accept or reject
             $change_status = $request->submitbutton;
 
+
+
             $ids_array = [];
             $ids_array = explode(',', $ids_string); //split string into array seperated by ', '
 
@@ -74,6 +78,12 @@ class EmailTemplateController extends Controller
 
             //get first and last names in string
             $names = DonationRequest::whereIn('id', $ids_array)->pluck('last_name', 'first_name');
+
+            //if current organization is a child location get parent's email template
+            $organizationId = ParentChildOrganizations::where('child_org_id', $org_id)->value('parent_org_id');
+            if ($organizationId){
+                $org_id = $organizationId;
+            }
 
             //returns to different views based on button clicked by user 'Approve' or 'Reject'
             if ($change_status == 'Approve') {

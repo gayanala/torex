@@ -14,6 +14,7 @@ class RegistrationSuccessful extends Mailable
 
     public $user;
     public $emailTemplate;
+    public $userName;
     /**
      * Create a new message instance.
      *
@@ -33,9 +34,11 @@ class RegistrationSuccessful extends Mailable
      */
     public function build()
     {
-
+        $this->userName = $this->user->first_name.' '.$this->user->last_name;
+        $this->emailTemplate->email_message = str_replace('{Addressee}', $this->userName, $this->emailTemplate->email_message);
+        $this->emailTemplate->email_message = str_replace('{My Business}', getenv('APP_NAME'), $this->emailTemplate->email_message);
         return $this ->from('noreply@charityq.com')
                      ->subject($this->emailTemplate->email_subject)
-                     ->markdown('emails.user.welcomemail');
+                     ->view('emails.user.welcomemail');
     }
 }
