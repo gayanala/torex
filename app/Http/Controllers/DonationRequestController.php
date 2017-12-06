@@ -13,6 +13,7 @@ use App\Request_item_purpose;
 use App\Request_item_type;
 use App\Requester_type;
 use App\State;
+use App\Subscription;
 use App\User;
 use Auth;
 use Carbon\Carbon;
@@ -252,30 +253,43 @@ class DonationRequestController extends Controller
     {
         $id = decrypt($id);
         $organization = Organization::findOrFail($id);
+        $organizationsArray = $this->getAllMyOrganizationIds($id, true);
 
-        $orgIds = Organization::findOrFail($id)->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();//dd($orgIds);
-        $organizationsArray = ParentChildOrganizations::whereIn('parent_org_id', $orgIds)->pluck('child_org_id')->toArray();
-        array_push($organizationsArray, $orgIds);
+        $numActiveLocations = count($organizationsArray);
 
-        $numActiveLocations = sizeOf($organizationsArray);
-        $userCount = User::whereIn('organization_id', $organizationsArray)->count();
-
-        $userThisWeek = Organization::findOrFail($id)->where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
-        $userThisMonth = Organization::findOrFail($id)->where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
-        $userThisYear = Organization::findOrFail($id)->where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
+        $activeUsers = User::whereIn('organization_id', $organizationsArray)->count();
 
         $avgAmountDonated = sprintf("%.2f", (DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organization->id)->avg('approved_dollar_amount')));
+
+        $planType = Subscription::where('organization_id', $id)->value('stripe_plan');//dd($planType);
+        $startDate = Subscription::where('organization_id', $id)->orderBy('created_at', 'asc')->first()->value('created_at');//dd($startDate);
+
+        $renewalDate = Organization::where('id', $id)->value('trial_ends_at');
 
         $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->where('organization_id', $organization->id)->count();
         $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organization->id)->count();
         $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->where('organization_id', $organization->id)->count();
 
-        return view('donationrequests.donation-child', compact('organization', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'userCount', 'userThisWeek', 'userThisMonth', 'userThisYear'));
+        return view('donationrequests.donation-child', compact('organization', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'activeUsers', 'planType', 'startDate', 'renewalDate'));
 
     }
 
     public function acknowledgeRequestReceived()
     {
         return view('donationrequests.request-confirmation');
+    }
+
+    // include organization id in the donation request URL//
+    protected function getAllMyOrganizationIds($id, $activeFlag = true)
+    {
+        $organization = Organization::findOrFail($id);
+        if ($activeFlag) {
+            $arr = ParentChildOrganizations::active()->where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
+        } else {
+            $arr = ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
+        }
+        //$arr = Organization::active()->whereIn('id', $arr)->pluck('id')->toArray();
+        array_push($arr, $organization->id);
+        return $arr;
     }
 }

@@ -58,7 +58,7 @@
                             <div class="col-xs-9 text-left">
                                 <div style="color: white;font-size: 15px;font-weight: bolder;"> ACTIVE USERS : <span
                                             class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $userCount }}</span></div>
+                                            style="font-weight: bold; font-size: 20px;">{{ $activeUsers }}</span></div>
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div style="color: white;font-size: 15px;font-weight: bolder;"> ACTIVE LOCATIONS : <span
@@ -80,18 +80,17 @@
                             <div class="col-xs-9 text-left">
                                 <div style="color: white;font-size: 15px;font-weight: bolder;"> PLAN TYPE
                                     : <span class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $userThisWeek }}</span></div>
+                                            style="font-weight: bold; font-size: 20px;">{{ $planType }}</span></div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> START DATE
-                                    MONTH : <span class="huge"
-                                                  style="font-weight: bold; font-size: 20px;">{{ $userThisMonth }}</span>
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> JOINED ON : <span class="huge"
+                                                  style="font-weight: bold; font-size: 20px;">{{ $startDate }}</span>
                                 </div>
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div style="color: white;font-size: 15px;font-weight: bolder;"> RENEWAL DATE
                                     : <span class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $userThisYear }}</span></div>
+                                            style="font-weight: bold; font-size: 20px;">{{ $renewalDate }}</span></div>
                             </div>
                         </div>
                     </div>
