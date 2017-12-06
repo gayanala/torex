@@ -72,6 +72,17 @@
                                 </div>
 
                                 <div class="panel-heading">
+                                    @if($subscriptionEnds == '')
+                                        <a href="{{ URL::action('SubscriptionController@cancel') }}"
+                                           class="btn backbtn pull-right" style="" id="cancel">
+                                            Cancel Subscription
+                                        </a>
+                                    @else
+                                        <a href="{{ URL::action('SubscriptionController@resume') }}"
+                                           class="btn savebtn pull-right" style="" id="resume">
+                                            Resume Subscription
+                                        </a>
+                                    @endif
                                     <h1 style="text-align: center">Subscription made for {{$subscriptionQuantity}}
                                         locations</h1>
                                 </div>

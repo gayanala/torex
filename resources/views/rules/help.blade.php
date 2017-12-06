@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+    <script>
+        $('#app').hide();
+        $('#navDemo').wrap('<span style="display: none;" hidden />');
+    </script>
     <div class="container">
         <div>
 <h1 style="left-padding:20%;"><b>Business Rules Help</b></h1><br>
