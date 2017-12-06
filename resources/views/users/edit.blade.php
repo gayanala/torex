@@ -115,7 +115,6 @@
                                 @endif
                             </div>
 
-                            {{--<div class="col-lg-6">{!! Form::text('state',null,['required'],['class'=>'form-control' ]) !!}</div>--}}
                         </div>
 
                         <div class="form-group">

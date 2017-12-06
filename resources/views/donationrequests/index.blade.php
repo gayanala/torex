@@ -36,7 +36,7 @@
                             <tr class="bg-info">
                                 <th class="text-center">Business Name</th>
                                 <th class="text-center">Request Amount</th>
-                                <th class="text-center">Request For</th>
+                                <th class="text-center">Type of Donation</th>
                                 <th class="text-center">Location</th>
                                 {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Date Needed</th>

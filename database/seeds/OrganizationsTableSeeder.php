@@ -18,33 +18,13 @@ class OrganizationsTableSeeder extends Seeder
             'org_name' => 'Together A Greater Good',
             'organization_type_id' => 3,
             'org_description' => 'Administrator and Owner of CharityQ',
-            'street_address1' => '123 Main St',
+            'street_address1' => '17117 Oak Drive',
+            'street_address2' => 'Ste. A',
             'city' => 'Omaha',
+            'zipcode' => '68130',
             'state' => 'NE',
-            'zipcode' => '12345',
-            'phone_number' => '555-555-5555',
+            'phone_number' => '(402) 715-5230'
         ]);
-        Organization::create([
-            'id' => 2,
-            'org_name' => 'Not Your Mommas Meatballs',
-            'organization_type_id' => 4,
-            'org_description' => 'Best Italian on the Planet!',
-            'street_address1' => '321 Main St',
-            'city' => 'Omaha',
-            'state' => 'NE',
-            'zipcode' => '12345',
-            'phone_number' => '555-555-5555',
-        ]);
-        Organization::create([
-            'id' => 3,
-            'org_name' => 'The Law Offices of Dewey, Cheatem & Howe',
-            'organization_type_id' => 6,
-            'org_description' => 'Corporate Law and Tax Attorneys',
-            'street_address1' => '123 Brattle St',
-            'city' => 'Cambridge',
-            'state' => 'MA',
-            'zipcode' => '02139',
-            'phone_number' => '555-555-5555',
-        ]);
+
     }
 }

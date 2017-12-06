@@ -69,7 +69,15 @@ class UserController extends Controller
         $admin = Auth::user();
         $arr = ParentChildOrganizations::active()->where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
         array_push($arr, $organizationId);
-        $users = User::active()->whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();//dd($users[0]->id);//dd($users[0]->roles[0]->name);
+        $rootUserId = RoleUser::where('role_id', Constant::ROOT_USER)->pluck('user_id');
+        if ($organizationId == Constant::CHARITYQ_ID)
+        {
+            $users = User::active()->whereIn('organization_id', $arr)->whereNotIn('id', [$admin->id, $rootUserId])->get();
+
+        }
+        else {
+            $users = User::active()->whereIn('organization_id', $arr)->where('id', '<>', $admin->id)->get();
+        }
         return view('users.indexUsers', compact('users', 'admin'));
     }
 
@@ -238,11 +246,23 @@ class UserController extends Controller
             }
 
             $userUpdate = $request->all();
-            User::find($id)->update($userUpdate);
+            User::find($id)->update([
+                'first_name' => $userUpdate['first_name'],
+                'last_name' => $userUpdate['last_name'],
+                'email' => $userUpdate['email'],
+                'user_name' => $userUpdate['email'],
+                'street_address1' => $userUpdate['street_address1'],
+                'street_address2' => $userUpdate['street_address2'],
+                'city' => $userUpdate['city'],
+                'state' => $userUpdate['state'],
+                'zipcode' => $userUpdate['zipcode'],
+                'phone_number' => $userUpdate['phone_number']
+            ]);
+            $messages = 'Profile updated successfully';
+            // return view('users.index', compact('user'));
+            Return redirect('user/editprofile')->with('messages', $messages);
         }
-        $messages = 'Profile updated successfully';
-        // return view('users.index', compact('user'));
-        Return redirect('user/editprofile')->with('messages', $messages);
+        return redirect('/home')->withErrors(array('0' => 'You do not have access to edit this user!!'));
     }
 
     public function editSubUser($id)
@@ -251,6 +271,7 @@ class UserController extends Controller
         $roles = $this->getRoles();
 
         $user = User::findOrFail($id);
+
         $authOrganizationId = Auth::user()->organization_id;
 
         $organizationsIds = ParentChildOrganizations::active()->where('parent_org_id', $authOrganizationId)->pluck('child_org_id')->toArray();
@@ -290,9 +311,23 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $orgId = explode("_", $request->organization_id)[1];
+
+        $userName = $request->email;
+
+        $request->merge(['organization_id' => $orgId]);
+        $request->merge(['user_name' => $userName]);
         $userUpdate = $request->all();
         // Find user and only update role if they are not a root user
-        if (User::findorFail($request->id)->update($userUpdate) AND ($userUpdate['role_id'] <> Constant::ROOT_USER)) {
+        if (($userUpdate['role_id'] <> Constant::ROOT_USER) AND User::findorFail($request->id)->update([
+                'id' => $userUpdate['id'],
+                'first_name' => $userUpdate['first_name'],
+                'last_name' => $userUpdate['last_name'],
+                'email' => $userUpdate['email'],
+                'user_name' => $userUpdate['email'],
+                'organization_id' => $userUpdate['organization_id'],
+                'role_id' => $userUpdate['role_id']
+            ])) {
             RoleUser::where('user_id', $request->id)->first()->update($userUpdate);
         }
 

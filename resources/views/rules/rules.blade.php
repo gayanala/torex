@@ -40,8 +40,8 @@
             <!-- /.col-lg-12 -->
         </div>
     </div>
-
-    <div class="panel-body col-md-12 col-lg-10 col-lg-offset-1 form-group">
+    <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
+    <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
         <!--<section class="bs-docs-section clearfix"> -->
         {{--{{ Form::open(['method' => 'post', 'action' => ['RuleEngineController@saveRule', $ruleType]]) }}--}}
@@ -115,14 +115,11 @@
 
 
 
-    </div>
-
-
     <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
         <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
             {{ csrf_field() }}
 
-
+            @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
 
                 <table width="100%">
                     <tr>
@@ -131,7 +128,7 @@
                             <h1><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
                         </td>
                         <td align="center" bgcolor="#f5f5f5" style="padding-right: 10px;padding-top: 0px">
-                        @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
+
                                  <a href="{{url('/help') }}" target="pdf-frame">
                                         <h5 align="right" vertical-align="middle"><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
                                     </a>
@@ -160,14 +157,11 @@
                         <td colspan="4">&nbsp;</td>
                     </tr>
                 </table>
-            </form>
-            </div>
             <!--<Rules help in new window/tab>  -->
 
 
-            </div>
             <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
-            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+
                 <div id="builder-plugins" style="background-color:#bbdefb"></div>
                 <div class="btn-group">
                     <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
@@ -193,9 +187,10 @@
 
                 <!-- <div id="querybuilder"></div> -->
             </div>
-
+</div>
 
         </form>
+    </div>
     @endif
     {{--    {{ Form::close() }}--}}
 

@@ -59,6 +59,8 @@
             clear: both;
             margin-top: 20px;
             padding-top:25px;
+            overflow-x: hidden;
+
         }
 
         @media screen and (max-width: 600px) {
@@ -172,15 +174,10 @@
             padding-bottom: 0px;
         }
 
-        .navbar {
-            position: fixed;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            border: 0;
-            border-radius: 0;
-            margin-bottom: 0;
-            font-size: 12px;
-            letter-spacing: 5px;
+        .navbar-fixed-top
+        {
+            box-shadow: 1px 1px 5px 2px mediumpurple;
+            max-height: 7%;
         }
 
         .navbar-nav li a:hover {
@@ -268,14 +265,14 @@
             color: white;
             style: bold;
             font-size: 15px;
-            box-shadow: 1px 1px 20px 1px #4a148c;
-            padding-bottom: 10px;
-        }
+            vertical-align: middle;
 
+        }
         .main-navigation ul li a {
-            padding-right: 25px !important;
+
             padding-left: 25px !important;
             padding-top: 25px;!important;
+            padding-bottom: 25px;!important;
             color: white;
         }
 
@@ -295,6 +292,10 @@
 
         .divsmall {
             padding: 25px -5px 5px 100px;
+
+        }
+        div{
+            padding:1px;
         }
 
         .dropdown-menu a {
@@ -305,8 +306,9 @@
             display: block;
             border: 1px solid #e1bee7;
             box-shadow: 1px 1px 5px 1px grey;
-            padding-bottom: 10px;
-            padding-top: 10px;
+            float:none;
+            overflow: hidden;
+
         }
 
         .dropdown-menu li > a {
@@ -383,17 +385,17 @@
                     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                     OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
-                            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a>
+                            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current" style="right:10px">Dashboard</a>
                             </li>
                             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button " style="right:10px">Search
                                         Donations</a></li>
                             @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER)
-                                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
+                                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button " style="right:10px">Search
                                         Donations</a></li>
                             @endif
                             <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                <a href="#" class="dropdown-toggle" style="right: 10px;" data-toggle="dropdown" role="button"
                                    aria-expanded="false">
                                     My Business
                                     <span class="caret"></span>
@@ -429,9 +431,11 @@
                                 </ul>
                             </li>
 
+                            {{--this is the one showing for nav bar--}}
+
                             <li class="dropdown">
 
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                <a href="#" class="dropdown-toggle" style="right:10px;" data-toggle="dropdown" role="button"
                                    aria-expanded="false">
                                     {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
                                             class="caret"></span>
@@ -503,13 +507,17 @@
         </ul>
     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                    OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
+
+       <br>
+    <br>
+   <br>
         <ul class="divsmall visible-xs-block visible-sm-block">
             <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
-                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Search
                         Donations</a></li>
             @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER)
-                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
+                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button">Search
                         Donations</a></li>
             @endif
             <li class="dropdown">

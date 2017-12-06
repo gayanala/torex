@@ -268,7 +268,7 @@
                         </div>
 
                         <div class="panel-body">
-                            @if(!is_null($organization) && sizeOf($organization) != 0)
+                            @if(!is_null($organization) && !empty($organization))
                                 <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                                     <thead>
                                     <tr class="bg-info">
@@ -317,7 +317,7 @@
 
         </div>
         <!-- /#wrapper -->
-
+        <input class="btn backbtn" type="button" value="Back" onClick="history.go(-1);">
 
         <script>
             $(document).ready(function() {
