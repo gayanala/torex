@@ -90,7 +90,7 @@
                             <div class="col-xs-9 text-left">
                                 <div style="color: white;font-size: 15px;font-weight: bolder;"> RENEWAL DATE
                                     : <span class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $renewalDate }}</span></div>
+                                            style="font-weight: bold; font-size: 20px;">{{ $renewalDate->subDay()->format('m-d-Y') }}</span></div>
                             </div>
                         </div>
                     </div>
