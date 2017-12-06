@@ -318,6 +318,9 @@
         .dropdown-menu {
             padding-bottom: 0px;
             padding-top: 0px;
+            text-align: left;
+            float:none;
+            overflow: hidden;
         }
 
     </style>
