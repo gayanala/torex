@@ -21,19 +21,19 @@
                                 <i class="fa fa-envelope-open fa-5x" style="color: white;"></i>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AMOUNT APPROVED : <span
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS APPROVED : <span
                                             class="huge"
                                             style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</span>
                                 </div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AMOUNT REJECTED : <span
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS REJECTED : <span
                                             class="huge"
                                             style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</span>
                                 </div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AMOUNT PENDING : <span
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS PENDING : <span
                                             class="huge"
                                             style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</span>
                                 </div>
@@ -84,13 +84,13 @@
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div style="color: white;font-size: 15px;font-weight: bolder;"> JOINED ON : <span class="huge"
-                                                  style="font-weight: bold; font-size: 20px;">{{ $startDate }}</span>
+                                                  style="font-weight: bold; font-size: 20px;">{{ $startDate->subDay()->format('m-d-Y')  }}</span>
                                 </div>
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div style="color: white;font-size: 15px;font-weight: bolder;"> RENEWAL DATE
                                     : <span class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $renewalDate }}</span></div>
+                                            style="font-weight: bold; font-size: 20px;">{{ $renewalDate->subDay()->format('m-d-Y') }}</span></div>
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                                                 <td style="vertical-align: middle"><?php echo ($donationRequest['street_address1'] . ' ' . $donationRequest['street_address2'] . ' ' . $donationRequest['city'] . ' ' . $donationRequest['state'] . ' ' . $donationRequest['zipcode']); ?></td>
                                                 <td style="vertical-align: middle">{{ $donationRequest->where('approval_status_id', '5')->count() }}</td>
                                                 <td style="vertical-align: middle">{{ $donationRequest->where('approval_status_id', '4')->count() }}</td>
-                                                <td style="vertical-align: middle"><?php echo ($donationRequest->created_at); ?></td>
+                                                <td style="vertical-align: middle"><?php echo ($donationRequest->created_at->subDay()->format('m-d-Y') ); ?></td>
                                                 {{--<td style="vertical-align: middle">--}}
                                                     {{--<a href="{{route('donationrequests.show',encrypt($donationRequest->id))}}" class="btn btn-info" title="Detail">--}}
                                                         {{--<span class="glyphicon glyphicon-list-alt"></span></a>--}}
