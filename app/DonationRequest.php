@@ -22,6 +22,7 @@ class DonationRequest extends Model
         'tax_exempt',
         'file_url',
         'item_requested',
+        'other_item_requested',
         'dollar_amount',
         'item_purpose',
         'other_item_purpose',

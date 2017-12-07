@@ -25,15 +25,6 @@
                     <div class="panel-heading"><h1> Subscription </h1></div>
                     <h2 style="text-align:center;"></h2>
 
-                    @if ($errors->any())
-
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{$error}}</li>
-                            @endforeach
-                        </ul>
-                </div>
-                @endif
                 {{ Form::open(['method'=> 'POST', 'action' => 'SubscriptionController@getIndex','id'=>'subscription-form']) }}
 
                 {{ csrf_field() }}
@@ -90,7 +81,7 @@
                                 <label for="coupon" class="control-label">Coupon</label>
                                 <div class="col-md-6" style="padding-left: 0px;">
                                     <input id="coupon" type="text" class="form-control" name="coupon"
-                                           value="{{ old('coupon') }}" placeholder="Coupon" required
+                                           value="{{ old('coupon') }}" placeholder="Coupon"
                                            autofocus>
                                     <div style="padding-bottom: 15px;"></div>
                                     <input type="button"
@@ -106,7 +97,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-12" style="max-height: 15px;color:red;" id="coupon-message"></div>
+                            <div class="col-sm-12" style="max-height: 15px;font-size: 14px;" id="coupon-message"></div>
                         </div>
                         <div class="col-xs-12 col-md-4 hide" id="cart">
                             <div class="panel panel-default">
@@ -148,12 +139,7 @@
                                     <div class="panel-heading"><h1 style="text-align: center;"> Payment Details </h1>
                                     </div>
 
-                                    <div class="checkbox pull-right">
-                                        <label>
-                                            <input type="checkbox"/>
-                                            Remember
-                                        </label>
-                                    </div>
+
                                 </div>
                                 <div class="panel-body">
                                     <div class="stripe-errors panel"></div>

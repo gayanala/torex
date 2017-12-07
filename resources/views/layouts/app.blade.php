@@ -58,7 +58,7 @@
             min-height: 100%;
             clear: both;
             margin-top: 20px;
-            padding-top:30px;
+            padding-top:100px;
         }
 
         @media screen and (max-width: 600px) {
@@ -239,11 +239,13 @@
         .main-navigation ul li a {
             padding-right: 25px !important;
             padding-left: 25px !important;
+            padding-top: 25px;!important;
             color: white;
         }
 
         .w3-bar .w3-button {
             padding: 16px;
+            padding-top: 10px;
         }
 
         body, h1, h2, h3, h4, h5, h6 {
@@ -270,11 +272,12 @@
             padding-bottom: 10px;
             padding-top: 10px;
         }
-        .dropdown-menu li>a {
+
+        .dropdown-menu li > a {
             color: white;
         }
-        .dropdown-menu
-        {
+
+        .dropdown-menu {
             padding-bottom: 0px;
             padding-top: 0px;
         }
@@ -294,11 +297,14 @@
 <div id="app">
 
 
+
     <nav class="navbar-toggleable-md navbar-toggleable-xs navbar-light navbar-fixed-top" style="background-color: #8e24aa;padding-bottom: .5px;margin-bottom: 10px">
+
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-sm-3" style='padding-left: 0px;padding-top: .5px;padding-bottom: -5px;padding-right:10px;margin-top: -2px;margin-bottom: -0.5px'>
+                <div class="col-sm-3"
+                     style='padding-left: 0px;padding-top: .5px;padding-bottom: -5px;padding-right:10px;margin-top: -2px;margin-bottom: -0.5px'>
                     @if (Auth::guest())
                         <a href="{{ url('/') }}">
                             <img src="{{ asset('img/CharityQ_Logo.png') }}" alt="TAGG" id="logo" class="img-responsive"
@@ -322,10 +328,7 @@
                 </div>
                 <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:0px;'>
                     <div class="collapse navbar-collapse" id="myNavbar">
-
-
                         <!-- Right Side Of Navbar -->
-
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
 
                             @if (Auth::guest())
@@ -341,98 +344,107 @@
 
                         </ul>
                     </div>
-
-                    </li>
                     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                     OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
+                        <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
+                            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a>
+                            </li>
+                             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                                    <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                                    Donations</a></li>
+                            @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER)
+                                    <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
+                                    Donations</a></li>
+                            @endif
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false">
+                                    My Business
+                                    <span class="caret"></span>
+                                </a>
 
-                        <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
-                        <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
-                                Donations</a></li>
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false">
-                                My Business
-                                <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <div class="w3-dropdown-content w3-card-4 w3-bar-block">
-                                    <li>
-                                        <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
-                                    </li>
-
-                                    @if(Auth::user()->roles[0]->id == 4 OR 1 OR 2)
+                                <ul class="dropdown-menu" role="menu">
+                                    <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+                                        @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                                            <li>
+                                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                                            </li>
+                                        @endif
                                         <li>
-                                            <a href="{{ url('user/manageusers')}}">Users</a>
+                                            <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business
+                                                Profile</a>
                                         </li>
-                                    @endif
+                                        @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)
+                                            <li>
+                                                <a href="{{ url('user/manageusers')}}">Users</a>
+                                            </li>
+                                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                                                <li>
+                                                    <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                                </li>
+                                            @endif
+                                            <li>
+                                                <a href="{{ route('emailtemplates.index') }}">
+                                                    Communication Template
+                                                </a>
+                                            </li>
+                                        @endif
+                                    </div>
+                                </ul>
+                            </li>
 
-                                        <li>
-                                            <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business Profile</a>
-                                        </li>
+                            <li class="dropdown">
 
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false">
+                                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
+                                            class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                        <a href="{{ action('UserController@editProfile')}}">User Profile</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('emailtemplates.index') }}">
-                                            Communication Template
+                                        <a href="{{ route('reset-password') }}">
+                                            Reset Password
                                         </a>
                                     </li>
-                                </div>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false">
-                                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
-                                        class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ route('users.index')}}">Profile Management</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('reset-password') }}">
-                                        Reset Password
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
+                                            Logout
+                                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                          style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                              style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
 
-                        </li>
-                    @else
-                        <li><a href="{{ url('/subscription')}}" class="w3-bar-item w3-button current">Subscription</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                  style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                        @endif
+                            </li>
                         </ul>
+                    @else
+                        <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
+                            <li><a href="{{ url('/subscription')}}"
+                                   class="w3-bar-item w3-button current">Subscription</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                    @endif
                 </div>
             </div>
         </div>
@@ -453,87 +465,114 @@
             <li><a href="{{ route('login') }}" class="w3-bar-item w3-button ">Login&nbsp;<span
                             class="glyphicon glyphicon-log-in"></span></a></li>
         </ul>
+    @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
+                   OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
+        <ul class="divsmall visible-xs-block visible-sm-block">
+            <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
+            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search
+                        Donations</a></li>
+            @elseif(Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_USER)
+                <li><a href="{{ URL('donationrequests/admin')}}" class="w3-bar-item w3-button ">Search
+                        Donations</a></li>
+            @endif
+                <li class="dropdown">
+                <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">
+                        My Business
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                            <li>
+                                <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
+                            </li>
+                        @endif
+                        <li>
+                             <a href="{{route('organizations.edit',Auth::user()->organization_id )}}">Business
+                                    Profile</a>
+                         </li>
+                            @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::ROOT_USER OR Auth::user()->roles[0]->id == \App\Custom\Constant::TAGG_ADMIN)
+                                <li>
+                                    <a href="{{ url('user/manageusers')}}">Users</a>
+                                </li>
+                                @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
+                                    <li>
+                                        <a href="{{ route('organizations.index')}}">Business Locations</a>
+                                    </li>
+                                @endif
+                        <li>
+                            <a href="{{ route('emailtemplates.index') }}">
+                                Communication Template
+                            </a>
+                        </li>
+                            @endif
+                    </ul>
+                </div>
+            </li>
+
+            <li class="dropdown">
+                <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">
+                        {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
+                                class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="{{ route('users.index')}}">Profile Management</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('reset-password') }}">
+                                Reset Password
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                  style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    @else
+        <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
+            <li><a href="{{ url('/subscription')}}"
+                   class="w3-bar-item w3-button current">Subscription</a>
+            </li>
+            <li>
+                <a href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                      style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </li>
+        </ul>
+        @endif
+</div>
+<div id="content">
+    {{--@include('layouts.partials._status')--}}
+    @yield('content')
 </div>
 
 
-@else
-    <ul>
-        <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
-        <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button ">Search Donations</a></li>
-        <li class="dropdown">
-            <div class="w3-dropdown-content w3-card-4 w3-bar-block">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                   aria-expanded="false">
-                    My Business
-                    <span class="caret"></span>
-                </a>
-
-                <ul class="dropdown-menu" role="menu">
-
-                    <li>
-                        <a href="{{ url('/rules?rule=1')}}">Donation Preference</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('organizations.index')}}">Business Locations</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('emailtemplates.index') }}">
-                            Communication Template
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-        <li class="dropdown">
-            <div class="w3-dropdown-content w3-card-4 w3-bar-block">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                   aria-expanded="false">
-                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span
-                            class="caret"></span>
-                </a>
-
-                <ul class="dropdown-menu" role="menu">
-                    <li>
-                        <a href="{{ route('users.index')}}">Profile Management</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('reset-password') }}">
-                            Reset Password
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                              style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </li>
-    </ul>
-    @endif
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <br>
-    <div id="content">
-        {{--@include('layouts.partials._status')--}}
-        @yield('content')
-    </div>
-    </div>
-
-
-    {{--<script src="{{ asset('js/app.js') }}">--}}
+{{--<script src="{{ asset('js/app.js') }}">--}}
 
 </body>
 <!-- <footer class="footer bg-4">

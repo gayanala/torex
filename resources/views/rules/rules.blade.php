@@ -28,6 +28,7 @@
 
         <form id="budgetNoticeForm" action="{{ action('RuleEngineController@saveBudgetNotice') }}">
             <br/>
+            {{ csrf_field() }}
             <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
 
 
@@ -92,89 +93,91 @@
         </form>
 
     </div>
-
-    <div class="row" style="background-color:#ffffff">
-        <div class="col-sm-7" style="padding-left:45%">
-            <a href="{{url('/help') }}" target="pdf-frame">
-                <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
-            </a>
-        </div>
-    </div>
-    <br>
-
-
-    <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
-
-        <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
-            <br>
-            <table width="100%" style="background-color:#f9a825">
-                <tr>
-                    <td align="center" bgcolor="#f9a825">
-
-                        <h1 style="color:white"><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
-
-                    </td>
-                </tr>
-            </table>
-
-            <table width="100%" style="background-color:#fffde7" frame="vsides" bordercolor="#ffcc80">
-                <tr>
-                    <td colspan="4">&nbsp;</td>
-                </tr>
-                <tr>
-
-                    <td align="right">
-                        <label for="ddlRuleType">Select Rule To Edit:</label>
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                    <td width="50%">
-                        {!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType', 'name'=>'ddlRuleType']) !!}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">&nbsp;</td>
-                </tr>
-            </table>
-        </div>
-        <!--<Rules help in new window/tab>  -->
-
-
-        </div>
-        <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
-        <div class="col-md-12 col-lg-10 col-lg-offset-1">
-            <div id="builder-plugins"></div>
-            <div class="btn-group">
-                <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
-                <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
-                <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
-                <button id="btnSave" class="btn btn-primary parse-json" type="button" data-target="plugins">Save Rules
-                </button>
-                <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
-                        class="btn btn-default">Run Rule Workflow
-                </button>
-                <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
-                        class="btn btn-default">Run Budget
-                </button>
-                <button id="btnRunMinimumNoticeCheckRule" type="button"
-                        href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
-                        class="btn btn-default">Run Required Days Notice
-                </button>
+    @if (Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN)
+        <div class="row" style="background-color:#ffffff">
+            <div class="col-sm-7" style="padding-left:45%">
+                <a href="{{url('/help') }}" target="pdf-frame">
+                    <h5><u><b>How to set rules&nbsp;<span class="glyphicon glyphicon-question-sign"></span></b></u></h5>
+                </a>
             </div>
-            <br/>
-            <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
-            <br/>
-            <br/>
-            <br/>
-            <!-- <div id="querybuilder"></div> -->
         </div>
+        <br>
 
 
-    </form>
+        <form id="mainForm" action="{{ action('RuleEngineController@saveRule') }}">
+            {{ csrf_field() }}
+
+            <div class="col-md-12 col-lg-10 col-lg-offset-1 form-group">
+                <br>
+                <table width="100%" style="background-color:#f9a825">
+                    <tr>
+                        <td align="center" bgcolor="#f9a825">
+
+                            <h1 style="color:white"><label for="ddlRuleType">Global Business Rules (Admin Only)</label></h1>
+
+                        </td>
+                    </tr>
+                </table>
+
+                <table width="100%" style="background-color:#fffde7" frame="vsides" bordercolor="#ffcc80">
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                    <tr>
+
+                        <td align="right">
+                            <label for="ddlRuleType">Select Rule To Edit:</label>
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td width="50%">
+                            {!! Form::select('rule_type', array(null => 'Select...') + $rule_types->all(), null, ['class'=>'form-control ddlType', 'id'=>'ddlRuleType', 'name'=>'ddlRuleType']) !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+            <!--<Rules help in new window/tab>  -->
+
+
+            </div>
+            <input id="ruleType" type="hidden" name="ruleType" value="{{ $_GET['rule'] }}"/>
+            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                <div id="builder-plugins"></div>
+                <div class="btn-group">
+                    <!-- <button class="btn btn-error parse-sql" type="button" data-target="plugins">Preview Rule SQL</button> -->
+                    <button class="btn btn-warning reset" type="button" data-target="plugins">Clear Rules</button>
+                    <button class="btn btn-success set-json" type="button" data-target="plugins">Reset Rules</button>
+                    <button id="btnSave" class="btn btn-primary parse-json" type="button" data-target="plugins">Save Rules
+                    </button>
+                    <button id="btnRun" type="button" href="{{ action('RuleEngineController@manualRunRule') }}"
+                            class="btn btn-default">Run Rule Workflow
+                    </button>
+                    <button id="btnRunBudget" type="button" href="{{ action('RuleEngineController@runBudgetCheckRule') }}"
+                            class="btn btn-default">Run Budget
+                    </button>
+                    <button id="btnRunMinimumNoticeCheckRule" type="button"
+                            href="{{ action('RuleEngineController@runMinimumNoticeCheckRule') }}"
+                            class="btn btn-default">Run Required Days Notice
+                    </button>
+                </div>
+                <br/>
+                <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
+                <br/>
+                <br/>
+                <br/>
+                <!-- <div id="querybuilder"></div> -->
+            </div>
+
+
+        </form>
+    @endif
     {{--    {{ Form::close() }}--}}
 
     <!-- </section> -->

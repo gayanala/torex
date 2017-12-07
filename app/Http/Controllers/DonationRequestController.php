@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use URL;
 
-//use App\File;
 
 
 class DonationRequestController extends Controller
@@ -38,6 +37,20 @@ class DonationRequestController extends Controller
         $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
         $today = Carbon::now()->toDateString();
         return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
+
+    }
+
+    public function admin()
+    {
+        $organizationId = Auth::user()->organization_id;
+        
+        $organization = Organization::findOrFail($organizationId);
+        $organizationName = $organization->org_name;
+        $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
+        array_push($arr, $organizationId);
+        $donationrequests = DonationRequest::whereIn('organization_id', $arr)->get();
+        $today = Carbon::now()->toDateString();
+        return view('donationrequests.admin-index', compact('donationrequests', 'organizationName', 'today'));
 
     }
 
@@ -105,16 +118,17 @@ class DonationRequestController extends Controller
         $donationRequest->state = $request->state;
         $donationRequest->zipcode = $request->zipcode;
         $donationRequest->tax_exempt = $request->taxexempt;
-        if ($request->hasFile('attachment')) {
+
+        if ($request->hasFile('attachment') && $request->taxexempt==1) {
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
-            // $image = $request->file('attachment');
-            // $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');
             $imageName = Storage::disk('s3')->url($imageName);
             $donationRequest->file_url = $imageName;
         }
         $donationRequest->item_requested = $request->item_requested;
+        $donationRequest->other_item_requested = $request->item_requested_explain;
         $donationRequest->dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
+        $donationRequest->other_item_purpose = $request->item_purpose_explain;
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
         $donationRequest->event_start_date = $request->startdate;
@@ -125,20 +139,21 @@ class DonationRequestController extends Controller
         $donationRequest->approval_status_id = Constant::SUBMITTED;
         $donationRequest->approval_status_reason = 'Business Rules failed to run on request.';
         $this->validate($request, [
-            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+
             'needed_by_date' => 'after:today',
             'startdate' => 'after:today',
             'taxexempt' => "required",
+            'phonenumber' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
         ]);
-        
-        
-        
+
+
+
 
         $donationRequest->save();
-        if ($request->hasFile('attachment')) {
-            // $this->validate($request, [
-            //         'attachment' => 'image|file|mimetypes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
-            //     ]);
+        if ($request->hasFile('attachment') && $request->taxexempt==1) {
+            $this->validate($request, [
+                    'attachment' => 'required|mimes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
+                ]);
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
             $uploadStatus = Storage::disk('s3')->put($imageName, file_get_contents($image), 'public');

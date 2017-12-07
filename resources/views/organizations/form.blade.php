@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('organization_type_id') ? ' has-error' : '' }}">
+{{--<div class="form-group{{ $errors->has('organization_type_id') ? ' has-error' : '' }}">
     <label for="org_description" class="col-md-4 control-label"> Business Type <span
                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>
     </label>
@@ -77,7 +77,7 @@
                                     </span>
         @endif
     </div>
-</div>
+</div>--}}
 
 <div class="form-group{{ $errors->has('street_address1') ? ' has-error' : '' }}">
     <label for="street_address1" class="col-md-4 control-label"> Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>

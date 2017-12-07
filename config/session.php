@@ -29,9 +29,13 @@ return [
     |
     */
 
-    'lifetime' => 200,
 
-    'expire_on_close' => false,
+ 
+
+    'lifetime' => getenv("APP_SESSION_EXPIRE") ?? 30,
+
+
+    'expire_on_close' => true,
 
     /*
     |--------------------------------------------------------------------------

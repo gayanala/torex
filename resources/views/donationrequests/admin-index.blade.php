@@ -22,26 +22,46 @@
 
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
+
                             <tr class="bg-info">
-                                <th class="text-center">Organization Name</th>
-                                <th class="text-center">Request Amount</th>
-                                <th class="text-center">Request For</th>
-                                <th class="text-center">Location</th>
-                                {{--<th class="text-center">Event Name</th>--}}
-                                <th class="text-center">Date Needed</th>
+                                <th class="text-center">Requester</th>
+                                <th class="text-center">Requster Type</th>
+                                <th class="text-center">Requested Amount</th>
+                                <th class="text-center">Requested Format</th>
+                                <th class="text-center">Donating Organizaiton</th>
+                                <th class="text-center">Name of the Event</th>
+                                <th class="text-center">Needed By Date</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Status Reason</th>
-                                <th class="text-center">Actions</th>
+                                <th class="text-center">View Details</th>
                             </tr>
                             </thead>
+
+                            <tfoot>
+
+                            <tr class="bg-info">
+                                <th class="text-center">Requester</th>
+                                <th class="text-center">Requster Type</th>
+                                <th class="text-center">Requested Amount</th>
+                                <th class="text-center">Requested Format</th>
+                                <th class="text-center">Donating Organizaiton</th>
+                                <th class="text-center">Name of the Event</th>
+                                <th class="text-center">Needed By Date</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Status Reason</th>
+                                <th class="text-center">View Details</th>
+                            </tr>
+                            </tfoot>
+
                             <tbody style="text-align: center">
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
                                     <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
+                                    <td style="vertical-align: middle">{{ $donationrequest->requester_type }}</td>
                                     <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->organization->org_name }}</td>
-                                    {{--<td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>--}}
+                                    <td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>
                                     <td id="neededByDate"
                                         style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
 
@@ -50,22 +70,16 @@
                                     <td style="vertical-align: middle"
                                         id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td style="white-space: nowrap">
-                                        @if($donationrequest->donationApprovalStatus->id == 2 || $donationrequest->donationApprovalStatus->id == 3)
-                                            <a href="" class="btn btn-success" title="Approve"
-                                               don-id="{{$donationrequest->id}}"
-                                               onClick="func(0, '{{$donationrequest->id}}')">
-                                                <span class="glyphicon glyphicon-ok"></span></a>
+                                        
+
+                                            
+                                            
+                                            
+                                        
                                             <a href="{{route('donationrequests.show',$donationrequest->id)}}"
                                                class="btn btn-info" title="Detail">
                                                 <span class="glyphicon glyphicon-list-alt"></span></a>
-                                            <a href="" class="btn btn-danger" title="Reject"
-                                               onClick="func(1, '{{$donationrequest->id}}')">
-                                                <span class="glyphicon glyphicon-remove"></span></a>
-                                        @else
-                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}"
-                                               class="btn btn-info" title="Detail">
-                                                <span class="glyphicon glyphicon-list-alt"></span></a>
-                                        @endif
+                                       
 
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
@@ -107,13 +121,38 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js"></script>
 
     <script src="{{ asset('js/range_dates.js') }}" type="text/javascript"></script>
+
     <script>
 
-
-   
+    // $('#example tfoot th').each( function () {
+    //     var title = $(this).text();
+    //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    // } );
+ 
+    // // DataTable
+    // var table = $('#example').DataTable();
+ 
+    // // Apply the search
+    // table.columns().every( function () {
+    //     var that = this;
+ 
+    //     $( 'input', this.footer() ).on( 'keyup change', function () {
+    //         if ( that.search() !== this.value ) {
+    //             that
+    //                 .search( this.value )
+    //                 .draw();
+    //         }
+    //     } );
+    // } ); 
+    
         $(document).ready(function () {
+            $('#example tfoot th').each( function () {
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            } );
             var table = $('#example').DataTable({
                 dom: 'Bfrtip',
+                scrollX: true,
                 buttons: [
                     {
                         extend: 'pdf',
@@ -123,7 +162,7 @@
                             return '{{ $organizationName }}' + '{{$today}}';
                         },
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6]  // indexes of the columns that should be printed,
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]  // indexes of the columns that should be printed,
                         }                      // Exclude indexes that you don't want to print.
                     },
                     {
@@ -134,7 +173,7 @@
                             return '{{ $organizationName }}' + '{{$today}}';
                         },
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                         }
 
                     },
@@ -146,13 +185,11 @@
                             return '{{ $organizationName }}' + '{{$today}}';
                         },
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6]
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                         }
                     }
                 ]
             });
-
-
             // Add event listeners to the two range filtering inputs
             $('#dateStart').change(function () {
                 table.draw();
@@ -160,6 +197,19 @@
             $('#dateEnd').change(function () {
                 table.draw();
             });
+
+
+//search
+                table.columns().eq( 0 ).each( function ( colIdx ) {
+        $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+            table
+                .column( colIdx )
+                .search( this.value )
+                .draw();
+        } );
+    } );
+
+
         });
 
         function func(actionStatus, donId) {

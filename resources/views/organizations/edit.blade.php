@@ -19,8 +19,6 @@
             });
 
         });
-
-
     </script>
     <div class="container">
         <div class="row">
@@ -35,17 +33,18 @@
                         <div class="panel-body">
                             <script type="text/javascript">
                                 function Copy() {
-                                    var orgId = "{{Auth::user()->organization_id}}";
-
-                                    urlCopied.value = "{{url('donationrequests/create')}}?orgId={{Auth::user()->organization_id}}" ;
+                                    var urlCopied = document.getElementById('urlCopied');
+                                    urlCopied.value = "{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true" ;
+                                    urlCopied.select();
                                     //Copied = Url.createTextRange();
-                                    //Copied.execCommand("Copy");
-                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website");
+                                    document.execCommand("copy");
+                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website\n" +
+                                        "The URL has been copied to your clipboard.");
                                 }
                             </script>
                             <body>
                             <div>
-                                <input type="button" value="Generate Url" onclick="Copy();" />
+                                <input type="button" style="cursor: help;" value="Generate Url" title="For use for promotions or on social media." onclick="Copy();" />
                                 <input type="text" id="urlCopied" size="80"/>
 
                             </div>
@@ -73,7 +72,7 @@
                                 </ul>
                             </div>
                         @endif
-
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label for="org_name" class="col-md-4 control-label"> Business Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
@@ -85,7 +84,8 @@
                             <label for="org_description" class="col-md-4 control-label">Business Description</label>
 
                             <div class="col-md-6">
-                                <input id="org_description" type="text" class="form-control" name="org_description" value="{{ old('org_description') }}"  autofocus>
+                                <input id="org_description" type="text" class="form-control" name="org_description"
+                                       value="{{ old('org_description', $organization->org_description) }}" autofocus>
 
                                 @if ($errors->has('org_description'))
                                     <span class="help-block">
@@ -100,7 +100,7 @@
 
                             <div class="col-md-6">
 
-                                {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control']) !!}
+                                {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control','required', 'disabled']) !!}
 
                                 @if ($errors->has('organization_type_id'))
                                     <span class="help-block">
@@ -156,8 +156,9 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ route('organizations.index')}}" class="btn btn-primary">Cancel</a>
+                                {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
+                                <button id="btnEdit" class="btn btn-primary hidden" type="button">Edit</button>
+                                <a id="btnCancel" href="{{ route('organizations.index')}}" class="btn btn-primary">Cancel</a>
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
@@ -167,6 +168,22 @@
                 </div>
             </div>
         </div>
-
+        @if (Auth::user()->organization_id == $organization->id)
+<script>
+    $(window).load(function() {
+        $("input").attr("readonly", true);
+        $("select").attr("disabled", true);
+        $("#btnSave").addClass("hidden");
+        $("#btnCancel").addClass("hidden");
+        $('#btnEdit').removeClass('hidden');
+    });
+    $('#btnEdit').on('click', function () {
+        $('input').removeAttr('readonly');
+        $('select').removeAttr('disabled');
+        $('#btnSave').removeClass('hidden');
+        $('#btnEdit').addClass('hidden');
+    });
+</script>
+        @endif
     </div>
 @endsection
