@@ -468,7 +468,7 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('reset-password') }}">
-                                            Reset Password
+                                            Change Password
                                         </a>
                                     </li>
                                     <li>
@@ -593,7 +593,7 @@
                         </li>
                         <li>
                             <a href="{{ route('reset-password') }}">
-                                Reset Password
+                                Change Password
                             </a>
                         </li>
                         <li>
