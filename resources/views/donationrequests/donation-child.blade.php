@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Dashboard
-                        for {{ $organization->org_name }}</h1>
+                        for {{ $parentOrgName }}</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -107,7 +107,7 @@
                         </div>
 
                         <div class="panel-body">
-                            @if(!is_null($organization) && !empty($organization))
+                            @if(!is_null($organizations) && !empty($organizations))
                                 <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                                     <thead>
                                     <tr class="bg-info">
@@ -115,23 +115,17 @@
                                         <th class="text-center">Location Address</th>
                                         <th class="text-center">Approved</th>
                                         <th class="text-center">Rejected</th>
-                                        <th class="text-center">Location Requested Date</th>
-                                        {{--<th class="text-center">Details</th>--}}
+                                        <th class="text-center">Amount Approved</th>
                                     </tr>
                                     </thead>
                                     <tbody style="text-align: center">
-                                        @foreach($organization->donationRequest as $donationRequest)
+                                        @foreach($organizations as $organization)
                                             <tr>
-                                                <td style="vertical-align: middle"><?php echo ($donationRequest->organization->org_name); ?></td>
-                                                <td style="vertical-align: middle"><?php echo ($donationRequest['street_address1'] . ' ' . $donationRequest['street_address2'] . ' ' . $donationRequest['city'] . ' ' . $donationRequest['state'] . ' ' . $donationRequest['zipcode']); ?></td>
-                                                <td style="vertical-align: middle">{{ $donationRequest->where('approval_status_id', '5')->count() }}</td>
-                                                <td style="vertical-align: middle">{{ $donationRequest->where('approval_status_id', '4')->count() }}</td>
-                                                <td style="vertical-align: middle"><?php echo ($donationRequest->created_at->subDay()->format('m-d-Y') ); ?></td>
-                                                {{--<td style="vertical-align: middle">--}}
-                                                    {{--<a href="{{route('donationrequests.show',encrypt($donationRequest->id))}}" class="btn btn-info" title="Detail">--}}
-                                                        {{--<span class="glyphicon glyphicon-list-alt"></span></a>--}}
-
-                                                {{--</td>--}}
+                                                <td style="vertical-align: middle">{{ $organization->org_name }}</td>
+                                                <td style="vertical-align: middle"><?php echo ($organization->street_address1 . ' ' . $organization->street_address2 . ' ' . $organization->city . ' ' . $organization->state . ' ' . $organization->zipcode); ?></td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', 5)->count() }}</td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', 6)->count() }}</td>
+                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', 5)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -156,7 +150,10 @@
 
         </div>
         <!-- /#wrapper -->
-        <input class="btn backbtn" type="button" value="Back" onClick="history.go(-1);">
+
+        <div class="col-md-12 text-center">
+            <input class="btn btn-info backbtn" type="button" value="Back" onClick="history.go(-1);">
+        </div>
 
         <script>
             $(document).ready(function() {
