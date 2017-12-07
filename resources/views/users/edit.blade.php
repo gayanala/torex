@@ -15,7 +15,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h1 style="text-align: left;font-weight: bold;">Profile For: &nbsp;{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
+                        <h1 style="text-align: left;font-weight: bold;">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
                     </div>
 
 

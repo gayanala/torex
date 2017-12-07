@@ -57,7 +57,7 @@
 
                         <div id="role-toggle">
                             <div class="form-group" id="role-group" style="display:none">
-                                {!! Form::label('Role', 'Role:') !!}
+                                {!! Form::label('Role', 'Role') !!}
                                 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                                 {!! Form::select('role_id', $roles, null, ['class' => 'form-control', 'id' => 'locations-drop-down-parent']) !!}
 

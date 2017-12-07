@@ -229,6 +229,12 @@ class DonationRequestController extends Controller
         $names = $donation->first_name.' '.$donation->last_name;
         $emails = $donation->email;
 
+        //if current organization is a child location get parent's email template
+        $orgId = ParentChildOrganizations::where('child_org_id', $organizationId)->value('parent_org_id');
+        if ($orgId){
+            $organizationId = $orgId;
+        }
+
         if ($request->input('approve') == 'Approve') {
             if ($request->approved_amount) {
                 $approved_amount = $request->approved_amount;
@@ -252,26 +258,37 @@ class DonationRequestController extends Controller
     public function showAllDonationRequests($id)
     {
         $id = decrypt($id);
-        $organization = Organization::findOrFail($id);
+
+        $parentOrgName = Organization::findOrFail($id)->org_name;
+        $orgIds = ParentChildOrganizations::where('parent_org_id', $id)->pluck('child_org_id')->toArray();
+        array_push($orgIds, $id);
+
+        $organizations = Organization::whereIn('id', $orgIds)->get();
         $organizationsArray = $this->getAllMyOrganizationIds($id, true);
 
         $numActiveLocations = count($organizationsArray);
-
         $activeUsers = User::whereIn('organization_id', $organizationsArray)->count();
 
-        $avgAmountDonated = sprintf("%.2f", (DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organization->id)->avg('approved_dollar_amount')));
+        //calculating average (Average = sum of entities/sum of entities)
+        $sumOfDonations = DonationRequest::where('approval_status_id', Constant::APPROVED)->sum('approved_dollar_amount');
+        $noOfOrganizations = count($orgIds);//dd($noOfOrganizations);
+        if ($noOfOrganizations != 0) {
+            $avgAmountDonated = sprintf("%.2f",($sumOfDonations / $noOfOrganizations));
+        } else {
+            $avgAmountDonated = 0;
+        }
 
-        $planType = Subscription::where('organization_id', $id)->value('stripe_plan');//dd($planType);
-        $startDate = Subscription::where('organization_id', $id)->orderBy('created_at', 'asc')->first()->value('created_at');//dd($startDate);
+        $planType = Subscription::where('organization_id', $id)->value('stripe_plan');
+
+        $startDate = Organization::where('id', $id)->value('created_at');
 
         $renewalDate = Organization::where('id', $id)->value('trial_ends_at');
 
-        $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->where('organization_id', $organization->id)->count();
-        $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organization->id)->count();
-        $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->where('organization_id', $organization->id)->count();
+        $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->whereIn('organization_id', $organizationsArray)->count();
+        $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->whereIn('organization_id', $organizationsArray)->count();
+        $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->whereIn('organization_id', $organizationsArray)->count();
 
-        return view('donationrequests.donation-child', compact('organization', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'activeUsers', 'planType', 'startDate', 'renewalDate'));
-
+        return view('donationrequests.donation-child', compact('organizations', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'activeUsers', 'planType', 'startDate', 'renewalDate', 'parentOrgName'));
     }
 
     public function acknowledgeRequestReceived()

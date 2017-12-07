@@ -20,17 +20,17 @@
                                 <i class="fa fa-envelope-open fa-5x" style="color: white"></i>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUEST APPROVED : <span
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS APPROVED : <span
                                             class="huge"
                                             style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</span></div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUEST REJECTED : <span
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS REJECTED : <span
                                             class="huge"
                                             style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</span></div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUEST PENDING : <span
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS PENDING : <span
                                             class="huge"
                                             style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</span></div>
                             </div>
@@ -126,8 +126,8 @@
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
                                                 <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->sum('dollar_amount') }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', '5')->count() }}</td>
+                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', 5)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', 5)->count() }}</td>
                                                 {{--<td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>--}}
                                                 <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
                                                 {{--<td style="vertical-align: middle">{{ App\Organization::findOrFail($organization->id)->where('trial_ends_at', '>=', \Carbon\Carbon::now()->toDateTimeString())->get()  OR App\ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->count() }}</td>--}}

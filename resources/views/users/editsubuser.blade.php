@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label for="organization_id" class="col-md-4 control-label">Business Location <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                                {!! Form::select('organization_id', $organizationStatusArray, $user->organization_id, ['class' => 'form-control', 'id' => 'loc-drop-down', 'required']) !!}
+                                {!! Form::select('organization_id', $organizationStatusArray, $currentOrg, ['class' => 'form-control', 'id' => 'loc-drop-down', 'required']) !!}
                             </div>
                         </div>
 
@@ -80,18 +80,47 @@
 
     <script>
         $("#loc-drop-down").change(function () {
-
             if (this.value.startsWith('parent')) {
+                // Displaying locations drop-down for parent and hiding children's
                 document.getElementById("locations-drop-down-parent").style.display = "block";
                 document.getElementById("locations-drop-down-child").style.display = "none";
+                // replacing name to a temporary name called dummy-name
+                // in order to not submitted into database
                 document.getElementById("locations-drop-down-child").setAttribute('name', 'dummy-name');
                 document.getElementById("locations-drop-down-parent").setAttribute('name', 'role_id');
             } else if (this.value.startsWith('child')) {
+                // Displaying locations drop-down for children and hiding parents
                 document.getElementById("locations-drop-down-child").style.display = "block";
                 document.getElementById("locations-drop-down-parent").style.display = "none";
+                // replacing name to a temporary name called dummy-name
+                // in order to not submitted into database
+                document.getElementById("locations-drop-down-parent").setAttribute('name', 'dummy-name');
+                document.getElementById("locations-drop-down-child").setAttribute('name', 'role_id');
+            }
+
+        });
+
+        $(document).ready(function() {
+
+            if ($('#loc-drop-down').find(":selected").val().startsWith('parent')) {
+                // Displaying locations drop-down for parent and hiding children's
+                document.getElementById("locations-drop-down-parent").style.display = "block";
+                document.getElementById("locations-drop-down-child").style.display = "none";
+                // replacing name to a temporary name called dummy-name
+                // in order to not submitted into database
+                document.getElementById("locations-drop-down-child").setAttribute('name', 'dummy-name');
+                document.getElementById("locations-drop-down-parent").setAttribute('name', 'role_id');
+            } else {
+                // Displaying locations drop-down for children and hiding parents
+                document.getElementById("locations-drop-down-child").style.display = "block";
+                document.getElementById("locations-drop-down-parent").style.display = "none";
+                // replacing name to a temporary name called dummy-name
+                // in order to not submitted into database
                 document.getElementById("locations-drop-down-parent").setAttribute('name', 'dummy-name');
                 document.getElementById("locations-drop-down-child").setAttribute('name', 'role_id');
             }
         });
+
     </script>
+
 @endsection

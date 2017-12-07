@@ -51,6 +51,14 @@ class Constant
     //DELAYED EMAIL IN DAYS
     const DELAYED_EMAIL_DURATION_FOR_REJECT_REQUESTS = 2;
 
+    //Subscription plans
+    const MONTHLY5 = 'MONTHLY';
+    const MONTHLY25 = 'MONTHLY';
+    const MONTHLY100 = 'MONTHLY';
+    const ANUALLY5 = 'ANUALLY';
+    const ANUALLY25 = 'ANUALLY';
+    const ANUALLY100 = 'ANUALLY';
+
 
 //////////  END OF CONSTANTS USED  //////////
 

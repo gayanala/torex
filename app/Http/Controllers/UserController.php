@@ -293,8 +293,14 @@ class UserController extends Controller
             }
 
         }
-
-        return view('users.editsubuser', compact('user', 'organizationStatusArray', 'roles'))->with('states', $states);
+        $currentOrg = User::where('id', $id)->value('organization_id');
+        if (ParentChildOrganizations::where('parent_org_id', $currentOrg)->count() > 0){
+            $currentOrg = 'parent_' . $currentOrg;
+        } else {
+            $currentOrg = 'child_' . $currentOrg;
+        }
+        //dd($currentOrg);
+        return view('users.editsubuser', compact('user', 'organizationStatusArray', 'roles', 'currentOrg'))->with('states', $states);
     }
 
     public function updateSubUser(Request $request)
