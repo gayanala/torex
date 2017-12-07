@@ -156,7 +156,10 @@
 
         </div>
         <!-- /#wrapper -->
-        <input class="btn backbtn" type="button" value="Back" onClick="history.go(-1);">
+
+        <div class="col-md-12 text-center">
+            <input class="btn btn-info backbtn" type="button" value="Back" onClick="history.go(-1);">
+        </div>
 
         <script>
             $(document).ready(function() {
