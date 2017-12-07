@@ -229,6 +229,12 @@ class DonationRequestController extends Controller
         $names = $donation->first_name.' '.$donation->last_name;
         $emails = $donation->email;
 
+        //if current organization is a child location get parent's email template
+        $orgId = ParentChildOrganizations::where('child_org_id', $organizationId)->value('parent_org_id');
+        if ($orgId){
+            $organizationId = $orgId;
+        }
+
         if ($request->input('approve') == 'Approve') {
             if ($request->approved_amount) {
                 $approved_amount = $request->approved_amount;

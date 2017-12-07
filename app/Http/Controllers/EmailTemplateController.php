@@ -22,7 +22,7 @@ class EmailTemplateController extends Controller
         $user_id = Auth::id();
         $user_role = RoleUser::where('user_id', $user_id)->value('role_id'); //get user role of current user
 
-        if ($user_role == Constant::TAGG_ADMIN OR $user_role == Constant::TAGG_ADMIN OR $user_role == Constant::BUSINESS_ADMIN) {
+        if ($user_role == Constant::ROOT_USER OR $user_role == Constant::TAGG_ADMIN OR $user_role == Constant::BUSINESS_ADMIN) {
 
             $email_templates = EmailTemplate::where('organization_id', $org_id)->get();
 
