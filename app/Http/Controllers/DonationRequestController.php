@@ -261,8 +261,8 @@ class DonationRequestController extends Controller
 
         $avgAmountDonated = sprintf("%.2f", (DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organization->id)->avg('approved_dollar_amount')));
 
-        $planType = Subscription::where('organization_id', $id)->value('stripe_plan');//dd($planType);
-        $startDate = Subscription::where('organization_id', $id)->orderBy('created_at', 'asc')->first()->value('created_at');//dd($startDate);
+        $planType = Subscription::where('organization_id', $id)->value('stripe_plan');
+        $startDate = Organization::where('id', $id)->value('created_at');
 
         $renewalDate = Organization::where('id', $id)->value('trial_ends_at');
 

@@ -20,17 +20,17 @@
                                 <i class="fa fa-envelope-open fa-5x" style="color: white"></i>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AMOUNT APPROVED : <span
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS APPROVED : <span
                                             class="huge"
                                             style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</span></div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AMOUNT REJECTED : <span
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS REJECTED : <span
                                             class="huge"
                                             style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</span></div>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AMOUNT PENDING : <span
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS PENDING : <span
                                             class="huge"
                                             style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</span></div>
                             </div>
