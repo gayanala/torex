@@ -270,7 +270,7 @@ class DonationRequestController extends Controller
         $activeUsers = User::whereIn('organization_id', $organizationsArray)->count();
 
         //calculating average (Average = sum of entities/sum of entities)
-        $sumOfDonations = DonationRequest::where('approval_status_id', Constant::APPROVED)->sum('approved_dollar_amount');
+        $sumOfDonations = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('approved_organization_id', $id)->sum('approved_dollar_amount');
         $noOfOrganizations = count($orgIds);//dd($noOfOrganizations);
         if ($noOfOrganizations != 0) {
             $avgAmountDonated = sprintf("%.2f",($sumOfDonations / $noOfOrganizations));

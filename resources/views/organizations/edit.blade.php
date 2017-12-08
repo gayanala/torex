@@ -71,8 +71,8 @@
                                        style="cursor: help;background-color: #0099CC;" value="Show Embedded Form Code"
                                        title="Insert this HTML code in your business website to allow outside organizations to fill out a donation request form.."
                                        onclick="GenerateDRForm();" /><br />
-                                <input type="text"
-                                       style="width:680px;"  placeholder="Click the button to display the embed code and copy it to your clipboard" id="embeddedCode" size="80"/><br />
+                                <textarea type="textarea"
+                                          style="width:680px; height: 70px"  placeholder="Click the button to display the embed code and copy it to your clipboard" id="embeddedCode" size="80"></textarea><br />
                             </div>
                         </div>
                     </div>
