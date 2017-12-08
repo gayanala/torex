@@ -12,11 +12,12 @@ $("body").on('change', '#plan,#user_locations', function () {
 
     var yearly_charge = '';
     var totalamount = '';
+    var totalamountshow='';
     if ((plan != '') && (user != '')) {
         if (plan == 'Monthly') {
             if (user == '5') {
                 totalamount = 19;
-            } else if (user == '25') {
+                } else if (user == '25') {
                 totalamount = 49;
             } else if (user == '100') {
                 totalamount = 99;
@@ -39,9 +40,10 @@ $("body").on('change', '#plan,#user_locations', function () {
             totalamount = yearly_charge - discount;
 
         }
+        totalamountshow="$"+totalamount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
         if (totalamount != '') {
-            $('#total_price').html(totalamount);
-            $('#balance_price').html(totalamount);
+            $('#total_price').html(totalamountshow);
+            $('#balance_price').html(totalamountshow);
 
         }
     }
@@ -102,7 +104,7 @@ $("body").on('change', '#coupon', function () {
     if (coupon == '') {
         document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = 0;
         var total = document.getElementById("cart_table").rows[1].cells.namedItem("total_price").innerHTML;
-        document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = total;
+        document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = "$"+total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");;
     }
 
 });

@@ -62,7 +62,7 @@
                                     <td style="vertical-align: middle"
                                         id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td style="white-space: nowrap">
-                                        @if($donationrequest->donationApprovalStatus->id == 2 || $donationrequest->donationApprovalStatus->id == 3)
+                                        @if($donationrequest->donationApprovalStatus->id == \App\Custom\Constant::PENDING_REJECTION || $donationrequest->donationApprovalStatus->id == \App\Custom\Constant::PENDING_APPROVAL)
                                             <div>
 
 
