@@ -186,8 +186,6 @@
                 <input id="ruleSet" type="hidden" name="ruleSet" value="" size="100"/>
 
                 <!-- <div id="querybuilder"></div> -->
-            </div>
-</div>
 
         </form>
     </div>
