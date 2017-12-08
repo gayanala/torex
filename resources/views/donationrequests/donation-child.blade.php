@@ -17,90 +17,86 @@
                 <div class="panel panel-red">
                     <div class="panel-heading" style="background-color: #d4c8b8;">
                         <div class="row">
-                            <div class="col-xs-3" style="padding-bottom: 15px;">
-                                <i class="fa fa-envelope-open fa-5x" style="color: white;"></i>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS APPROVED : <span
-                                            class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS REJECTED : <span
-                                            class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS PENDING : <span
-                                            class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</span>
-                                </div>
-                            </div>
+                            <table border="0" style="color: white;font-size: 15px;">
+                                <tr>
+                                    <td rowspan="3">
+                                        <div class="col-xs-3" style="padding-bottom: 15px;">
+                                            <i class="fa fa-envelope-open fa-5x"></i>
+                                        </div>
+                                    </td>
+                                    <td><div style="font-weight: bold"> REQUESTS APPROVED :  </div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $approvedNumber }}</div></td>
+                                </tr>
+                                <tr>
+                                    <td><div style="font-weight: bold;"> REQUESTS REJECTED : </div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $rejectedNumber }}</div></td>
+                                </tr>
+                                <td><div style="font-weight: bold;"> REQUESTS PENDING :</div></td>
+                                <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $pendingNumber }}</div></td>
+                            </table>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-red">
-                    <div class="panel-heading" style=" background-color: #b69da8;">
-                        <div class="row">
-                            <div class="col-xs-3" style="padding-bottom: 15px;">
-                                <i class="fa fa-line-chart fa-5x" style="color: white;"></i>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> AVERAGE AMOUNT DONATED :
-                                    <span class="huge"
-                                          style="font-weight: bold; font-size: 20px;">${{ $avgAmountDonated }}</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> ACTIVE USERS : <span
-                                            class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $activeUsers }}</span></div>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> ACTIVE LOCATIONS : <span
-                                            class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $numActiveLocations }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="panel panel-red">
-                    <div class="panel-heading" style=" background-color:#a5c5bd;">
-                        <div class="row">
-                            <div class="col-xs-3" style="padding-bottom: 15px;">
-                                <i class="fa fa-university fa-5x" style="color: white;"></i>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                @if(starts_with($planType,"Monthly"))
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> PLAN TYPE
-                                        : <span class="huge"
-                                                style="font-weight: bold; font-size: 20px;">Monthly</span></div>
-                                @else
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> PLAN TYPE
-                                        : <span class="huge"
-                                                style="font-weight: bold; font-size: 20px;">Annually</span></div>
-                                @endif
 
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> JOINED ON : <span class="huge"
-                                                  style="font-weight: bold; font-size: 20px;">{{ $startDate->subDay()->format('m-d-Y')  }}</span>
-                                </div>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> RENEWAL DATE
-                                    : <span class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $renewalDate->subDay()->format('m-d-Y') }}</span></div>
-                            </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="panel panel-red">
+
+                    <div class="panel-heading" style="background-color: #b69da8;">
+                        <div class="row">
+                            <table border="0" style="color: white;font-size: 15px;">
+                                <tr>
+                                    <td rowspan="3">
+                                        <div class="col-xs-3" style="padding-bottom: 15px;">
+                                            <i class="fa fa-line-chart fa-5x"></i>
+                                        </div>
+                                    </td>
+                                    <td><div style="font-weight: bold"> AVG AMOUNT DONATED : </div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">${{ $avgAmountDonated }}</div></td>
+                                </tr>
+                                <tr>
+                                    <td><div style="font-weight: bold;"> ACTIVE USERS :  </div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $activeUsers }}</div></td>
+                                </tr>
+                                <td><div style="font-weight: bold;"> ACTIVE LOCATIONS : </div></td>
+                                <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $numActiveLocations }}</div></td>
+                            </table>
                         </div>
                     </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="panel panel-red">
+
+
+                    <div class="panel-heading" style="background-color: #a5c5bd;">
+                        <div class="row">
+                            <table border="0" style="color: white;font-size: 15px;">
+                                <tr>
+                                    <td rowspan="3">
+                                        <div class="col-xs-3" style="padding-bottom: 15px;">
+                                            <i class="fa fa-university fa-5x"></i>
+                                        </div>
+                                    </td>
+                                    <td><div style="font-weight: bold"> PLAN TYPE : </div></td>
+                                    <td>@if(starts_with($planType,"Monthly"))
+                                            <div class="huge" style="font-weight: bolder; font-size: 20px;">Monthly</div>
+                                        @else
+                                            <div class="huge" style="font-weight: bolder; font-size: 20px;">Annual</div>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><div style="font-weight: bold;"> JOINED ON : </div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $startDate->subDay()->format('m-d-Y')  }}</div></td>
+                                </tr>
+                                <td><div style="font-weight: bold;"> RENEWAL DATE : </div></td>
+                                <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $renewalDate->subDay()->format('m-d-Y') }}</div></td>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <!-- /.row -->
@@ -123,6 +119,7 @@
                                         <th class="text-center">Approved</th>
                                         <th class="text-center">Rejected</th>
                                         <th class="text-center">Amount Approved</th>
+                                        <th class="text-center">Status</th>
                                     </tr>
                                     </thead>
                                     <tbody style="text-align: center">
@@ -130,9 +127,10 @@
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
                                                 <td style="vertical-align: middle"><?php echo ($organization->street_address1 . ' ' . $organization->street_address2 . ' ' . $organization->city . ' ' . $organization->state . ' ' . $organization->zipcode); ?></td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->count() }}</td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::REJECTED)->count() }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">{{ App\Organization::find($organization->id)->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->count() }}</td>
+                                                <td style="vertical-align: middle">{{ App\Organization::find($organization->id)->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::REJECTED)->count() }}</td>
+                                                <td style="vertical-align: middle">${{ App\Organization::find($organization->id)->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle"> {{ $organization->is_active }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
