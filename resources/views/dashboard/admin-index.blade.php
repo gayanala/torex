@@ -7,7 +7,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">TAGG DASHBOARD (YTD)</h1>
+                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">CHARITYQ DASHBOARD (YTD)</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -43,28 +43,35 @@
                     <div class="panel panel-red">
                         <div class="panel-heading" style="background-color: #b69da8;">
                             <div class="row">
-                                <div class="col-xs-3" style="padding-bottom: 15px;">
-                                    <i class="fa fa-university fa-5x" style="color: white"></i>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> AVERAGE AMOUNT
-                                        DONATED : <span class="huge"
-                                                        style="font-weight: bold; font-size: 20px;">${{ $avgAmountDonated }}</span></div>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> ACTIVE CUSTOMERS :
-                                        <span class="huge"
-                                              style="font-weight: bold; font-size: 20px;">{{ $userCount }}</span></div>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> ACTIVE LOCATIONS :
-                                        <span class="huge"
-                                              style="font-weight: bold; font-size: 20px;">{{ $numActiveLocations }}</span></div>
-                                </div>
+
+                                <table border="0" style="color: white;font-size: 15px;">
+                                <tr>
+                                    <td rowspan="3">
+                                        <div class="col-xs-3" style="padding-bottom: 15px;">
+                                            <i class="fa fa-university fa-5x"></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight: lighter">AVG AMOUNT DONATED</div>
+                                    </td>
+                                    <td>
+                                        <div class="huge" style="font-weight: bolder; font-size: 20px; color: white">${{ $avgAmountDonated }}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><div style="color: white;font-size: 15px;font-weight: lighter;"> ACTIVE CUSTOMERS :</div></td>
+                                    <td><div class="huge" style="font-weight: bold; font-size: 20px">{{ $userCount }}</div></td>
+
+                                </tr>
+                                    <td><div style="color: white;font-size: 15px;font-weight: lighter;"> ACTIVE LOCATIONS :</div></td>
+                                    <td><div class="huge" style="font-weight: bold; font-size: 20px">{{ $numActiveLocations }}</div></td>
+
+
+                                </table>
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
             <div class="col-lg-4 col-md-6">
                     <div class="panel panel-red">
                         <div class="panel-heading" style="background-color: #a5c5bd;">
@@ -126,8 +133,8 @@
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
                                                 <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->sum('dollar_amount') }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', 5)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', 5)->count() }}</td>
+                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->count() }}</td>
                                                 {{--<td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>--}}
                                                 <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
                                                 {{--<td style="vertical-align: middle">{{ App\Organization::findOrFail($organization->id)->where('trial_ends_at', '>=', \Carbon\Carbon::now()->toDateTimeString())->get()  OR App\ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->count() }}</td>--}}

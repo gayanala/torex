@@ -175,7 +175,7 @@
                                     <div class="col-lg-6">
 
                                         {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
-                                        {!! Form::text('approved_amount', $donationrequest['dollar_amount'], ['id' => 'approved_amount', 'class' => 'form-control', 'required', 'onblur' => 'setEmptyToZero(this)'] )!!}
+                                        {!! Form::number('approved_amount', $donationrequest['dollar_amount'], ['id' => 'approved_amount', 'class' => 'form-control', 'min'=>'0.00', 'step'=>'0.01', 'pattern'=>'\d+(\.\d{2})', 'required', 'onblur' => 'setEmptyToZero(this)'] )!!}
                                     </div>
                                 </div>
                         <script type="text/javascript">
