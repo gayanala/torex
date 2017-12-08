@@ -7,7 +7,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">TAGG DASHBOARD (YTD)</h1>
+                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">CHARITYQ DASHBOARD (YTD)</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -102,7 +102,7 @@
                             <b>DONATIONS SUMMARY</b>
                         </div>
 
-                        <div class="panel-body">
+                        <div class="panel-body table-wrap wrapper">
                             @if(sizeOf($organizations) != 0)
                                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
                                     <thead>
@@ -126,8 +126,8 @@
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
                                                 <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->sum('dollar_amount') }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', 5)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', 5)->count() }}</td>
+                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->count() }}</td>
                                                 {{--<td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>--}}
                                                 <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
                                                 {{--<td style="vertical-align: middle">{{ App\Organization::findOrFail($organization->id)->where('trial_ends_at', '>=', \Carbon\Carbon::now()->toDateTimeString())->get()  OR App\ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->count() }}</td>--}}

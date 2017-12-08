@@ -130,9 +130,9 @@
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
                                                 <td style="vertical-align: middle"><?php echo ($organization->street_address1 . ' ' . $organization->street_address2 . ' ' . $organization->city . ' ' . $organization->state . ' ' . $organization->zipcode); ?></td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', 5)->count() }}</td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', 6)->count() }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', 5)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->count() }}</td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::REJECTED)->count() }}</td>
+                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
