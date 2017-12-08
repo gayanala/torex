@@ -15,7 +15,7 @@ class OrganizationsTableSeeder extends Seeder
         DB::table('organizations')->delete();
         Organization::create([
             'id' => 1,
-            'org_name' => 'Together A Greater Good',
+            'org_name' => 'CharityQ',
             'organization_type_id' => 3,
             'org_description' => 'Administrator and Owner of CharityQ',
             'street_address1' => '17117 Oak Drive',

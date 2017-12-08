@@ -383,7 +383,7 @@
 
                 </div>
                 <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:0px;'>
-                    <div class="collapse navbar-collapse" id="myNavbar">
+                    <div class="collapse navbar-collapse" id="myNavbar" style="padding-right:35px;" >
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
 
