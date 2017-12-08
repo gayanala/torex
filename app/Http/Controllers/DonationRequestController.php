@@ -284,9 +284,9 @@ class DonationRequestController extends Controller
 
         $renewalDate = Organization::where('id', $id)->value('trial_ends_at');
 
-        $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->whereIn('organization_id', $organizationsArray)->count();
-        $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->whereIn('organization_id', $organizationsArray)->count();
-        $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->whereIn('organization_id', $organizationsArray)->count();
+        $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->whereIn('organization_id', $orgIds)->count();
+        $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->whereIn('organization_id', $orgIds)->count();
+        $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->whereIn('organization_id', $orgIds)->count();
 
         return view('donationrequests.donation-child', compact('organizations', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'activeUsers', 'planType', 'startDate', 'renewalDate', 'parentOrgName'));
     }
