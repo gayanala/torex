@@ -400,9 +400,8 @@
                                         style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
                             <div class="col-md-6">
                                 <input id="formAttendees" type="number" step="1" min="0" class="form-control"
-                                <input id="formAttendees" type="number" step="1" min="0" class="form-control"
                                        name="formAttendees"
-                                       value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees" type="number" min="0">
+                                       value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees" >
 
                                 @if ($errors->has('formAttendees'))
                                     <span class="help-block">
