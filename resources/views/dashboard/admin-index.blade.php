@@ -102,7 +102,7 @@
                             <b>DONATIONS SUMMARY</b>
                         </div>
 
-                        <div class="panel-body">
+                        <div class="panel-body table-wrap wrapper">
                             @if(sizeOf($organizations) != 0)
                                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
                                     <thead>
