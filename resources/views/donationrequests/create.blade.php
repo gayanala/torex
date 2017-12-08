@@ -291,7 +291,7 @@
                                        title="Please use the format $.$$ for this field. " class="form-control"
                                        name="dollar_amount" value="{{ old('dollar_amount') }}"
                                        onblur="setTwoNumberDecimal(this)"
-                                       placeholder="$0.00" required>
+                                       placeholder="0.00" required>
 
                                 @if ($errors->has('dollar_amount'))
                                     <span class="help-block">
@@ -399,7 +399,8 @@
                             <label for="formAttendees" class="col-md-4 control-label">Estimated Number of Attendees<span
                                         style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
                             <div class="col-md-6">
-                                <input id="formAttendees" type="number" step="1" class="form-control"
+                                <input id="formAttendees" type="number" step="1" min="0" class="form-control"
+                                <input id="formAttendees" type="number" step="1" min="0" class="form-control"
                                        name="formAttendees"
                                        value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees" type="number" min="0">
 

@@ -78,9 +78,16 @@
                                 <i class="fa fa-university fa-5x" style="color: white;"></i>
                             </div>
                             <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> PLAN TYPE
-                                    : <span class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $planType }}</span></div>
+                                @if(starts_with($planType,"Monthly"))
+                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> PLAN TYPE
+                                        : <span class="huge"
+                                                style="font-weight: bold; font-size: 20px;">Monthly</span></div>
+                                @else
+                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> PLAN TYPE
+                                        : <span class="huge"
+                                                style="font-weight: bold; font-size: 20px;">Annually</span></div>
+                                @endif
+
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div style="color: white;font-size: 15px;font-weight: bolder;"> JOINED ON : <span class="huge"
@@ -123,9 +130,9 @@
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
                                                 <td style="vertical-align: middle"><?php echo ($organization->street_address1 . ' ' . $organization->street_address2 . ' ' . $organization->city . ' ' . $organization->state . ' ' . $organization->zipcode); ?></td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', 5)->count() }}</td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', 6)->count() }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', 5)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->count() }}</td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::REJECTED)->count() }}</td>
+                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

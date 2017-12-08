@@ -7,7 +7,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">TAGG DASHBOARD (YTD)</h1>
+                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">CHARITYQ DASHBOARD (YTD)</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -102,7 +102,7 @@
                             <b>DONATIONS SUMMARY</b>
                         </div>
 
-                        <div class="panel-body">
+                        <div class="panel-body table-wrap wrapper">
                             @if(sizeOf($organizations) != 0)
                                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
                                     <thead>

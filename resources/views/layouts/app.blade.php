@@ -331,10 +331,14 @@
         .dropdown-menu > li{
 
             text-align:left;
-
-
         }
-
+        .panel-body{
+            overflow-x: auto;
+            white-space: nowrap;
+                    }
+        th,td{
+            min-width:20px;
+        }
 
     </style>
 </head>
@@ -379,7 +383,7 @@
 
                 </div>
                 <div class="col-sm-9 col-md-offset-3" style='position:absolute;right: 0px;top:0px;'>
-                    <div class="collapse navbar-collapse" id="myNavbar">
+                    <div class="collapse navbar-collapse" id="myNavbar" style="padding-right:35px;" >
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right visible-md-block visible-lg-block">
 
@@ -530,10 +534,7 @@
     @elseif ((Auth::user()->organization->trial_ends_at >= \Carbon\Carbon::now())
                    OR ( Auth::user()->organization->parentOrganization->isNotEmpty() AND  Auth::user()->organization->parentOrganization[0]->parentOrganization->trial_ends_at >= \Carbon\Carbon::now()))
 
-        <br>
-        <br>
-        <br>
-        <ul class="divsmall visible-xs-block visible-sm-block">
+              <ul class="divsmall visible-xs-block visible-sm-block">
             <li><a href="{{ url('/dashboard')}}" class="w3-bar-item w3-button current">Dashboard</a></li>
             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                 <li><a href="{{ route('donationrequests.index')}}" class="w3-bar-item w3-button">Search
