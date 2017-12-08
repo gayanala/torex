@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
+use App\Custom\Constant;
 
 class Organization extends Model
 {
@@ -67,5 +68,17 @@ class Organization extends Model
     {
         return $this->hasMany('App\DonationRequest');
     }
+    /**
+     * Get only active Organizations
+     * @param $query
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', Constant::ACTIVE);
+    }
 
+    public function approvedDonationRequest()
+    {
+        return $this->hasMany('App\DonationRequest','approved_organization_id', 'id');
+    }
 }

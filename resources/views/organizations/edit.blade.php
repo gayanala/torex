@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('content')
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Business Profile</h1>
 
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -15,11 +23,13 @@
                 mask: phones,
                 greedy: false,
                 definitions: {'#': {validator: "[0-9]", cardinality: 1}},
-                
+
             });
 
         });
+
     </script>
+    
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -29,7 +39,7 @@
 
                 <div class="col-10">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><h1>Generate URL for Donations</h1></div>
+                        <div class="panel-heading"><h1 style="text-align: left;font-weight: bold;">URL for Donations</h1></div>
                         <div class="panel-body">
                             <script type="text/javascript">
                                 function Copy() {
@@ -38,17 +48,32 @@
                                     urlCopied.select();
                                     //Copied = Url.createTextRange();
                                     document.execCommand("copy");
-                                    window.confirm("You have successfully generated the URL needed for donation Requests on your website\n" +
-                                        "The URL has been copied to your clipboard.");
+                                }
+                                function GenerateDRForm() {
+                                    var embedCode = document.getElementById('embeddedCode');
+                                    embedCode.value = '<iframe src="{{url('donationrequests/create')}}?orgId={{$organization->id}}&newrequest=true"\n style="border:none;" id="donationRequest1" name="ifr" frameBorder="0" height="800" width="800" > \n</iframe>';
+                                    embedCode.select();
+                                    document.execCommand("copy");
                                 }
                             </script>
-                            <body>
                             <div>
-                                <input type="button" style="cursor: help;" value="Generate Url" title="For use for promotions or on social media." onclick="Copy();" />
-                                <input type="text" id="urlCopied" size="80"/>
-
+                                <input type="button" class="btn btn-info"
+                                       style="cursor: help;background-color: #0099CC;" value="Show URL"
+                                       title="For use for promotions or on social media." onclick="Copy();"/>
+                                <input type="text" placeholder="Click the button to display the URL and copy it to your clipboard" id="urlCopied" size="80"/><br />
+                                <small>
+                                    Click the button to display the URL and copy it to your clipboard. Share your
+                                    business’ donation request form on social media sites.  The URL can be embedded on
+                                    your business website.  Outside organizations can submit requests online that will
+                                    automatically be filtered by your donation preferences.
+                                </small><br />
+                                <input type="button" class="btn btn-info"
+                                       style="cursor: help;background-color: #0099CC;" value="Show Embedded Form Code"
+                                       title="Insert this HTML code in your business website to allow outside organizations to fill out a donation request form.."
+                                       onclick="GenerateDRForm();" /><br />
+                                <textarea type="textarea"
+                                          style="width:680px; height: 70px"  placeholder="Click the button to display the embed code and copy it to your clipboard" id="embeddedCode" size="80"></textarea><br />
                             </div>
-                            </body>
                         </div>
                     </div>
                 </div>
@@ -57,7 +82,8 @@
 
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Update Location</div>
+                    <div class="panel-heading"><h1
+                                style="text-align: left;font-weight: bold;">Update Location</h1></div>
 
                     <div class="panel-body">
 
@@ -76,7 +102,8 @@
                         <div class="form-group">
                             <label for="org_name" class="col-md-4 control-label"> Business Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                                {!! Form::text('org_name',null,['class' => 'form-control', 'required']) !!}
+                                <input id="org_name" type="text" class="form-control" name="org_name"
+                                       value="{{ old('org_name', $organization->org_name) }}" required >
                             </div>
                         </div>
 
@@ -85,7 +112,7 @@
 
                             <div class="col-md-6">
                                 <input id="org_description" type="text" class="form-control" name="org_description"
-                                       value="{{ old('org_description', $organization->org_description) }}" autofocus>
+                                       value="{{ old('org_description', $organization->org_description) }}">
 
                                 @if ($errors->has('org_description'))
                                     <span class="help-block">
@@ -95,34 +122,43 @@
                             </div>
                         </div>
 
+                        {{--<div class="form-group">--}}
+                            {{--<label for="org_description" class="col-md-4 control-label">Business Type <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>--}}
+
+                            {{--<div class="col-md-6">--}}
+
+                                {{--{!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control','required', 'disabled']) !!}--}}
+
+                                {{--@if ($errors->has('organization_type_id'))--}}
+                                    {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('organization_type_id') }}</strong>--}}
+                                    {{--</span>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
                         <div class="form-group">
-                            <label for="org_description" class="col-md-4 control-label">Business Type <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-
-                            <div class="col-md-6">
-
-                                {!! Form::select('organization_type_id', array(null => 'Select...') + $Organization_types->all(), null, ['class'=>'form-control','required', 'disabled']) !!}
-
-                                @if ($errors->has('organization_type_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('organization_type_id') }}</strong>
-                                    </span>
-                                @endif
+                            <label for="street_address1" class="col-md-4 control-label"> Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">
+                                <input id="street_address1" type="text" class="form-control" name="street_address1" required
+                                       value="{{ old('street_address1', $organization->street_address1) }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="street_address1" class="col-md-4 control-label"> Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">{!! Form::text('street_address1',null,['class' => 'form-control', 'required']) !!}</div>
-                        </div>
-
-                        <div class="form-group">
                             <label for="street_address2" class="col-md-4 control-label"> Address 2 </label>
-                            <div class="col-lg-6">   {!! Form::text('street_address2', null,['class'=>'form-control']) !!}</div>
+                            <div class="col-lg-6">
+                                <input id="street_address2" type="text" class="form-control" name="street_address2"
+                                       value="{{ old('street_address2', $organization->street_address2) }}"  >
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label for="city" class="col-md-4 control-label">City <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">{!! Form::text('city',null,['class' => 'form-control', 'required']) !!}</div>
+                            <div class="col-lg-6">
+                                <input id="city" type="text" class="form-control" name="city"
+                                       value="{{ old('city', $organization->city) }}" required >
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -130,7 +166,7 @@
 
                             <div class="col-md-6">
 
-                                {!! Form::select('state', array(null => 'Select...') + $states->all(), null, ['class'=>'form-control']) !!}
+                                {!! Form::select('state', array(null => 'Select...') + $states->all(), old('state'), ['class'=>'form-control']) !!}
 
                                 @if ($errors->has('state'))
                                     <span class="help-block">
@@ -140,27 +176,29 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
-                            <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'required']) !!}</div>
+                        <div class="form-group{{ $errors->has('zip_code') ? ' has-error' : '' }}">
+                            <label for="zip_code" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">
+                                <input id="zip_code" type="text" class="form-control" name="zip_code"
+                                       value="{{ old('zip_code', $organization->zipcode) }}" maxlength="5" required >
+                            </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : ''}}">
                             <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                            {!! Form::text('phone_number',null,['class' => 'form-control', 'id'      => 'phone_number' ,'required']) !!}
-
- 
+                                <input id="phone_number" type="text" class="form-control" name="phone_number"
+                                       value="{{ old('phone_number', $organization->phone_number) }}" required >
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
-                                <button id="btnEdit" class="btn btn-primary hidden" type="button">Edit</button>
-                                <a id="btnCancel" href="{{ route('organizations.index')}}" class="btn btn-primary">Cancel</a>
+                            <div class="col-md-6 col-md-offset-5">
+                                {!! Form::submit('Save', ['class' => 'btn savebtn', 'id' => 'btnSave']) !!}
+                                <button id="btnEdit" class="btn savebtn hidden" type="button">Edit</button>
+                                <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
-                                                style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
+                                                style="color: red; font-size: 20px; align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}
@@ -170,6 +208,7 @@
         </div>
         @if (Auth::user()->organization_id == $organization->id)
 <script>
+    @if (! $errors->any())
     $(window).load(function() {
         $("input").attr("readonly", true);
         $("select").attr("disabled", true);
@@ -177,11 +216,18 @@
         $("#btnCancel").addClass("hidden");
         $('#btnEdit').removeClass('hidden');
     });
+    @endif
     $('#btnEdit').on('click', function () {
         $('input').removeAttr('readonly');
         $('select').removeAttr('disabled');
         $('#btnSave').removeClass('hidden');
         $('#btnEdit').addClass('hidden');
+    });
+    $("#zip_code").on('keypress', function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            return false;
+        }
     });
 </script>
         @endif

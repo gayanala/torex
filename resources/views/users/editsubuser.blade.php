@@ -1,10 +1,12 @@
 @extends('layouts.app')
 @section('content')
+    <br>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Update Profile</div>
+
+                    <div class="panel-heading"><h1 style="text-align: left;font-weight: bold;">Update Profile</h1></div>
 
                     <div class="panel-body">
 
@@ -25,14 +27,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="role" class="col-md-4 control-label"> Role <span
-                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">
-                                {!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control']) !!}
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             <label for="first_name" class="col-md-4 control-label"> First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
                                 {!! Form::text('first_name',null,['class' => 'form-control', 'required']) !!}
@@ -47,68 +41,33 @@
 
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6">{!! Form::text('email',null,['class' => 'form-control', 'required']) !!}</div>
+                            <div class="col-lg-6">{!! Form::text('email', null, ['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
                             <label for="organization_id" class="col-md-4 control-label">Business Location <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
-                                {!! Form::select('organization_id', $orgNames, $user->organization_id, ['class' => 'form-control']) !!}
+                                {!! Form::select('organization_id', $organizationStatusArray, $currentOrg, ['class' => 'form-control', 'id' => 'loc-drop-down', 'required']) !!}
                             </div>
                         </div>
 
-                        {{--<div class="form-group">--}}
-                            {{--<label for="street_address1" class="col-md-4 control-label">Address 1 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>--}}
-                            {{--<div class="col-lg-6">{!! Form::text('street_address1',null,['class' => 'form-control', 'required']) !!}</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group">--}}
-                            {{--<label for="street_address2" class="col-md-4 control-label"> Address 2 </label>--}}
-                            {{--<div class="col-lg-6">   {!! Form::text('street_address2', null,['class'=>'form-control']) !!}</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group">--}}
-                            {{--<label for="city" class="col-md-4 control-label">City <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>--}}
-                            {{--<div class="col-lg-6">{!! Form::text('city',null,['class' => 'form-control', 'required']) !!}</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group">--}}
-                            {{--<label for="state" class="col-md-4 control-label">State <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>--}}
-
-                            {{--<div class="col-md-6">--}}
-
-                                {{--{!! Form::select('state', array(null => 'Select...') + $states->all(), null, ['class'=>'form-control']) !!}--}}
-
-                                {{--@if ($errors->has('state'))--}}
-                                    {{--<span class="help-block">--}}
-                                        {{--<strong>{{ $errors->first('state') }}</strong>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group">--}}
-                            {{--<label for="zipcode" class="col-md-4 control-label">Zipcode <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>--}}
-                            {{--<div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'required']) !!}--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">--}}
-                            {{--<label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>--}}
-                            {{--<div class="col-lg-6">--}}
-                                {{--{!! Form::text('phone_number',null,['class' => 'form-control', 'required']) !!}--}}
-                                {{--@if ($errors->has('phone_number'))--}}
-                                    {{--<span class="help-block">--}}
-                                      {{--<strong>{{ $errors->first('phone_number') }}</strong>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                        <div class="form-group" id="role-group" style="display:block">
+                            <label for="Role" class="col-md-4 control-label"> Role: <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <div class="col-lg-6">
+                                @if(App\ParentChildOrganizations::active()->where('parent_org_id', $user->organization->id)->count() > 0)
+                                    {!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control', 'id' => 'locations-drop-down-parent', 'style' => 'display:block']) !!}
+                                    {!! Form::select('role_id', array('5' => $roles[5]), $user->roles->first()->id, ['class' => 'form-control', 'id' => 'locations-drop-down-child', 'style' => 'display:none']) !!}
+                                @else
+                                    {!! Form::select('role_id', $roles, $user->roles->first()->id, ['class' => 'form-control', 'id' => 'locations-drop-down-parent']) !!}
+                                    {!! Form::select('role_id', array('5' => $roles[5]), $user->roles->first()->id, ['class' => 'form-control', 'id' => 'locations-drop-down-child', 'style' => 'display:none']) !!}
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                                <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
+                            <div class="col-md-6 col-md-offset-5">
+                                {!! Form::submit('Update', ['class' => 'btn updatebtn']) !!}
+                                <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
                         </div>
@@ -120,33 +79,48 @@
     </div>
 
     <script>
-    function (resetPassword) {
+        $("#loc-drop-down").change(function () {
+            if (this.value.startsWith('parent')) {
+                // Displaying locations drop-down for parent and hiding children's
+                document.getElementById("locations-drop-down-parent").style.display = "block";
+                document.getElementById("locations-drop-down-child").style.display = "none";
+                // replacing name to a temporary name called dummy-name
+                // in order to not submitted into database
+                document.getElementById("locations-drop-down-child").setAttribute('name', 'dummy-name');
+                document.getElementById("locations-drop-down-parent").setAttribute('name', 'role_id');
+            } else if (this.value.startsWith('child')) {
+                // Displaying locations drop-down for children and hiding parents
+                document.getElementById("locations-drop-down-child").style.display = "block";
+                document.getElementById("locations-drop-down-parent").style.display = "none";
+                // replacing name to a temporary name called dummy-name
+                // in order to not submitted into database
+                document.getElementById("locations-drop-down-parent").setAttribute('name', 'dummy-name');
+                document.getElementById("locations-drop-down-child").setAttribute('name', 'role_id');
+            }
 
-        $.ajax({
-        type: "POST",
-        url: 'yourdomain.com/fireEvent/testEvent',
-        dataType: 'json',
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function( resp ) {
-        //window.location.href = 'emaileditor/editsendmail/' + $.param(idsArray);
-        setStatusText = '';
-        if(resp.status == 0) {
-        setStatusText = 'Approved';
-        } else if (resp.status == 1) {
-        setStatusText = 'Rejected';
-        }
-        // Handle your response..
-        for (var i = 0; i < resp.idsArray.length; i++) {
-        // 0 - approved
-        //1- rejected
-        $('#status' + resp.idsArray[i]).text(setStatusText);
-        }
-        alert('Selected Request(s) are ' + setStatusText);
-        },
-        data: {ids:idsArray, status:actionStatus}
         });
-    }
+
+        $(document).ready(function() {
+
+            if ($('#loc-drop-down').find(":selected").val().startsWith('parent')) {
+                // Displaying locations drop-down for parent and hiding children's
+                document.getElementById("locations-drop-down-parent").style.display = "block";
+                document.getElementById("locations-drop-down-child").style.display = "none";
+                // replacing name to a temporary name called dummy-name
+                // in order to not submitted into database
+                document.getElementById("locations-drop-down-child").setAttribute('name', 'dummy-name');
+                document.getElementById("locations-drop-down-parent").setAttribute('name', 'role_id');
+            } else {
+                // Displaying locations drop-down for children and hiding parents
+                document.getElementById("locations-drop-down-child").style.display = "block";
+                document.getElementById("locations-drop-down-parent").style.display = "none";
+                // replacing name to a temporary name called dummy-name
+                // in order to not submitted into database
+                document.getElementById("locations-drop-down-parent").setAttribute('name', 'dummy-name');
+                document.getElementById("locations-drop-down-child").setAttribute('name', 'role_id');
+            }
+        });
+
     </script>
+
 @endsection

@@ -14,33 +14,34 @@ use App\Organization;
 use App\ParentChildOrganizations;
 use App\User;
 use Auth;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-
-        if ($request->user()->hasAnyRole(['Root User', 'Tagg Owner', 'Tagg User'])) {
+        if ($request->user()->roleuser->role_id == Constant::ROOT_USER OR $request->user()->roleuser->role_id == Constant::TAGG_ADMIN OR $request->user()->roleuser->role_id == Constant::TAGG_USER) {
             $organizations = Organization::all();
 
-            $parentOrgs = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
-            $organizationsArray = ParentChildOrganizations::whereIn('parent_org_id', $parentOrgs)->pluck('child_org_id')->toArray();
-            array_push($organizationsArray, $parentOrgs);
+            // Only parent organizations have 'trial_ends_at' field in the Organizations table
+            $organizationsArray = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
 
-            $numActiveLocations = sizeOf($organizationsArray);
-            $userCount = User::whereIn('organization_id', $organizationsArray)->count();
+            $activeLocations = Organization::active()->get();
 
-            $userThisWeek = Organization::where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
-            $userThisMonth = Organization::where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
-            $userThisYear = Organization::where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
+            $numActiveLocations = count($activeLocations);
 
-            $avgAmountDonated = sprintf("%.2f", (DonationRequest::where('approval_status_id', 5)->avg('approved_dollar_amount')));
+            $userCount = count($organizationsArray);
 
-            $rejectedNumber = DonationRequest::where('approval_status_id', 4)->count();
-            $approvedNumber = DonationRequest::where('approval_status_id', 5)->count();
-            $pendingNumber = DonationRequest::whereIn('approval_status_id', [2, 3])->count();
+            $userThisWeek = Organization::active()->where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
+            $userThisMonth = Organization::active()->where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
+            $userThisYear = Organization::active()->where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
+
+            $avgAmountDonated = sprintf("%.2f", (DonationRequest::where('approval_status_id', Constant::APPROVED)->avg('approved_dollar_amount')));
+
+            $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->count();
+            $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->count();
+            $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->count();
 
             return view('dashboard.admin-index', compact('organizations', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'userCount', 'userThisWeek', 'userThisMonth', 'userThisYear'));
         } else {
@@ -48,8 +49,9 @@ class DashboardController extends Controller
             $organization = Organization::findOrFail($organizationId);
 
             $organizationName = $organization->org_name;
+
             $donationrequests = DonationRequest::whereIn('organization_id', $this->getAllMyOrganizationIds())
-                ->whereIn('approval_status_id', [Constant::SUBMITTED, Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->get();//dd($donationrequests);
+                ->whereIn('approval_status_id', [Constant::SUBMITTED, Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->get();
             $amountDonated = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organizationId)->sum('approved_dollar_amount');
             $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->where('organization_id', $organizationId)->count();
             $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organizationId)->count();
@@ -60,30 +62,6 @@ class DashboardController extends Controller
 
 
     }
-
-/*    public function indexTaggAdmin() {
-
-        $organizations = Organization::all();
-
-        $parentOrgs = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
-        $organizationsArray = ParentChildOrganizations::whereIn('parent_org_id', $parentOrgs)->pluck('child_org_id')->toArray();
-        array_push($organizationsArray, $parentOrgs);
-
-        $numActiveLocations = sizeOf($organizationsArray);
-        $userCount = User::whereIn('organization_id', $organizationsArray)->count();
-
-        $userThisWeek = Organization::where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
-        $userThisMonth = Organization::where('created_at', '>=', Carbon::now()->startOfMonth())->whereNotNull('trial_ends_at')->count();
-        $userThisYear = Organization::where('created_at', '>=', Carbon::now()->startOfYear())->whereNotNull('trial_ends_at')->count();
-
-        $avgAmountDonated = floatval(DonationRequest::where('approval_status_id', 5)->avg('dollar_amount'));
-        $rejectedNumber = DonationRequest::where('approval_status_id', 4)->count();
-        $approvedNumber = DonationRequest::where('approval_status_id', 5)->count();
-        $pendingNumber = DonationRequest::whereIn('approval_status_id', [2, 3])->count();
-
-        return view('dashboard.admin-index', compact('organizations', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'userCount', 'userThisWeek', 'userThisMonth', 'userThisYear'));
-
-    }*/
 
     protected function getAllMyOrganizationIds()
     {

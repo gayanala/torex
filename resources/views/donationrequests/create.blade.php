@@ -1,46 +1,40 @@
 @extends('layouts.app')
 @section('content')
+    <br>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
+    <script type="text/javascript"
+            src="https://unpkg.com/iframe-resizer@3.5.15/js/iframeResizer.contentWindow.min.js"></script>
 
-
-    <script type="text/javascript">
-        function yesnoCheck() {
-            if (document.getElementById('yesCheck').checked) {
-                $('#file_upload').show();
-                $('#attachment').prop('required');
-            }
-            else {
-                $('#file_upload').hide();
-                $('#attachment').removeProp('required');
-            }
-        }
-    </script>
+    <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
     <script>
-        $(window).load(function () {
+        webshims.setOptions('forms-ext', {types: 'date'});
+        webshims.polyfill('forms forms-ext');
+    </script>
+
+    <script>
+        $(document).ready(function () {
             var phones = [{"mask": "(###) ###-####"}];
-            $('#phonenumber').inputmask({
+            $('#phone_number').inputmask({
                 mask: phones,
                 greedy: false,
                 definitions: {'#': {validator: "[0-9]", cardinality: 1}}
             });
-            if ( {{ ! empty($_GET['newrequest']) }} ) {
-                $('nav').hide();
-                $('#navDemo').wrap('<span style="display: none;" />');
+            if ("{!! ! empty($_GET['newrequest']) !!}" != "") {
+                $('#app').hide();
+                $('#navDemo').wrap('<span style="display: none;" hidden />');
             }
-            $('#file_upload').hide();
-            $('#explain').hide();
-            $('#explain_purpose').hide()
+
         });
 
 
     </script>
-
+    {{ csrf_field() }}
 
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
+                <div id="divRequestForm" class="panel panel-default">
                     <div class="panel-heading">Donation Request Form</div>
 
                     <div class="panel-body">
@@ -70,7 +64,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('requester_type') ? ' has-error' : '' }}">
-                            <label for="requester_type" class="col-md-4 control-label">Organization Type <span
+                            <label for="requester_type" class="col-md-4 control-label">Requester Organization Type <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
@@ -88,10 +82,10 @@
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required
+                                <input id="firstname" type="text" pattern="^[a-zA-Z][a-z  A-Z0-9-_\s]{1,20}$" required
                                        title="Your First Name should be 2-20 characters long." class="form-control"
                                        name="firstname" value="{{ old('firstname') }}"
-                                       placeholder="Enter Your First Name" required autofocus>
+                                       placeholder="Enter Your First Name" required>
 
                                 @if ($errors->has('firstname'))
                                     <span class="help-block">
@@ -106,10 +100,10 @@
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required
+                                <input id="lastname" type="text" pattern="^[a-zA-Z][a-z A-Z0-9-_\s]{1,20}$" required
                                        title="Your Last Name should be 2-20 characters long." class="form-control"
                                        name="lastname" value="{{ old('lastname') }}" placeholder="Enter Your Last Name"
-                                       required autofocus>
+                                       required>
 
                                 @if ($errors->has('lastname'))
                                     <span class="help-block">
@@ -125,7 +119,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email"
-                                       value="{{ old('email') }}" placeholder="Enter Your Email Address" autofocus
+                                       value="{{ old('email') }}" placeholder="Enter Your Email Address"
                                        required>
 
                                 @if ($errors->has('email'))
@@ -136,19 +130,16 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('phonenumber') ? ' has-error' : '' }}">
-                            <label for="phonenumber" class="col-md-4 control-label">Phone Number <span
+                        <div class="form-group{{ $errors->has('phone_number') ? ' has-error' : '' }}">
+                            <label for="phone_number" class="col-md-4 control-label">Phone Number <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-
                             <div class="col-md-6">
-                                <input id="phonenumber" type="text" class="form-control"
-                                       name="phonenumber" value="{{ old('phonenumber') }}" required
-                                       autofocus>
-
-
-                                @if ($errors->has('phonenumber'))
+                                <input id="phone_number" type="tel" class="form-control"
+                                       name="phone_number" value="{{ old('phone_number') }}" required
+                                >
+                                @if ($errors->has('phone_number'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('phonenumber') }}</strong>
+                                        <strong>{{ $errors->first('phone_number') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -160,8 +151,7 @@
 
                             <div class="col-md-6">
                                 <input id="address1" type="text" class="form-control" name="address1"
-                                       value="{{ old('address1') }}" placeholder="Street Address/PO Box" required
-                                       autofocus>
+                                       value="{{ old('address1') }}" placeholder="Street Address/PO Box" required>
 
                                 @if ($errors->has('address1'))
                                     <span class="help-block">
@@ -185,7 +175,7 @@
 
                             <div class="col-md-6">
                                 <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}"
-                                       placeholder="Enter Your City" required autofocus>
+                                       placeholder="Enter Your City" required>
 
                                 @if ($errors->has('city'))
                                     <span class="help-block">
@@ -215,9 +205,10 @@
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="zipcode" type="text" pattern="[0-9]{5}" required
-                                       title="Enter a 5 digit zipcode" class="form-control" name="zipcode"
-                                       value="{{ old('zipcode') }}" placeholder="Zip Code" required autofocus>
+                                <input id="zipcode" type="number"
+                                       oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                       maxlength="5" class="form-control" name="zipcode"
+                                       value="{{ old('zipcode') }}" placeholder="Zip Code" required>
 
                                 @if ($errors->has('zipcode'))
                                     <span class="help-block">
@@ -227,22 +218,23 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('taxexempt') ? ' has-error' : '' }}">
-                            <label for="taxexempt" class="col-md-4 control-label"> Are you a 501c3? <span
+                        <div class="form-group{{ $errors->has('tax_exempt') ? ' has-error' : '' }}">
+                            <label for="tax_exempt" class="col-md-4 control-label"> Are you a 501c3? <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
 
                             <div class="col-md-6">
 
                                 <label for="chkYes">
-                                    <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="yesCheck"
+                                    <input type="radio" onclick="yesnoCheck();" name="tax_exempt" id="yesCheck"
                                            value="1">Yes
                                 </label>
                                 <label for="chkNo">
-                                    <input type="radio" onclick="yesnoCheck();" name="taxexempt" id="noCheck" value="0">No
+                                    <input type="radio" onclick="yesnoCheck();" name="tax_exempt" id="noCheck"
+                                           value="0">No
                                 </label>
-                                @if ($errors->has('taxexempt'))
+                                @if ($errors->has('tax_exempt'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('taxexempt') }}</strong>
+                                        <strong>{{ $errors->first('tax_exempt') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -251,10 +243,9 @@
                         <div class="form-group{{ $errors->has('attachment') ? ' has-error' : '' }}" id="file_upload">
                             <label for="attachment" class="col-md-4 control-label">Attachment <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <small>Supported File Types: doc, docx, pdf, jpeg, png, jpg, svg</small>
                             <div class="col-md-4">
-                                <input type="file" class="form-control" name="attachment" id="attachment"
-                                       autofocus>
-
+                                <input type="file" class="form-control" name="attachment" id="attachment">
                                 @if ($errors->has('attachment'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('attachment') }}</strong>
@@ -277,15 +268,17 @@
                             </div>
                         </div>
                         <div class="form-group" id="explain">
-                            {!! Form::label('explain', 'Explain',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                            <div class="col-md-4">
+
+                            </div>
+
                             <div class="col-md-6">
                                 <textarea name="item_requested_explain" id="item_requested_explain" class="form-control"
                                           pattern="[a-zA-Z0-9\s]"
                                           maxlength="1000"
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
-                                          placeholder="Explain the Requested item within 100 characters"
-                                          autofocus></textarea>
+                                          placeholder="Explain the Requested item within 100 characters"></textarea>
                                 <!--<input id="item_requested_explain" type="textbox" name="other" style="visibility:hidden;" required autofocus/>-->
                             </div>
                         </div>
@@ -293,10 +286,12 @@
                             <label for="dollar_amount" class="col-md-4 control-label">Dollar Amount<span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                             <div class="col-md-6">
-                                <input id="dollar_amount" type="text" pattern="\d+(\.\d{2})?" required
+                                <input id="dollar_amount" type="number" min="0.00" step="0.01" pattern="\d+(\.\d{2})"
+                                       required
                                        title="Please use the format $.$$ for this field. " class="form-control"
-                                       name="dollar_amount" value="{{ old('formAttendees') }}"
-                                       placeholder="Estimated Request Dollar Amount" required autofocus>
+                                       name="dollar_amount" value="{{ old('dollar_amount') }}"
+                                       onblur="setTwoNumberDecimal(this)"
+                                       placeholder="0.00" required>
 
                                 @if ($errors->has('dollar_amount'))
                                     <span class="help-block">
@@ -320,8 +315,10 @@
                         </div>
 
                         <div class="form-group" id="explain_purpose">
+                            <div class="col-md-4">
 
-                            {!! Form::label('explain_purpose', 'Explain_purpose',['class'=>'col-md-4 control-label','id'=>'mandatory-field']) !!}
+                            </div>
+
                             <div class="col-md-6">
                                 <textarea name="item_purpose_explain" id="item_purpose_explain" class="form-control"
                                           pattern="[a-zA-Z0-9\s]"
@@ -329,19 +326,19 @@
                                           title="Please restrict your Text Length to 100 characters"
                                           rows="3"
                                           placeholder="Explain your donation Purpose within 200 characters"
-                                          autofocus ></textarea>
+                                ></textarea>
 
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('startdate') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('event_date') ? ' has-error' : '' }}">
                             <label for="needed_by_date" class="col-md-4 control-label">Needed by Date <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
                                 <input id="needed_by_date" type="date" class="form-control" name="needed_by_date"
                                        value="{{ old('needed_by_date') }}" placeholder="The Request Needed Date"
-                                       required autofocus>
+                                       required>
 
                                 @if ($errors->has('needed_by_date'))
                                     <span class="help-block">
@@ -357,8 +354,7 @@
 
                             <div class="col-md-6">
                                 <input id="eventname" type="text" class="form-control" name="eventname"
-                                       value="{{ old('eventname') }}" placeholder="Enter Name of Your Event" required
-                                       autofocus>
+                                       value="{{ old('eventname') }}" placeholder="Enter Name of Your Event" required>
 
                                 @if ($errors->has('eventname'))
                                     <span class="help-block">
@@ -368,17 +364,17 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('startdate') ? ' has-error' : '' }}">
-                            <label for="startdate" class="col-md-4 control-label">Event Date <span
+                        <div class="form-group{{ $errors->has('event_date') ? ' has-error' : '' }}">
+                            <label for="event_date" class="col-md-4 control-label">Event Date <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="startdate" type="date" class="form-control" name="startdate"
-                                       value="{{ old('startdate') }}" placeholder="Start Date" required autofocus>
+                                <input id="event_date" type="date" class="form-control" name="event_date"
+                                       value="{{ old('event_date') }}" placeholder="Start Date" required>
 
-                                @if ($errors->has('startdate'))
+                                @if ($errors->has('event_date'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('startdate') }}</strong>
+                                        <strong>{{ $errors->first('event_date') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -386,7 +382,7 @@
 
 
                         <div class="form-group{{ $errors->has('event_type') ? ' has-error' : '' }}">
-                            <label for="event_type" class="col-md-4 control-label">Purpose Of The Event <span
+                            <label for="event_type" class="col-md-4 control-label">Purpose of The Event <span
                                         style="color: red; font-size: 20px; vertical-align:middle;"></span></label>
                             <div class="col-md-6">
                                 {!! Form::select('event_type', array(null => 'Select...') + $request_event_type->all(), null, ['class'=>'form-control']) !!}
@@ -400,12 +396,12 @@
 
 
                         <div class="form-group{{ $errors->has('formAttendees') ? ' has-error' : '' }}">
-                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number Of Attendees<span
+                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number of Attendees<span
                                         style="color: red; font-size: 20px; vertical-align:middle;"></span> </label>
                             <div class="col-md-6">
-                                <input id="formAttendees" type="text" class="form-control" name="formAttendees"
-                                       value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees"
-                                       autofocus>
+                                <input id="formAttendees" type="number" step="1" min="0" class="form-control"
+                                       name="formAttendees"
+                                       value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees" >
 
                                 @if ($errors->has('formAttendees'))
                                     <span class="help-block">
@@ -420,7 +416,7 @@
 
                             <div class="col-md-6">
                                 <input id="venue" type="text" class="form-control" name="venue"
-                                       value="{{ old('venue') }}" placeholder="Place event will be held" autofocus>
+                                       value="{{ old('venue') }}" placeholder="Place event will be held">
 
                                 @if ($errors->has('venue'))
                                     <span class="help-block">
@@ -436,12 +432,12 @@
                             </label>
 
                             <div class="col-md-6">
-                                <textarea class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]"
-                                          maxlength="1000" required
-                                          title="Please restrict your Text Length to 1000 characters"
-                                          name="marketingopportunities" rows="5"
-                                          value="{{ old('marketingopportunities') }}" placeholder="MAX 1000 characters"
-                                          autofocus> </textarea>
+                                <textarea
+                                        placeholder="Explain how you will let others know my business has contributed to your cause"
+                                        class="form-control" input id="marketingopportunities" pattern="[a-zA-Z0-9\s]"
+                                        maxlength="1000" title="Please restrict your Text Length to 1000 characters"
+                                        name="marketingopportunities" rows="5"
+                                        value="{{ old('marketingopportunities') }}"></textarea>
 
                                 @if ($errors->has('marketingopportunities'))
                                     <span class="help-block">
@@ -453,22 +449,44 @@
 
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-6 col-md-offset-5">
                                 <button type="button" id="btnSubmit" class="btn btn-success">
                                     Send Request
                                 </button>
-                                <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
+
+                                <input id="hiddenSubmit" type="submit" class="btn btn-success" style="display: none">
+                            <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                             </div>
                         </div>
                         {!! Form::close() !!}
                     </div>
+                    <span data-iframe-height/>
                 </div>
             </div>
         </div>
     </div>
-
     <script>
+        @if (! $errors->any())
+        $('#file_upload').hide();
         $('#explain').hide();
+        $('#explain_purpose').hide();
+        @endif
+    </script>
+    <script type="text/javascript">
+        $('#attachment').removeProp('required');
+
+        function yesnoCheck() {
+            if (document.getElementById('yesCheck').checked) {
+                $('#file_upload').show();
+                $('#attachment').prop('required');
+            }
+            else {
+                $('#file_upload').hide();
+                $('#attachment').removeProp('required');
+            }
+        }
+    </script>
+    <script>
         $('#item_requested').change(function () {
             if ($(this).val() == 5) {
                 $('#explain').show();
@@ -477,7 +495,6 @@
                 $('#item_requested_explain').val('');
             }
         });
-        $('#explain_purpose').hide();
         $('#item_purpose').change(function () {
             if ($(this).val() == 9) {
                 $('#explain_purpose').show();
@@ -487,6 +504,10 @@
             }
         });
 
+        function setTwoNumberDecimal(e) {
+            e.value = parseFloat(e.value).toFixed(2);
+        }
+
         $('#btnSubmit').on('click', function () {
             if (document.getElementById('yesCheck').checked) {
                 if ($('#attachment')[0].files.length === 0) {
@@ -495,12 +516,12 @@
                 }
                 else {
                     //alert("Checked: true, Attachment: true");
-                    document.getElementById("donationRequestForm").submit();
+                    $('#hiddenSubmit').click();
                 }
             }
             else {
                 //alert("Checked: false");
-                document.getElementById("donationRequestForm").submit();
+                $('#hiddenSubmit').click();
             }
         });
     </script>

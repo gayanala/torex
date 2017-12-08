@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-
+    <br>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Donation Requests for {{ $organization->org_name }}</div>
+                    <div class="panel-heading">Dashboard for {{ $organization->org_name }}</div>
 
                     <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                         <thead>
@@ -24,7 +24,7 @@
                                     <td style="vertical-align: middle"><?php echo ($donationRequest['street_address1'] . ' ' . $donationRequest['street_address2'] . ' ' . $donationRequest['city'] . ' ' . $donationRequest['state'] . ' ' . $donationRequest['zipcode']); ?></td>
                                     <td style="vertical-align: middle"><?php echo ($donationRequest->created_at); ?></td>
                                     <td style="vertical-align: middle">
-                                        <a href="{{route('donationrequests.show',$donationRequest->id)}}" class="btn btn-info" title="Detail">
+                                        <a href="{{route('donationrequests.show',encrypt($donationRequest->id))}}" class="btn btn-info" title="Detail">
                                             <span class="glyphicon glyphicon-list-alt"></span></a>
 
                                     </td>

@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('content')
+    <br>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading"> Create A User</div>
+                    <div class="panel-heading"> <h1 style="text-align: left;font-weight: bold;">Create A User</h1></div>
                     <div class="panel-body">
 
                         {{--{!! Form::open(['url' => 'users']) !!}--}}
@@ -56,7 +57,7 @@
 
                         <div id="role-toggle">
                             <div class="form-group" id="role-group" style="display:none">
-                                {!! Form::label('Role', 'Role:') !!}
+                                {!! Form::label('Role', 'Role') !!}
                                 <span style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                                 {!! Form::select('role_id', $roles, null, ['class' => 'form-control', 'id' => 'locations-drop-down-parent']) !!}
 
@@ -68,9 +69,9 @@
 
 
                     <div class="form-group">
-                        <div class=" col-md-offset-4">
-                            <button class="btn btn-primary" type="submit" class="" id="createbutton">Submit</button>
-                            <input class="btn btn-primary" type="button" value="Cancel" onClick="history.go(-1);">
+                        <div class=" col-md-offset-5">
+                            <button class="btn savebtn" type="submit" class="" id="createbutton">Submit</button>
+                            <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
                             <span style="color: red"> <h5> Fields Marked With (*) Are Mandatory </h5></span>
                         </div>
                     </div>
@@ -82,7 +83,7 @@
 
     <script>
         $("#loc-drop-down").change(function () {
-            
+
             if (this.value == '') {
                 // Not showing Roles dropdown and its label when nothing is
                 // selected in locations dropdown

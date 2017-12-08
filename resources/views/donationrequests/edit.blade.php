@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    <br>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -21,7 +22,8 @@
                         @endif
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="requester" class="col-md-4 control-label">Name Of The Organization <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="requester" class="col-md-4 control-label">Name of The Organization <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
                                 {!! Form::text('requester',null, ['class' => 'form-control', 'required']) !!}
                             </div>
@@ -50,7 +52,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="phonenumber" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="phone_number" class="col-md-4 control-label">Phone Number <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::text('phone_number',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
@@ -77,15 +79,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="zipcode" class="col-md-4 control-label">Zipcode <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="zipcode" class="col-md-4 control-label">Zip Code <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::text('zipcode',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="taxexempt" class="col-md-4 control-label"> Are you a 501c3? <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <label for="tax_exempt" class="col-md-4 control-label"> Are you a 501c3? <span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                             <div class="col-md-6">
-                                {!! Form::radio('taxexempt',null,['class' => 'form-control', 'required']) !!} Yes &nbsp;&nbsp;
-                                {!! Form::radio('taxexempt',null,['class' => 'form-control', 'required']) !!} No
+                                {!! Form::radio('tax_exempt',null,['class' => 'form-control', 'required']) !!} Yes &nbsp;&nbsp;
+                                {!! Form::radio('tax_exempt',null,['class' => 'form-control', 'required']) !!} No
                             </div>
                         </div>
 
@@ -109,21 +112,23 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="startdate" class="col-md-4 control-label">Event Date <span
+                            <label for="event_date" class="col-md-4 control-label">Event Date <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::date('event_start_date',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
 
                         <div class="form-group">
-                            <label for="event_type" class="col-md-4 control-label">Purpose Of The Event <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
+                            <label for="event_type" class="col-md-4 control-label">Purpose of The Event <span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
                                 {!! Form::select('item_purpose', array(null => 'Select...') + $request_item_purpose->all(), null, ['class'=>'form-control', 'required']) !!}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number Of Attendees<span style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
+                            <label for="formAttendees" class="col-md-4 control-label">Estimated Number of Attendees<span
+                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span> </label>
                             <div class="col-lg-6">{!! Form::text('est_attendee_count',null,['class' => 'form-control', 'required']) !!}</div>
                         </div>
 
@@ -139,8 +144,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ route('donationrequests.index')}}" class="btn btn-primary">Cancel</a>
+                                {!! Form::submit('Update', ['class' => 'btn updatebtn']) !!}
+                                <a href="{{ route('donationrequests.index')}}" class="btn backbtn">Cancel</a>
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>

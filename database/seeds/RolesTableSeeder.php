@@ -17,9 +17,9 @@ class RolesTableSeeder extends Seeder
 
         Role::create(['id' => 1, 'name' => 'Root User']);
 
-        Role::create(['id' => 2, 'name' => 'Tagg Owner']);
+        Role::create(['id' => 2, 'name' => 'CharityQ Admin']);
 
-        Role::create(['id' => 3, 'name' => 'Tagg User']);
+        Role::create(['id' => 3, 'name' => 'CharityQ User']);
 
         Role::create(['id' => 4, 'name' => 'Business Admin']);
 

@@ -1,11 +1,22 @@
 @extends('layouts.app')
 @section('content')
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">User Profile</h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
     <div class="container">
         <input name="_token" type="hidden" id="_token" value="{{ csrf_token() }}" />
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Profile</div>
+                    <div class="panel-heading">
+                        <h1 style="text-align: left;font-weight: bold;">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
+                    </div>
 
 
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -48,6 +59,10 @@
                         {{ csrf_field() }}
                         <input name="userId" type="hidden" id="userId" value="{{ $user->id }}" />
                         <div class="form-group">
+                            <label for="email" class="col-md-4 control-label">Role</label>
+                            <div class="col-lg-6"><p>&nbsp;&nbsp;{!! $user->roles[0]->name !!}</p></div>
+                        </div>
+                        <div class="form-group">
                             <label for="first_name" class="col-md-4 control-label"> First Name <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">
@@ -66,12 +81,6 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
                             <div class="col-lg-6">{!! Form::text('email',null,['class' => 'form-control', 'required']) !!}</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="col-md-4 control-label">Role <span
-                                        style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6"><p>&nbsp;&nbsp;{!! $user->roles[0]->name !!}</p></div>
                         </div>
 
                         <div class="form-group">
@@ -106,13 +115,12 @@
                                 @endif
                             </div>
 
-                            {{--<div class="col-lg-6">{!! Form::text('state',null,['required'],['class'=>'form-control' ]) !!}</div>--}}
                         </div>
 
                         <div class="form-group">
                             <label for="zipcode" class="col-md-4 control-label">Zip Code <span
                                         style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
-                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control', 'required']) !!}
+                            <div class="col-lg-6"> {!! Form::text('zipcode',null,['class' => 'form-control','id'=>'zipcode','maxlength' => 5,'required']) !!}
                             </div>
                         </div>
 
@@ -127,10 +135,12 @@
 
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Save', ['class' => 'btn btn-primary', 'id' => 'btnSave']) !!}
-                                <button id="btnEdit" class="btn btn-primary" type="button">Edit</button>
-                                {{--<a href="{{ route('users.index')}}" class="btn btn-primary">Cancel</a>--}}
+                            <div class="col-md-6 col-md-offset-5">
+                                {!! Form::submit('Save', ['class' => 'btn savebtn', 'id' => 'btnSave']) !!}
+                                <button id="btnEdit" class="btn savebtn" style="background-color: #0099CC;"
+                                        type="button">Edit
+                                </button>
+                                <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
                                 <span style="color: red"> <h5>Fields Marked With (<span
                                                 style="color: red; font-size: 20px; vertical-align:middle;">*</span>) Are Mandatory</h5></span>
                             </div>
@@ -153,5 +163,12 @@
             $('#btnSave').removeClass('hidden');
             $('#btnEdit').addClass('hidden');
         });
+        $("#zipcode").on('keypress', function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                return false;
+            }
+        });
+
     </script>
 @endsection

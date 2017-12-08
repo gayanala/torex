@@ -7,165 +7,92 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header text-center">Request Management Dashboard</h1>
+                    <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">CHARITYQ DASHBOARD (YTD)</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-money fa-5x" style="color: #3e8f3e"></i>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div class="huge" style="font-weight: bold; font-size: 20px;">
-                                        ${{ $avgAmountDonated }}</div>
-                                    <div>AVERAGE AMOUNT DONATED</div>
-                                </div>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-window-close-o fa-5x" style="color: red"></i>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div class="huge"
-                                         style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</div>
-                                    <div>REJECTED</div>
-                                </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading" style="background-color: #d4c8b8;">
+                        <div class="row">
+                            <div class="col-xs-3" style="padding-bottom: 15px;">
+                                <i class="fa fa-envelope-open fa-5x" style="color: white"></i>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS APPROVED : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</span></div>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS REJECTED : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</span></div>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS PENDING : <span
+                                            class="huge"
+                                            style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</span></div>
                             </div>
                         </div>
-                        {{--<a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>--}}
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-check-square-o fa-5x" style="color: #00dd00"></i>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div class="huge"
-                                         style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</div>
-                                    <div>APPROVED</div>
-                                </div>
-                            </div>
-                        </div>
-                        {{--<a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>--}}
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
+            </div>
+
+            <div class="col-lg-4 col-md-6">
                     <div class="panel panel-red">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="background-color: #b69da8;">
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-clock-o fa-5x" style="color: darkorange"></i>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div class="huge"
-                                         style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</div>
-                                    <div>PENDING DONATIONS</div>
-                                </div>
+
+                                <table border="0" style="color: white;font-size: 15px;">
+                                <tr>
+                                    <td rowspan="3">
+                                        <div class="col-xs-3" style="padding-bottom: 15px;">
+                                            <i class="fa fa-university fa-5x"></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight: lighter">AVG AMOUNT DONATED</div>
+                                    </td>
+                                    <td>
+                                        <div class="huge" style="font-weight: bolder; font-size: 20px; color: white">${{ $avgAmountDonated }}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><div style="color: white;font-size: 15px;font-weight: lighter;"> ACTIVE CUSTOMERS :</div></td>
+                                    <td><div class="huge" style="font-weight: bold; font-size: 20px">{{ $userCount }}</div></td>
+
+                                </tr>
+                                    <td><div style="color: white;font-size: 15px;font-weight: lighter;"> ACTIVE LOCATIONS :</div></td>
+                                    <td><div class="huge" style="font-weight: bold; font-size: 20px">{{ $numActiveLocations }}</div></td>
+
+
+                                </table>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
+            </div>
+            <div class="col-lg-4 col-md-6">
                     <div class="panel panel-red">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="background-color: #a5c5bd;">
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-user-circle-o fa-5x" style="color: greenyellow"></i>
+                                <div class="col-xs-3" style="padding-bottom: 15px;">
+                                    <i class="fa fa-line-chart fa-5x" style="color: white"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge" style="font-weight: bold; font-size: 20px;">{{ $userCount }}</div>
-                                    <div>ACTIVE CUSTOMERS</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-address-book-o fa-5x" ></i>
+                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> NEW BUSINESSES THIS
+                                        WEEK : <span class="huge"
+                                                     style="font-weight: bold; font-size: 20px;">{{ $userThisWeek }}</span></div>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge"
-                                         style="font-weight: bold; font-size: 20px;">{{ $numActiveLocations }}</div>
-                                    <div>ACTIVE LOCATIONS</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-user-circle-o fa-5x" style="color: darkgreen"></i>
+                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> NEW BUSINESSES THIS
+                                        MONTH : <span class="huge"
+                                                      style="font-weight: bold; font-size: 20px;">{{ $userThisMonth }}</span></div>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge"
-                                         style="font-weight: bold; font-size: 20px;">{{ $userThisWeek }}</div>
-                                    <div>NEW BUSINESSES THIS WEEK</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-user-circle-o fa-5x" style="color: yellow"></i>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div class="huge"
-                                         style="font-weight: bold; font-size: 20px;">{{ $userThisMonth }}</div>
-                                    <div>NEW BUSINESSES THIS MONTH</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-user-circle-o fa-5x" style="color: blue"></i>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div class="huge"
-                                         style="font-weight: bold; font-size: 20px;">{{ $userThisYear }}</div>
-                                    <div>NEW BUSINESSES THIS YEAR</div>
+                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> NEW BUSINESSES THIS
+                                        YEAR : <span class="huge"
+                                                     style="font-weight: bold; font-size: 20px;">{{ $userThisYear }}</span></div>
                                 </div>
                             </div>
                         </div>
@@ -178,22 +105,22 @@
                 <!-- /.col-lg-8 -->
                 <div class="col-lg-12">
                     <div class="panel panel-default text-left">
-                        <div class="panel-heading">
-                            <b>Organization's Donations</b>
+                        <div class="panel-heading text-center" style="color:#0077aa;font-size:15px;">
+                            <b>DONATIONS SUMMARY</b>
                         </div>
 
-                        <div class="panel-body">
+                        <div class="panel-body table-wrap wrapper">
                             @if(sizeOf($organizations) != 0)
                                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
                                     <thead>
                                         <tr class="bg-info">
-                                            <th class="text-center">Status</th>
-                                            <th class="text-center">Org ID</th>
-                                            <th class="text-center">Organization Name</th>
-                                            <th class="text-center">Total Donations</th>
+                                            <th class="text-center">Business Name</th>
+                                            <th class="text-center">Amount Requested</th>
+                                            <th class="text-center">Amount Approved</th>
                                             <th class="text-center">Approved</th>
-                                            <th class="text-center">Rejected</th>
-                                            <th class="text-center">Amount Donated YTD</th>
+                                            {{--<th class="text-center">Rejected</th>--}}
+                                            <th class="text-center">Status</th>
+                                            {{--<th class="text-center">Active Locations</th>--}}
                                             <th class="text-center">Details</th>
                                         </tr>
                                     </thead>
@@ -204,21 +131,21 @@
                                                 @continue;
                                             @endif
                                             <tr>
-                                                <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
-                                                <td style="vertical-align: middle">{{ $organization->id }}</td>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->donationRequest->sum('dollar_amount') }}</td>
-                                                <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '5')->count() }}</td>
-                                                <td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>
-                                                <td style="vertical-align: middle"> {{ $organizations[0]->donationRequest->where('approval_status_id', '5')->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->sum('dollar_amount') }}</td>
+                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->count() }}</td>
+                                                {{--<td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>--}}
+                                                <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
+                                                {{--<td style="vertical-align: middle">{{ App\Organization::findOrFail($organization->id)->where('trial_ends_at', '>=', \Carbon\Carbon::now()->toDateTimeString())->get()  OR App\ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->count() }}</td>--}}
                                                 <td>
-                                                    <a href="{{ url('/organizationdonations', $organization->id)}}"
+                                                    <a href="{{ url('/organizationdonations', encrypt($organization->id))}}"
                                                        class="btn btn-info" title="Detail">
                                                         <span class="glyphicon glyphicon-list-alt"></span></a>
 
                                                 </td>
-                                                {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
-                                                {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
+                                                {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn savebtn"> Detail </a>--}}
+                                                {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn savebtn"> Edit </a>--}}
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -244,102 +171,9 @@
         <!-- /#wrapper -->
 
         <script>
-
             $(document).ready(function() {
                 $('#example').DataTable();
-                // Storing the number of all the checkboxes
-                // of donation requests
-                var totalCheckboxes = $('.myCheckbox').length;
-                // Toggling selectall by checking if all the checkboxes are checked
-                $('.myCheckbox').change(function() {
-                    if (($('.myCheckbox:checked').size() == totalCheckboxes) && (totalCheckboxes != 0)) {
-                        $('#selectall').prop('checked', true);
-                    } else {
-                        $('#selectall').prop('checked', false);
-                    }
-                });
             } );
-
-            $('#selectall').change(function() {
-                idsArray = [];
-                if(document.getElementById('selectall').checked) {
-                    $('.myCheckbox').prop('checked', true);
-                    $('.myCheckbox').each(function(){
-                        idsArray.push($(this).attr('ids'));
-                    });
-                    $('#selected-ids-hidden').val(idsArray);
-                    //get all ids push to idsArray
-                } else {
-                    $('.myCheckbox').prop('checked', false);
-
-                    $('#selected-ids-hidden').val('');
-                    // empty/splice idsArray
-                }
-
-            });
-
-            var idsArray = [];
-
-            // Populating array with the list of checkboxes with
-            // checked ids
-            $('.myCheckbox').change(function () {
-                var id = $(this).attr('ids');
-                if(this.checked) {
-                    idsArray.push(id);
-                } else {
-                    idsArray.splice(idsArray.indexOf(id), 1);
-                }
-                $('#selected-ids-hidden').val((idsArray));
-            });
-
-
-            function func(actionStatus) {
-
-
-                $('#selected-ids-hidden').val(JSON.stringify(idsArray));
-
-                // Populating array with the list of checkboxes with
-                // checked ids
-                $('.myCheckbox').each(function () {
-                    if(this.checked) {
-                        idsArray.push($(this).attr('ids'));
-                    }
-                });
-
-                // Sending an ajax post request with the list of checked
-                // checkboxes to update to either approved or rejected
-                $.ajax({
-                    type: "POST",
-                    url: 'donation/change-status',
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function( resp ) {
-                        //window.location.href = 'emaileditor/editsendmail/' + $.param(idsArray);
-                        setStatusText = '';
-                        if(resp.status == 0) {
-                            setStatusText = 'Approved';
-                        } else if (resp.status == 1) {
-                            setStatusText = 'Rejected';
-                        }
-                        // Handle your response..
-                        for (var i = 0; i < resp.idsArray.length; i++) {
-                            // 0 - approved
-                            //1- rejected
-                            $('#status' + resp.idsArray[i]).text(setStatusText);
-                        }
-                        //alert(resp.emailids);
-                    },
-                    data: {ids:idsArray, status:actionStatus}
-                });
-
-                // clearing the array
-                idsArray = [];
-
-                $('input:checkbox:checked').prop('checked', false);
-
-            }
         </script>
 
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>

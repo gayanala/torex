@@ -47,7 +47,7 @@ class DonationRequest extends Model
 
     public function donationRequestTypes()
     {
-        return $this->hasOne('App\Requester_type', 'requester_type', 'id');
+        return $this->hasOne('App\Requester_type', 'id', 'requester_type');
     }
 
     public function donationRequestType()

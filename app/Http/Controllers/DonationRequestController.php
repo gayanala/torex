@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Custom\Constant;
 use App\DonationRequest;
+use App\EmailTemplate;
 use App\Events\DonationRequestReceived;
-use App\Events\TriggerAcceptEmailEvent;
-use App\Events\TriggerRejectEmailEvent;
 use App\Organization;
 use App\ParentChildOrganizations;
 use App\Request_event_type;
@@ -14,19 +13,24 @@ use App\Request_item_purpose;
 use App\Request_item_type;
 use App\Requester_type;
 use App\State;
+use App\Subscription;
+use App\User;
 use Auth;
 use Carbon\Carbon;
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Http\withErrors;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use URL;
 
 
-
 class DonationRequestController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('create','store','acknowledgeRequestReceived');
+    }
+
     public function index()
     {
         $organizationId = Auth::user()->organization_id;
@@ -43,7 +47,7 @@ class DonationRequestController extends Controller
     public function admin()
     {
         $organizationId = Auth::user()->organization_id;
-        
+
         $organization = Organization::findOrFail($organizationId);
         $organizationName = $organization->org_name;
         $arr = ParentChildOrganizations::where('parent_org_id', $organizationId)->pluck('child_org_id')->toArray();
@@ -56,20 +60,27 @@ class DonationRequestController extends Controller
 
     public function create(Request $request)
     {
-        $organization = Organization::where('id', $request->orgId)->get();
-        $expireDate = $organization[0]->trial_ends_at;
+        $organization = Organization::active()->where('id', $request->orgId)->get();
+        if (!($organization->isEmpty())) {
+            $expireDate = $organization[0]->trial_ends_at;
 
-        if ($expireDate > Carbon::now() OR ($organization[0]->parentOrganization->isNotEmpty() AND $organization[0]->parentOrganization[0]->parentOrganization->trial_ends_at >= Carbon::now())) {
-            $states = State::pluck('state_name', 'state_code');
-            $requester_types = Requester_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
-            $request_item_types = Request_item_type::where('active', '=', Constant::ACTIVE)->pluck('item_name', 'id');
-            $request_item_purpose = Request_item_purpose::where('active', '=', Constant::ACTIVE)->pluck('purpose_name', 'id');
-            $request_event_type = Request_event_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
-            return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
-                ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+            if ($expireDate > Carbon::now() OR ($organization[0]->parentOrganization->isNotEmpty()
+                    AND $organization[0]->parentOrganization[0]->parentOrganization->trial_ends_at >= Carbon::now())
+            ) {
+                $states = State::pluck('state_name', 'state_code');
+                $requester_types = Requester_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
+                $request_item_types = Request_item_type::where('active', '=', Constant::ACTIVE)->pluck('item_name', 'id');
+                $request_item_purpose = Request_item_purpose::where('active', '=', Constant::ACTIVE)->pluck('purpose_name', 'id');
+                $request_event_type = Request_event_type::where('active', '=', Constant::ACTIVE)->pluck('type_name', 'id');
+                return view('donationrequests.create')->with('states', $states)->with('requester_types', $requester_types)->with('request_item_types', $request_item_types)
+                    ->with('request_item_purpose', $request_item_purpose)->with('request_event_type', $request_event_type);
+            } else {
+                return view('donationrequests.expired');
+            }
         } else {
             return view('donationrequests.expired');
         }
+
     }
 
     public function edit($id)
@@ -111,15 +122,15 @@ class DonationRequestController extends Controller
         $donationRequest->first_name = $request->firstname;
         $donationRequest->last_name = $request->lastname;
         $donationRequest->email = $request->email;
-        $donationRequest->phone_number = $request->phonenumber;
+        $donationRequest->phone_number = $request->phone_number;
         $donationRequest->street_address1 = $request->address1;
         $donationRequest->street_address2 = $request->address2;
         $donationRequest->city = $request->city;
         $donationRequest->state = $request->state;
         $donationRequest->zipcode = $request->zipcode;
-        $donationRequest->tax_exempt = $request->taxexempt;
+        $donationRequest->tax_exempt = $request->tax_exempt;
 
-        if ($request->hasFile('attachment') && $request->taxexempt==1) {
+        if ($request->hasFile('attachment') && $request->tax_exempt==1) {
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $imageName = Storage::disk('s3')->url($imageName);
             $donationRequest->file_url = $imageName;
@@ -127,32 +138,34 @@ class DonationRequestController extends Controller
         $donationRequest->item_requested = $request->item_requested;
         $donationRequest->other_item_requested = $request->item_requested_explain;
         $donationRequest->dollar_amount = $request->dollar_amount;
+        $donationRequest->approved_dollar_amount = $request->dollar_amount;
         $donationRequest->item_purpose = $request->item_purpose;
         $donationRequest->other_item_purpose = $request->item_purpose_explain;
         $donationRequest->needed_by_date = $request->needed_by_date;
         $donationRequest->event_name = $request->eventname;
-        $donationRequest->event_start_date = $request->startdate;
+        $donationRequest->event_start_date = $request->event_date;
         $donationRequest->event_type = $request->event_type;
         $donationRequest->est_attendee_count = $request->formAttendees;
         $donationRequest->venue = $request->venue;
         $donationRequest->marketing_opportunities = $request->marketingopportunities;
         $donationRequest->approval_status_id = Constant::SUBMITTED;
-        $donationRequest->approval_status_reason = 'Business Rules failed to run on request.';
+        $donationRequest->approval_status_reason = Constant::STATUS_REASON_DEFAULT;
         $this->validate($request, [
 
             'needed_by_date' => 'after:today',
-            'startdate' => 'after:today',
-            'taxexempt' => "required",
-            'phonenumber' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+            'zipcode' => 'required|numeric|digits:5',
+            'event_date' => 'after:today',
+            'tax_exempt' => "required",
+            'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
         ]);
 
 
 
 
         $donationRequest->save();
-        if ($request->hasFile('attachment') && $request->taxexempt==1) {
+        if ($request->hasFile('attachment') && $request->tax_exempt==1) {
             $this->validate($request, [
-                    'attachment' => 'required|mimes:doc,docx,pdf,jpeg,png,jpg,gif,svg|max:2048',
+                    'attachment' => 'required|mimes:doc,docx,pdf,jpeg,png,jpg,svg|max:2048',
                 ]);
             $imageName = time() . '.' . $request->attachment->getClientOriginalExtension();
             $image = $request->file('attachment');
@@ -161,16 +174,17 @@ class DonationRequestController extends Controller
         }
 
 
-        //fire NewBusiness event to initiate sending welcome mail
+        //fire NewBusiness event to initiate sending donation received mail
         event(new DonationRequestReceived($donationRequest));
 
         // Execute Business rules on newly submitted request
         app('App\Http\Controllers\RuleEngineController')->runRuleOnSubmit($donationRequest);
-        return redirect('/');
+        return redirect('acknowledgeRequestReceived');
     }
 
     public function show($id)
     {
+        $id = decrypt($id);
         $donationAcceptanceFlag = 0;
         if (URL::previous() === URL::route('show-donation', ['id' => 1])) {
             $donationAcceptanceFlag = 0;
@@ -206,75 +220,100 @@ class DonationRequestController extends Controller
 
     public function changeDonationStatus(Request $request)
     {
-        $userId = Auth::user()->id;
-        $userName = Auth::user()->first_name . ' ' . Auth::user()->last_name;
         $organizationId = Auth::user()->organization_id;
+        $donation_id = $request->id;
+        $donation = DonationRequest::where('id', $donation_id)->get();
+        $donation = $donation[0]; //convert collection into an array
+        $page_from = 'donationrequests';
+        $ids_string = (string)$donation->id;
+        $names = $donation->first_name.' '.$donation->last_name;
+        $emails = $donation->email;
+
+        //if current organization is a child location get parent's email template
+        $orgId = ParentChildOrganizations::where('child_org_id', $organizationId)->value('parent_org_id');
+        if ($orgId){
+            $organizationId = $orgId;
+        }
 
         if ($request->input('approve') == 'Approve') {
-            $approved_amount = $request->approved_amount;
-            $donation_id = $request->id;
-            $donation = DonationRequest::where('id', $donation_id)->get();
-            $donation[0]->update(['approval_status_id' => Constant::APPROVED]);
-            $donation[0]->update(['approved_dollar_amount' => $approved_amount]);
-            $donation[0]->update(['approved_organization_id' => $organizationId]);
-            $donation[0]->update(['approved_user_id' => $userId]);
-            $donation[0]->update(['approval_status_reason' => 'Approved by ' . $userName]);
-            event(new TriggerAcceptEmailEvent($donation[0]));
+            if ($request->approved_amount) {
+                $approved_amount = $request->approved_amount;
+                $donation->update(['approved_dollar_amount' => $approved_amount]);
+            }
+            $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_APPROVED)->where('organization_id', $organizationId)->get();
+            $email_template = $email_template[0]; //convert collection into an array
 
-            $organization = Organization::findOrFail($organizationId);
-            $organizationName = $organization->org_name;
-            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-            $today = Carbon::now()->toDateString();
-            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
+            return view('emaileditor.approvesendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
 
         } elseif ($request->input('reject') == 'Reject') {
-            $donation_id = $request->id;
-            $donation = DonationRequest::where('id', $donation_id)->get();
-            $donation[0]->update(['approval_status_id' => Constant::REJECTED]);
-            $donation[0]->update(['approved_organization_id' => $organizationId]);
-            $donation[0]->update(['approved_user_id' => $userId]);
-            $donation[0]->update(['approval_status_reason' => 'Rejected by ' . $userName]);
-            event(new TriggerRejectEmailEvent($donation[0]));
+            $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_REJECTED)->where('organization_id', $organizationId)->get();
+            $email_template = $email_template[0]; //convert collection into an array
 
-            $organization = Organization::findOrFail($organizationId);
-            $organizationName = $organization->org_name;
-            $donationrequests = DonationRequest::where('organization_id', '=', $organizationId)->get();
-            $today = Carbon::now()->toDateString();
-            return view('donationrequests.index', compact('donationrequests', 'organizationName', 'today'));
+            return view('emaileditor.rejectsendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
+
         }
 
-        $emailids = [];
-        if ($request['status'] == 0) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => Constant::APPROVED, 'approval_status_reason' => 'Approved by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
-            $acceptedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
-
-            foreach ($acceptedrequests as $acceptedrequest) {
-                event(new TriggerAcceptEmailEvent($acceptedrequest));
-                usleep(500000);
-            }
-
-        } elseif ($request['status'] == 1) {
-            $donation = DonationRequest::whereIn('id', $request['ids'])->update(['approval_status_id' => Constant::REJECTED, 'approval_status_reason' => 'Rejected by ' . $userName, 'approved_organization_id' => $organizationId, 'approved_user_id' => $userId]);
-            $rejectedrequests = DonationRequest::whereIn('id', $request['ids'])->get();
-
-            foreach ($rejectedrequests as $rejectedrequest) {
-                event(new TriggerRejectEmailEvent($rejectedrequest));
-                usleep(500000);
-            }
-        }
-
-        return response()->json(['idsArray' => $request['ids'], 'status' => $request['status']]);
-    }
-
-    public function updatestatus(Request $request)
-    {
-        dd($request);
     }
 
     public function showAllDonationRequests($id)
     {
-        $organization = Organization::findOrFail($id);
+        $id = decrypt($id);
 
-        return view('donationrequests.donation-organization', compact('organization'));
+        $parentOrgName = Organization::findOrFail($id)->org_name;
+        $orgIds = ParentChildOrganizations::where('parent_org_id', $id)->pluck('child_org_id')->toArray();
+        array_push($orgIds, $id);
+
+        // RAW SQL Equivalent -
+        // CASE WHEN (p.active = 0 OR p.trial_ends_at <= now()) THEN 'inactive' WHEN (c.active = 0 OR c.trial_ends_at <= now()) THEN 'inactive' ELSE 'active' END as 'is_active'
+        // Joining Organization table to Parent_Child_Organization to Organization
+        $organizations = \DB::table('organizations as c')->leftJoin('parent_child_organizations as pc', 'c.id', '=', 'pc.child_org_id')
+            ->leftJoin('organizations as p', 'pc.parent_org_id', '=', 'p.id')
+            ->whereIn('c.id', $orgIds)
+            ->select(\DB::raw("c.*, CASE WHEN (p.active = 0 OR p.trial_ends_at <= now()) THEN 'Inactive' WHEN (c.active = 0 OR c.trial_ends_at <= now()) THEN 'Inactive' ELSE 'Active' END as is_active"))->get();
+
+        $organizationsArray = $this->getAllMyOrganizationIds($id, true);
+
+        $numActiveLocations = count($organizationsArray);
+        $activeUsers = User::whereIn('organization_id', $organizationsArray)->count();
+
+        //calculating average (Average = sum of entities/sum of entities)
+        $sumOfDonations = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('approved_organization_id', $id)->sum('approved_dollar_amount');
+        $noOfOrganizations = count($orgIds);//dd($noOfOrganizations);
+        if ($noOfOrganizations != 0) {
+            $avgAmountDonated = sprintf("%.2f",($sumOfDonations / $noOfOrganizations));
+        } else {
+            $avgAmountDonated = 0;
+        }
+
+        $planType = Subscription::where('organization_id', $id)->value('stripe_plan');
+
+        $startDate = Organization::where('id', $id)->value('created_at');
+
+        $renewalDate = Organization::where('id', $id)->value('trial_ends_at');
+
+        $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->whereIn('approved_organization_id', $orgIds)->count();
+        $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->whereIn('approved_organization_id', $orgIds)->count();
+        $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->whereIn('approved_organization_id', $orgIds)->count();
+
+        return view('donationrequests.donation-child', compact('organizations', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'activeUsers', 'planType', 'startDate', 'renewalDate', 'parentOrgName'));
+    }
+
+    public function acknowledgeRequestReceived()
+    {
+        return view('donationrequests.request-confirmation');
+    }
+
+    // include organization id in the donation request URL//
+    protected function getAllMyOrganizationIds($id, $activeFlag = true)
+    {
+        $organization = Organization::findOrFail($id);
+        if ($activeFlag) {
+            $arr = ParentChildOrganizations::active()->where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
+        } else {
+            $arr = ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->toArray();
+        }
+        //$arr = Organization::active()->whereIn('id', $arr)->pluck('id')->toArray();
+        array_push($arr, $organization->id);
+        return $arr;
     }
 }

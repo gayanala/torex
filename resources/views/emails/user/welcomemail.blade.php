@@ -1,4 +1,4 @@
 <div>
-  {{$emailTemplate->email_message}}
+  {!! $emailTemplate->email_message !!}
 </div>
 

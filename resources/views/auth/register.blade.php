@@ -2,10 +2,11 @@
 
 @section('content')
     <div class="container">
+        <br>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Register Your Business</div>
+                    <div class="panel-heading"><h1 style="text-align: left;font-weight: bold;">Register Your Business</h1></div>
 
                     <div class="panel-body">
                         <form class="form-horizontal" method="post" action="{{ action('UserController@create') }}">
@@ -33,7 +34,7 @@
                                 <label for="first_name" class="col-md-4 control-label"> First Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="first_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your First Name should be 2-20 characters long." class="form-control" name="first_name"
+                                    <input id="first_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\s]{1,20}$" required title="Your First Name should be 2-20 characters long." class="form-control" name="first_name"
                                            value="{{ old('first_name') }}" placeholder="Enter Your First Name" required
                                            autofocus>
 
@@ -49,7 +50,7 @@
                                 <label for="last_name" class="col-md-4 control-label"> Last Name <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="last_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" required title="Your Last Name should be 2-20 characters long." class="form-control" name="last_name"
+                                    <input id="last_name" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\s]{1,20}$" required title="Your Last Name should be 2-20 characters long." class="form-control" name="last_name"
                                            value="{{ old('last_name') }}" placeholder="Enter Your Last Name" required
                                            >
 
@@ -66,7 +67,7 @@
                                 <label for="email" class="col-md-4 control-label">E-Mail Address <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                    <input id="email" type="email" pattern="[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,4}$"
                                            class="form-control" name="email"
                                            value="{{ old('email') }}" placeholder="Enter Your Email Address" required>
                                           
@@ -108,7 +109,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('org_name') ? ' has-error' : '' }}">
-                                <label for="org_name" class="col-md-4 control-label"> Name Of Your Business <span
+                                <label for="org_name" class="col-md-4 control-label"> Name of Your Business <span
                                             style="color: red; font-size: 20px; vertical-align:middle;">*</span>
                                 </label>
 
@@ -147,7 +148,7 @@
                                 <div class="col-md-6">
                                     <input id="street_address1" type="text" class="form-control" name="street_address1"
                                            value="{{ old('street_address1') }}"
-                                           placeholder="Street Address, Company Name, C/O" required >
+                                           placeholder="Street Address, Company Name" required>
 
                                     @if ($errors->has('street_address1'))
                                         <span class="help-block">
@@ -201,8 +202,10 @@
                                 <label for="zipcode" class="col-md-4 control-label">Zip Code <span style="color: red; font-size: 20px; vertical-align:middle;">*</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="zipcode" type="text" pattern="[0-9]{5}" required title="Enter a 5 digit zipcode" class="form-control"
-                                           name="zipcode" value="{{ old('zipcode') }}" placeholder="Zip Code" required
+                                    <input id="zipcode" type="number"
+                                           oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                           maxlength="5" class="form-control" name="zipcode"
+                                           value="{{ old('zipcode') }}" placeholder="Zip Code" required
                                            >
 
                                     @if ($errors->has('zipcode'))
@@ -233,7 +236,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn savebtn">
                                         Register
                                     </button>
                                     <span style="color: red"> <h5>Fields Marked With (<span

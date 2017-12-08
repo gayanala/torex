@@ -12,7 +12,6 @@
             height: 300,
             menubar: false,
 
-            content_css: 'css/content.css',
             toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | link image | print preview | PlaceHolders',
             //toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
 
@@ -78,18 +77,14 @@
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('Email Message', 'Email Message:', ['class'=>'col-md-3 control-label' ]) !!}
-                        </div>
-
-                        <div class="form-group">
                             <!--div class="col-lg-6"-->
                             {!! Form::textarea('email_message', null, ['class' => 'col-md-4 control-label']) !!}
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Approve and Send', ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ url()->previous() }}" class="btn btn-primary">Cancel</a>
+                                {!! Form::submit('Approve and Send', ['class' => 'btn savebtn']) !!}
+                                <a href="{{ url()->previous() }}" class="btn backbtn">Cancel</a>
 
                             </div>
                         </div>

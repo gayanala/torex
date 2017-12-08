@@ -70,16 +70,16 @@
                                     <td style="vertical-align: middle"
                                         id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td style="white-space: nowrap">
-                                        
 
-                                            
-                                            
-                                            
-                                        
-                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}"
-                                               class="btn btn-info" title="Detail">
-                                                <span class="glyphicon glyphicon-list-alt"></span></a>
-                                       
+
+
+
+
+
+                                        <a href="{{route('donationrequests.show',$donationrequest->id)}}"
+                                           class="btn btn-info" title="Detail">
+                                            <span class="glyphicon glyphicon-list-alt"></span></a>
+
 
                                     </td>
                                     {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
@@ -123,28 +123,27 @@
     <script src="{{ asset('js/range_dates.js') }}" type="text/javascript"></script>
 
     <script>
+        // $('#example tfoot th').each( function () {
+        //     var title = $(this).text();
+        //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        // } );
 
-    // $('#example tfoot th').each( function () {
-    //     var title = $(this).text();
-    //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-    // } );
- 
-    // // DataTable
-    // var table = $('#example').DataTable();
- 
-    // // Apply the search
-    // table.columns().every( function () {
-    //     var that = this;
- 
-    //     $( 'input', this.footer() ).on( 'keyup change', function () {
-    //         if ( that.search() !== this.value ) {
-    //             that
-    //                 .search( this.value )
-    //                 .draw();
-    //         }
-    //     } );
-    // } ); 
-    
+        // // DataTable
+        // var table = $('#example').DataTable();
+
+        // // Apply the search
+        // table.columns().every( function () {
+        //     var that = this;
+
+        //     $( 'input', this.footer() ).on( 'keyup change', function () {
+        //         if ( that.search() !== this.value ) {
+        //             that
+        //                 .search( this.value )
+        //                 .draw();
+        //         }
+        //     } );
+        // } );
+
         $(document).ready(function () {
             $('#example tfoot th').each( function () {
                 var title = $(this).text();
@@ -175,7 +174,6 @@
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                         }
-
                     },
                     {
                         extend: 'excel',
@@ -197,26 +195,19 @@
             $('#dateEnd').change(function () {
                 table.draw();
             });
-
-
 //search
-                table.columns().eq( 0 ).each( function ( colIdx ) {
-        $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
-            table
-                .column( colIdx )
-                .search( this.value )
-                .draw();
-        } );
-    } );
-
-
+            table.columns().eq( 0 ).each( function ( colIdx ) {
+                $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+                    table
+                        .column( colIdx )
+                        .search( this.value )
+                        .draw();
+                } );
+            } );
         });
-
         function func(actionStatus, donId) {
-
             // Populating array with the id
             var idsArray = [donId];
-
             // Sending an ajax post request with the list of checked
             // checkboxes to update to either approved or rejected
             $.ajax({
@@ -242,11 +233,8 @@
                 },
                 data: {ids: idsArray, status: actionStatus}
             });
-
             // clearing the array
             idsArray = [];
-
-
         }
     </script>
 @endsection

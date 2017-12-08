@@ -1,11 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Search Donations</h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             {{--<div class="col-md-10 col-md-offset-1">--}}
-            <div class="panel panel-default">
-                <div class="panel-heading"><h1>{{ $organizationName }}</h1></div>
+            <div class="panel panel-default" >
+                <div class="panel-heading" ><h1
+                            style="text-align: left;font-weight: bold;">Business Name:&nbsp {{ $organizationName }}</h1>
+                </div>
                 <br>
 
                 <div class="panel-body" style="position: relative;"><br><br>
@@ -23,22 +35,22 @@
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr class="bg-info">
-                                <th class="text-center">Organization Name</th>
+                                <th class="text-center">Business Name</th>
                                 <th class="text-center">Request Amount</th>
-                                <th class="text-center">Request For</th>
+                                <th class="text-center">Type of Donation</th>
                                 <th class="text-center">Location</th>
                                 {{--<th class="text-center">Event Name</th>--}}
                                 <th class="text-center">Date Needed</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Status Reason</th>
-                                <th class="text-center">Actions</th>
+                                <th class="text-center">Details</th>
                             </tr>
                             </thead>
                             <tbody style="text-align: center">
                             @foreach ($donationrequests as $donationrequest)
                                 <tr>
                                     <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
-                                    <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
+                                    <td style="vertical-align: middle">${{ $donationrequest->approved_dollar_amount }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
                                     <td style="vertical-align: middle">{{ $donationrequest->organization->org_name }}</td>
                                     {{--<td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>--}}
@@ -50,38 +62,41 @@
                                     <td style="vertical-align: middle"
                                         id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td style="white-space: nowrap">
-                                        @if($donationrequest->donationApprovalStatus->id == 2 || $donationrequest->donationApprovalStatus->id == 3)
-                                            <a href="" class="btn btn-success" title="Approve"
-                                               don-id="{{$donationrequest->id}}"
-                                               onClick="func(0, '{{$donationrequest->id}}')">
-                                                <span class="glyphicon glyphicon-ok"></span></a>
-                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}"
-                                               class="btn btn-info" title="Detail">
-                                                <span class="glyphicon glyphicon-list-alt"></span></a>
-                                            <a href="" class="btn btn-danger" title="Reject"
-                                               onClick="func(1, '{{$donationrequest->id}}')">
-                                                <span class="glyphicon glyphicon-remove"></span></a>
+                                        @if($donationrequest->donationApprovalStatus->id == \App\Custom\Constant::PENDING_REJECTION || $donationrequest->donationApprovalStatus->id == \App\Custom\Constant::PENDING_APPROVAL)
+                                            <div>
+
+
+                                            {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
+                                                {{ csrf_field() }}
+                                                {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
+                                                {{Form::button('<i class="glyphicon glyphicon-ok"></i>', ['type' => 'submit', 'class' => 'btn btn-success', 'name' => 'approve', 'value' => 'Approve'])}}
+                                                <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
+                                                   class="btn btn-info" title="Detail">
+                                                    <span class="glyphicon glyphicon-list-alt"></span></a>
+                                                {{Form::button('<i class="glyphicon glyphicon-remove"></i>', ['type' => 'submit', 'class' => 'btn btn-danger', 'name' => 'reject', 'value' => 'Reject'])}}
+                                            {!! Form::close() !!}
+                                            </div>
                                         @else
-                                            <a href="{{route('donationrequests.show',$donationrequest->id)}}"
+                                            <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"
                                                class="btn btn-info" title="Detail">
                                                 <span class="glyphicon glyphicon-list-alt"></span></a>
                                         @endif
 
                                     </td>
-                                    {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn btn-primary"> Detail </a>--}}
-                                    {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn btn-warning"> Edit </a>--}}
+                                    {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn savebtn"> Detail </a>--}}
+                                    {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn savebtn"> Edit </a>--}}
                                 </tr>
                             @endforeach
 
                             </tbody>
                             @else
-                                <div>No Donation Request is stored in the system yet.</div>
+                                <div>No Donation Requests are in the system yet.</div>
                             @endif
                         </table>
 
-                        <div class="panel-heading"><h1>Add a Donation Request</h1></div>
-                        <input type="button" value="Manual Entry for Donation Request"
-                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_self') ;"/>
+                        <input type="button" class="btn btn-info" style="background-color: #0099CC; "
+                               value="Manual Donation Request"
+                               onClick="window.open('{{ url('/donationrequests/create') }}?orgId={{Auth::user()->organization_id}}', '_blank') ;"/>
                 </div>
             </div>
         </div>
@@ -106,11 +121,16 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js"></script>
 
-    <script src="{{ asset('js/range_dates.js') }}" type="text/javascript"></script>
+    <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+    <script>
+        webshims.setOptions('forms-ext', {types: 'date'});
+        webshims.polyfill('forms forms-ext');
+    </script>
+    <script src="{{ asset('js/range_dates.js') }}" type="text/javascript" data-date-column="4"></script>
     <script>
 
 
-   
+
         $(document).ready(function () {
             var table = $('#example').DataTable({
                 dom: 'Bfrtip',
@@ -135,6 +155,7 @@
                         },
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5, 6]
+
                         }
 
                     },
@@ -162,41 +183,5 @@
             });
         });
 
-        function func(actionStatus, donId) {
-
-            // Populating array with the id
-            var idsArray = [donId];
-
-            // Sending an ajax post request with the list of checked
-            // checkboxes to update to either approved or rejected
-            $.ajax({
-                type: "POST",
-                url: 'donation/change-status',
-                dataType: 'json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (resp) {
-                    setStatusText = '';
-                    if (resp.status == 0) {
-                        setStatusText = 'Approved';
-                    } else if (resp.status == 1) {
-                        setStatusText = 'Rejected';
-                    }
-                    // Handle your response..
-                    for (var i = 0; i < resp.idsArray.length; i++) {
-                        // 0 - approved
-                        //1- rejected
-                        $('#status' + resp.idsArray[i]).text(setStatusText);
-                    }
-                },
-                data: {ids: idsArray, status: actionStatus}
-            });
-
-            // clearing the array
-            idsArray = [];
-
-
-        }
     </script>
 @endsection
