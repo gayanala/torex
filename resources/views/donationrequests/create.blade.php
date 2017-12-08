@@ -401,7 +401,7 @@
                             <div class="col-md-6">
                                 <input id="formAttendees" type="number" step="1" class="form-control"
                                        name="formAttendees"
-                                       value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees">
+                                       value="{{ old('formAttendees') }}" placeholder="Approx. Number of Attendees" type="number" min="0">
 
                                 @if ($errors->has('formAttendees'))
                                     <span class="help-block">
