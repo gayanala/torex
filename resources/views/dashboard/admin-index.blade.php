@@ -16,24 +16,24 @@
                 <div class="panel panel-red">
                     <div class="panel-heading" style="background-color: #d4c8b8;">
                         <div class="row">
-                            <div class="col-xs-3" style="padding-bottom: 15px;">
-                                <i class="fa fa-envelope-open fa-5x" style="color: white"></i>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS APPROVED : <span
-                                            class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $approvedNumber }}</span></div>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS REJECTED : <span
-                                            class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $rejectedNumber }}</span></div>
-                            </div>
-                            <div class="col-xs-9 text-left">
-                                <div style="color: white;font-size: 15px;font-weight: bolder;"> REQUESTS PENDING : <span
-                                            class="huge"
-                                            style="font-weight: bold; font-size: 20px;">{{ $pendingNumber }}</span></div>
-                            </div>
+                            <table border="0" style="color: white;font-size: 15px;">
+                                <tr>
+                                    <td rowspan="3">
+                                        <div class="col-xs-3" style="padding-bottom: 15px;">
+                                            <i class="fa fa-envelope-open fa-5x"></i>
+                                        </div>
+                                    </td>
+                                    <td><div style="font-weight: bold"> REQUESTS APPROVED : </div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $approvedNumber }}</div></td>
+                                </tr>
+                                <tr>
+                                    <td><div style="font-weight: bold;"> REQUESTS REJECTED : </div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $rejectedNumber }}</div></td>
+
+                                </tr>
+                                <td><div style="font-weight: bold;"> REQUESTS PENDING : </div></td>
+                                <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $pendingNumber }}</div></td>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,6 @@
                     <div class="panel panel-red">
                         <div class="panel-heading" style="background-color: #b69da8;">
                             <div class="row">
-
                                 <table border="0" style="color: white;font-size: 15px;">
                                 <tr>
                                     <td rowspan="3">
@@ -51,20 +50,16 @@
                                             <i class="fa fa-university fa-5x"></i>
                                         </div>
                                     </td>
-                                    <td>
-                                        <div style="font-weight: lighter">AVG AMOUNT DONATED</div>
-                                    </td>
-                                    <td>
-                                        <div class="huge" style="font-weight: bolder; font-size: 20px; color: white">${{ $avgAmountDonated }}</div>
-                                    </td>
+                                    <td><div style="font-weight: bold">AVG AMOUNT DONATED : </div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">${{ $avgAmountDonated }}</div></td>
                                 </tr>
                                 <tr>
-                                    <td><div style="color: white;font-size: 15px;font-weight: lighter;"> ACTIVE CUSTOMERS :</div></td>
-                                    <td><div class="huge" style="font-weight: bold; font-size: 20px">{{ $userCount }}</div></td>
+                                    <td><div style="font-weight: bold;"> ACTIVE CUSTOMERS :</div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $userCount }}</div></td>
 
                                 </tr>
-                                    <td><div style="color: white;font-size: 15px;font-weight: lighter;"> ACTIVE LOCATIONS :</div></td>
-                                    <td><div class="huge" style="font-weight: bold; font-size: 20px">{{ $numActiveLocations }}</div></td>
+                                    <td><div style="font-weight: bold;"> ACTIVE LOCATIONS :</div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $numActiveLocations }}</div></td>
 
 
                                 </table>
@@ -76,24 +71,23 @@
                     <div class="panel panel-red">
                         <div class="panel-heading" style="background-color: #a5c5bd;">
                             <div class="row">
-                                <div class="col-xs-3" style="padding-bottom: 15px;">
-                                    <i class="fa fa-line-chart fa-5x" style="color: white"></i>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> NEW BUSINESSES THIS
-                                        WEEK : <span class="huge"
-                                                     style="font-weight: bold; font-size: 20px;">{{ $userThisWeek }}</span></div>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> NEW BUSINESSES THIS
-                                        MONTH : <span class="huge"
-                                                      style="font-weight: bold; font-size: 20px;">{{ $userThisMonth }}</span></div>
-                                </div>
-                                <div class="col-xs-9 text-left">
-                                    <div style="color: white;font-size: 15px;font-weight: bolder;"> NEW BUSINESSES THIS
-                                        YEAR : <span class="huge"
-                                                     style="font-weight: bold; font-size: 20px;">{{ $userThisYear }}</span></div>
-                                </div>
+                                <table border="0" style="color: white;font-size: 15px;">
+                                    <tr>
+                                        <td rowspan="3">
+                                            <div class="col-xs-3" style="padding-bottom: 15px;">
+                                                <i class="fa fa-line-chart fa-5x"></i>
+                                            </div>
+                                        </td>
+                                        <td><div style="font-weight: bold"> NEW BUSINESSES THIS WEEK : </div></td>
+                                        <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $userThisWeek }}</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div style="font-weight: bold;"> NEW BUSINESSES THIS MONTH : </div></td>
+                                        <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $userThisMonth }}</div></td>
+                                    </tr>
+                                    <td><div style="font-weight: bold;"> NEW BUSINESSES THIS YEAR : </div></td>
+                                    <td><div class="huge" style="font-weight: bolder; font-size: 20px">{{ $userThisYear }}</div></td>
+                                </table>
                             </div>
                         </div>
                     </div>
