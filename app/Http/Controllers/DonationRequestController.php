@@ -263,7 +263,14 @@ class DonationRequestController extends Controller
         $orgIds = ParentChildOrganizations::where('parent_org_id', $id)->pluck('child_org_id')->toArray();
         array_push($orgIds, $id);
 
-        $organizations = Organization::whereIn('id', $orgIds)->get();
+        // RAW SQL Equivalent -
+        // CASE WHEN (p.active = 0 OR p.trial_ends_at <= now()) THEN 'inactive' WHEN (c.active = 0 OR c.trial_ends_at <= now()) THEN 'inactive' ELSE 'active' END as 'is_active'
+        // Joining Organization table to Parent_Child_Organization to Organization
+        $organizations = \DB::table('organizations as c')->leftJoin('parent_child_organizations as pc', 'c.id', '=', 'pc.child_org_id')
+            ->leftJoin('organizations as p', 'pc.parent_org_id', '=', 'p.id')
+            ->whereIn('c.id', $orgIds)
+            ->select(\DB::raw("c.*, CASE WHEN (p.active = 0 OR p.trial_ends_at <= now()) THEN 'Inactive' WHEN (c.active = 0 OR c.trial_ends_at <= now()) THEN 'Inactive' ELSE 'Active' END as is_active"))->get();
+
         $organizationsArray = $this->getAllMyOrganizationIds($id, true);
 
         $numActiveLocations = count($organizationsArray);
