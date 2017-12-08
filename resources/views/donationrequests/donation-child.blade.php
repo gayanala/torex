@@ -119,6 +119,7 @@
                                         <th class="text-center">Approved</th>
                                         <th class="text-center">Rejected</th>
                                         <th class="text-center">Amount Approved</th>
+                                        <th class="text-center">Status</th>
                                     </tr>
                                     </thead>
                                     <tbody style="text-align: center">
@@ -126,9 +127,10 @@
                                             <tr>
                                                 <td style="vertical-align: middle">{{ $organization->org_name }}</td>
                                                 <td style="vertical-align: middle"><?php echo ($organization->street_address1 . ' ' . $organization->street_address2 . ' ' . $organization->city . ' ' . $organization->state . ' ' . $organization->zipcode); ?></td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->count() }}</td>
-                                                <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::REJECTED)->count() }}</td>
-                                                <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle">{{ App\Organization::find($organization->id)->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->count() }}</td>
+                                                <td style="vertical-align: middle">{{ App\Organization::find($organization->id)->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::REJECTED)->count() }}</td>
+                                                <td style="vertical-align: middle">${{ App\Organization::find($organization->id)->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
+                                                <td style="vertical-align: middle"> {{ $organization->is_active }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

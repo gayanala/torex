@@ -13,7 +13,7 @@
     </script>
 
     <script>
-        $(window).load(function () {
+        $(document).ready(function () {
             var phones = [{"mask": "(###) ###-####"}];
             $('#phone_number').inputmask({
                 mask: phones,

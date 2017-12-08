@@ -263,7 +263,14 @@ class DonationRequestController extends Controller
         $orgIds = ParentChildOrganizations::where('parent_org_id', $id)->pluck('child_org_id')->toArray();
         array_push($orgIds, $id);
 
-        $organizations = Organization::whereIn('id', $orgIds)->get();
+        // RAW SQL Equivalent -
+        // CASE WHEN (p.active = 0 OR p.trial_ends_at <= now()) THEN 'inactive' WHEN (c.active = 0 OR c.trial_ends_at <= now()) THEN 'inactive' ELSE 'active' END as 'is_active'
+        // Joining Organization table to Parent_Child_Organization to Organization
+        $organizations = \DB::table('organizations as c')->leftJoin('parent_child_organizations as pc', 'c.id', '=', 'pc.child_org_id')
+            ->leftJoin('organizations as p', 'pc.parent_org_id', '=', 'p.id')
+            ->whereIn('c.id', $orgIds)
+            ->select(\DB::raw("c.*, CASE WHEN (p.active = 0 OR p.trial_ends_at <= now()) THEN 'Inactive' WHEN (c.active = 0 OR c.trial_ends_at <= now()) THEN 'Inactive' ELSE 'Active' END as is_active"))->get();
+
         $organizationsArray = $this->getAllMyOrganizationIds($id, true);
 
         $numActiveLocations = count($organizationsArray);
@@ -284,9 +291,9 @@ class DonationRequestController extends Controller
 
         $renewalDate = Organization::where('id', $id)->value('trial_ends_at');
 
-        $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->whereIn('organization_id', $organizationsArray)->count();
-        $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->whereIn('organization_id', $organizationsArray)->count();
-        $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->whereIn('organization_id', $organizationsArray)->count();
+        $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->whereIn('approved_organization_id', $orgIds)->count();
+        $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->whereIn('approved_organization_id', $orgIds)->count();
+        $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->whereIn('approved_organization_id', $orgIds)->count();
 
         return view('donationrequests.donation-child', compact('organizations', 'avgAmountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber', 'numActiveLocations', 'activeUsers', 'planType', 'startDate', 'renewalDate', 'parentOrgName'));
     }
