@@ -41,9 +41,9 @@ $(document).ready(function () {
         request.done(function (msg) {
             document.getElementById("coupon-message").style.color = "green";
             document.getElementById("coupon-message").innerHTML = "Your coupon has been applied successfully";
-            var total = document.getElementById("cart_table").rows[1].cells.namedItem("total_price").innerHTML;
-            document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = (total * msg) / 100;
-            document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = (total - (total * msg) / 100);
+            var total = document.getElementById("cart_table").rows[1].cells.namedItem("total_price").innerHTML.slice(1);
+            document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = "$"+((total * msg) / 100).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+            document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = "$"+(total - (total * msg) / 100).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 
         });
         request.fail(function (jqXHR, textStatus) {
@@ -51,8 +51,8 @@ $(document).ready(function () {
             document.getElementById("coupon-message").innerHTML = "The coupon entered is invalid.";
             var total = document.getElementById("cart_table").rows[1].cells.namedItem("total_price").innerHTML;
             var msg = 0;
-            document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = (total * msg) / 100;
-            document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = Math.round((total - (total * msg) / 100), 2);
+            document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = "$"+((total * msg) / 100).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+            document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = "$"+(total - (total * msg) / 100).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 
         });
 
