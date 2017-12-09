@@ -25,9 +25,20 @@ class DashboardController extends Controller
             $organizations = Organization::all();
 
             // Only parent organizations have 'trial_ends_at' field in the Organizations table
-            $organizationsArray = Organization::where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
+            $organizationsArray = Organization::active()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
 
-            $activeLocations = Organization::active()->get();
+            $activeParent = Organization::active()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
+            //dd($activeParent);
+            $activeOrgIds = ParentChildOrganizations::active()->whereIn('parent_org_id', $activeParent)->pluck('child_org_id')->toArray();
+            //dd($activeOrgIds);
+            //$arr = Organization::active()->whereIn('id', $arr)->pluck('id')->toArray();
+            $idCount = count($activeOrgIds);
+            foreach ($activeParent as $key => $activeID) {
+                $test = [$idCount => $activeID];
+                $activeOrgIds = $activeOrgIds + $test;
+                $idCount+= 1;
+            }
+            $activeLocations = Organization::whereIn('id', $activeOrgIds)->get();
 
             $numActiveLocations = count($activeLocations);
 
