@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Request_event_typesTableSeeder::class);
         $this->call(OrganizationsTableSeeder::class);
         $this->command->info("Organizations table seeded");
+        $this->call(SubscriptionTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(RulesTableSeeder::class);
         $this->call(email_template::class);
