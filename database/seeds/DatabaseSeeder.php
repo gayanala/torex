@@ -25,13 +25,14 @@ class DatabaseSeeder extends Seeder
         $this->call(Request_event_typesTableSeeder::class);
         $this->call(OrganizationsTableSeeder::class);
         $this->command->info("Organizations table seeded");
+        $this->call(SubscriptionTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(RulesTableSeeder::class);
         $this->call(email_template::class);
         $this->command->info("Users table seeded");
         $this->call(RolesUserTableSeeder::class);
         $this->command->info("role_user table seeded");
-        $this->call(donation_requests::class);
-        $this->command->info("donation_requests table seeded");
+        //$this->call(donation_requests::class);
+        //$this->command->info("donation_requests table seeded");
     }
 }

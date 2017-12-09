@@ -20,7 +20,7 @@
                 </div>
                 <br>
 
-                <div class="panel-body" style="position: relative;"><br><br>
+                <div class="panel-body" style="position: relative"><br><br>
 
                     @if(sizeOf($donationrequests) != 0)
 

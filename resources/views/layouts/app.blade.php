@@ -334,7 +334,6 @@
         }
         .panel-body{
             overflow-x: auto;
-            white-space: nowrap;
                     }
         th,td{
             min-width:20px;

@@ -23,7 +23,8 @@ class OrganizationsTableSeeder extends Seeder
             'city' => 'Omaha',
             'zipcode' => '68130',
             'state' => 'NE',
-            'phone_number' => '(402) 715-5230'
+            'phone_number' => '(402) 715-5230',
+            'trial_ends_at' => '2038-01-16'
         ]);
 
     }
