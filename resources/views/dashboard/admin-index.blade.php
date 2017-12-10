@@ -112,9 +112,7 @@
                                             <th class="text-center">Amount Requested</th>
                                             <th class="text-center">Amount Approved</th>
                                             <th class="text-center">Approved</th>
-                                            {{--<th class="text-center">Rejected</th>--}}
                                             <th class="text-center">Status</th>
-                                            {{--<th class="text-center">Active Locations</th>--}}
                                             <th class="text-center">Details</th>
                                         </tr>
                                     </thead>

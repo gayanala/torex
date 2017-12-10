@@ -138,31 +138,27 @@
                                     </thead>
 
                                     <tbody  style="text-align: center">
-                                    @foreach ($donationrequests as $donationrequest)
-                                        <tr>
-                                            <td style="vertical-align: middle"><input type="checkbox" class="myCheckbox" ids="{{$donationrequest->id}}"/></td>
-                                            <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
-                                            <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
-                                            <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
-                                            {{--<td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>--}}
-                                             <td style="vertical-align: middle">{{$donationrequest->organization->org_name }}</td>
-                                            <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
+                                        @foreach ($donationrequests as $donationrequest)
+                                            <tr>
+                                                <td style="vertical-align: middle"><input type="checkbox" class="myCheckbox" ids="{{$donationrequest->id}}"/></td>
+                                                <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
+                                                <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
+                                                <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
+                                                <td style="vertical-align: middle">{{$donationrequest->organization->org_name }}</td>
+                                                <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
 
-                                            <td id="status{{$donationrequest->id}}" style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
-                                            <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
-                                            <td>
-                                                <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}" class="btn btn-info" title="Detail">
-                                                    <span class="glyphicon glyphicon-list-alt" text-></span></a>
-                                            </td>
-                                            {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn savebtn"> Detail </a>--}}
-                                            {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn savebtn"> Edit </a>--}}
-                                        </tr>
-                                    @endforeach
-
+                                                <td id="status{{$donationrequest->id}}" style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
+                                                <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
+                                                <td>
+                                                    <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}" class="btn btn-info" title="Detail">
+                                                        <span class="glyphicon glyphicon-list-alt" text-></span></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
-                                    @else
-                                        <div>No pending donation requests to show.</div>
-                                    @endif
+                            @else
+                                <div>No pending donation requests to show.</div>
+                            @endif
                                 </table>
                                 {!! Form::open(['action' =>  'EmailTemplateController@send', 'method' => 'GET']) !!}
                                 {{ csrf_field() }}
