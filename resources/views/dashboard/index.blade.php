@@ -25,7 +25,7 @@
                                     <i class="fa fa-money fa-5x" style="color: white"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge" style="color: white;font-size: 15px;font-weight: bolder;">
+                                    <div class="huge" style="color: white;font-size: 35px;font-weight: bolder;">
                                         ${{$amountDonated}}</div>
                                     <div style="color: white;font-size: 15px;font-weight: bolder;">TOTAL AMOUNT
                                         DONATED
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"
-                                         style="color: white;font-size: 15px;font-weight: bolder;">{{$approvedNumber}}</div>
+                                         style="color: white;font-size: 35px;font-weight: bolder;">{{$approvedNumber}}</div>
                                     <div style="color: white;font-size: 15px;font-weight: bolder;">REQUESTS APPROVED</div>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"
-                                         style="color: white;font-size: 15px;font-weight: bolder;">{{$pendingNumber}}</div>
+                                         style="color: white;font-size: 35px;font-weight: bolder;">{{$pendingNumber}}</div>
                                     <div style="color: white;font-size: 15px;font-weight: bolder;">REQUESTS PENDING</div>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"
-                                         style="color: white;font-size: 15px;font-weight: bolder;">{{$rejectedNumber}}</div>
+                                         style="color: white;font-size: 35px;font-weight: bolder;">{{$rejectedNumber}}</div>
                                     <div style="color: white;font-size: 15px;font-weight: bolder;">REQUESTS REJECTED</div>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                     <thead>
                                     <tr class="bg-info">
                                         <th class="text-center">Select all <input type="checkbox" id="selectall"/></th>
-                                        <th class="text-center">Business Name</th>
+                                        <th class="text-center">Organization Name</th>
                                         <th class="text-center">Request Amount</th>
                                         <th class="text-center">Type of Donation</th>
                                         {{--<th class="text-center">Event Name</th>--}}

@@ -28,8 +28,9 @@ class AutoRejectMail extends Mailable
      */
     public function build()
     {
+
         return $this->markdown('emails.autorejectemail')
                 ->subject('Your Donation Request has been processed')
-                ->from('noreply@org1.com');
+                ->from('noreply@charityq.com');
     }
 }

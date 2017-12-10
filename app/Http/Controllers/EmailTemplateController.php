@@ -77,8 +77,8 @@ class EmailTemplateController extends Controller
             $emails = str_replace(array("[", "]", '"'), "", ($emails));
 
             //get first and last names in string
-            $names = DonationRequest::whereIn('id', $ids_array)->pluck('last_name', 'first_name');
-
+            $firstNames = DonationRequest::whereIn('id', $ids_array)->pluck('first_name');
+            $lastNames = DonationRequest::whereIn('id', $ids_array)->pluck('last_name');
             //if current organization is a child location get parent's email template
             $organizationId = ParentChildOrganizations::where('child_org_id', $org_id)->value('parent_org_id');
             if ($organizationId){
@@ -92,13 +92,13 @@ class EmailTemplateController extends Controller
                 $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_APPROVED)->where('organization_id', $org_id)->get();
                 $email_template = $email_template[0]; //convert collection into an array
 
-                return view('emaileditor.approvesendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
+                return view('emaileditor.approvesendmail', compact('email_template', 'emails', 'firstNames', 'lastNames', 'ids_string', 'page_from'));
             } else {
 
                 //get email template for Reject id value = 4
                 $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_REJECTED)->where('organization_id', $org_id)->get();
                 $email_template = $email_template[0]; //convert collection into an array
-                return view('emaileditor.rejectsendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
+                return view('emaileditor.rejectsendmail', compact('email_template', 'emails', 'firstNames', 'lastNames', 'ids_string', 'page_from'));
             }
         } else {
             //do not redirect to email editor if no request is selected

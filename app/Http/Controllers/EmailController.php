@@ -35,15 +35,15 @@ class EmailController extends Controller
 
         //get email ids
         $emails = DonationRequest::whereIn('id', $ids_array)->pluck('email');
-        $names = str_replace(array('":"')," ", $request-> names);
-        $names =str_replace(array("{", "}", '"'),"", $names);
-        $names = explode(',', $names);
+        $firstNames = str_replace(array("[", "]", '"'), '', $request->firstNames);
+        $firstNames = explode(',', $firstNames);
+        $lastNames = str_replace(array("[", "]", '"'), '', $request->lastNames);
+        $lastNames = explode(',', $lastNames);
 
         // Storing the existing template that was populated in the editor
         $default_template = $request->email_message;
-
         foreach($emails as $index => $email) {
-            $request->email_message = str_replace('{Addressee}', $names[$index], $request->email_message);
+            $request->email_message = str_replace('{Addressee}', $firstNames[$index] . ' ' . $lastNames[$index], $request->email_message);
             $request->email_message = str_replace('{My Business Name}', Auth::user()->organization->org_name, $request->email_message);
 
             $donation_id = $ids_array[$index];
