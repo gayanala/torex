@@ -57,7 +57,7 @@ class UpdatePasswordController extends Controller
             return redirect('/login');
         }
 
-        $request->session()->flash('failure', 'Your password has not been changed.');
+        $request->session()->flash('failure', 'Old password is incorrect.');
 
         return back();
 

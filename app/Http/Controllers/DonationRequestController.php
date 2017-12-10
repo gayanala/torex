@@ -155,6 +155,8 @@ class DonationRequestController extends Controller
             'event_date' => 'after:today',
             'tax_exempt' => "required",
             'phone_number' => 'required|regex:/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/',
+            'attachment' => 'required|mimes:doc,docx,pdf,jpeg,png,jpg,svg|max:2048',
+            'attachment' => 'max:2048',
         ]);
 
 
