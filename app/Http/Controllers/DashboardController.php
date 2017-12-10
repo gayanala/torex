@@ -24,14 +24,10 @@ class DashboardController extends Controller
         if ($request->user()->roleuser->role_id == Constant::ROOT_USER OR $request->user()->roleuser->role_id == Constant::TAGG_ADMIN OR $request->user()->roleuser->role_id == Constant::TAGG_USER) {
             $organizations = Organization::all();
 
-            // Only parent organizations have 'trial_ends_at' field in the Organizations table
-            $organizationsArray = Organization::active()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
-
             $activeParent = Organization::active()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
-            //dd($activeParent);
+
             $activeOrgIds = ParentChildOrganizations::active()->whereIn('parent_org_id', $activeParent)->pluck('child_org_id')->toArray();
-            //dd($activeOrgIds);
-            //$arr = Organization::active()->whereIn('id', $arr)->pluck('id')->toArray();
+
             $idCount = count($activeOrgIds);
             foreach ($activeParent as $key => $activeID) {
                 $test = [$idCount => $activeID];
@@ -42,6 +38,9 @@ class DashboardController extends Controller
 
             $numActiveLocations = count($activeLocations);
 
+            // Only parent organizations have 'trial_ends_at' field in the Organizations table
+            $organizationsArray = Organization::active()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
+            // Counting the number of parent organizations
             $userCount = count($organizationsArray);
 
             $userThisWeek = Organization::active()->where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
