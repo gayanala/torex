@@ -42,6 +42,7 @@ $(document).ready(function () {
             document.getElementById("coupon-message").style.color = "green";
             document.getElementById("coupon-message").innerHTML = "Your coupon has been applied successfully";
             var total = document.getElementById("cart_table").rows[1].cells.namedItem("total_price").innerHTML.slice(1);
+            total=total.replace(",","");
             document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = "$"+((total * msg) / 100).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
             document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = "$"+(total - (total * msg) / 100).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 
