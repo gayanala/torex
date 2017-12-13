@@ -82,7 +82,7 @@
 
         <div class="col-sm-6" id="sign" style="padding: 2%; background-color: #90a4ae">
             <h2 style="color: white" class="margin">Sign Up Today!</h2>
-            <p style="text-align: left">It only takes a few minutes to register your business and get started with Q. Once
+            <p style="text-align: left">It only takes a few minutes to register your business and get started with CharityQ. Once
                 you have registered, add our easy Donation Request Form to your business’ web page. Requests for
                 donation are entered online by the organization making the request and then filtered based on priorities
                 set by your business. This makes it easy to track requests made and respond accordingly.</p>
