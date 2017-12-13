@@ -101,14 +101,15 @@
         }
 
         p {
-            font-size: 16px;
-            color: #3a87ad;
+            font-size: 20px;
+            color: black;
             position: relative;
             float: bottom;
             top: 75%;
             left: 53%;
             transform: translate(-55%, 30%);
             vertical-align: middle;
+            text-align: center;
         }
 
         h1 {
@@ -127,7 +128,7 @@
 
         .bg-1 {
 
-            background-color: #ffab40;
+            background-color: #90a4ae;
             color: #ffffff;
         }
 
