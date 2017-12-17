@@ -37,11 +37,22 @@
 
     </script>
 
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header text-center" style="font-size:20px;font-weight: 900;">Approve and Send Email</h1>
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Approve and Send Email</div>
+                    <div class="panel-heading">
+                        <h1>Approve and Send Email</h1>
+                    </div>
 
                     <div class="panel-body">
 
@@ -61,10 +72,16 @@
                             {!! Form::label('To', 'To:', ['class'=>'col-md-3 control-label' ]) !!}
                             <div class="col-lg-9" align="center">
                                 {!! Form::text('To', $emails, ['class'=>'col-md-9 control-label', 'readonly'] ) !!}
-                                {!! Form::hidden('names', $names) !!}
+                                {!! Form::hidden('firstNames', $firstNames) !!}
+                                {!! Form::hidden('LastNames', $lastNames) !!}
                                 {!! Form::hidden('status', 'Approve') !!}
                                 {!! Form::hidden('ids_string', $ids_string) !!}
                                 {!! Form::hidden('page_from', $page_from) !!}
+
+
+
+
+
 
                                 {{--{!! Form::text('email_subject', null, ['required'], ['class' => 'form-control']) !!}--}}
                             </div>
@@ -84,7 +101,11 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 {!! Form::submit('Approve and Send', ['class' => 'btn savebtn']) !!}
-                                <a href="{{ url()->previous() }}" class="btn backbtn">Cancel</a>
+                                @if (! empty($backPageFlag) && $backPageFlag == 'detailspage')
+                                    <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-2);">
+                                @else
+                                    <input class="btn backbtn" type="button" value="Cancel" onClick="history.go(-1);">
+                                @endif
 
                             </div>
                         </div>

@@ -227,7 +227,10 @@ class DonationRequestController extends Controller
         $page_from = 'donationrequests';
         $ids_string = (string)$donation->id;
         $names = $donation->first_name.' '.$donation->last_name;
+        $firstNames = $donation->first_name;
+        $lastNames =$donation->last_name;
         $emails = $donation->email;
+        $backPageFlag = $request->fromPage;
 
         //if current organization is a child location get parent's email template
         $orgId = ParentChildOrganizations::where('child_org_id', $organizationId)->value('parent_org_id');
@@ -243,13 +246,13 @@ class DonationRequestController extends Controller
             $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_APPROVED)->where('organization_id', $organizationId)->get();
             $email_template = $email_template[0]; //convert collection into an array
 
-            return view('emaileditor.approvesendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
+            return view('emaileditor.approvesendmail', compact('email_template', 'emails', 'firstNames', 'lastNames', 'ids_string', 'page_from', 'backPageFlag'));
 
         } elseif ($request->input('reject') == 'Reject') {
             $email_template = EmailTemplate::where('template_type_id', Constant::REQUEST_REJECTED)->where('organization_id', $organizationId)->get();
             $email_template = $email_template[0]; //convert collection into an array
 
-            return view('emaileditor.rejectsendmail', compact('email_template', 'emails', 'names', 'ids_string', 'page_from'));
+            return view('emaileditor.rejectsendmail', compact('email_template', 'emails', 'firstNames', 'lastNames', 'ids_string', 'page_from', '$backPageFlag'));
 
         }
 

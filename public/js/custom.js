@@ -104,7 +104,7 @@ $("body").on('change', '#coupon', function () {
     if (coupon == '') {
         document.getElementById("cart_table").rows[2].cells.namedItem("discounted_price").innerHTML = 0;
         var total = document.getElementById("cart_table").rows[1].cells.namedItem("total_price").innerHTML;
-        document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = "$"+total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");;
+        document.getElementById("cart_table").rows[3].cells.namedItem("balance_price").innerHTML = total.replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     }
 
 });

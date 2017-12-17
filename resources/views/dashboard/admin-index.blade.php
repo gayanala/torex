@@ -100,7 +100,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default text-left">
                         <div class="panel-heading text-center" style="color:#0077aa;font-size:15px;">
-                            <b>DONATIONS SUMMARY</b>
+                            <b>DONATIONS SUMMARY (CUSTOMERS)</b>
                         </div>
 
                         <div class="panel-body table-wrap wrapper">
@@ -108,13 +108,11 @@
                                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style=>
                                     <thead>
                                         <tr class="bg-info">
-                                            <th class="text-center">Business Name</th>
+                                            <th class="text-center">Customer Name</th>
                                             <th class="text-center">Amount Requested</th>
                                             <th class="text-center">Amount Approved</th>
                                             <th class="text-center">Approved</th>
-                                            {{--<th class="text-center">Rejected</th>--}}
                                             <th class="text-center">Status</th>
-                                            {{--<th class="text-center">Active Locations</th>--}}
                                             <th class="text-center">Details</th>
                                         </tr>
                                     </thead>
@@ -129,9 +127,8 @@
                                                 <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->sum('dollar_amount') }}</td>
                                                 <td style="vertical-align: middle">${{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->where('updated_at', '>', \Carbon\Carbon::now()->startOfYear())->sum('approved_dollar_amount') }} </td>
                                                 <td style="vertical-align: middle">{{ $organization->approvedDonationRequest->where('approval_status_id', \App\Custom\Constant::APPROVED)->count() }}</td>
-                                                {{--<td style="vertical-align: middle">{{ $organization->donationRequest->where('approval_status_id', '4')->count() }}</td>--}}
                                                 <td style="vertical-align: middle">{{ $organization->trial_ends_at->gte(\Carbon\Carbon::now()) ? 'Active' : 'Inactive' }}</td>
-                                                {{--<td style="vertical-align: middle">{{ App\Organization::findOrFail($organization->id)->where('trial_ends_at', '>=', \Carbon\Carbon::now()->toDateTimeString())->get()  OR App\ParentChildOrganizations::where('parent_org_id', $organization->id)->pluck('child_org_id')->count() }}</td>--}}
+
                                                 <td>
                                                     <a href="{{ url('/organizationdonations', encrypt($organization->id))}}"
                                                        class="btn btn-info" title="Detail">

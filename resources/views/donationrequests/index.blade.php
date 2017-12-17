@@ -35,7 +35,7 @@
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                             <tr class="bg-info">
-                                <th class="text-center">Business Name</th>
+                                <th class="text-center">Organization Name</th>
                                 <th class="text-center">Request Amount</th>
                                 <th class="text-center">Type of Donation</th>
                                 <th class="text-center">Location</th>
@@ -62,12 +62,11 @@
                                     <td style="vertical-align: middle"
                                         id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
                                     <td style="white-space: nowrap">
-                                        @if($donationrequest->donationApprovalStatus->id == \App\Custom\Constant::PENDING_REJECTION || $donationrequest->donationApprovalStatus->id == \App\Custom\Constant::PENDING_APPROVAL)
+                                        @if($donationrequest->donationApprovalStatus->id == \App\Custom\Constant::SUBMITTED || $donationrequest->donationApprovalStatus->id == \App\Custom\Constant::PENDING_REJECTION || $donationrequest->donationApprovalStatus->id == \App\Custom\Constant::PENDING_APPROVAL)
                                             <div>
-
-
-                                            {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
+                                                {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
                                                 {{ csrf_field() }}
+                                                {!! Form::hidden('fromPage','searchdonations',['class'=>'form-control', 'readonly']) !!}
                                                 {!! Form::hidden('id',$donationrequest->id,['class'=>'form-control', 'readonly']) !!}
                                                 {{Form::button('<i class="glyphicon glyphicon-ok"></i>', ['type' => 'submit', 'class' => 'btn btn-success', 'name' => 'approve', 'value' => 'Approve'])}}
                                                 <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}"

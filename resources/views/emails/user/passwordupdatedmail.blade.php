@@ -1,5 +1,5 @@
 @component('mail::message')
-# Hi, {{$user->first_name}}
+# Hi {{$user->first_name}},
 
 Your password has been successfully changed!
 

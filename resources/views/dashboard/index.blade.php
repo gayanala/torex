@@ -25,7 +25,7 @@
                                     <i class="fa fa-money fa-5x" style="color: white"></i>
                                 </div>
                                 <div class="col-xs-9 text-left">
-                                    <div class="huge" style="color: white;font-size: 15px;font-weight: bolder;">
+                                    <div class="huge" style="color: white;font-size: 35px;font-weight: bolder;">
                                         ${{$amountDonated}}</div>
                                     <div style="color: white;font-size: 15px;font-weight: bolder;">TOTAL AMOUNT
                                         DONATED
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"
-                                         style="color: white;font-size: 15px;font-weight: bolder;">{{$approvedNumber}}</div>
+                                         style="color: white;font-size: 35px;font-weight: bolder;">{{$approvedNumber}}</div>
                                     <div style="color: white;font-size: 15px;font-weight: bolder;">REQUESTS APPROVED</div>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"
-                                         style="color: white;font-size: 15px;font-weight: bolder;">{{$pendingNumber}}</div>
+                                         style="color: white;font-size: 35px;font-weight: bolder;">{{$pendingNumber}}</div>
                                     <div style="color: white;font-size: 15px;font-weight: bolder;">REQUESTS PENDING</div>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"
-                                         style="color: white;font-size: 15px;font-weight: bolder;">{{$rejectedNumber}}</div>
+                                         style="color: white;font-size: 35px;font-weight: bolder;">{{$rejectedNumber}}</div>
                                     <div style="color: white;font-size: 15px;font-weight: bolder;">REQUESTS REJECTED</div>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                     <thead>
                                     <tr class="bg-info">
                                         <th class="text-center">Select all <input type="checkbox" id="selectall"/></th>
-                                        <th class="text-center">Business Name</th>
+                                        <th class="text-center">Organization Name</th>
                                         <th class="text-center">Request Amount</th>
                                         <th class="text-center">Type of Donation</th>
                                         {{--<th class="text-center">Event Name</th>--}}
@@ -138,31 +138,27 @@
                                     </thead>
 
                                     <tbody  style="text-align: center">
-                                    @foreach ($donationrequests as $donationrequest)
-                                        <tr>
-                                            <td style="vertical-align: middle"><input type="checkbox" class="myCheckbox" ids="{{$donationrequest->id}}"/></td>
-                                            <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
-                                            <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
-                                            <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
-                                            {{--<td style="vertical-align: middle">{{ $donationrequest->event_name }}</td>--}}
-                                             <td style="vertical-align: middle">{{$donationrequest->organization->org_name }}</td>
-                                            <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
+                                        @foreach ($donationrequests as $donationrequest)
+                                            <tr>
+                                                <td style="vertical-align: middle"><input type="checkbox" class="myCheckbox" ids="{{$donationrequest->id}}"/></td>
+                                                <td style="vertical-align: middle">{{ $donationrequest->requester }}</td>
+                                                <td style="vertical-align: middle">${{ $donationrequest->dollar_amount }}</td>
+                                                <td style="vertical-align: middle">{{ $donationrequest->donationRequestType->item_name }}</td>
+                                                <td style="vertical-align: middle">{{$donationrequest->organization->org_name }}</td>
+                                                <td style="vertical-align: middle"><?php echo date("m/d/Y", strtotime($donationrequest->needed_by_date)); ?></td>
 
-                                            <td id="status{{$donationrequest->id}}" style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
-                                            <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
-                                            <td>
-                                                <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}" class="btn btn-info" title="Detail">
-                                                    <span class="glyphicon glyphicon-list-alt" text-></span></a>
-                                            </td>
-                                            {{--<td style="vertical-align: middle"><a href="{{route('donationrequests.show',$donationrequest->id)}}" class="btn savebtn"> Detail </a>--}}
-                                            {{--                                    <td style="vertical-align: middle"><a href="{{route('donationrequests.edit',$donationrequest->id)}}" class="btn savebtn"> Edit </a>--}}
-                                        </tr>
-                                    @endforeach
-
+                                                <td id="status{{$donationrequest->id}}" style="vertical-align: middle">{{ $donationrequest->donationApprovalStatus->status_name }}</td>
+                                                <td style="vertical-align: middle" id="status{{$donationrequest->id}}">{{ $donationrequest->approval_status_reason }}</td>
+                                                <td>
+                                                    <a href="{{route('donationrequests.show',encrypt($donationrequest->id))}}" class="btn btn-info" title="Detail">
+                                                        <span class="glyphicon glyphicon-list-alt" text-></span></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
-                                    @else
-                                        <div>No pending donation requests to show.</div>
-                                    @endif
+                            @else
+                                <div>No pending donation requests to show.</div>
+                            @endif
                                 </table>
                                 {!! Form::open(['action' =>  'EmailTemplateController@send', 'method' => 'GET']) !!}
                                 {{ csrf_field() }}

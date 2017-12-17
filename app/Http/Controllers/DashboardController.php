@@ -24,14 +24,10 @@ class DashboardController extends Controller
         if ($request->user()->roleuser->role_id == Constant::ROOT_USER OR $request->user()->roleuser->role_id == Constant::TAGG_ADMIN OR $request->user()->roleuser->role_id == Constant::TAGG_USER) {
             $organizations = Organization::all();
 
-            // Only parent organizations have 'trial_ends_at' field in the Organizations table
-            $organizationsArray = Organization::active()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
-
             $activeParent = Organization::active()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
-            //dd($activeParent);
+
             $activeOrgIds = ParentChildOrganizations::active()->whereIn('parent_org_id', $activeParent)->pluck('child_org_id')->toArray();
-            //dd($activeOrgIds);
-            //$arr = Organization::active()->whereIn('id', $arr)->pluck('id')->toArray();
+
             $idCount = count($activeOrgIds);
             foreach ($activeParent as $key => $activeID) {
                 $test = [$idCount => $activeID];
@@ -42,6 +38,9 @@ class DashboardController extends Controller
 
             $numActiveLocations = count($activeLocations);
 
+            // Only parent organizations have 'trial_ends_at' field in the Organizations table
+            $organizationsArray = Organization::active()->where('trial_ends_at', '>=', Carbon::now()->toDateTimeString())->pluck('id')->toArray();
+            // Counting the number of parent organizations
             $userCount = count($organizationsArray);
 
             $userThisWeek = Organization::active()->where('created_at', '>=', Carbon::now()->startOfWeek())->whereNotNull('trial_ends_at')->count();
@@ -63,10 +62,10 @@ class DashboardController extends Controller
 
             $donationrequests = DonationRequest::whereIn('organization_id', $this->getAllMyOrganizationIds())
                 ->whereIn('approval_status_id', [Constant::SUBMITTED, Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->get();
-            $amountDonated = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organizationId)->sum('approved_dollar_amount');
-            $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->where('organization_id', $organizationId)->count();
-            $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('organization_id', $organizationId)->count();
-            $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->where('organization_id', $organizationId)->count();
+            $amountDonated = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('approved_organization_id', $organizationId)->sum('approved_dollar_amount');
+            $rejectedNumber = DonationRequest::where('approval_status_id', Constant::REJECTED)->where('approved_organization_id', $organizationId)->count();
+            $approvedNumber = DonationRequest::where('approval_status_id', Constant::APPROVED)->where('approved_organization_id', $organizationId)->count();
+            $pendingNumber = DonationRequest::whereIn('approval_status_id', [Constant::PENDING_REJECTION, Constant::PENDING_APPROVAL])->where('approved_organization_id', $organizationId)->count();
 
             return view('dashboard.index', compact('donationrequests', 'organizationName', 'amountDonated', 'rejectedNumber', 'approvedNumber', 'pendingNumber'));
         }

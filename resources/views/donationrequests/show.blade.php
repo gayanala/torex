@@ -168,6 +168,7 @@
                 @if($donationAcceptanceFlag == 1)
                     {!! Form::open(['method'=> 'POST', 'action' => 'DonationRequestController@changeDonationStatus']) !!}
                         {{ csrf_field() }}
+                    {!! Form::hidden('fromPage','detailspage',['class'=>'form-control', 'readonly']) !!}
                         @if ($donationrequest->approval_status_id == \App\Custom\Constant::SUBMITTED OR $donationrequest->approval_status_id == \App\Custom\Constant::PENDING_REJECTION OR $donationrequest->approval_status_id == \App\Custom\Constant::PENDING_APPROVAL)
                             @if(Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_ADMIN OR Auth::user()->roles[0]->id == \App\Custom\Constant::BUSINESS_USER)
                                 <div>
