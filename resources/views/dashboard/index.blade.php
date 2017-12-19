@@ -50,13 +50,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{--<a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>--}}
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -73,13 +66,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{--<a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>--}}
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -96,13 +82,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{--<a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>--}}
                     </div>
                 </div>
 
@@ -128,7 +107,6 @@
                                         <th class="text-center">Organization Name</th>
                                         <th class="text-center">Request Amount</th>
                                         <th class="text-center">Type of Donation</th>
-                                        {{--<th class="text-center">Event Name</th>--}}
                                         <th class="text-center">Location</th>
                                         <th class="text-center">Date Needed</th>
                                         <th class="text-center">Status</th>
@@ -237,54 +215,54 @@
                 $('#selected-ids-hidden').val((idsArray));
             });
 
-
-            function func(actionStatus) {
-
-
-                $('#selected-ids-hidden').val(JSON.stringify(idsArray));
-
-                // Populating array with the list of checkboxes with
-                // checked ids
-                $('.myCheckbox').each(function () {
-                    if(this.checked) {
-                        idsArray.push($(this).attr('ids'));
-                    }
-                });
-
-                // Sending an ajax post request with the list of checked
-                // checkboxes to update to either approved or rejected
-                $.ajax({
-                    type: "POST",
-                    url: 'donation/change-status',
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function( resp ) {
-                        //window.location.href = 'emaileditor/editsendmail/' + $.param(idsArray);
-                        setStatusText = '';
-                        if(resp.status == 0) {
-                            setStatusText = 'Approved';
-                        } else if (resp.status == 1) {
-                            setStatusText = 'Rejected';
-                        }
-                        // Handle your response..
-                        for (var i = 0; i < resp.idsArray.length; i++) {
-                            // 0 - approved
-                            //1- rejected
-                            $('#status' + resp.idsArray[i]).text(setStatusText);
-                        }
-                        //alert(resp.emailids);
-                    },
-                    data: {ids:idsArray, status:actionStatus}
-                });
-
-                // clearing the array
-                idsArray = [];
-
-                $('input:checkbox:checked').prop('checked', false);
-
-            }
+            // This function uses Ajax call.
+//            function func(actionStatus) {
+//
+//
+//                $('#selected-ids-hidden').val(JSON.stringify(idsArray));
+//
+//                // Populating array with the list of checkboxes with
+//                // checked ids
+//                $('.myCheckbox').each(function () {
+//                    if(this.checked) {
+//                        idsArray.push($(this).attr('ids'));
+//                    }
+//                });
+//
+//                // Sending an ajax post request with the list of checked
+//                // checkboxes to update to either approved or rejected
+//                $.ajax({
+//                    type: "POST",
+//                    url: 'donation/change-status',
+//                    dataType: 'json',
+//                    headers: {
+//                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//                    },
+//                    success: function( resp ) {
+//                        //window.location.href = 'emaileditor/editsendmail/' + $.param(idsArray);
+//                        setStatusText = '';
+//                        if(resp.status == 0) {
+//                            setStatusText = 'Approved';
+//                        } else if (resp.status == 1) {
+//                            setStatusText = 'Rejected';
+//                        }
+//                        // Handle your response..
+//                        for (var i = 0; i < resp.idsArray.length; i++) {
+//                            // 0 - approved
+//                            //1- rejected
+//                            $('#status' + resp.idsArray[i]).text(setStatusText);
+//                        }
+//                        //alert(resp.emailids);
+//                    },
+//                    data: {ids:idsArray, status:actionStatus}
+//                });
+//
+//                // clearing the array
+//                idsArray = [];
+//
+//                $('input:checkbox:checked').prop('checked', false);
+//
+//            }
         </script>
 
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
